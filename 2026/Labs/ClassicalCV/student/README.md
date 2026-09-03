@@ -49,6 +49,25 @@ If `which python3` points to Anaconda or Miniconda, run `conda deactivate`,
 source ROS 2 again, and repeat the check. ROS 2 Humble's binary packages are
 built for Ubuntu's system Python.
 
+## Create a separate practice package and node
+
+This scratch package is only for seeing what ROS 2 generates. Do not create it
+inside the downloaded `cv_lab` workspace.
+
+```bash
+source /opt/ros/humble/setup.bash
+mkdir -p ~/pkg_practice/src
+cd ~/pkg_practice/src
+ros2 pkg create cv_practice \
+  --build-type ament_python --license Apache-2.0 \
+  --node-name practice_node \
+  --dependencies rclpy std_msgs ament_index_python
+find cv_practice -maxdepth 2 -type f
+```
+
+The generated files include `cv_practice/cv_practice/practice_node.py` and a
+`practice_node` console entry point in `cv_practice/setup.py`.
+
 ## Build the package yourself
 
 From `~/cisc647/cv_lab`:
@@ -63,13 +82,17 @@ cd ..
 ```
 
 After editing Python code, repeat `colcon build` and `source
-install/setup.bash`. In every new terminal, source ROS 2 and this workspace
-before using `ros2`:
+install/setup.bash`, then return to `~/cisc647/cv_lab`. For every hands-on,
+open three terminals in that lab-root folder. In **each new terminal**, run:
 
 ```bash
+cd ~/cisc647/cv_lab
 source /opt/ros/humble/setup.bash
 source ws/install/setup.bash
 ```
+
+Do not start a second copy of a node that is already running. Stop a node with
+`Ctrl+C` before rebuilding and restarting that same executable.
 
 ## First three-terminal checkpoint
 
@@ -94,6 +117,9 @@ ros2 topic pub --once /perception/digit_matrix \
 The node publishes its report on the topic and writes the supplied visualization
 to `outputs/histogram_digit.png`. The `.yaml` files are data, not scripts:
 open one to see the exact 100 integers sent by `ros2 topic pub`.
+
+Some multi-input checkpoints deliberately reuse one output filename. Open or
+refresh the PNG after each publish command, because the next input replaces it.
 
 Continue with [ROS2_HANDS_ON.md](ROS2_HANDS_ON.md) for the direct commands used
 by every experiment. No submission is required.

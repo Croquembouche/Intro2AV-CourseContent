@@ -1,8 +1,8 @@
 # Direct ROS 2 commands for every checkpoint
 
-Do not use a wrapper script. For every checkpoint: rebuild after editing,
-source the workspace in each terminal, run the node, inspect the topics, echo
-the result topic, and publish one supplied input message.
+Do not use a wrapper script. Follow each slide's numbered terminal steps in
+order. After editing, rebuild before starting the node. Start `topic echo`
+before publishing the input, so it is already waiting when the result arrives.
 
 Before the first checkpoint, follow the three setup slides or `README.md`:
 unpack to `~/cisc647/cv_lab`, install dependencies with `rosdep`, verify that
@@ -21,7 +21,12 @@ unpack to `~/cisc647/cv_lab`, install dependencies with `rosdep`, verify that
 ## Reusable ROS 2 pattern
 
 ```bash
-# Build terminal, after each code change
+# Run once in EACH new terminal
+cd ~/cisc647/cv_lab
+source /opt/ros/humble/setup.bash
+source ws/install/setup.bash
+
+# Terminal 1, after each code change: rebuild and return to the lab root
 cd ~/cisc647/cv_lab/ws
 colcon build --symlink-install --packages-select cv_lab
 source install/setup.bash
@@ -40,6 +45,11 @@ ros2 topic echo --once RESULT_TOPIC
 ros2 topic pub --once INPUT_TOPIC MESSAGE_TYPE "$(cat msg/INPUT.yaml)"
 ```
 
+Do not start a second copy of the same node. If a node is already running,
+keep using it; if you edited that node, stop it with `Ctrl+C`, rebuild, and
+start the rebuilt copy. Persistent `topic echo` commands also stop with
+`Ctrl+C`.
+
 ## Exact inputs
 
 Use `std_msgs/msg/Int32MultiArray` on `/perception/digit_matrix` for all digit
@@ -50,11 +60,19 @@ ros2 topic pub --once /perception/digit_matrix \
   std_msgs/msg/Int32MultiArray "$(cat msg/d3.yaml)"
 ```
 
-Change only the YAML filename to test clean digits `d0.yaml` through
-`d9.yaml`, histogram failures `d3_shift.yaml`, `d3_thick.yaml`,
-`d3_thin.yaml`, `d3_holes.yaml`, and `d3_dots.yaml`, morphology inputs
-`d0_thick.yaml` and `d8_thin.yaml`, or edge-shape inputs `d7_slant.yaml`
-and `d3_curve.yaml`.
+The slide gives the exact YAML file for each run. The available groups are:
+
+- Clean digits: `d0.yaml` through `d9.yaml`.
+- Histogram tests: `d5.yaml`, `d3_shift.yaml`, `d3_thick.yaml`,
+  `d3_thin.yaml`, `d3_holes.yaml`, and `d3_dots.yaml`.
+- Morphology inputs: `d0_thick.yaml`, `d8_thin.yaml`, `d3_dots.yaml`, and
+  `d3_holes.yaml`.
+- Edge-shape inputs: `d7_slant.yaml` and `d3_curve.yaml`.
+
+For checkpoints with several inputs, publish **one input at a time**. Read the
+report and open or refresh the output PNG before publishing the next input.
+`histogram_digit.png`, `kernel_digit.png`, and `edge_digit.png` are replaced by
+their next run.
 
 For morphology, keep the node running and set parameters before publishing:
 
