@@ -81,9 +81,20 @@ ros2 pkg executables cv_lab
 cd ..
 ```
 
-After editing Python code, repeat `colcon build` and `source
-install/setup.bash`, then return to `~/cisc647/cv_lab`. For every hands-on,
-open three terminals in that lab-root folder. In **each new terminal**, run:
+After you finish the TODOs in the Python file named on the slide, rebuild the
+ROS 2 package and source the rebuilt workspace before starting that node:
+
+```bash
+source /opt/ros/humble/setup.bash
+cd ~/cisc647/cv_lab/ws
+colcon build --symlink-install --packages-select cv_lab
+source install/setup.bash
+cd ..
+```
+
+If that node is already running, stop it with `Ctrl+C` before rebuilding it.
+Then, for the hands-on test, open three terminals in `~/cisc647/cv_lab`. In
+**each new terminal**, run:
 
 ```bash
 cd ~/cisc647/cv_lab
@@ -91,8 +102,7 @@ source /opt/ros/humble/setup.bash
 source ws/install/setup.bash
 ```
 
-Do not start a second copy of a node that is already running. Stop a node with
-`Ctrl+C` before rebuilding and restarting that same executable.
+Do not start a second copy of a node that is already running.
 
 ## First three-terminal checkpoint
 

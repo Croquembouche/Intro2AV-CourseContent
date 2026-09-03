@@ -1,8 +1,10 @@
 # Direct ROS 2 commands for every checkpoint
 
 Do not use a wrapper script. Follow each slide's numbered terminal steps in
-order. After editing, rebuild before starting the node. Start `topic echo`
-before publishing the input, so it is already waiting when the result arrives.
+order. First finish the TODOs in the Python file named on the slide. Then
+rebuild the package and source the rebuilt workspace before starting the node.
+Start `topic echo` before publishing the input, so it is already waiting when
+the result arrives.
 
 Before the first checkpoint, follow the three setup slides or `README.md`:
 unpack to `~/cisc647/cv_lab`, install dependencies with `rosdep`, verify that
@@ -18,19 +20,31 @@ unpack to `~/cisc647/cv_lab`, install dependencies with `rosdep`, verify that
 | Straight lanes | `lane_detector_node.py` | `LANE-ROS`, `STRAIGHT-CV`, `LANE-PUB` | `/perception/lane_report` |
 | Curved lanes | `lane_detector_node.py` | `CURVE-CV` | `/perception/lane_report` |
 
-## Reusable ROS 2 pattern
+## Rebuild after finishing the TODOs
 
 ```bash
-# Run once in EACH new terminal
-cd ~/cisc647/cv_lab
+# Use a terminal with the edited node stopped
 source /opt/ros/humble/setup.bash
-source ws/install/setup.bash
-
-# Terminal 1, after each code change: rebuild and return to the lab root
 cd ~/cisc647/cv_lab/ws
 colcon build --symlink-install --packages-select cv_lab
 source install/setup.bash
 cd ..
+```
+
+## Open three terminals to test the rebuilt node
+
+Run this setup in **each new terminal**:
+
+```bash
+cd ~/cisc647/cv_lab
+source /opt/ros/humble/setup.bash
+source ws/install/setup.bash
+```
+
+Then use the exact executable, topics, message type, and input file shown on
+the current hands-on slide:
+
+```bash
 
 # Node terminal
 ros2 run cv_lab EXECUTABLE --ros-args -p output_dir:="$PWD/outputs"
