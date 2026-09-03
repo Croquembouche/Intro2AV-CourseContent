@@ -1,0 +1,32 @@
+# Generated slide renders, inspection files, and temporary exports
+.build/
+.codex/
+*.inspect.ndjson
+node_modules/
+
+# ROS 2 and colcon build products
+**/build/
+**/install/
+**/log/
+
+# Python-generated files
+**/__pycache__/
+*.py[cod]
+
+# Large course releases are published through Google Drive. Their stable links
+# are recorded in the README files beside these directories.
+/2026/Data/*.zip
+**/*.db3
+**/*.mcap
+**/*.bag
+**/*.bag.active
+
+# Current decks are generated deliverables and are published through Drive.
+# Lecture 8 is a small reference deck rather than a generated release.
+/2026/Presentations/*.pptx
+!/2026/Presentations/Lecture 8.pptx
+
+# Local editor and operating-system files
+.DS_Store
+Thumbs.db
+*~
