@@ -9,7 +9,8 @@ PNGs, layouts, montages, and inspection files are written to the ignored
 
 ## Builders
 
-- `ros2-basics/build.mjs` rebuilds `2026/Presentations/Lecture 1.pptx`.
+- `ros2-basics/build.mjs` rebuilds
+  `2026/Presentations/Lecture 1 ROS2 Basics.pptx`.
 - `perception/build.mjs classical` rebuilds the classical perception deck.
 - `perception/build.mjs` also retains the CNN/transformer authoring source for
   the next lecture. Its current student lab assets are not part of the

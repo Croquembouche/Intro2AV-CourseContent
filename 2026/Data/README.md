@@ -9,7 +9,7 @@ reviewed and versioned normally.
 | --- | --- | --- | --- |
 | Classical CV student package | [Download ZIP](https://drive.google.com/file/d/15JSaotsxEXHAcFdtfUTNPBkq8JsG8RKH/view?usp=drivesdk) | `ClassicalCV_student.zip` | Starter ROS 2 workspace, input data, and visualization assets |
 | Classical CV instructor answers | [Download ZIP](https://drive.google.com/file/d/1T-T6MEuUFDQnOdIP00VjdTA2B1eGpe-B/view?usp=drivesdk) | `ClassicalCV_answers.zip` | Reference implementation and expected results |
-| Project 1 simulated ROS bag | [Download ZIP](https://drive.google.com/file/d/1zd5GGe6t-UIEEMK9XJ1UCwRFa9NWEHrm/view?usp=drivesdk) | `Project1.zip` | Simulated Project 1 sensor data |
+| Project 1 simulated ROS bag | [Download ZIP](https://drive.google.com/file/d/1zd5GGe6t-UIEEMK9XJ1UCwRFa9NWEHrm/view?usp=drivesdk) | `project1_simulated_data_short.zip` | Simulated Project 1 sensor data |
 
 After downloading a file, place it at the local path shown above if an
 instructor script or existing course instruction expects the repository

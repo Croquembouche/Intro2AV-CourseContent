@@ -9,7 +9,7 @@ const BUILD = `${ROOT}/.build/slides/perception`;
 const CLASSICAL_STARTER = `${TOOL_DIR}/templates/classical-template-starter.pptx`;
 const NEURAL_STARTER = `${TOOL_DIR}/templates/neural-template-starter.pptx`;
 const STARTER = CLASSICAL_STARTER;
-const FINAL = `${ROOT}/2026/Presentations/Lecture Perception - Classical Computer Vision.pptx`;
+const FINAL = `${ROOT}/2026/Presentations/Lecture 2 Perception - Classical Computer Vision.pptx`;
 const RENDER_DIR = `${BUILD}/final-render`;
 const LAYOUT_DIR = `${BUILD}/final-layout/final`;
 const IMG = `${TOOL_DIR}/images`;
@@ -1065,7 +1065,7 @@ function setCover(slide, courseTitle, subtitleText, cue, sources) {
 
 async function buildClassicalLegacy() {
   const root = `${BUILD}/classical`;
-  const final = `${ROOT}/2026/Presentations/Lecture Perception - Classical Computer Vision.pptx`;
+  const final = `${ROOT}/2026/Presentations/Lecture 2 Perception - Classical Computer Vision.pptx`;
   const p = await prepareDeck(CLASSICAL_STARTER, root);
   const s = (n) => p.slides.getItem(n - 1);
 
@@ -1266,7 +1266,7 @@ async function buildClassicalLegacy() {
 
 async function buildClassical() {
   const root = `${BUILD}/classical`;
-  const final = `${ROOT}/2026/Presentations/Lecture Perception - Classical Computer Vision.pptx`;
+  const final = `${ROOT}/2026/Presentations/Lecture 2 Perception - Classical Computer Vision.pptx`;
   const p = await prepareDeck(CLASSICAL_STARTER, root);
   const physical = (n) => p.slides.getItem(n - 1);
   const s = (n) => physical(n <= 2 ? n : n + 2);
@@ -1522,7 +1522,7 @@ async function buildClassical() {
 
 async function buildNeural() {
   const root = `${BUILD}/neural`;
-  const final = `${ROOT}/2026/Presentations/Lecture Perception - CNNs and Transformers.pptx`;
+  const final = `${ROOT}/2026/Presentations/Lecture 3 Perception - CNNs and Transformers.pptx`;
   const p = await prepareDeck(NEURAL_STARTER, root);
   const s = (n) => p.slides.getItem(n - 1);
   await setCover(s(1), "Perception:\nCNNs and\nTransformers", "Dense layers → convolution → attention", "This companion deck begins at the cut point. It is deliberately separate from today's classical lecture.", [TEMPLATE, "OpenAI ImageGen: autonomous-driving perception hero illustration"]);

@@ -7,7 +7,7 @@ const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(TOOL_DIR, "../../..");
 const BUILD = `${ROOT}/.build/slides/ros2-basics`;
 const STARTER = `${TOOL_DIR}/template-starter.pptx`;
-const FINAL = `${ROOT}/2026/Presentations/Lecture 1.pptx`;
+const FINAL = `${ROOT}/2026/Presentations/Lecture 1 ROS2 Basics.pptx`;
 const RENDER_DIR = `${BUILD}/final-render`;
 const LAYOUT_DIR = `${BUILD}/final-layout`;
 const DRIVE_URL = "https://drive.google.com/file/d/1zd5GGe6t-UIEEMK9XJ1UCwRFa9NWEHrm/view?usp=sharing";

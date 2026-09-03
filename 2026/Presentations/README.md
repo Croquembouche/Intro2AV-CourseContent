@@ -7,9 +7,9 @@ in the repository history.
 
 | Lecture | Google Drive | Local generated filename |
 | --- | --- | --- |
-| ROS 2 basics | [Download or open the PowerPoint](https://docs.google.com/presentation/d/1NZPRR-B_KK7N3v9CwAPOoqlaPS_Nk-RU/edit?usp=drivesdk&ouid=117128555251322073493&rtpof=true&sd=true) | `Lecture 1.pptx` |
-| Perception: classical computer vision | [Download or open the PowerPoint](https://docs.google.com/presentation/d/13MhqtOYasUGUjquqirFk_fNdEbJ-LuUq/edit?usp=drivesdk&ouid=117128555251322073493&rtpof=true&sd=true) | `Lecture Perception - Classical Computer Vision.pptx` |
-| Perception: CNNs and transformers | [Download or open the PowerPoint](https://docs.google.com/presentation/d/1BoHz5tmJkPQyGxsHjku3TO5nixmvIEUL/edit?usp=drivesdk&ouid=117128555251322073493&rtpof=true&sd=true) | `Lecture Perception - CNNs and Transformers.pptx` |
+| ROS 2 basics | [Download or open the PowerPoint](https://docs.google.com/presentation/d/1NZPRR-B_KK7N3v9CwAPOoqlaPS_Nk-RU/edit?usp=drivesdk&ouid=117128555251322073493&rtpof=true&sd=true) | `Lecture 1 ROS2 Basics.pptx` |
+| Perception: classical computer vision | [Download or open the PowerPoint](https://docs.google.com/presentation/d/13MhqtOYasUGUjquqirFk_fNdEbJ-LuUq/edit?usp=drivesdk&ouid=117128555251322073493&rtpof=true&sd=true) | `Lecture 2 Perception - Classical Computer Vision.pptx` |
+| Perception: CNNs and transformers | [Download or open the PowerPoint](https://docs.google.com/presentation/d/1BoHz5tmJkPQyGxsHjku3TO5nixmvIEUL/edit?usp=drivesdk&ouid=117128555251322073493&rtpof=true&sd=true) | `Lecture 3 Perception - CNNs and Transformers.pptx` |
 
 Small PDF references and the small `Lecture 8.pptx` reference deck remain in
 Git. When updating a published deck, replace the existing Drive file rather
