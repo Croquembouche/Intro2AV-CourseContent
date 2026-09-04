@@ -22,6 +22,13 @@ You should see `inputs`, `msg`, `outputs`, and `ws`. If you use Windows with
 WSL, copy the ZIP into the Linux filesystem first; do not build from a long
 OneDrive or Windows-mounted path.
 
+The `animations` folder contains the same animated previews embedded in the
+lecture slides. They show projection-histogram counting, common failure cases,
+morphological closing, a sliding 3 x 3 kernel, the Sobel/Canny/Hough digit
+pipeline, and the straight- and curved-lane pipelines. The GIFs are explanatory
+references; students still run the ROS 2 nodes, publish the input data, and
+inspect the topic reports and generated PNGs themselves.
+
 ## Install the declared dependencies
 
 ROS 2 Humble must already be installed. The starter package declares OpenCV,

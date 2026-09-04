@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { FileBlob, PresentationFile } from "@oai/artifact-tool";
 
@@ -213,9 +214,25 @@ function addCircle(slide, x, y, d, fill, name = "node") {
 }
 
 async function addImage(slide, path, alt, position, fit = "contain") {
-  const file = await fs.readFile(path);
+  const animatedPreview = new Map([
+    [`${LAB_OUT}/histogram_digit_3.png`, `${LAB}/animations/01_histogram_count.gif`],
+    [`${LAB_OUT}/morph_3_holes.png`, `${LAB}/animations/04_morphology_closing.gif`],
+    [`${LAB_OUT}/kernel_shape_7_slanted.png`, `${LAB}/animations/05_kernel_slide.gif`],
+    [`${LAB_OUT}/edge_shape_7_slanted.png`, `${LAB}/animations/06_edge_pipeline.gif`],
+    [`${LAB_OUT}/lane_straight.png`, `${LAB}/animations/07_lane_straight_pipeline.gif`],
+    [`${LAB_OUT}/lane_curved.png`, `${LAB}/animations/08_lane_curved_pipeline.gif`],
+  ]);
+  let resolvedPath = animatedPreview.get(path) ?? path;
+  // Keep the compact four-result comparison on slide 16 static; its short,
+  // wide crop is not a useful animation viewport. The full hands-on panel uses
+  // the same source PNG and is intentionally replaced by the closing GIF.
+  if (path === `${LAB_OUT}/morph_3_holes.png` && alt.includes("before and after morphology")) {
+    resolvedPath = path;
+  }
+  const file = await fs.readFile(resolvedPath);
   const bytes = new Uint8Array(file.buffer, file.byteOffset, file.byteLength);
-  return slide.images.add({ blob: bytes, contentType: "image/png", alt, fit, position });
+  const contentType = resolvedPath.toLowerCase().endsWith(".gif") ? "image/gif" : "image/png";
+  return slide.images.add({ blob: bytes, contentType, alt, fit, position });
 }
 
 function addSectionTag(slide, text) {
@@ -1016,8 +1033,8 @@ async function addExperiment(slide, number, title, imagePath, imageAlt, command,
   setNotes(slide, notes(options.cue ?? `Run the checkpoint after the concept. Students inspect the input data, arm topic echo before publishing, inspect the report, and open the generated image. Nothing is submitted.`, sources));
 }
 
-function addCommandExperiment(slide, number, title, task, actionText, command,
-                              expected, sources, options = {}) {
+async function addCommandExperiment(slide, number, title, task, actionText, command,
+                                    expected, sources, options = {}) {
   contentSetup(slide, number, title, options.section ?? "Hands-on checkpoint",
                options.titleSize ?? 31);
   addBox(slide, task, { left: 70, top: 157, width: 820, height: 55 }, {
@@ -1026,9 +1043,20 @@ function addCommandExperiment(slide, number, title, task, actionText, command,
   });
   addText(slide, actionText, { left: 80, top: 218, width: 800, height: 25 },
           16, { color: ORANGE, bold: true, align: "center" });
-  addCode(slide, command, { left: 70, top: 247, width: 820, height: 188 }, {
-    size: options.codeSize ?? 9.2,
-  });
+  if (options.imagePath) {
+    await addImage(slide, options.imagePath, options.imageAlt,
+      { left: 70, top: 250, width: 270, height: 178 }, "contain");
+    addText(slide, "Animated preview — reproduce it with the ROS 2 steps",
+      { left: 73, top: 421, width: 264, height: 18 }, 10.5,
+      { color: SLATE, italic: true, align: "center" });
+    addCode(slide, command, { left: 355, top: 247, width: 535, height: 188 }, {
+      size: options.codeSize ?? 7.7,
+    });
+  } else {
+    addCode(slide, command, { left: 70, top: 247, width: 820, height: 188 }, {
+      size: options.codeSize ?? 9.2,
+    });
+  }
   addBox(slide, expected, { left: 80, top: 443, width: 800, height: 50 }, {
     fill: "#FFF7E8", border: ORANGE, size: options.expectedSize ?? 15,
     color: NAVY,
@@ -1285,6 +1313,11 @@ async function buildClassicalLegacy() {
 }
 
 async function buildClassical() {
+  const animationBuild = spawnSync(process.execPath,
+    [`${TOOL_DIR}/generate_animations.mjs`], { stdio: "inherit" });
+  if (animationBuild.status !== 0) {
+    throw new Error("Failed to generate the classical-perception GIF previews.");
+  }
   const root = `${BUILD}/classical`;
   const final = process.env.FINAL_PPTX ?? `${ROOT}/2026/Presentations/Lecture 2 Perception - Classical Computer Vision.pptx`;
   const p = await prepareDeck(CLASSICAL_STARTER, root);
@@ -1420,21 +1453,21 @@ async function buildClassical() {
   addTakeaway(s(8), "Projection histograms lose arrangement and are sensitive to shift, width, gaps, and noise.", RED);
   setNotes(s(8), notes("First compare the clean 2 and 5: they have different pixel arrangements but the same 20 projection counts, so the node reports best_matches=[2,5] and prediction=-1. Then inspect five recognizable 3s. Shift is an alignment problem; thickness, gaps, and isolated dots are local binary-mask defects.", [`${LAB}/inputs/digit_2.csv`, `${LAB}/inputs/digit_5.csv`].concat(failures.map(([name]) => `${LAB}/inputs/digit_variants/digit_3_${name}.csv`)).concat([`${answerCode}/digit_recognizer_node.py`])));
 
-  addCommandExperiment(s(9), 9, "Hands-on 2A: test collision, shift, and thickness",
+  await addCommandExperiment(s(9), 9, "Hands-on 2A: test collision, shift, and thickness",
     "NO CODE CHANGE • KEEP the Hands-on 1 node running • USE one input at a time",
     "Use Terminals 1 and 2 once. In Terminal 3, run step 3, inspect it, then run 4, then 5.",
     "# 1) TERMINAL 1 — confirm one /digit_recognizer is running\nros2 node list\n# 2) TERMINAL 2 — show every report; leave running\nros2 topic echo /perception/digit_report\n# 3) TERMINAL 3 — clean 5: histogram collision\nros2 topic pub --once /perception/digit_matrix \\\n std_msgs/msg/Int32MultiArray \"$(cat msg/d5.yaml)\"\n# 4) TERMINAL 3 — shifted 3\nros2 topic pub --once /perception/digit_matrix \\\n std_msgs/msg/Int32MultiArray \"$(cat msg/d3_shift.yaml)\"\n# 5) TERMINAL 3 — thick 3\nros2 topic pub --once /perception/digit_matrix \\\n std_msgs/msg/Int32MultiArray \"$(cat msg/d3_thick.yaml)\"",
     "Steps 3–5 predict −1, −1, 9 • Inspect outputs/histogram_digit.png after EACH step • Continue to 2B",
     [ROS_GUIDE, `${LAB}/msg/d5.yaml`, `${LAB}/msg/d3_shift.yaml`, `${LAB}/msg/d3_thick.yaml`, `${LAB_OUT}/hist_collision_5.png`],
-    { titleSize: 28, taskSize: 14, codeSize: 8.35, expectedSize: 13.8, cue: "Students keep the single digit_recognizer process from Hands-on 1; starting another copy would duplicate reports. Terminal 2 displays every report. In Terminal 3, students execute one numbered publish command, inspect that report and outputs/histogram_digit.png, and only then continue. The fixed filename is overwritten by the next input. They leave Terminals 1 and 2 running for Hands-on 2B." });
+    { titleSize: 28, taskSize: 14, codeSize: 7.15, expectedSize: 13.8, imagePath: `${LAB}/animations/02_histogram_failures_a.gif`, imageAlt: "Animation cycling through the colliding digit five, shifted digit three, and thick digit three while their projection-histogram predictions fail.", cue: "The GIF plays in Slide Show mode and previews the three failure cases. Students keep the single digit_recognizer process from Hands-on 1; starting another copy would duplicate reports. Terminal 2 displays every report. In Terminal 3, students execute one numbered publish command, inspect that report and outputs/histogram_digit.png, and only then continue. The fixed filename is overwritten by the next input. They leave Terminals 1 and 2 running for Hands-on 2B." });
 
-  addCommandExperiment(handsOn2Continuation, 9, "Hands-on 2B: test thin strokes, holes, and dots",
+  await addCommandExperiment(handsOn2Continuation, 9, "Hands-on 2B: test thin strokes, holes, and dots",
     "KEEP the same node and echo running • USE Terminal 3 • TEST one input at a time",
     "Run step 6, inspect the report and PNG, then run 7, then 8. Stop both running processes at step 9.",
     "# 6) TERMINAL 3 — thin 3\nros2 topic pub --once /perception/digit_matrix \\\n std_msgs/msg/Int32MultiArray \"$(cat msg/d3_thin.yaml)\"\n# 7) TERMINAL 3 — 3 with holes\nros2 topic pub --once /perception/digit_matrix \\\n std_msgs/msg/Int32MultiArray \"$(cat msg/d3_holes.yaml)\"\n# 8) TERMINAL 3 — 3 with dots\nros2 topic pub --once /perception/digit_matrix \\\n std_msgs/msg/Int32MultiArray \"$(cat msg/d3_dots.yaml)\"\n# 9) FINISH — press Ctrl+C in Terminal 2, then Terminal 1",
     "Steps 6–8 predict 7, 7, 9 • Inspect outputs/histogram_digit.png after EACH step • Then stop",
     [ROS_GUIDE, `${LAB}/msg/d3_thin.yaml`, `${LAB}/msg/d3_holes.yaml`, `${LAB}/msg/d3_dots.yaml`],
-    { titleSize: 28, taskSize: 14, codeSize: 9.05, expectedSize: 14.2, cue: "Students continue with the same node and echo processes from Hands-on 2A. In Terminal 3, they publish one input at a time and inspect the report and overwritten PNG before moving to the next step. Step 9 stops Terminal 2 first and then Terminal 1." });
+    { titleSize: 28, taskSize: 14, codeSize: 7.5, expectedSize: 14.2, imagePath: `${LAB}/animations/03_histogram_failures_b.gif`, imageAlt: "Animation cycling through thin, gapped, and noisy digit threes and showing their incorrect projection-histogram predictions.", cue: "The GIF plays in Slide Show mode and previews the three failure cases. Students continue with the same node and echo processes from Hands-on 2A. In Terminal 3, they publish one input at a time and inspect the report and overwritten PNG before moving to the next step. Step 9 stops Terminal 2 first and then Terminal 1." });
   setPage(handsOn2Continuation, 12);
 
   contentSetup(s(10), 10, "Which failures can preprocessing repair?", "From failure to morphology", 33);

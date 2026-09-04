@@ -16,6 +16,7 @@ node_modules/
 # Large course releases are published through Google Drive. Their stable links
 # are recorded in the README files beside these directories.
 /2026/Data/*.zip
+/2026/Labs/ClassicalCV/student/animations/*.gif
 **/*.db3
 **/*.mcap
 **/*.bag
