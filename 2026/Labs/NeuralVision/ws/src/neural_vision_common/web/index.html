@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#071a2b"><meta name="description" content="Draw a digit and explore real MLP, CNN and vision transformer computations in 3D. An interactive companion to Intro2AV at the University of Delaware."><title>Neural Vision · Intro2AV · University of Delaware</title><link rel="stylesheet" href="explorer.css"></head>
+<body data-panel="drawing">
+<header>
+  <div class="identity"><strong>Neural Vision</strong><span>INTRO2AV · LECTURE 03</span></div>
+  <nav aria-label="Choose network"><button data-model="mlp" class="active" aria-label="Fully connected"><span class="fullName">Fully connected</span><span class="shortName" aria-hidden="true">MLP</span></button><button data-model="cnn" aria-label="Convolutional"><span class="fullName">Convolutional</span><span class="shortName" aria-hidden="true">CNN</span></button><button data-model="transformer" aria-label="Transformer">Transformer</button></nav>
+  <div class="brand"><span>UNIVERSITY OF<br><b>DELAWARE</b></span><img src="car-logo.png" alt="CAR Lab"></div>
+</header>
+<div class="panelSwitch" role="group" aria-label="Visible controls"><button data-panel="drawing">Draw & predict</button><button data-panel="layers">Layers & inspect</button><button data-panel="none" aria-label="Hide controls">Hide</button></div>
+<aside id="drawingPanel" class="panel">
+  <h1>Draw a digit</h1><p class="intro">Write 0–9, or choose an example.</p>
+  <canvas id="drawing" width="280" height="280" aria-label="Draw a digit from 0 to 9"></canvas>
+  <div class="tools"><button id="pen" class="active" aria-label="Draw"><img src="pencil.svg" alt="">Draw</button><button id="eraser" aria-label="Erase"><img src="eraser.svg" alt="">Erase</button><button id="clear" aria-label="Clear drawing"><img src="x.svg" alt="">Clear</button></div>
+  <div class="examples"><label for="example">Example</label><select id="example" aria-label="Example digit"><option value="">Choose</option></select><button id="another" title="Another example">Next</button></div>
+  <div class="prediction" aria-live="polite" aria-atomic="true"><div><span class="eyebrow">MODEL PREDICTION</span><div class="result"><b id="guess">—</b><span><strong id="confidence"></strong><small>digit score</small></span></div><p class="runner">Next guess <b id="second">—</b></p></div><div class="inputPreview"><canvas id="downsample" width="28" height="28" aria-label="28 by 28 model input"></canvas><span>28 × 28 input</span></div></div>
+  <div class="minor"><button id="center">Center</button><button id="shift">Shift right</button><label><input id="live" type="checkbox" checked> Live</label></div>
+  <button id="run" class="run">Update prediction</button>
+  <p class="inputNote">The same drawing goes to all three models.</p>
+</aside>
+<aside id="layersPanel" class="panel">
+  <h2>Inside the network</h2><p class="intro">Hide layers to see the connections underneath.</p><div id="layers"></div>
+  <div id="transformerControls" hidden><label>Attention head <select id="head"><option value="0">1</option><option value="1">2</option><option value="2">3</option></select></label><label>Value dimension <input id="dimension" type="number" min="0" max="15" value="0"></label></div>
+  <details id="keyboardInspector"><summary>Choose a neuron</summary><label>Layer <select id="inspectLayer"></select></label><label>Map / head <input id="inspectChannel" type="number" value="1" min="1"></label><label>Unit <input id="inspectIndex" type="number" value="0" min="0"></label><button id="inspect">Inspect and pin</button><p>Units start at 0. You can also hover or click any cube.</p></details>
+  <details class="experiment"><summary>Change the model</summary><div id="parameterControls"></div><p>Changes affect inference without retraining.</p></details>
+</aside>
+<div class="stageHeading"><div><h2 id="modelTitle">Fully connected network</h2><p id="modelStructure">784 pixels → 300 → 100 → 10 digits</p></div><button id="showControls" hidden>Show controls</button></div>
+<div id="scene" aria-label="Interactive 3D neural network. Drag to orbit, wheel to zoom, hover a neuron to inspect, click to pin."></div>
+<div class="stageBottom"><p id="teachingPrompt">Try shifting the digit. Which connections receive different input?</p><div id="viewTools"><button id="resetView"><img src="rotate-ccw.svg" alt="">Reset view</button><button id="flow">Trace connections</button><button id="fullScreen"><img src="maximize.svg" alt="">Full screen</button></div><p class="gestures">Drag to rotate <span>·</span> Scroll to zoom <span>·</span> Hover to inspect <span>·</span> Click to pin</p></div>
+<section id="inspector" hidden aria-label="Neuron inspector"><div class="inspectorHeader"><div><strong id="nodeTitle"></strong><small id="nodeSubtitle"></small></div><button id="unpin" aria-label="Close neuron inspector">×</button></div><div id="gridPair"><div><span id="gridLabel">Input values</span><canvas id="inputGrid" width="140" height="140"></canvas></div><div id="weightWrap"><span>Learned weights</span><canvas id="weightGrid" width="140" height="140"></canvas></div></div><div id="weightedRow">Weighted input: <b id="weighted"></b></div><div class="calculation"><span>Calculation</span><p id="calculation"></p></div><div class="nodeOutput">Output: <b id="nodeOutput"></b></div><canvas id="contributions" width="280" height="85" hidden></canvas><p id="nodeNote"></p><div class="inspectorFoot"><span id="connectionCount"></span><span id="pinHint">Click a cube to pin</span></div></section>
+<div id="notice" role="status" hidden></div>
+<footer><span id="connection">Loading models…</span><span id="hint">Real weights. Live computations.</span><button id="rosOpen">ROS 2 package</button><a href="model-card.html" target="_blank" rel="noopener">Models & credits</a></footer>
+<dialog id="rosDialog" aria-labelledby="rosTitle"><button id="rosClose" class="close">Close</button><p class="eyebrow">CONTINUE WITH ROS 2</p><h2 id="rosTitle">The same networks, as ROS nodes</h2><p id="runtimeExplanation">Your drawing becomes a standard Image message. Each model node publishes its prediction and the internal values shown here.</p><p id="downloadRow" hidden><a class="download" href="NeuralVision_student.zip" download>Download the ROS 2 packages</a></p><p>Use the README in the download for setup. Once the packages are built and sourced:</p><pre>ros2 launch neural_vision_demos all.launch.py</pre><h3>Follow an image through the system</h3><pre>ros2 node list
+ros2 topic info /neural_demo/input --verbose
+<span id="echoCommand"></span></pre><h3>Record and replay your drawing</h3><pre>ros2 bag record -o my_digits /neural_demo/input
+# Stop recording with Ctrl+C, then:
+ros2 bag play my_digits</pre><p id="messageCount"></p><p><a href="model-card.html" target="_blank" rel="noopener">Model architecture and measured accuracy</a></p></dialog>
+<script type="module" src="explorer.js"></script>
+</body></html>

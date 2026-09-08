@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<package format="3"><name>neural_vision_demos</name><version>1.0.0</version>
+<description>Launch all three neural vision teaching demos.</description>
+<maintainer email="course@example.edu">CISC 647 course staff</maintainer><license>MIT</license>
+<buildtool_depend>ament_python</buildtool_depend>
+<exec_depend>neural_vision_common</exec_depend><exec_depend>mlp_demo</exec_depend><exec_depend>cnn_demo</exec_depend><exec_depend>transformer_demo</exec_depend><exec_depend>launch</exec_depend><exec_depend>launch_ros</exec_depend>
+<export><build_type>ament_python</build_type></export></package>

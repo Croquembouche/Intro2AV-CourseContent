@@ -13,6 +13,7 @@ Intro2AV-CourseContent/
 ├── 2026/
 │   ├── Presentations/
 │   ├── Labs/
+│   │   ├── NeuralVision/   interactive MLP, CNN and transformer ROS 2 demos
 │   │   └── ClassicalCV/
 │   │       ├── student/   student starter and supplied results
 │   │       └── answers/   instructor reference implementation
@@ -43,6 +44,7 @@ it is the standard ROS 2 workspace layout.
 
 - [Presentations and Drive downloads](2026/Presentations/README.md)
 - [Classical computer vision lab](2026/Labs/ClassicalCV/)
+- [Interactive neural vision demos](https://croquembouche.github.io/Intro2AV-CourseContent/) · [ROS 2 source and setup](2026/Labs/NeuralVision/README.md)
 - [Downloadable data and ZIPs](2026/Data/README.md)
 - [Course documents](2026/Documents/)
 - [Slide-building tools](tools/slides/)

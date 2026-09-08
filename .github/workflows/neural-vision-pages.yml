@@ -1,0 +1,47 @@
+name: Publish Neural Vision demos
+on:
+  push:
+    branches: [main]
+    paths:
+      - '2026/Labs/NeuralVision/**'
+      - '.github/workflows/neural-vision-pages.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: neural-vision-pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install model export dependency
+        run: python -m pip install numpy==2.2.6
+      - name: Check browser and reference model agreement
+        run: python 2026/Labs/NeuralVision/tests/verify_browser.py
+      - name: Build the public demo and student download
+        run: python 2026/Labs/NeuralVision/tools/build_pages.py --output .build/pages
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: .build/pages
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
