@@ -1,6 +1,7 @@
 // Verify the browser's inspected connections against independently summed live tensors.
 // Run with Node 22 while all three ROS model nodes and the web bridge are running.
 import assert from 'node:assert/strict';
+import {checkInspector} from './inspector_checks.mjs';
 import {layersFor,inspectNode} from '../ws/src/neural_vision_common/web/network-data.js';
 const base=process.env.DEMO_URL||'http://127.0.0.1:8773';
 const get=async path=>{const r=await fetch(base+path);assert(r.ok);return r.json()};
@@ -17,23 +18,7 @@ for(const model of ['mlp','cnn','transformer']){
   for(const l of layers){
     for(const ch of [0,l.channels-1])for(const i of [0,Math.floor(l.rows*l.cols/2),l.rows*l.cols-1]){
       const r=inspect(l.id,ch,i);assert(Number.isFinite(r.value));
-      for(const e of r.links)assert(Number.isFinite(input(e))&&Number.isFinite(e.weight));
-      if(l.kind==='dense'&&model!=='transformer'){
-        const total=r.links.reduce((n,e)=>n+input(e)*e.weight,weights[l.weight+'.bias'][i]);
-        close(total,r.weighted);
-      }
-      if(l.kind==='conv'){
-        assert.equal(r.links.length,l.id==='relu1'?25:150);
-        const total=r.links.reduce((n,e)=>n+input(e)*e.weight,weights[(l.id==='relu1'?'conv1':'conv2')+'.bias'][ch]);
-        close(total,r.weighted);
-      }
-      if(l.kind==='pool'){assert.equal(r.links.length,4);close(Math.max(...r.links.map(input)),r.value)}
-      if(l.kind==='attention'){
-        assert.equal(r.links.length,17);close(r.links.reduce((s,e)=>s+e.weight,0),1);
-        const b=result.detail.blocks[l.block],row=Math.floor(i/17),key=i%17;
-        close(b.q[ch][row].reduce((n,q,k)=>n+q*b.k[ch][key][k],0)/4,r.weighted);
-        close(r.contributions.reduce((n,c)=>n+c.value,0),r.mixed);
-      }
+      checkInspector(S,l,ch,i,r,close);
       cases++;
     }
   }
@@ -42,7 +27,7 @@ for(const model of ['mlp','cnn','transformer']){
     const r=inspect('tokens0',0,60);assert.equal(r.links.length,49);
     const projection=r.links.reduce((n,e)=>n+input(e)*e.weight,weights['patch.bias'][12]);
     close(projection,result.detail.embedded[0][12]);
-    assert.equal(inspect('output',0,7).links.length,48);
+    assert.equal(inspect('output',0,7).links.length,1);
   }
   console.log(`PASS ${model}: all layer shapes, inspected edge indices and local calculations`);
 }

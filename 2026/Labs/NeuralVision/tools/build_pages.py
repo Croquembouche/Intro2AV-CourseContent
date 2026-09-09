@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build only the public demo assets; the repository itself stays private."""
+"""Build the public demo assets and the matching student package download."""
 import argparse
 import json
 import shutil

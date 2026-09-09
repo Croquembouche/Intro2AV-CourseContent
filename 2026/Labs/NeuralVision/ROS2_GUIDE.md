@@ -94,7 +94,7 @@ ros2 param set /transformer_model use_positions false
 ros2 param set /transformer_model use_positions true
 ```
 
-Open **ROS 2** in the browser’s bottom bar for the same operations. Browser changes call ROS parameter services and automatically publish the current image again. CLI changes wait for the next image.
+Open **Layers & inspect → Change the model** for these controls in the local ROS version. The **ROS 2 package** button in the bottom bar shows launch and topic commands. Browser changes call ROS parameter services and automatically publish the current image again. CLI changes wait for the next image.
 
 | Node | Parameter | Accepted values | Trained default |
 |---|---|---|---|

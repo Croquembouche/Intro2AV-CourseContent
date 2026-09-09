@@ -1,3 +1,31 @@
+# Correctness and consistency audit — 9 September 2026
+
+The model calculations passed, but the audit found misleading diagram semantics and UI state transitions that the earlier numerical checks did not cover. The corrections below use the same trained weights and forward passes.
+
+| Finding | Correction |
+|---|---|
+| Attention-cell lines conflated Q/K scoring with the later weighted-value sum | Two dashed whole-token dependencies now identify the selected query and key. The query-row grid and value-mixing bars remain explicitly separate. |
+| Transformer block links looked like exact scalar weights and started at an arbitrary feature | Gold dashed spans group all 48 features of each token. Block links summarize one head's token mixing into the whole output token; the selected scalar reports its actual residual plus feed-forward value. |
+| Classifier lines skipped the transformation of CLS before classification | The inspector reconstructs the final LayerNorm, normalized weighted contributions, bias, logit and ten-class softmax. The line groups the CLS token. |
+| A draft drawing could replace the small input preview before the prediction changed | Network input stays tied to the displayed result. A visible status marks pending edits and completion; manual update works with Live off. Turning Live off cancels queued automatic sends. |
+| A title could switch models while the old diagram remained if inspection weights failed to load | Title, diagram, prediction and controls now change together before the asynchronous inspection-weight load. Missing weights are labeled; retry recovers inspection. |
+| Some labels obscured what was displayed | CNN maps are labeled after activation; the slope control states it affects convolution layers, while dense layers keep ReLU. Browser-neutral inspector copy, synchronized attention-head selectors, signed negative grids and a color/line legend clarify the encodings. Tiny nonzero grid values use scientific notation instead of displaying as negative zero. |
+| Pooling ties could suggest summing several maxima | The inspector explicitly says ties are not added together. |
+
+## Evidence from this audit
+
+- `python3 tests/verify_browser.py`: **133 cases, 337,913 numerical comparisons, 16,018 unit inspections; maximum absolute difference 0.000005514**. The suite compares against independent NumPy computations and stored PyTorch reference logits. It now reconstructs inspector calculations for every displayed unit on one reference input per model, then samples further inputs and interventions. This includes all three attention heads, every query/key cell, dense and convolution sums, pooling, patch projection with optional positions, attention-weighted values, residual/FFN addition and the normalized CLS classifier.
+- `node tests/verify_topology.mjs`: **114 inspected units passed** against tensors from the running ROS bridge, using independent sums and the corrected token-link semantics.
+- `colcon build --symlink-install --packages-select neural_vision_common`: passed, including the new shared UI module. `colcon test` and `colcon test-result`: **10 tests, zero failures/errors/skips**. The other four package wrappers and ROS transport implementation did not change.
+- Browser interactions checked the Live-off draft versus evaluated preview, manual update, CNN negative activation/pooling, MLP disable control, transformer position removal, attention head/dimension selection, grouped Q/K and block links, and normalized class inspection.
+- A browser failure test temporarily blocked the transformer inspection-weight URL: selecting Transformer still changed its title, all 4,976 cells, layer choices and parameters together. The network block was removed; retry restored inspection and cleared the error.
+- At 1280×720, the input status and Update prediction button are visible without scrolling (status bottom 662 px; control panel bottom 668 px). Pinned inspectors retain large text and scroll for longer explanations.
+- Lecture 3's 33 slide texts were checked for conceptual consistency. The lecture uses illustrative 3×3 neighborhoods and output counts; the trained CNN uses 5×5 filters and all demos classify ten digits. The model card now states this explicitly, and distinguishes these models from the lecture's ResNet, FPN and Swin examples. The existing deck and its demo URLs are unchanged.
+
+These are finite correctness checks, not a guarantee of correct classification on every image. The reported MNIST accuracies remain measurements from the original full test-set evaluation; they were not re-estimated or improved by these UI fixes. No retraining was performed. The browser and ROS versions share the UI and trained weights, with expected small floating-point differences. Full rosbag/transport validation belongs to the earlier release checks below; this audit did not repeat that unchanged transport code.
+
+---
+
 # Release validation — 8 September 2026
 
 The revised full-window 3D explorer was checked on Ubuntu 22.04, ROS 2 Humble, system Python 3.10 and the in-app Chromium browser. All-model tests used localhost-only discovery and ROS domain 47.

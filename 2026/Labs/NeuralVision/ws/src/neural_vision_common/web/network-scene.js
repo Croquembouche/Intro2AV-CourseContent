@@ -12,6 +12,7 @@ export class NetworkScene {
     this.box=new THREE.BoxGeometry(1,1,1);this.material=new THREE.MeshLambertMaterial({color:0xffffff});
     this.highlight=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1,1,1)),new THREE.LineBasicMaterial({color:0xffffff,depthTest:false}));this.highlight.renderOrder=50;this.highlight.visible=false;this.scene.add(this.highlight);
     this.edges=new THREE.LineSegments(new THREE.BufferGeometry(),new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:.75,depthTest:false}));this.edges.renderOrder=40;this.scene.add(this.edges);
+    this.tokenEdges=new THREE.LineSegments(new THREE.BufferGeometry(),new THREE.LineDashedMaterial({vertexColors:true,dashSize:2,gapSize:1.5,transparent:true,opacity:.85,depthTest:false}));this.tokenEdges.renderOrder=41;this.scene.add(this.tokenEdges);
     this.particles=new THREE.Points(new THREE.BufferGeometry(),new THREE.PointsMaterial({color:0x83ffff,size:2.2,sizeAttenuation:false,depthTest:false}));this.particles.renderOrder=45;this.scene.add(this.particles);
     let down=null,lastPick=0;
     host.addEventListener('pointerdown',e=>down=[e.clientX,e.clientY]);
@@ -62,16 +63,37 @@ export class NetworkScene {
     }g.mesh.instanceColor.needsUpdate=true;}this.dirty=true;}
   toggle(id){this.hidden.has(id)?this.hidden.delete(id):this.hidden.add(id);for(let g of this.groups)g.mesh.visible=!this.hidden.has(g.layer.id);if(this.selection&&this.hidden.has(this.selection.layer.id))this.clearSelection();else if(this.selection)this.showSelection();this.dirty=true;}
   pick(x,y){const rect=this.host.getBoundingClientRect();this.pointer.set((x-rect.left)/rect.width*2-1,-(y-rect.top)/rect.height*2+1);this.ray.setFromCamera(this.pointer,this.camera);const hits=this.ray.intersectObjects(this.groups.filter(g=>g.mesh.visible).map(g=>g.mesh),false);if(hits.length){const h=hits[0],{layer,channel}=h.object.userData;this.selection={layer,channel,index:h.instanceId,screen:{x,y}};this.showSelection()}else this.clearSelection();}
-  select(layerId,channel,index){const group=this.groups.find(g=>g.layer.id===layerId&&g.channel===channel);if(!group||index<0||index>=group.positions.length)return false;this.selection={layer:group.layer,channel,index,screen:{x:this.host.getBoundingClientRect().left+this.host.clientWidth*.54,y:this.host.getBoundingClientRect().top+this.host.clientHeight*.46}};this.pinned=true;this.showSelection();return true;}
+  select(layerId,channel,index){const group=this.groups.find(g=>g.layer.id===layerId&&g.channel===channel);if(!group||!group.mesh.visible||!Number.isInteger(index)||index<0||index>=group.positions.length)return false;this.selection={layer:group.layer,channel,index,screen:{x:this.host.getBoundingClientRect().left+this.host.clientWidth*.54,y:this.host.getBoundingClientRect().top+this.host.clientHeight*.46}};this.pinned=true;this.showSelection();return true;}
   emit(){if(this.selection)this.onInspect(this.selection.record,this.selection.screen,this.pinned);}
   showSelection(){const s=this.selection,g=this.groups.find(g=>g.layer.id===s.layer.id&&g.channel===s.channel);s.record=inspectNode(this.state,s.layer,s.channel,s.index);let end=g.positions[s.index];this.highlight.position.copy(end);this.highlight.scale.setScalar(g.size*1.28);this.highlight.visible=true;
-    let positions=[],colors=[];this.edgeSegments=[];
+    let positions=[],colors=[],tokenPositions=[],tokenColors=[];this.edgeSegments=[];
+    // A token dependency is anchored to the centre of the entire feature row.
+    // Its dashed row span makes the grouped meaning visible, including Q == K.
+    const spans=new Set();
+    const tokenAnchor=(group,token,role,color)=>{
+      const first=group.positions[token*group.layer.cols].clone(),last=group.positions[(token+1)*group.layer.cols-1].clone();
+      const offset=role==='query'?.8:role==='key'?-.8:0;first.z+=offset;last.z+=offset;
+      const key=group.layer.id+':'+token+':'+(role||'');
+      if(!spans.has(key)){spans.add(key);tokenPositions.push(...first.toArray(),...last.toArray());tokenColors.push(...color,...color)}
+      return first.add(last).multiplyScalar(.5);
+    };
     const max=Math.max(.001,...s.record.links.map(e=>Math.abs(e.weight)));
-    for(let link of s.record.links){const source=this.groups.find(g=>g.layer.id===link.layer&&g.channel===link.channel);if(!source||!source.mesh.visible)continue;const start=source.positions[link.index];if(!start)continue;let a=link.outgoing?end:start,b=link.outgoing?start:end;positions.push(...a.toArray(),...b.toArray());let intensity=.2+.8*Math.min(1,Math.abs(link.weight)/max);let color=link.weight>=0?[.02,intensity,intensity]:[intensity*.62,.12,intensity];colors.push(...color,...color);this.edgeSegments.push([a,b]);}
-    this.edges.geometry.dispose();this.edges.geometry=new THREE.BufferGeometry();this.edges.geometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));this.edges.geometry.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));this.edges.geometry.computeBoundingSphere();this.particles.geometry.dispose();this.particles.geometry=new THREE.BufferGeometry();this.particles.geometry.setAttribute('position',new THREE.Float32BufferAttribute(new Float32Array(this.edgeSegments.length*3),3));this.particles.frustumCulled=false;this.emit();this.dirty=true;
+    for(let link of s.record.links){
+      const source=this.groups.find(g=>g.layer.id===link.layer&&g.channel===link.channel);if(!source||!source.mesh.visible)continue;
+      const grouped=link.kind==='token',intensity=.2+.8*Math.min(1,Math.abs(link.weight)/max);
+      const color=grouped?(link.role==='key'?[1,.3,.65]:[intensity,intensity*.72,.1]):link.weight>=0?[.02,intensity,intensity]:[intensity*.62,.12,intensity];
+      const start=grouped?tokenAnchor(source,link.token,link.role,color):source.positions[link.index];if(!start)continue;
+      const target=grouped&&s.record.targetToken!==undefined?tokenAnchor(g,s.record.targetToken,'',[1,.72,.1]):end;
+      const a=link.outgoing?target:start,b=link.outgoing?start:target;
+      (grouped?tokenPositions:positions).push(...a.toArray(),...b.toArray());(grouped?tokenColors:colors).push(...color,...color);this.edgeSegments.push([a,b]);
+    }
+    for(const [mesh,p,c] of [[this.edges,positions,colors],[this.tokenEdges,tokenPositions,tokenColors]]){
+      mesh.geometry.dispose();mesh.geometry=new THREE.BufferGeometry();mesh.geometry.setAttribute('position',new THREE.Float32BufferAttribute(p,3));mesh.geometry.setAttribute('color',new THREE.Float32BufferAttribute(c,3));if(p.length)mesh.geometry.computeBoundingSphere();
+    }
+    this.tokenEdges.computeLineDistances();this.particles.geometry.dispose();this.particles.geometry=new THREE.BufferGeometry();this.particles.geometry.setAttribute('position',new THREE.Float32BufferAttribute(new Float32Array(this.edgeSegments.length*3),3));this.particles.frustumCulled=false;this.emit();this.dirty=true;
   }
-  clearSelection(){this.pinned=false;this.selection=null;this.highlight.visible=false;this.edges.visible=false;this.particles.visible=false;this.onInspect(null);this.dirty=true;}
-  tick(time){requestAnimationFrame(this.tick);this.controls.update();this.edges.visible=!!this.selection;this.particles.visible=!!this.selection&&this.flow;if(this.particles.visible&&this.edgeSegments){let arr=this.particles.geometry.attributes.position.array;this.edgeSegments.forEach(([a,b],i)=>{let t=(time/1800+i*.017)%1;arr[i*3]=a.x+(b.x-a.x)*t;arr[i*3+1]=a.y+(b.y-a.y)*t;arr[i*3+2]=a.z+(b.z-a.z)*t});this.particles.geometry.attributes.position.needsUpdate=true;this.dirty=true;}
+  clearSelection(){this.pinned=false;this.selection=null;this.highlight.visible=false;this.edges.visible=false;this.tokenEdges.visible=false;this.particles.visible=false;this.onInspect(null);this.dirty=true;}
+  tick(time){requestAnimationFrame(this.tick);this.controls.update();this.edges.visible=!!this.selection;this.tokenEdges.visible=!!this.selection;this.particles.visible=!!this.selection&&this.flow;if(this.particles.visible&&this.edgeSegments){let arr=this.particles.geometry.attributes.position.array;this.edgeSegments.forEach(([a,b],i)=>{let t=(time/1800+i*.017)%1;arr[i*3]=a.x+(b.x-a.x)*t;arr[i*3+1]=a.y+(b.y-a.y)*t;arr[i*3+2]=a.z+(b.z-a.z)*t});this.particles.geometry.attributes.position.needsUpdate=true;this.dirty=true;}
     if(!this.dirty)return;this.renderer.render(this.scene,this.camera);this.dirty=false;
     for(let label of this.labels){let p=label.position.clone().project(this.camera);const x=(p.x+1)/2*this.host.clientWidth,y=(-p.y+1)/2*this.host.clientHeight;label.el.style.display=this.hidden.has(label.layer)||p.z>1||x<0||x>this.host.clientWidth||y<0||y>this.host.clientHeight?'none':'block';label.el.style.left=x+'px';label.el.style.top=y+'px';label.el.style.transform='translate(-50%,-100%)';}
     // Expose visible counts in the DOM for accessibility and browser verification.

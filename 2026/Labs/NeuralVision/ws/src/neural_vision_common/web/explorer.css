@@ -68,3 +68,9 @@ dialog{width:min(42rem,94vw);max-height:88dvh;overflow:auto;background:#f4f7fa;c
  .result>b{font-size:2.5rem}.run{margin-top:.45rem}
 }
 @media(max-height:800px) and (min-width:761px){.prediction{padding:.25rem 0}.runner{margin-top:.2rem}.run{margin-top:.35rem}}
+
+/* Status is essential even at compact sizes; it labels the evaluated input. */
+#inputStatus{display:block;min-height:1.4em;font-size:.8rem;line-height:1.4;padding:0;border-radius:4px}
+#inputStatus[data-state=changed],#inputStatus[data-state=pending]{background:#fff0c4;color:#603e00}
+
+@media(max-height:800px) and (min-width:761px){#drawingPanel>.intro{display:none}#drawingPanel h1{margin-bottom:.4rem}}
