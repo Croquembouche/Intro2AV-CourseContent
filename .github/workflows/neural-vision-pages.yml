@@ -5,6 +5,7 @@ on:
     paths:
       - '2026/Labs/NeuralVision/**'
       - '2026/Labs/SensorFusion/**'
+      - '2026/Labs/Portal/**'
       - '2026/Presentations/Lecture 4 Sensor Fusion for Autonomous Driving.pptx'
       - '2026/Data/Lecture4_SensorFusion.zip'
       - '.github/workflows/neural-vision-pages.yml'
@@ -40,6 +41,8 @@ jobs:
           cp -R 2026/Labs/SensorFusion/. .build/pages/sensor-fusion/
           cp "2026/Presentations/Lecture 4 Sensor Fusion for Autonomous Driving.pptx" .build/pages/downloads/
           cp 2026/Data/Lecture4_SensorFusion.zip .build/pages/downloads/
+      - name: Build course demo entry page
+        run: python 2026/Labs/Portal/build_portal.py --output .build/pages
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
