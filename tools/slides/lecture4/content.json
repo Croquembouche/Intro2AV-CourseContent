@@ -1,0 +1,663 @@
+[
+  {
+    "title": "Sensor fusion for autonomous driving",
+    "layout": "cover",
+    "body": [
+      "LECTURE 4",
+      "Coordinate frames, sensor models, and calibration",
+      "Introduction to Autonomous Driving · Fall 2026"
+    ],
+    "take": "",
+    "media": [],
+    "notes": "Plan for roughly 80–90 minutes including live demonstrations. For a 75-minute class, shorten optional board fitting and fusion-level discussion. Open the offline SensorFusion/index.html before class. Five experiments share a single browser page. All demo scenes are synthetic.",
+    "refs": [],
+    "slide": 1
+  },
+  {
+    "title": "Why camera and LiDAR belong together",
+    "layout": "table",
+    "body": [],
+    "take": "Fusion begins by making measurements geometrically comparable.",
+    "media": [],
+    "notes": "Connect to Lectures 2–3: a detector can label an object in image pixels. A planner needs a spatial estimate. Discuss a car visible in an image and several nearby LiDAR clusters. Neither stream alone tells us which measurements correspond. This qualitative comparison motivates the lesson, rather than claiming that fusion guarantees improvement.",
+    "refs": [],
+    "table": [
+      [
+        "Sensor",
+        "Useful evidence",
+        "Common limitation"
+      ],
+      [
+        "Camera",
+        "Appearance, markings, object class",
+        "Monocular depth is ambiguous"
+      ],
+      [
+        "LiDAR",
+        "Metric range and 3D structure",
+        "Sparse angular samples"
+      ],
+      [
+        "Together",
+        "Appearance attached to geometry",
+        "Requires alignment and association"
+      ]
+    ],
+    "slide": 2
+  },
+  {
+    "title": "A coordinate needs a frame",
+    "layout": "visual",
+    "body": [
+      "A frame defines an origin and oriented axes.",
+      "The same hand has different coordinates in the base and link frames."
+    ],
+    "take": "Always attach a frame name and units to a position.",
+    "media": [
+      "arm.png"
+    ],
+    "notes": "Point at the base axes, then the axes on the final link. Ask whether the hand moved when we changed the coordinate frame used to describe it. It did not. In the demo each link frame is at the distal end. A point at that origin is (0,0) in its own frame. Axes are x red and y green. Planar example, metres.",
+    "refs": [
+      "https://raw.githubusercontent.com/ros-infrastructure/rep/master/rep-0103.rst"
+    ],
+    "slide": 3
+  },
+  {
+    "title": "Links and actuators",
+    "layout": "visual",
+    "body": [
+      "A rigid link has fixed geometry.",
+      "A rotary joint changes angle. A sliding joint changes extension.",
+      "Each link carries its own frame."
+    ],
+    "take": "Joint values determine the relative transforms along the chain.",
+    "media": [
+      "arm-added-3d.png"
+    ],
+    "notes": "Live preview only, save the longer interaction for slide 7. The fixed-link button adds a rigid segment with a fixed mount angle. A rotary segment has a variable angle followed by its fixed link length. A prismatic segment extends along its mounted local x axis. These are kinematic models of actuated joints, not motor or dynamics simulations.",
+    "refs": [
+      "https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-3-1-homogeneous-transformation-matrices/"
+    ],
+    "slide": 4
+  },
+  {
+    "title": "Rotation and translation in one matrix",
+    "layout": "equation",
+    "body": [
+      "T_AB converts coordinates from frame B into frame A.",
+      "R_AB gives orientation. t_AB is the B-origin expressed in A."
+    ],
+    "take": "In 3D, T is 4 × 4. Our planar demo uses a 3 × 3 version.",
+    "media": [],
+    "notes": "Use column vectors throughout. Say the destination frame first and the source frame second. t is not the position of A expressed in B. Explain the final homogeneous coordinate 1: it lets translation enter matrix multiplication. Rotation and translation units differ. All demo angles display degrees, then convert to radians for trigonometry.",
+    "refs": [
+      "https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-3-1-homogeneous-transformation-matrices/"
+    ],
+    "equations": [
+      "p_A = R_AB p_B + t_AB",
+      "[ p_A ]   [ R_AB   t_AB ] [ p_B ]",
+      "[   1   ] = [   0          1    ] [   1   ]"
+    ],
+    "slide": 5
+  },
+  {
+    "title": "Forward kinematics: a worked example",
+    "layout": "visual",
+    "body": [
+      "L₁ = L₂ = 1 m",
+      "q₁ = 90°, q₂ = −90°",
+      "x = cos 90° + cos 0° = 1",
+      "y = sin 90° + sin 0° = 1"
+    ],
+    "take": "T₀₂ = T₀₁ T₁₂ gives the hand at (1, 1) m.",
+    "media": [
+      "arm-worked.png"
+    ],
+    "notes": "For the endpoint-frame convention, T_previous,current = Rot(q) Trans_x(L). The first endpoint is (0,1). The second joint is −90 degrees relative to the first link, so its absolute angle is zero. The second endpoint is (1,1). q2 is not an absolute world angle. The hand orientation is q1+q2=0 degrees. Matrix multiplication order matters.",
+    "refs": [
+      "https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-3-1-homogeneous-transformation-matrices/"
+    ],
+    "slide": 6
+  },
+  {
+    "title": "Demo 1: build and inspect a robot arm",
+    "layout": "demo",
+    "body": [
+      "Add a rotary link, then a sliding joint.",
+      "Change a parent angle. Predict which frames move.",
+      "Inspect a local matrix and its cumulative product.",
+      "Challenge: reach (1, 1) m with two 1 m links."
+    ],
+    "take": "Open SensorFusion/index.html and choose “1 · Robot arm”.",
+    "media": [
+      "arm.png"
+    ],
+    "notes": "Allow 6–8 minutes. Reset first. Ask students to predict before moving sliders. Select Frame 2 to see parent-to-link and base-to-link matrices together. Add a slider and show that it follows the rotated local x direction. Challenge solution: 90 and −90 degrees, or 0 and 90 degrees. Compare the different hand orientations. Use reset after changing links. Keep index.html, lab.js, scene3d.js, and the vendor folder together. Extract the whole ZIP before opening the demos.",
+    "refs": [
+      "https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-3-1-homogeneous-transformation-matrices/"
+    ],
+    "demo": "arm",
+    "slide": 7
+  },
+  {
+    "title": "Vehicle and camera axis conventions",
+    "layout": "table",
+    "body": [],
+    "take": "Axis conversion is part of the extrinsic transform.",
+    "media": [],
+    "notes": "ROS REP 103 defines body and optical conventions. A vendor LiDAR coordinate system can differ, so inspect its documentation and driver. Do not feed body-frame x into the optical depth denominator. For an aligned camera, Xc=−Ybody, Yc=−Zbody, Zc=Xbody before accounting for translation. A tf tree tracks named frames, while calibration supplies the rigid sensor transforms.",
+    "refs": [
+      "https://raw.githubusercontent.com/ros-infrastructure/rep/master/rep-0103.rst",
+      "https://docs.ouster.com/sensor-docs/coordinate-system"
+    ],
+    "table": [
+      [
+        "Frame",
+        "Axes",
+        "Role"
+      ],
+      [
+        "Vehicle body",
+        "x forward, y left, z up",
+        "A common 3D reference"
+      ],
+      [
+        "Camera optical",
+        "x right, y down, z forward",
+        "Pinhole projection"
+      ],
+      [
+        "LiDAR",
+        "Check driver conventions",
+        "Range points in sensor frame"
+      ],
+      [
+        "Image pixels",
+        "u right, v down",
+        "2D image coordinates"
+      ]
+    ],
+    "slide": 8
+  },
+  {
+    "title": "The pinhole camera model",
+    "layout": "visual",
+    "body": [
+      "A scene point is (X, Y, Z) in the optical frame.",
+      "Divide by depth: x = X/Z, y = Y/Z.",
+      "Points behind the camera need rejection."
+    ],
+    "take": "Projection turns a 3D ray into an image location.",
+    "media": [
+      "camera.png"
+    ],
+    "notes": "The synthetic scene shows road lines converging toward the horizon. Compare the same-size object at different distances: normalized image size decreases with Z. Many different points along one optical ray map to the same ideal pixel. This is why a single pixel does not directly reveal metric depth. The scene uses wireframes to make projection easy to see.",
+    "refs": [
+      "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html"
+    ],
+    "slide": 9
+  },
+  {
+    "title": "Camera intrinsics K",
+    "layout": "equation",
+    "body": [
+      "fₓ and fᵧ are focal lengths in pixels.",
+      "(cₓ, cᵧ) is the principal point. The demo assumes zero skew."
+    ],
+    "take": "Intrinsics map normalized rays to pixel coordinates.",
+    "media": [],
+    "notes": "Distinguish focal length in millimetres from focal length expressed in pixel units. Different horizontal and vertical pixel scaling can make fx and fy differ. The principal point is often near the image centre but should not be assumed to equal it. K alone omits lens distortion.",
+    "refs": [
+      "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html"
+    ],
+    "equations": [
+      "K = [ fₓ    0    cₓ ]",
+      "       [  0    fᵧ    cᵧ ]",
+      "       [  0     0      1 ]",
+      "u = fₓ X/Z + cₓ     v = fᵧ Y/Z + cᵧ"
+    ],
+    "slide": 10
+  },
+  {
+    "title": "Focal length changes the field of view",
+    "layout": "pair",
+    "body": [
+      "Same 800 × 500 image and fixed camera pose.",
+      "For a centred pinhole: FOVₓ = 2 atan(W / 2fₓ)."
+    ],
+    "take": "Doubling focal length magnifies the scene and narrows the view.",
+    "media": [
+      "camera.png",
+      "camera-zoom.png"
+    ],
+    "notes": "Worked horizontal FOV: W=800 and fx=600 gives about 67.4 degrees. fx=1200 gives about 36.9 degrees. Derive it from the right triangle formed by half the image width and focal length. This simple symmetric formula assumes centred principal point and no distortion. The demo uses the sum of left and right angles when cx is off-centre.",
+    "refs": [
+      "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html"
+    ],
+    "labels": [
+      "fₓ = fᵧ = 600 px",
+      "fₓ = fᵧ = 1200 px"
+    ],
+    "slide": 11
+  },
+  {
+    "title": "Demo 2: change the camera intrinsics",
+    "layout": "demo",
+    "body": [
+      "Double fₓ and fᵧ, then reset.",
+      "Change cₓ only. Compare position and size.",
+      "Change fₓ only. Observe horizontal stretching.",
+      "Predict where (1, 0, 10) m lands."
+    ],
+    "take": "Open “2 · Camera”. Baseline point projection: (460, 250) px.",
+    "media": [
+      "camera-shift.png"
+    ],
+    "notes": "Allow 5 minutes. Baseline K is fx=fy=600, cx=400, cy=250. u=600*(1/10)+400=460 and v=250. Doubling both focal lengths changes u to 520 without moving the principal point. Increasing cx by 100 shifts all ideal projections 100 px to the right. Changing only fx changes horizontal scale. Editing real camera metadata alone does not change its captured pixels.",
+    "refs": [
+      "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html"
+    ],
+    "demo": "camera",
+    "slide": 12
+  },
+  {
+    "title": "Distortion, resizing, and cropping",
+    "layout": "visual",
+    "body": [
+      "Radial distortion bends straight lines.",
+      "Resizing by s scales fₓ, fᵧ, cₓ, and cᵧ.",
+      "Cropping at (x₀, y₀) subtracts that offset from the principal point."
+    ],
+    "take": "The calibration must match the actual image passed to fusion.",
+    "media": [
+      "camera-distortion.png"
+    ],
+    "notes": "The demo uses only k1 on normalized coordinates: xd=x(1+k1*r²), yd=y(1+k1*r²). Real models may include more radial terms and tangential distortion. Cropping does not change focal lengths in pixels if pixel size is unchanged. Nonuniform resizing uses separate sx and sy. State the pixel-coordinate convention when doing exact resampling. Rectified images require the new projection matrix rather than blindly reusing raw-image K.",
+    "refs": [
+      "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html"
+    ],
+    "slide": 13
+  },
+  {
+    "title": "LiDAR measures range along a beam",
+    "layout": "equation",
+    "body": [
+      "Time-of-flight LiDAR measures a round trip.",
+      "θ is azimuth. φ is elevation. r is slant range."
+    ],
+    "take": "A point cloud depends on both ranges and beam directions.",
+    "media": [],
+    "notes": "c is the speed of light. The first equation illustrates pulsed time of flight, not every possible LiDAR architecture. The spherical equations use an ideal beam origin. Real sensor conversion can include beam offsets and per-beam calibration. Ouster documentation supplies a concrete example where naive spherical conversion omits sensor-specific terms.",
+    "refs": [
+      "https://docs.ouster.com/sensor-docs/coordinate-system"
+    ],
+    "equations": [
+      "r = c Δt / 2",
+      "x = r cos φ cos θ",
+      "y = r cos φ sin θ     z = r sin φ"
+    ],
+    "slide": 14
+  },
+  {
+    "title": "360° scanning and vertical field of view",
+    "layout": "visual",
+    "body": [
+      "Horizontal coverage: 360°",
+      "Upper / lower: +15° / −25°",
+      "Vertical FOV: 40°",
+      "Sensor height: 1.8 m"
+    ],
+    "take": "The lower beam limit controls near-ground coverage.",
+    "media": [
+      "lidar-3d.png"
+    ],
+    "notes": "Elevation is measured from the sensor horizontal plane. These are illustrative simulator settings, not specifications for a particular model. On unobstructed flat ground the lowest beam hits at h/tan(abs(lower)) = 1.8/tan(25 degrees), approximately 3.86 m. Mount pitch and terrain change this distance. This spinning LiDAR has fixed full 360-degree horizontal coverage. Orbit the 3D view to inspect returns behind the vehicle as well as in front. The scan fan is slowed for teaching. The ego car is a mounting reference and is excluded from self-returns.",
+    "refs": [
+      "https://docs.ouster.com/sensor-docs/coordinate-system"
+    ],
+    "slide": 15
+  },
+  {
+    "title": "More beams and wider FOV differ",
+    "layout": "pair",
+    "body": [
+      "At fixed vertical FOV, more channels reduce beam spacing.",
+      "At fixed channels, a wider vertical FOV increases spacing."
+    ],
+    "take": "Coverage and angular resolution describe different properties.",
+    "media": [
+      "lidar-16-3d.png",
+      "lidar-dense-3d.png"
+    ],
+    "notes": "For this uniformly spaced toy sensor with endpoints included, elevation spacing = (upper−lower)/(N−1). Values are 2.67 degrees for 16 and 0.635 degrees for 64. Nearby rays separate further in metres at longer range: approximately r times angular spacing in radians. Real hardware may use nonuniform elevation patterns. More channels alone does not guarantee returns from every object.",
+    "refs": [
+      "https://docs.ouster.com/sensor-docs/coordinate-system"
+    ],
+    "labels": [
+      "16 channels over 40°",
+      "64 channels over 40°"
+    ],
+    "slide": 16
+  },
+  {
+    "title": "Demo 3: channels and perception at range",
+    "layout": "demo",
+    "body": [
+      "Compare 8, 32, and 128 channels at fixed FOV.",
+      "Inspect identical targets at 10, 30, and 60 m.",
+      "Increase the horizontal angular step.",
+      "Raise the lower limit to −5° and compare."
+    ],
+    "take": "Open “3 · LiDAR”. Fewer returns leave less evidence for perception.",
+    "media": [
+      "lidar-range.png"
+    ],
+    "notes": "Allow 5–6 minutes. At 1.8 m height, the −5-degree beam meets flat ground at roughly 20.57 m, versus 3.86 m for −25 degrees. A wider azimuth step reduces rays per scan and can skip small targets. Maximum range clips slant range, not horizontal distance. Controls describe a hypothetical configurable sensor, not promises of software-adjustable hardware beam count. Demonstration uses ideal single returns on matching cuboid scene surfaces. Show the pause and 15-degree step controls, then change point color from range to height. Click an object to see its return count. Horizontal coverage remains 360 degrees in every preset. Use the density panel below the 3D scene. Reset to the 40-degree vertical FOV and 1-degree horizontal step, with maximum range 80 m. At 8 channels, the isolated targets at 10/30/60 m return 6/1/0 points. At 32 channels they return 24/3/1, and at 128 channels 99/11/6. The image shows 128 channels. Targets are each 0.6 m wide and 1.8 m tall, independently sampled without scene occlusion. Counts are geometric evidence, not detection probabilities. Changing the channel count resamples uniformly spaced beam elevations, so individual target counts need not change monotonically. Distinguish channels hitting a target from total points returned.",
+    "refs": [
+      "https://docs.ouster.com/sensor-docs/coordinate-system"
+    ],
+    "demo": "lidar",
+    "slide": 17
+  },
+  {
+    "title": "Intrinsic and extrinsic calibration",
+    "layout": "table",
+    "body": [],
+    "take": "Changing a sensor mount changes extrinsics even if K stays the same.",
+    "media": [],
+    "notes": "Ask students to classify a camera lens zoom, a shifted camera bracket, an image crop, and a clock offset. Zoom and crop affect the relevant camera model; bracket shift affects extrinsics; time offset requires temporal treatment. Intrinsic parameters can vary with the operating configuration. Do not use an extrinsic adjustment to hide bad timestamps.",
+    "refs": [
+      "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html",
+      "https://docs.ouster.com/sensor-docs/coordinate-system",
+      "https://www.mathworks.com/help/lidar/ug/lidar-camera-calibration.html"
+    ],
+    "table": [
+      [
+        "Quantity",
+        "What it describes",
+        "Examples"
+      ],
+      [
+        "Camera intrinsic",
+        "Pixel formation inside a camera",
+        "K and lens distortion"
+      ],
+      [
+        "LiDAR intrinsic",
+        "Beam and range model",
+        "Beam angles and offsets"
+      ],
+      [
+        "Sensor extrinsic",
+        "Rigid pose between sensors",
+        "Rotation R and translation t"
+      ],
+      [
+        "Time alignment",
+        "When a measurement occurred",
+        "Clock offset and scan timing"
+      ]
+    ],
+    "slide": 18
+  },
+  {
+    "title": "Why a checkerboard works",
+    "layout": "visual",
+    "body": [
+      "Known square size defines 3D board points.",
+      "High-contrast intersections give repeatable image corners.",
+      "9 × 6 inner corners require 10 × 7 squares."
+    ],
+    "take": "Each detected corner pairs a known board point with a measured pixel.",
+    "media": [
+      "board-tilt.png"
+    ],
+    "notes": "Define board coordinates Pij=(i*s,j*s,0) with known square size s. The physical target is planar even though each camera view has its own 3D pose. Explain inner corners rather than square count. The illustrative target has 0.20 m squares; choose an appropriate physical size and measure it for a real setup. Wrong square size mainly rescales recovered translations in the ideal monocular setup.",
+    "refs": [
+      "https://docs.opencv.org/4.10.0/dc/dbb/tutorial_py_calibration.html"
+    ],
+    "slide": 19
+  },
+  {
+    "title": "A camera calibration workflow",
+    "layout": "steps",
+    "body": [
+      "Capture a rigid, flat target at varied tilts, distances, and image locations.",
+      "Detect inner corners and refine their pixel positions.",
+      "Estimate K, distortion, and a board pose for each view.",
+      "Check residuals and straight lines on held-out views."
+    ],
+    "take": "Repeated front-facing images provide weak geometric diversity.",
+    "media": [],
+    "notes": "Use sharp images and hold the camera focus/zoom and output resolution fixed. Include coverage near image edges where distortion matters. Minimize observed-minus-projected corner residuals across all views. Report per-view errors as well as overall RMS. Low training error alone does not prove a useful calibration. A warped target can bias the fit. Distinguish board-to-camera pose for one view from the fixed camera-to-LiDAR transform.",
+    "refs": [
+      "https://docs.opencv.org/4.10.0/dc/dbb/tutorial_py_calibration.html",
+      "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html"
+    ],
+    "slide": 20
+  },
+  {
+    "title": "Demo 4: corner reprojection error",
+    "layout": "pair",
+    "body": [
+      "Adjust focal length and principal point, then choose “Fit K”.",
+      "The demo knows board pose and assumes zero distortion."
+    ],
+    "take": "Open “4 · Checkerboard”. Real calibration also estimates unknown poses.",
+    "media": [
+      "board-before.png",
+      "board-fit.png"
+    ],
+    "notes": "Allow 4 minutes. Orange dots are observations; blue rings are projections from the estimate; connecting segments are residuals. The noise-free known-pose fit recovers fx=fy=800, cx=410, cy=245. Tilting the board after fitting keeps agreement. This is a least-squares illustration, not a replacement for OpenCV calibrateCamera. Discuss what extra unknowns and measurement noise arise in an actual experiment.",
+    "refs": [
+      "https://docs.opencv.org/4.10.0/dc/dbb/tutorial_py_calibration.html"
+    ],
+    "labels": [
+      "Initial estimate: residuals remain",
+      "Fitted K: corners align"
+    ],
+    "demo": "calibration",
+    "slide": 21
+  },
+  {
+    "title": "A shared target links camera and LiDAR",
+    "layout": "text",
+    "body": [
+      "The camera observes printed corners and estimates the board pose.",
+      "LiDAR returns describe the board surface, edges, or other detectable geometry.",
+      "Multiple target poses constrain one fixed camera–LiDAR rotation and translation.",
+      "Validation projects new LiDAR measurements into new images."
+    ],
+    "take": "LiDAR does not automatically observe the printed corner grid.",
+    "media": [],
+    "notes": "A checkerboard enables camera pose recovery. Many LiDAR-camera workflows extract a rectangular board plane and boundaries from the point cloud; the exact target and estimator determine required geometry. A single plane with only normal and distance leaves in-plane translation and rotation ambiguity. Use multiple diverse poses and sufficient returns. Do not match an arbitrary LiDAR point to each printed corner. MathWorks documents a practical checkerboard-target workflow.",
+    "refs": [
+      "https://www.mathworks.com/help/lidar/ug/lidar-camera-calibration.html"
+    ],
+    "slide": 22
+  },
+  {
+    "title": "The LiDAR-to-image projection chain",
+    "layout": "equation",
+    "body": [
+      "Transform to the optical frame before dividing by depth.",
+      "Keep Z_C > 0 and image coordinates inside the image."
+    ],
+    "take": "Raw and rectified images require the matching projection model.",
+    "media": [],
+    "notes": "T_CL maps from LiDAR L into camera C. If a calibration file supplies T_LC, invert it: R_CL=R_LC transpose, t_CL=−R_LC transpose times t_LC. Reject invalid range values before projection. For rectified output, use its rectified model and appropriate transform. Image bounds alone do not establish visibility or correspondence.",
+    "refs": [
+      "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html",
+      "https://www.mathworks.com/help/lidar/ug/lidar-camera-calibration.html"
+    ],
+    "equations": [
+      "p_C = R_CL p_L + t_CL",
+      "x = X_C / Z_C     y = Y_C / Z_C",
+      "(x, y) → distortion model → (xᵈ, yᵈ)",
+      "u = fₓ xᵈ + cₓ     v = fᵧ yᵈ + cᵧ"
+    ],
+    "slide": 23
+  },
+  {
+    "title": "A worked LiDAR-to-pixel example",
+    "layout": "equation",
+    "body": [
+      "LiDAR: x forward, y left, z up at ground level.",
+      "Camera: 1.5 m above the LiDAR origin, with aligned forward axes."
+    ],
+    "take": "The 10 m forward distance becomes optical depth Z_C.",
+    "media": [],
+    "notes": "Teaching mounting geometry only. Camera optical axes are right, down, forward. R_CL rows are [0,-1,0], [0,0,-1], [1,0,0] and t_CL=[0,1.5,0]. This is a proper rotation with determinant +1. Assume zero distortion and K=[600,0,400;0,600,250;0,0,1]. The point lies inside an 800 by 500 image.",
+    "refs": [
+      "https://raw.githubusercontent.com/ros-infrastructure/rep/master/rep-0103.rst",
+      "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html"
+    ],
+    "equations": [
+      "p_L = (10, −1, 0.5) m",
+      "p_C = (−Y_L, 1.5 − Z_L, X_L) = (1, 1, 10) m",
+      "u = 600 × 1/10 + 400 = 460 px",
+      "v = 600 × 1/10 + 250 = 310 px"
+    ],
+    "slide": 24
+  },
+  {
+    "title": "Demo 5: diagnose alignment errors",
+    "layout": "demo",
+    "body": [
+      "Introduce a fault, then change one parameter at a time.",
+      "Compare yaw and translation across target depths.",
+      "Restore geometry before changing the time offset."
+    ],
+    "take": "Open “5 · Fusion”. Orange is the reference, blue is your projection.",
+    "media": [
+      "fusion-fault.png"
+    ],
+    "notes": "Allow 5–6 minutes. The demo draws synthetic point planes at 10,20,35 m, independent of background objects, to isolate geometric effects. Angular error gives roughly depth-independent pixel shift near the optical axis. Translation gives a stronger shift for nearby points. Reset gives exact reference agreement. This demonstration does not perform detection, data association, or real calibration.",
+    "refs": [
+      "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html"
+    ],
+    "demo": "fusion",
+    "slide": 25
+  },
+  {
+    "title": "Time misalignment looks like geometry error",
+    "layout": "visual",
+    "body": [
+      "Object speed: 10 m/s",
+      "Time offset: 100 ms",
+      "Position mismatch: 1 m",
+      "At 10 m and fₓ = 600 px: about 60 px lateral error"
+    ],
+    "take": "Extrinsic calibration cannot fix a measurement taken at the wrong time.",
+    "media": [
+      "fusion-time.png"
+    ],
+    "notes": "Use delta position = speed times delta time. For pure lateral motion and fixed depth, pixel displacement = fx times lateral displacement divided by depth. The demo treats target motion as constant, with exact timestamps and no ego-motion. Real systems need clock alignment, timestamp-aware matching, and motion compensation. A rotating LiDAR sweep contains measurements from different instants, so matching a single frame stamp alone does not deskew the sweep.",
+    "refs": [],
+    "slide": 26
+  },
+  {
+    "title": "Visibility and data association",
+    "layout": "text",
+    "body": [
+      "A point inside an image may lie behind another surface.",
+      "Different sensor positions create different occlusion boundaries.",
+      "A detection box can contain returns from the road and background.",
+      "Association must consider depth, visibility, and object geometry."
+    ],
+    "take": "A projected point inside a box is only a candidate match.",
+    "media": [],
+    "notes": "Thought experiment: a pedestrian stands in front of a wall. Both can project into the person’s 2D bounding box. A median over every enclosed range can select the background if it dominates. Separate clusters and check plausible foreground geometry. A z-buffer can help with depth ordering when enough geometry exists, but sparse LiDAR does not provide complete camera visibility. This is the transition from coordinate alignment to a meaningful fusion algorithm.",
+    "refs": [],
+    "slide": 27
+  },
+  {
+    "title": "Fusion needs an uncertainty model",
+    "layout": "equation",
+    "body": [
+      "Toy example: two unbiased, independent estimates of the same scalar.",
+      "Correlated errors and wrong associations violate these assumptions."
+    ],
+    "take": "More measurements help only when their meaning and reliability are sound.",
+    "media": [],
+    "notes": "Derive inverse-variance weighting by minimizing (x−x1)^2/sigma1^2+(x−x2)^2/sigma2^2. Weights are 25 and 1. Fused variance is 1/26. These are invented teaching values, not measured sensor accuracy. A monocular detector box is not directly a second metric range measurement. Shared calibration errors can correlate estimates and make naive uncertainty reduction overconfident. This introduces filtering without attempting a full Kalman filter lesson.",
+    "refs": [],
+    "equations": [
+      "x̂ = (x₁/σ₁² + x₂/σ₂²) / (1/σ₁² + 1/σ₂²)",
+      "x₁ = 10.0 m, σ₁ = 0.2 m",
+      "x₂ = 11.0 m, σ₂ = 1.0 m",
+      "x̂ ≈ 10.04 m     σ ≈ 0.196 m"
+    ],
+    "slide": 28
+  },
+  {
+    "title": "Where fusion can happen",
+    "layout": "table",
+    "body": [],
+    "take": "Every level still needs geometry, timing, and a defensible association.",
+    "media": [],
+    "notes": "These categories vary across literature, so present them as a useful organizing scheme. Point colourization is a simple geometrically aligned measurement example, not full object detection. Feature fusion connects to Lecture 3 neural representations. Track fusion may handle asynchronous observations with a motion model. Do not imply a particular fusion architecture always wins.",
+    "refs": [],
+    "table": [
+      [
+        "Level",
+        "What combines",
+        "Example"
+      ],
+      [
+        "Measurements",
+        "Projected or aligned samples",
+        "Attach image colour to 3D points"
+      ],
+      [
+        "Features",
+        "Learned representations",
+        "Combine image and point-cloud features"
+      ],
+      [
+        "Objects / tracks",
+        "Detections or state estimates",
+        "Associate and update an object track"
+      ]
+    ],
+    "slide": 29
+  },
+  {
+    "title": "Exit ticket and further reading",
+    "layout": "resources",
+    "body": [
+      "Compose two link transforms and state the hand frame.",
+      "Explain how fₓ changes FOV at fixed image width.",
+      "Explain why a LiDAR point can miss its matching image object."
+    ],
+    "take": "Five local demos: SensorFusion/index.html",
+    "media": [],
+    "notes": "Ask students for one geometry error and one timing or visibility error. Expected answers: compose in the correct order and state frame/units; increasing fx narrows ideal FOV; calibration, timestamps, occlusion, sampling, and association can each matter. Revisit the lowest-beam ground-distance prediction if time permits. Further reading links are clickable in the slide.",
+    "refs": [
+      "https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-3-1-homogeneous-transformation-matrices/",
+      "https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html",
+      "https://docs.opencv.org/4.10.0/dc/dbb/tutorial_py_calibration.html",
+      "https://docs.ouster.com/sensor-docs/coordinate-system",
+      "https://www.mathworks.com/help/lidar/ug/lidar-camera-calibration.html"
+    ],
+    "links": [
+      [
+        "Modern Robotics: transforms",
+        "https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-3-1-homogeneous-transformation-matrices/"
+      ],
+      [
+        "OpenCV: camera calibration",
+        "https://docs.opencv.org/4.10.0/dc/dbb/tutorial_py_calibration.html"
+      ],
+      [
+        "Ouster: beam coordinates",
+        "https://docs.ouster.com/sensor-docs/coordinate-system"
+      ],
+      [
+        "LiDAR–camera calibration",
+        "https://www.mathworks.com/help/lidar/ug/lidar-camera-calibration.html"
+      ]
+    ],
+    "slide": 30
+  }
+]
