@@ -15,3 +15,15 @@ Small PDF references and the small `Lecture 8.pptx` reference deck remain in
 Git. When updating a published deck, replace the existing Drive file rather
 than uploading a second copy; this preserves the link used here and in the
 lecture material.
+
+## Lecture 5: Localization
+
+The Lecture 5 deck and offline package are also published through GitHub Pages:
+
+- [PowerPoint: Localization for Autonomous Driving](https://croquembouche.github.io/Intro2AV-CourseContent/downloads/Lecture%205%20Localization%20for%20Autonomous%20Driving.pptx)
+- [Interactive demos: ICP → AMCL → NDT](https://croquembouche.github.io/Intro2AV-CourseContent/localization/)
+- [Animated GIFs](https://croquembouche.github.io/Intro2AV-CourseContent/localization/gifs/)
+- [Offline lecture package](https://croquembouche.github.io/Intro2AV-CourseContent/downloads/Lecture5_Localization.zip)
+- [Teaching guide](Lecture%205%20-%20Teaching%20Guide.md)
+
+The initial version contains 32 slides for approximately 75 minutes, with editable text, equations, a comparison table, and seven embedded GIFs. Authoring source: [`tools/slides/lecture5`](../../tools/slides/lecture5/). The deck and ZIP are tracked as Pages download inputs.

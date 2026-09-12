@@ -1,0 +1,707 @@
+[
+  {
+    "slide": 1,
+    "title": "Localization for autonomous driving",
+    "body": [
+      "Localization",
+      "ICP → AMCL → NDT",
+      "Introduction to Autonomous Driving · Fall 2026"
+    ],
+    "take": "",
+    "notes": "Plan for about 75 minutes including instructor-led demos. Connect Lecture 4 sensor-to-vehicle calibration to today’s unknown vehicle-to-map pose. The map is assumed available. These are three major methods selected for this lecture, not an exhaustive list of localization methods.",
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html",
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/",
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html"
+    ]
+  },
+  {
+    "slide": 2,
+    "title": "Localization in the autonomy stack",
+    "body": [
+      "Perception: what is around the vehicle?",
+      "Calibration: where is the sensor on the vehicle?",
+      "Localization: where is the vehicle in the map?"
+    ],
+    "take": "A calibrated sensor can still belong to a poorly localized vehicle.",
+    "notes": "Opening, 3 minutes. A LiDAR point can be correctly expressed in base_link while the vehicle is one lane away from its estimated map position. Calibration is a fixed relationship; localization changes as the vehicle moves.",
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html",
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/",
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html"
+    ]
+  },
+  {
+    "slide": 3,
+    "title": "The pose we want to estimate",
+    "body": [
+      "A 2D pose contains x, y, and heading θ.",
+      "The map is fixed; the current scan is measured in the sensor frame."
+    ],
+    "take": "The same scan appears in a different map location under each pose guess.",
+    "notes": "Use 2D for visibility, then note that 3D poses contain translation plus roll, pitch, and yaw. Define T_map,sensor explicitly as mapping sensor coordinates into the map. With known sensor extrinsics, recover vehicle pose as T_map,base = T_map,sensor × inverse(T_base,sensor).",
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "q_map = R(θ) p_sensor + t",
+      "t = [x, y]ᵀ",
+      "T_map,base = T_map,sensor (T_base,sensor)⁻¹"
+    ],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html",
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/",
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html"
+    ]
+  },
+  {
+    "slide": 4,
+    "title": "Tracking and global localization",
+    "body": [
+      "Tracking starts with a useful pose estimate.",
+      "Global localization starts with uncertainty across the map.",
+      "Relocalization is needed when the estimate becomes wrong."
+    ],
+    "take": "A local scan matcher usually needs help to find the correct region.",
+    "notes": "3 minutes. Examples of initial estimates include GNSS, wheel/IMU odometry, a previous localization result, or a user-provided pose. Explain kidnapped robot: the physical pose changes without a matching odometry update. Localization assumes an existing map; SLAM also estimates the map.",
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html",
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/",
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html"
+    ]
+  },
+  {
+    "slide": 5,
+    "title": "ICP: a scan and a point map",
+    "body": [
+      "Gray points belong to the map.",
+      "Orange points are the scan under the current pose guess.",
+      "We want one rigid transform that aligns them."
+    ],
+    "take": "Iterative Closest Point alternates association and pose estimation.",
+    "notes": "ICP block: about 20 minutes, slides 5–13. The scan is a sparse, partial observation of the map; point ordering does not tell us correspondences. Green is simulation truth and blue is the estimate. Truth is not given to ICP.",
+    "layout": "visual",
+    "media": [
+      "icp-start.png"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html"
+    ]
+  },
+  {
+    "slide": 6,
+    "title": "Nearest-point correspondences",
+    "body": [
+      "Transform the scan using the current pose.",
+      "For each scan point, find the closest map point.",
+      "Reject pairs that are too far apart."
+    ],
+    "take": "Nearest is a geometric guess; it does not establish physical identity.",
+    "notes": "Show the early correspondence lines. A wall point can be matched to another point along that wall. Correspondence rejection can suppress irrelevant pairs, but too small a gate can eliminate useful ones before alignment.",
+    "layout": "visual",
+    "media": [
+      "icp-pairs.png"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html"
+    ]
+  },
+  {
+    "slide": 7,
+    "title": "The rigid alignment objective",
+    "body": [
+      "Keep the current correspondences fixed during this solve.",
+      "Find the rotation and translation that minimize squared distances."
+    ],
+    "take": "One transform moves the whole scan; points cannot move independently.",
+    "notes": "Explain p_i is a scan point, q_c(i) its current matched map point, and R must be a valid rotation. In 2D the centered dot/cross sums give the optimal angle; 3D commonly uses an SVD with a determinant correction. The matching problem and rigid solve are different subproblems.",
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "c(i) = nearest map point to R pᵢ + t",
+      "E(R, t) = Σᵢ ‖R pᵢ + t − q_c(i)‖²",
+      "RᵀR = I,   det(R) = +1"
+    ],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html"
+    ]
+  },
+  {
+    "slide": 8,
+    "title": "One ICP iteration",
+    "body": [
+      "Associate points.",
+      "Solve the rigid update.",
+      "Apply the update, then associate again."
+    ],
+    "take": "Correspondences change because the estimated pose changes.",
+    "notes": "Play the animation, then pause after one iteration in the live demo. Each displayed update is calculated from real nearest-neighbor pairs and a least-squares rigid solve. A stationary update can be a correct solution or a local minimum.",
+    "layout": "visual",
+    "media": [
+      "icp-alignment.gif"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html"
+    ]
+  },
+  {
+    "slide": 9,
+    "title": "Convergence and pose accuracy",
+    "body": [
+      "The orange scan approaches the map.",
+      "The optimization stops when updates become small.",
+      "Small updates alone do not prove the pose is correct."
+    ],
+    "take": "A convergence flag is a stopping condition, not a localization guarantee.",
+    "notes": "Explain scan-to-map residual versus pose error. Real vehicles do not usually know their exact true pose online. Residual, overlap, temporal consistency, and independent sensors help judge reliability. The demo can show true error because its scene is synthetic.",
+    "layout": "visual",
+    "media": [
+      "icp-fit.png"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html"
+    ]
+  },
+  {
+    "slide": 10,
+    "title": "ICP with a poor initial guess",
+    "body": [
+      "Wrong neighbors can support a wrong alignment.",
+      "Repeated geometry makes the mismatch harder to detect.",
+      "More iterations can refine the wrong solution."
+    ],
+    "take": "Local optimization cannot reliably replace global initialization.",
+    "notes": "Run the poor-guess preset. Ask whether the algorithm can know which wall is intended using only its current nearest neighbors. Compare the residual and the green true pose. Do not imply every poor guess fails, or that every low residual proves failure.",
+    "layout": "visual",
+    "media": [
+      "icp-poor-guess.gif"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html"
+    ]
+  },
+  {
+    "slide": 11,
+    "title": "ICP variants and practical limits",
+    "body": [
+      "Point-to-point ICP minimizes Euclidean point distances.",
+      "Point-to-plane ICP minimizes displacement along surface normals.",
+      "Dynamic objects and weak overlap can corrupt either objective."
+    ],
+    "take": "A long flat wall constrains some directions more strongly than others.",
+    "notes": "Illustrate verbally: sliding along a perfect wall changes little, while moving through the wall increases error. Corners constrain more directions. Downsampling and outlier rejection trade retained geometry against cost. This demo implements point-to-point only.",
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html",
+      "https://pointclouds.org/documentation/classpcl_1_1_iterative_closest_point_with_normals.html"
+    ]
+  },
+  {
+    "slide": 12,
+    "title": "ICP interactive demo",
+    "body": [
+      "Watch the correspondence lines update.",
+      "Compare nearby and poor initial guesses.",
+      "Reduce the correspondence gate and inspect the match count."
+    ],
+    "take": "Predict the outcome before advancing an iteration.",
+    "notes": "Instructor-led demo, 4 minutes. Nearby: reset, play to alignment. Poor guess: reset and show wrong convergence. Set a tiny gate to explain insufficient support. Ask why reducing a threshold can prevent recovery.",
+    "layout": "demo",
+    "media": [
+      "icp-failure.png"
+    ],
+    "demo": "icp",
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html"
+    ]
+  },
+  {
+    "slide": 13,
+    "title": "Pose uncertainty beyond one guess",
+    "body": [
+      "A scan matcher follows one current pose guess.",
+      "The vehicle may plausibly be in several places.",
+      "A localization filter can preserve competing hypotheses."
+    ],
+    "take": "AMCL represents uncertainty with a population of poses.",
+    "notes": "Transition, 2 minutes. AMCL is a Bayesian filtering method, while ICP and NDT are registration methods used within localization systems. They are not interchangeable algorithms at the same level. Multiple hypotheses are helpful when the prior is broad; finite particle budgets still limit global coverage.",
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/"
+    ]
+  },
+  {
+    "slide": 14,
+    "title": "AMCL: a particle is a pose hypothesis",
+    "body": [
+      "Each arrow represents x, y, and heading.",
+      "Its weight describes compatibility with the evidence.",
+      "The population approximates a pose distribution."
+    ],
+    "take": "Particles are possible vehicle poses, not LiDAR points.",
+    "notes": "AMCL block: about 22 minutes, slides 14–23. Interpret spread in position and heading separately. If two clusters survive, the weighted mean can be physically implausible between them. Inspect clusters rather than treating the blue mean arrow as guaranteed truth.",
+    "layout": "visual",
+    "media": [
+      "amcl-prior.png"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/",
+      "https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html"
+    ]
+  },
+  {
+    "slide": 15,
+    "title": "Motion prediction",
+    "body": [
+      "Odometry predicts how each hypothesis moves.",
+      "Motion noise spreads the hypotheses.",
+      "Uncertainty grows before the next informative measurement."
+    ],
+    "take": "Prediction uses motion; it does not know the true map pose.",
+    "notes": "Explain the integral as all previous poses contributing to the new belief through a motion model. u_t is odometry, z_t is the scan, m is the map. Our demo uses noisy body-frame increments, not the full production Nav2 differential or omnidirectional model.",
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "bel̄(xₜ) = ∫ p(xₜ | uₜ, xₜ₋₁) bel(xₜ₋₁) dxₜ₋₁",
+      "Particle motion: xₜ⁽ⁱ⁾ ~ p(xₜ | uₜ, xₜ₋₁⁽ⁱ⁾)"
+    ],
+    "table": null,
+    "refs": [
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/"
+    ]
+  },
+  {
+    "slide": 16,
+    "title": "Measurement weighting",
+    "body": [
+      "Place the measured scan at each candidate pose.",
+      "Endpoints near occupied map geometry earn larger likelihoods.",
+      "Normalize the particle weights after the update."
+    ],
+    "take": "The observation tests every hypothesis against the known map.",
+    "notes": "In the likelihood-field model, use endpoint distance to the nearest occupied surface. It is not direct point-to-point scan registration. A random-measurement term prevents every imperfect scan from receiving zero likelihood. Beam skipping and dynamic-object handling matter in production.",
+    "layout": "visual",
+    "media": [
+      "amcl-weighted.png"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/"
+    ]
+  },
+  {
+    "slide": 17,
+    "title": "The Bayesian measurement update",
+    "body": [
+      "The prior carries history into the current update.",
+      "The likelihood scores the current observation."
+    ],
+    "take": "A plausible observation changes belief in proportion to its likelihood.",
+    "notes": "Explain proportionality and normalization. If we just resampled, weights begin uniform. Otherwise multiply existing weights, as the demo does. Use log likelihoods in code to avoid numerical underflow from multiplying many small numbers.",
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "bel(xₜ) ∝ p(zₜ | xₜ, m) bel̄(xₜ)",
+      "wₜ⁽ⁱ⁾ ∝ wₜ₋₁⁽ⁱ⁾ p(zₜ | xₜ⁽ⁱ⁾, m)",
+      "Σᵢ wₜ⁽ⁱ⁾ = 1"
+    ],
+    "table": null,
+    "refs": [
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/"
+    ]
+  },
+  {
+    "slide": 18,
+    "title": "Resampling concentrates hypotheses",
+    "body": [
+      "Draw new particles according to the normalized weights.",
+      "Strong hypotheses are likely to be copied.",
+      "After resampling, the new particles have equal weights."
+    ],
+    "take": "Resampling selects existing hypotheses; it does not create new evidence.",
+    "notes": "Show the cycle. Distinguish a copied particle from a better measured pose. Too few particles can eliminate a useful mode. Motion noise can spread the surviving particles at the next prediction. In our demo the last measurement ESS remains visible after resampling and is labeled that way.",
+    "layout": "visual",
+    "media": [
+      "amcl-cycle.gif"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/",
+      "https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html"
+    ]
+  },
+  {
+    "slide": 19,
+    "title": "The adaptive part of AMCL",
+    "body": [
+      "KLD sampling counts occupied bins in pose space.",
+      "More occupied bins generally require more samples.",
+      "The sample count stays inside configured limits."
+    ],
+    "take": "Adaptive sampling changes computation, not the sensor measurements.",
+    "notes": "KLD sampling bounds approximation error under its assumptions; it is not a correctness certificate for the true pose. Our demo samples until the occupied-bin formula is met, clamped to 150–800. For one occupied bin it retains the maximum, following a conservative special case. Tighten epsilon to request more samples. z=2.326 is the normal quantile used in this example.",
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "N ≈ (k − 1)/(2ε) ×",
+      "[1 − 2/(9(k − 1)) + z √(2/(9(k − 1)))]³",
+      "k: occupied pose bins; ε: approximation tolerance"
+    ],
+    "table": null,
+    "refs": [
+      "https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html",
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/"
+    ]
+  },
+  {
+    "slide": 20,
+    "title": "AMCL after several observations",
+    "body": [
+      "Prediction spreads the particles.",
+      "Measurements favor compatible poses.",
+      "Adaptive resampling changes the population size."
+    ],
+    "take": "Localization depends on informative geometry and retained hypotheses.",
+    "notes": "Compare the initial population to this later result. A concentrated cloud can still be wrong if the map is ambiguous or the right hypothesis was lost. The demo is deterministic for reproducibility; a different random seed can change global-localization outcomes.",
+    "layout": "visual",
+    "media": [
+      "amcl-localized.png"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/",
+      "https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html"
+    ]
+  },
+  {
+    "slide": 21,
+    "title": "The kidnapped vehicle problem",
+    "body": [
+      "The true pose changes without matching odometry.",
+      "The particle cloud remains around the old estimate.",
+      "The next scan is inconsistent with those hypotheses."
+    ],
+    "take": "A local particle cloud may have no particles near the new true pose.",
+    "notes": "Use the green ring to distinguish a physical pose change from a filter update. Automatic recovery mechanisms may inject random poses depending on configuration. Do not promise automatic recovery from ordinary resampling. Our demo deliberately requires explicit global reinitialization.",
+    "layout": "visual",
+    "media": [
+      "amcl-kidnapped.gif"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/"
+    ]
+  },
+  {
+    "slide": 22,
+    "title": "Global reinitialization",
+    "body": [
+      "Spread pose hypotheses over the map.",
+      "Use new measurements to favor compatible regions.",
+      "Several observations may be needed to resolve ambiguity."
+    ],
+    "take": "Global coverage has a computational cost and no finite-sample guarantee.",
+    "notes": "This animation uses 800 initial samples in the bounded room, including uniformly sampled heading. It is a small teaching example, not evidence of reliable recovery on a large road map. The scan and odometry are the only update inputs; the initialization does not center on truth.",
+    "layout": "visual",
+    "media": [
+      "amcl-global.gif"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/",
+      "https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html"
+    ]
+  },
+  {
+    "slide": 23,
+    "title": "AMCL interactive demo",
+    "body": [
+      "Step through motion, weighting, and resampling.",
+      "Compare tight and loose KLD error tolerances.",
+      "Kidnap the vehicle, then reinitialize globally."
+    ],
+    "take": "Watch both the pose distribution and its particle count.",
+    "notes": "Instructor-led demo, 4 minutes. Point out the stage title and last-measurement ESS. Large sigma makes the sensor less discriminating. Smaller epsilon typically demands more particles, subject to limits. Turn adaptation off to retain 800 samples.",
+    "layout": "demo",
+    "media": [
+      "amcl-kidnap.png"
+    ],
+    "demo": "amcl",
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/",
+      "https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html"
+    ]
+  },
+  {
+    "slide": 24,
+    "title": "NDT: a different representation of the map",
+    "body": [
+      "Return to matching a scan from one pose guess.",
+      "Partition the map points into spatial cells.",
+      "Represent each supported cell with a Gaussian distribution."
+    ],
+    "take": "NDT changes the registration objective; it does not replace pose filtering.",
+    "notes": "NDT block: about 18 minutes, slides 24–30. Normal means Gaussian distribution, not a surface normal. The 2D demo uses grid cells; 3D implementations use voxels. AMCL particle spread is uncertainty in pose, whereas NDT covariance describes local map-point geometry.",
+    "layout": "visual",
+    "media": [
+      "ndt-grid.png"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html"
+    ]
+  },
+  {
+    "slide": 25,
+    "title": "Cell mean and covariance",
+    "body": [
+      "The mean locates the local point cluster.",
+      "Covariance describes its spread and orientation.",
+      "Thin wall distributions need numerical regularization."
+    ],
+    "take": "NDT covariance describes map geometry, not confidence in the vehicle pose.",
+    "notes": "Explain an elongated ellipse: points spread along a wall but little across it. Sample covariance can be singular with too few or nearly collinear points. Our 2D demo requires five points per cell and adds 0.012 m² to covariance diagonal entries. These are teaching settings, not PCL defaults.",
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "μ = (1/n) Σⱼ qⱼ",
+      "Σ = (1/(n − 1)) Σⱼ (qⱼ − μ)(qⱼ − μ)ᵀ",
+      "Σ_regularized = Σ + λI"
+    ],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html"
+    ]
+  },
+  {
+    "slide": 26,
+    "title": "Scoring a transformed scan point",
+    "body": [
+      "Measure displacement from a cell mean.",
+      "Scale that displacement by the cell covariance.",
+      "High Gaussian scores indicate better geometric agreement."
+    ],
+    "take": "The same distance can receive a different score in different directions.",
+    "notes": "Mahalanobis distance penalizes displacement across a thin wall more than along it. Explain inverse covariance qualitatively before presenting the expression. Production variants differ in Gaussian normalization, outlier mixture, neighboring-cell support, and optimizer. The demo minimizes an average negative log score with an outlier floor.",
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "r = R p + t − μ",
+      "d² = rᵀ Σ⁻¹ r",
+      "Gaussian score ∝ exp(−d² / 2)"
+    ],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html"
+    ]
+  },
+  {
+    "slide": 27,
+    "title": "NDT pose optimization",
+    "body": [
+      "Transform the scan using the current pose.",
+      "Evaluate agreement with the map distributions.",
+      "Change pose to improve the aggregate score."
+    ],
+    "take": "The map distributions stay fixed while the scan pose changes.",
+    "notes": "Show the animation. The demo evaluates neighboring cells and uses coordinate search to make each optimization step inspectable. PCL uses a different optimizer; the teaching output is not a PCL benchmark. A stationary score can still correspond to a wrong local solution.",
+    "layout": "visual",
+    "media": [
+      "ndt-alignment.gif"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html"
+    ]
+  },
+  {
+    "slide": 28,
+    "title": "The effect of cell size",
+    "body": [
+      "Fine cells preserve local detail but may be undersupported.",
+      "Coarse cells combine more geometry into each Gaussian.",
+      "Initialization and scene structure still affect convergence."
+    ],
+    "take": "Cell size is a spatial modeling choice, not simply a speed setting.",
+    "notes": "Compare 0.5 m and 2 m. A cell containing a corner mixes two surface directions into one covariance. Too small a cell may lack enough points. Coarse-to-fine registration is a useful strategy in some systems, but this demo runs one selected resolution at a time.",
+    "layout": "visual",
+    "media": [
+      "ndt-coarse.gif"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html"
+    ]
+  },
+  {
+    "slide": 29,
+    "title": "NDT interactive demo",
+    "body": [
+      "Compare the map ellipses at different resolutions.",
+      "Watch the Gaussian cost and true pose error.",
+      "Repeat with a poor initial guess."
+    ],
+    "take": "Lower optimization cost and correct localization are different checks.",
+    "notes": "Instructor-led demo, 3 minutes. Reset for each resolution so the initial pose is identical. Explain that NDT cost is not in meters, while ICP RMSE is. Do not directly rank the algorithms using incomparable scores or this tiny synthetic scene.",
+    "layout": "demo",
+    "media": [
+      "ndt-fit.png"
+    ],
+    "demo": "ndt",
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html"
+    ]
+  },
+  {
+    "slide": 30,
+    "title": "ICP, AMCL, and NDT in one system",
+    "body": [],
+    "take": "Registration and filtering can be combined in a localization pipeline.",
+    "notes": "Comparison, 3 minutes. All three assume a map in this lecture. ICP and NDT are local registration methods here. AMCL maintains a temporal belief and can start globally if sufficiently covered. Systems may use registration measurements inside a filter. Avoid the claim that NDT is always superior to ICP or AMCL.",
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Method",
+        "Representation",
+        "Update / key limitation"
+      ],
+      [
+        "ICP",
+        "Point map + one pose",
+        "Match points; local minima"
+      ],
+      [
+        "AMCL",
+        "Map + weighted poses",
+        "Bayesian filter; coverage"
+      ],
+      [
+        "NDT",
+        "Gaussian map + one pose",
+        "Optimize score; scale / prior"
+      ]
+    ],
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html",
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/",
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html"
+    ]
+  },
+  {
+    "slide": 31,
+    "title": "Localization reliability",
+    "body": [
+      "Check geometry support and temporal consistency.",
+      "Treat dynamic objects and map changes as possible mismatches.",
+      "Use independent information when available."
+    ],
+    "take": "A plausible pose needs supporting evidence across time and sensors.",
+    "notes": "Closing, 3 minutes. Ask: a long corridor produces a low residual but position jumps along the corridor; what is missing? Answer: observability along the repeated direction and independent constraints. Ask: would simply increasing iterations resolve a wrong correspondence basin? Usually no. Mention GNSS/IMU/wheel odometry as sources of prior or consistency evidence, without presenting this lecture as a complete fusion design.",
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html",
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/",
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html"
+    ]
+  },
+  {
+    "slide": 32,
+    "title": "Lecture resources and discussion",
+    "body": [
+      "Why can ICP converge to the wrong pose?",
+      "What does resampling do to particle weights?",
+      "Why is NDT covariance different from pose covariance?"
+    ],
+    "take": "Online demos and GIFs are available on the course portal.",
+    "notes": "Expected answers: locally consistent wrong correspondences; selection proportional to weights followed by equal output weights; covariance of map points versus uncertainty over the vehicle state. Suggested pacing: introduction 8, ICP 20, AMCL 22, NDT 18, comparison and discussion 7 minutes. No student installation is required.",
+    "layout": "resources",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "refs": [
+      "https://pointclouds.org/documentation/tutorials/iterative_closest_point.html",
+      "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/",
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html",
+      "https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html"
+    ]
+  }
+]
