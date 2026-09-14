@@ -26,4 +26,4 @@ The Lecture 5 deck and offline package are also published through GitHub Pages:
 - [Offline lecture package](https://croquembouche.github.io/Intro2AV-CourseContent/downloads/Lecture5_Localization.zip)
 - [Teaching guide](Lecture%205%20-%20Teaching%20Guide.md)
 
-The initial version contains 32 slides for approximately 75 minutes, with editable text, equations, a comparison table, and seven embedded GIFs. Authoring source: [`tools/slides/lecture5`](../../tools/slides/lecture5/). The deck and ZIP are tracked as Pages download inputs.
+The revised version contains 36 slides for approximately 75–85 minutes, with editable text, equations, four comparison tables, and seven embedded GIFs. Authoring source: [`tools/slides/lecture5`](../../tools/slides/lecture5/). The deck and ZIP are tracked as Pages download inputs.

@@ -11,13 +11,13 @@ target=root/'2026/Presentations/Lecture 5 Localization for Autonomous Driving.pp
 with ZipFile(source) as z:
  slides=[n for n in z.namelist() if __import__('re').fullmatch(r'ppt/slides/slide\d+.xml',n)]
  notes=[n for n in z.namelist() if __import__('re').fullmatch(r'ppt/notesSlides/notesSlide\d+.xml',n)]
- assert len(slides)==len(notes)==32
+ assert len(slides)==len(notes)==36
  gifs=[n for n in z.namelist() if n.startswith('ppt/media/') and n.endswith('.gif')]
  animated=[n for n in gifs if Image.open(io.BytesIO(z.read(n))).n_frames>1]
  assert len(animated)==7,(len(gifs),len(animated))
  for name in notes:assert b'[Sources]' in z.read(name)
  tables=sum(z.read(n).count(b'<a:tbl>') for n in slides)
- assert tables==1
+ assert tables==4
  links=[]
  for name in z.namelist():
   if name.endswith('.rels'):
@@ -33,6 +33,6 @@ with ZipFile(zip_path,'w',ZIP_DEFLATED) as z:
  for p in sorted(lab.rglob('*')):
   if p.is_file():z.write(p,'Lecture5/Labs/Localization/'+str(p.relative_to(lab)))
  z.writestr('Lecture5/README.txt','Lecture 5: Localization\n\nOpen Labs/Localization/index.html to use the demos offline.\nOpen Presentations/Lecture 5 Localization for Autonomous Driving.pptx for the slides.\nThe teaching guide contains pacing, discussion prompts, and explanations.\nGIF animations are embedded in the PPTX and available in Labs/Localization/gifs/.\nSlides link to the online demos; use the local index.html when offline.\n')
-report=dict(slides=32,notes=32,animated_gifs=len(animated),editable_tables=tables,pptx_sha256=hashlib.sha256(target.read_bytes()).hexdigest(),zip_sha256=hashlib.sha256(zip_path.read_bytes()).hexdigest())
+report=dict(slides=36,notes=36,animated_gifs=len(animated),editable_tables=tables,pptx_sha256=hashlib.sha256(target.read_bytes()).hexdigest(),zip_sha256=hashlib.sha256(zip_path.read_bytes()).hexdigest())
 (work/'package-check.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2))

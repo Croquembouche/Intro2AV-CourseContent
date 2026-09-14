@@ -31,8 +31,8 @@ for(let i=0;i<C.length;i++){
  text(s,c.title,52,66,850,74,c.title.length>49?30:34,CYAN);
  text(s,String(i+1),885,508,30,24,16,BLUE);
  if(c.layout==='table'){
- const tb=s.tables.add({rows:c.table.length,columns:3,left:55,top:151,width:850,height:c.table.length===5?288:268,columnWidths:[190,330,330],values:c.table});tb.borders.assign({style:'solid',fill:'#D8E4ED',width:.6});
- for(let r=0;r<c.table.length;r++)for(let j=0;j<3;j++){let cell=tb.getCell(r,j);cell.fill=r===0?BLUE:(r%2?'#FFFFFF':'#F1F6FA');cell.text.style={typeface:'Arial',fontSize:21,color:r===0?'#FFFFFF':INK,bold:r===0,autoFit:'none',verticalAlignment:'middle',insets:{top:9,bottom:9,left:12,right:12}}}
+ const tb=s.tables.add({rows:c.table.length,columns:3,left:55,top:151,width:850,height:300,columnWidths:[200,290,360],values:c.table});tb.borders.assign({style:'solid',fill:'#D8E4ED',width:.6});
+ for(let r=0;r<c.table.length;r++)for(let j=0;j<3;j++){let cell=tb.getCell(r,j);cell.fill=r===0?BLUE:(r%2?'#FFFFFF':'#F1F6FA');cell.text.style={typeface:'Arial',fontSize:20,color:r===0?'#FFFFFF':INK,bold:r===0,autoFit:'none',verticalAlignment:'middle',insets:{top:9,bottom:9,left:12,right:12}}}
  }else if(c.layout==='visual'||c.layout==='demo'){
  await media(s,c.media[0],52,147,555,c.demo?280:307);
  const size=23;
@@ -54,7 +54,7 @@ for(let i=0;i<C.length;i++){
  const h=c.body.length===4?70:85;
  c.body.forEach((t,j)=>{if(c.layout==='steps'){text(s,String(j+1),55,152+j*h,35,h-6,29,BLUE,true);text(s,t,105,152+j*h,800,h-6,25)}else text(s,t,65,152+j*h,830,h-6,26)});
  }
- const takeShape=text(s,c.take,55,476,850,33,c.take.length>88?19:21,BLUE,true); if(c.demo)takeShape.text.set([[{run:c.take,link:{uri:`https://croquembouche.github.io/Intro2AV-CourseContent/localization/#${c.demo}`,isExternal:true}}]]);
+ if(c.take){const takeShape=text(s,c.take,55,476,850,33,c.take.length>88?19:21,BLUE,true); if(c.demo)takeShape.text.set([[{run:c.take,link:{uri:`https://croquembouche.github.io/Intro2AV-CourseContent/localization/#${c.demo}`,isExternal:true}}]]);}
  }
  s.speakerNotes.textFrame.setText(`${c.notes}\n\n[Sources]\n${c.refs.join('\n')}\n\n[Visuals]\n${c.media.length?'Original deterministic outputs captured from the accompanying Localization teaching simulator. These are synthetic teaching scenes, not real sensor recordings.':'Editable instructional text, equations, or table.'}\n\n${c.demo?'Local demo: https://croquembouche.github.io/Intro2AV-CourseContent/localization/#'+c.demo:''}`);
 }
@@ -62,4 +62,4 @@ const candidate=path.join(BUILD,'candidate.pptx');await(await PresentationFile.e
 for(let i=0;i<C.length;i++){let b=await p.export({slide:p.slides.items[i],format:'png',scale:1.5});await fs.writeFile(path.join(BUILD,'render',`slide-${String(i+1).padStart(2,'0')}.png`),new Uint8Array(await b.arrayBuffer()));console.log('RENDERED',i+1)}
 const {finalizePresentation}=await import(pathToFileURL(path.join(SKILL,'container_tools/artifact_tool_utils.mjs')).href);
 let stamp=Date.now(),out=path.join(BUILD,'finalized',`lecture5-${stamp}.pptx`);await fs.mkdir(path.dirname(out),{recursive:true});
-let result=await finalizePresentation({workspaceDir:ROOT,candidatePath:candidate,finalPath:out,explicitTotalSlideCount:32,pythonExecutable:path.join(RUNTIME,'python/bin/python3'),integrityValidatorPath:path.join(SKILL,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(SKILL,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','9144000,5143500','--validate-heading-fit',...[30].flatMap(n=>['--require-native-table-slide',String(n)])],requiredNativeTableOwnerSlides:[30],fontPolicy:{basis:'reference',families:['Arial'],referencePath:FONTREF,referenceSha256:crypto.createHash('sha256').update(await fs.readFile(FONTREF)).digest('hex')},verifyArtifactToolImport:true,receiptPath:path.join(BUILD,`validation-${stamp}.json`)});await fs.writeFile(path.join(BUILD,'final-path.txt'),out);console.log(JSON.stringify(result));
+let result=await finalizePresentation({workspaceDir:ROOT,candidatePath:candidate,finalPath:out,explicitTotalSlideCount:C.length,pythonExecutable:path.join(RUNTIME,'python/bin/python3'),integrityValidatorPath:path.join(SKILL,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(SKILL,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','9144000,5143500','--validate-heading-fit',...C.filter(c=>c.layout==='table').map(c=>c.slide).flatMap(n=>['--require-native-table-slide',String(n)])],requiredNativeTableOwnerSlides:C.filter(c=>c.layout==='table').map(c=>c.slide),fontPolicy:{basis:'reference',families:['Arial'],referencePath:FONTREF,referenceSha256:crypto.createHash('sha256').update(await fs.readFile(FONTREF)).digest('hex')},verifyArtifactToolImport:true,receiptPath:path.join(BUILD,`validation-${stamp}.json`)});await fs.writeFile(path.join(BUILD,'final-path.txt'),out);console.log(JSON.stringify(result));

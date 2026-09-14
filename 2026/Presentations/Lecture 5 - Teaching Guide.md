@@ -1,48 +1,50 @@
 # Lecture 5 — Localization for Autonomous Driving
 
-First teaching version: approximately 75 minutes. Order: **ICP → AMCL → NDT**. Assumes Lecture 4 frames, rigid transforms, and LiDAR geometry. All demonstrations are instructor-led and can also be explored independently.
+Approximately 75–85 minutes. ICP intuition and problems → AMCL benefits and problems → NDT benefits and problems → indoor/outdoor and static/dynamic operating conditions. The demonstrations remain instructor-led, with optional independent exploration.
 
-## Learning objectives
-
-- Explain scan-to-map alignment and why initialization matters.
-- Trace motion, measurement, resampling, and KLD adaptation in AMCL.
-- Interpret NDT map-cell means, covariance, and resolution.
-- Distinguish optimizer convergence, measurement fit, and actual pose accuracy.
-
-## Slide-by-slide teaching notes
-
-### 1. Localization for autonomous driving
+## 1. Localization for autonomous driving
 
 - Localization
 - ICP → AMCL → NDT
 - Introduction to Autonomous Driving · Fall 2026
 
-Plan for about 75 minutes including instructor-led demos. Connect Lecture 4 sensor-to-vehicle calibration to today’s unknown vehicle-to-map pose. The map is assumed available. These are three major methods selected for this lecture, not an exhaustive list of localization methods.
+Approximately 75–85 minutes with instructor-led demonstrations. Sequence: understand ICP, identify its limitations, introduce AMCL for pose uncertainty, then introduce NDT for distribution-based scan matching. End by selecting methods for actual operating conditions. A known map is assumed.
 
-### 2. Localization in the autonomy stack
+Sources:
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
 
-- Perception: what is around the vehicle?
-- Calibration: where is the sensor on the vehicle?
-- Localization: where is the vehicle in the map?
+## 2. Localization in the autonomy stack
 
-Opening, 3 minutes. A LiDAR point can be correctly expressed in base_link while the vehicle is one lane away from its estimated map position. Calibration is a fixed relationship; localization changes as the vehicle moves.
+- Localization estimates the vehicle’s position and heading in a map.
+- LiDAR measures nearby surfaces in the sensor frame.
+- The estimated pose places those measurements in the map.
 
-### 3. The pose we want to estimate
+Use a vehicle near a building corner as the opening example. The immediate task is to find the vehicle pose that makes its scan agree with the existing map. Keep the opening focused on localization rather than repeating perception or calibration definitions.
 
-- A 2D pose contains x, y, and heading θ.
-- The map is fixed; the current scan is measured in the sensor frame.
+Sources:
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
+
+## 3. The pose we want to estimate
+
+- In 2D, estimate x, y, and heading θ.
+- Calibration supplies the fixed sensor-to-vehicle transform.
+
+q_map = R(θ) p_sensor + t
+t = [x, y]ᵀ
+T_map,base = T_map,sensor (T_base,sensor)⁻¹
 
 Use 2D for visibility, then note that 3D poses contain translation plus roll, pitch, and yaw. Define T_map,sensor explicitly as mapping sensor coordinates into the map. With known sensor extrinsics, recover vehicle pose as T_map,base = T_map,sensor × inverse(T_base,sensor).
 
-### 4. Tracking and global localization
+Sources:
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
 
-- Tracking starts with a useful pose estimate.
-- Global localization starts with uncertainty across the map.
-- Relocalization is needed when the estimate becomes wrong.
-
-3 minutes. Examples of initial estimates include GNSS, wheel/IMU odometry, a previous localization result, or a user-provided pose. Explain kidnapped robot: the physical pose changes without a matching odometry update. Localization assumes an existing map; SLAM also estimates the map.
-
-### 5. ICP: a scan and a point map
+## 4. ICP: align the scan with the map
 
 - Gray points belong to the map.
 - Orange points are the scan under the current pose guess.
@@ -52,24 +54,37 @@ ICP block: about 20 minutes, slides 5–13. The scan is a sparse, partial observ
 
 Visual: `icp-start.png`
 
-### 6. Nearest-point correspondences
+Sources:
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
 
-- Transform the scan using the current pose.
-- For each scan point, find the closest map point.
-- Reject pairs that are too far apart.
+## 5. Nearest-point correspondences
 
-Show the early correspondence lines. A wall point can be matched to another point along that wall. Correspondence rejection can suppress irrelevant pairs, but too small a gate can eliminate useful ones before alignment.
+- Place the scan using the current pose guess.
+- Match each scan point to its nearest map point.
+- Reject pairs farther apart than the distance gate.
+
+A nearest neighbor is a candidate match. With a bad pose guess, a scan point from one wall may be paired with another wall. The gate rejects distant pairs, but an overly small gate can also remove useful matches before alignment.
 
 Visual: `icp-pairs.png`
 
-### 7. The rigid alignment objective
+Sources:
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
+
+## 6. The rigid alignment objective
 
 - Keep the current correspondences fixed during this solve.
 - Find the rotation and translation that minimize squared distances.
 
+c(i) = nearest map point to R pᵢ + t
+E(R, t) = Σᵢ ‖R pᵢ + t − q_c(i)‖²
+RᵀR = I,   det(R) = +1
+
 Explain p_i is a scan point, q_c(i) its current matched map point, and R must be a valid rotation. In 2D the centered dot/cross sums give the optimal angle; 3D commonly uses an SVD with a determinant correction. The matching problem and rigid solve are different subproblems.
 
-### 8. One ICP iteration
+Sources:
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
+
+## 7. ICP: repeat matching and alignment
 
 - Associate points.
 - Solve the rigid update.
@@ -79,55 +94,75 @@ Play the animation, then pause after one iteration in the live demo. Each displa
 
 Visual: `icp-alignment.gif`
 
-### 9. Convergence and pose accuracy
+Sources:
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
 
-- The orange scan approaches the map.
-- The optimization stops when updates become small.
-- Small updates alone do not prove the pose is correct.
+## 8. ICP benefits
 
-Explain scan-to-map residual versus pose error. Real vehicles do not usually know their exact true pose online. Residual, overlap, temporal consistency, and independent sensors help judge reliability. The demo can show true error because its scene is synthetic.
+- The objective is easy to visualize and inspect.
+- A good initial guess can give an accurate local alignment.
+- Point-to-point and point-to-plane variants support 2D or 3D registration.
+
+ICP provides a direct geometric measurement of alignment. It is useful for local tracking and registration when overlap and initialization are good. Point-to-plane methods need normals. Accuracy, speed, and convergence depend on the variant, data, and implementation; do not claim one universal ranking.
 
 Visual: `icp-fit.png`
 
-### 10. ICP with a poor initial guess
+Sources:
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
 
-- Wrong neighbors can support a wrong alignment.
-- Repeated geometry makes the mismatch harder to detect.
-- More iterations can refine the wrong solution.
+## 9. ICP problem: a wrong initial guess
+
+- A bad pose guess produces wrong point matches.
+- The optimizer can settle at the wrong alignment.
+- Small updates or a low residual do not prove the pose is correct.
 
 Run the poor-guess preset. Ask whether the algorithm can know which wall is intended using only its current nearest neighbors. Compare the residual and the green true pose. Do not imply every poor guess fails, or that every low residual proves failure.
 
 Visual: `icp-poor-guess.gif`
 
-### 11. ICP variants and practical limits
+Sources:
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
 
-- Point-to-point ICP minimizes Euclidean point distances.
-- Point-to-plane ICP minimizes displacement along surface normals.
-- Dynamic objects and weak overlap can corrupt either objective.
+## 10. ICP problems: geometry and moving objects
 
-Illustrate verbally: sliding along a perfect wall changes little, while moving through the wall increases error. Corners constrain more directions. Downsampling and outlier rejection trade retained geometry against cost. This demo implements point-to-point only.
+- A long wall or repeated corridor leaves some motion hard to observe.
+- Low overlap and moving objects create misleading matches.
+- Large point clouds increase correspondence-search work.
 
-### 12. ICP interactive demo
+Along an ideal straight wall, motion parallel to the wall is weakly constrained. Repeated rooms or poles can produce several plausible alignments. Moving cars and people may not belong to the static map. Filtering, robust rejection, good priors, and informative stable geometry matter. ICP can still be useful in dynamic scenes if enough static structure remains.
 
-- Watch the correspondence lines update.
-- Compare nearby and poor initial guesses.
-- Reduce the correspondence gate and inspect the match count.
+Sources:
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
+- https://pointclouds.org/documentation/classpcl_1_1_iterative_closest_point_with_normals.html
+- https://arxiv.org/abs/2104.03657
 
-Instructor-led demo, 4 minutes. Nearby: reset, play to alignment. Poor guess: reset and show wrong convergence. Set a tiny gate to explain insufficient support. Ask why reducing a threshold can prevent recovery.
+## 11. ICP interactive demo
+
+- Drag the pose guess to a different wall or heading.
+- Inspect a scan point and its nearest map match.
+- Compare nearby and poor guesses, then change the gate.
+
+Demonstration, 4 minutes. Choose Set scan pose guess and drag to set position and heading. Use Inspect to view the current nearest-neighbor distance. Compare a good initialization with a wrong basin. Ask why more iterations cannot necessarily repair a wrong correspondence pattern.
 
 Visual: `icp-failure.png`
 
-Online demo: https://croquembouche.github.io/Intro2AV-CourseContent/localization/#icp
+Demo: https://croquembouche.github.io/Intro2AV-CourseContent/localization/#icp
 
-### 13. Pose uncertainty beyond one guess
+Sources:
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
 
-- A scan matcher follows one current pose guess.
-- The vehicle may plausibly be in several places.
-- A localization filter can preserve competing hypotheses.
+## 12. ICP limitation: only one pose hypothesis
 
-Transition, 2 minutes. AMCL is a Bayesian filtering method, while ICP and NDT are registration methods used within localization systems. They are not interchangeable algorithms at the same level. Multiple hypotheses are helpful when the prior is broad; finite particle budgets still limit global coverage.
+- If the starting location is unknown, one pose guess may be insufficient.
+- Keep several possible positions and headings instead.
+- AMCL updates those hypotheses using motion and repeated scans.
 
-### 14. AMCL: a particle is a pose hypothesis
+This is the motivation for AMCL: representing pose uncertainty over time. A particle filter can retain several regions; a local scan matcher typically optimizes one initialization. AMCL is a Bayesian localization filter; ICP is a registration algorithm. AMCL does not solve every ICP failure, especially missing or ambiguous static geometry.
+
+Sources:
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+
+## 13. AMCL: a particle is a pose hypothesis
 
 - Each arrow represents x, y, and heading.
 - Its weight describes compatibility with the evidence.
@@ -137,15 +172,25 @@ AMCL block: about 22 minutes, slides 14–23. Interpret spread in position and h
 
 Visual: `amcl-prior.png`
 
-### 15. Motion prediction
+Sources:
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+- https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html
+
+## 14. Motion prediction
 
 - Odometry predicts how each hypothesis moves.
 - Motion noise spreads the hypotheses.
 - Uncertainty grows before the next informative measurement.
 
+bel̄(xₜ) = ∫ p(xₜ | uₜ, xₜ₋₁) bel(xₜ₋₁) dxₜ₋₁
+Particle motion: xₜ⁽ⁱ⁾ ~ p(xₜ | uₜ, xₜ₋₁⁽ⁱ⁾)
+
 Explain the integral as all previous poses contributing to the new belief through a motion model. u_t is odometry, z_t is the scan, m is the map. Our demo uses noisy body-frame increments, not the full production Nav2 differential or omnidirectional model.
 
-### 16. Measurement weighting
+Sources:
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+
+## 15. Measurement weighting
 
 - Place the measured scan at each candidate pose.
 - Endpoints near occupied map geometry earn larger likelihoods.
@@ -155,14 +200,24 @@ In the likelihood-field model, use endpoint distance to the nearest occupied sur
 
 Visual: `amcl-weighted.png`
 
-### 17. The Bayesian measurement update
+Sources:
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+
+## 16. The Bayesian measurement update
 
 - The prior carries history into the current update.
 - The likelihood scores the current observation.
 
+bel(xₜ) ∝ p(zₜ | xₜ, m) bel̄(xₜ)
+wₜ⁽ⁱ⁾ ∝ wₜ₋₁⁽ⁱ⁾ p(zₜ | xₜ⁽ⁱ⁾, m)
+Σᵢ wₜ⁽ⁱ⁾ = 1
+
 Explain proportionality and normalization. If we just resampled, weights begin uniform. Otherwise multiply existing weights, as the demo does. Use log likelihoods in code to avoid numerical underflow from multiplying many small numbers.
 
-### 18. Resampling concentrates hypotheses
+Sources:
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+
+## 17. Resampling concentrates hypotheses
 
 - Draw new particles according to the normalized weights.
 - Strong hypotheses are likely to be copied.
@@ -172,25 +227,41 @@ Show the cycle. Distinguish a copied particle from a better measured pose. Too f
 
 Visual: `amcl-cycle.gif`
 
-### 19. The adaptive part of AMCL
+Sources:
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+- https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html
+
+## 18. The adaptive part of AMCL
 
 - KLD sampling counts occupied bins in pose space.
 - More occupied bins generally require more samples.
 - The sample count stays inside configured limits.
 
+N ≈ (k − 1)/(2ε) ×
+[1 − 2/(9(k − 1)) + z √(2/(9(k − 1)))]³
+k: occupied pose bins; ε: approximation tolerance
+
 KLD sampling bounds approximation error under its assumptions; it is not a correctness certificate for the true pose. Our demo samples until the occupied-bin formula is met, clamped to 150–800. For one occupied bin it retains the maximum, following a conservative special case. Tighten epsilon to request more samples. z=2.326 is the normal quantile used in this example.
 
-### 20. AMCL after several observations
+Sources:
+- https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
 
-- Prediction spreads the particles.
-- Measurements favor compatible poses.
-- Adaptive resampling changes the population size.
+## 19. AMCL benefits
 
-Compare the initial population to this later result. A concentrated cloud can still be wrong if the map is ambiguous or the right hypothesis was lost. The demo is deterministic for reproducibility; a different random seed can change global-localization outcomes.
+- Particles can represent several possible locations.
+- Odometry and successive scans refine the pose over time.
+- Adaptive sampling adjusts the particle count to the belief.
+
+With enough samples covering the correct region, AMCL can perform global localization or track a known pose. Its multimodal belief is useful in ambiguous environments, unlike a single pose guess. KLD adaptation changes the computational budget within limits. Nav2 AMCL is designed around a 2D pose and a static occupancy map.
 
 Visual: `amcl-localized.png`
 
-### 21. The kidnapped vehicle problem
+Sources:
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+- https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html
+
+## 20. AMCL problem: losing the correct hypothesis
 
 - The true pose changes without matching odometry.
 - The particle cloud remains around the old estimate.
@@ -200,55 +271,96 @@ Use the green ring to distinguish a physical pose change from a filter update. A
 
 Visual: `amcl-kidnapped.gif`
 
-### 22. Global reinitialization
+Sources:
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
 
-- Spread pose hypotheses over the map.
-- Use new measurements to favor compatible regions.
-- Several observations may be needed to resolve ambiguity.
+## 21. AMCL recovery: global reinitialization
+
+- Sample positions and headings across the map.
+- New scans favor hypotheses that agree with the map.
+- Recovery depends on covering the right region and observing useful geometry.
 
 This animation uses 800 initial samples in the bounded room, including uniformly sampled heading. It is a small teaching example, not evidence of reliable recovery on a large road map. The scan and odometry are the only update inputs; the initialization does not center on truth.
 
 Visual: `amcl-global.gif`
 
-### 23. AMCL interactive demo
+Sources:
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+- https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html
 
-- Step through motion, weighting, and resampling.
-- Compare tight and loose KLD error tolerances.
-- Kidnap the vehicle, then reinitialize globally.
+## 22. AMCL problems: coverage, maps, and scale
 
-Instructor-led demo, 4 minutes. Point out the stage title and last-measurement ESS. Large sigma makes the sensor less discriminating. Smaller epsilon typically demands more particles, subject to limits. Turn adaptation off to retain 800 samples.
+- A large search area needs more particles to cover plausible poses.
+- Repeated layouts or changed obstacles can keep the belief wrong.
+- Standard 2D AMCL does not model a vehicle’s full 3D pose.
+
+Finite sampling may miss a narrow correct region or lose it during resampling. More particles can improve coverage but cost more computation. A stale occupancy map and blocked walls weaken measurement likelihoods. Beam skipping can help with some inconsistent observations, but does not reconstruct missing static evidence. Standard Nav2 AMCL is planar; a particle filter over six pose dimensions is possible but much harder to cover efficiently.
+
+Sources:
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+- https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html
+- https://arxiv.org/abs/2104.03657
+
+## 23. AMCL interactive demo
+
+- Place the vehicle and particle prior in different locations.
+- Drive through the map and inspect particle weights.
+- Compare a local prior with global reinitialization.
+
+Demonstration, 4 minutes. Map action Place / kidnap vehicle changes the physical pose only; Place AMCL prior changes the belief only. Inspect a particle to display its projected scan. Drive with the arrow buttons. Compare local coverage, a wrong prior, and global reinitialization. Neither recovery nor correct convergence is guaranteed.
 
 Visual: `amcl-kidnap.png`
 
-Online demo: https://croquembouche.github.io/Intro2AV-CourseContent/localization/#amcl
+Demo: https://croquembouche.github.io/Intro2AV-CourseContent/localization/#amcl
 
-### 24. NDT: a different representation of the map
+Sources:
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+- https://papers.nips.cc/paper_files/paper/2001/hash/c5b2cebf15b205503560c4e8e6d1ea78-Abstract.html
 
-- Return to matching a scan from one pose guess.
-- Partition the map points into spatial cells.
-- Represent each supported cell with a Gaussian distribution.
+## 24. NDT: match against local map distributions
 
-NDT block: about 18 minutes, slides 24–30. Normal means Gaussian distribution, not a surface normal. The 2D demo uses grid cells; 3D implementations use voxels. AMCL particle spread is uncertainty in pose, whereas NDT covariance describes local map-point geometry.
+- AMCL handles pose uncertainty; it is not the only way to match a scan.
+- For local alignment, summarize map regions with Gaussians.
+- NDT scores scan points against those distributions.
+
+Transition: NDT revisits the map representation used for scan matching. It addresses a different issue from AMCL: scoring a scan against local statistical geometry, rather than maintaining a pose distribution. It can be a local measurement source inside a broader localization system. NDT is not an automatic replacement for AMCL or a guaranteed solution to ICP initialization problems.
 
 Visual: `ndt-grid.png`
 
-### 25. Cell mean and covariance
+Sources:
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
+
+## 25. Cell mean and covariance
 
 - The mean locates the local point cluster.
 - Covariance describes its spread and orientation.
 - Thin wall distributions need numerical regularization.
 
+μ = (1/n) Σⱼ qⱼ
+Σ = (1/(n − 1)) Σⱼ (qⱼ − μ)(qⱼ − μ)ᵀ
+Σ_regularized = Σ + λI
+
 Explain an elongated ellipse: points spread along a wall but little across it. Sample covariance can be singular with too few or nearly collinear points. Our 2D demo requires five points per cell and adds 0.012 m² to covariance diagonal entries. These are teaching settings, not PCL defaults.
 
-### 26. Scoring a transformed scan point
+Sources:
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
+
+## 26. Scoring a transformed scan point
 
 - Measure displacement from a cell mean.
 - Scale that displacement by the cell covariance.
 - High Gaussian scores indicate better geometric agreement.
 
+r = R p + t − μ
+d² = rᵀ Σ⁻¹ r
+Gaussian score ∝ exp(−d² / 2)
+
 Mahalanobis distance penalizes displacement across a thin wall more than along it. Explain inverse covariance qualitatively before presenting the expression. Production variants differ in Gaussian normalization, outlier mixture, neighboring-cell support, and optimizer. The demo minimizes an average negative log score with an outlier floor.
 
-### 27. NDT pose optimization
+Sources:
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
+
+## 27. NDT pose optimization
 
 - Transform the scan using the current pose.
 - Evaluate agreement with the map distributions.
@@ -258,7 +370,22 @@ Show the animation. The demo evaluates neighboring cells and uses coordinate sea
 
 Visual: `ndt-alignment.gif`
 
-### 28. The effect of cell size
+Sources:
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
+
+## 28. NDT benefits
+
+- Each supported map cell summarizes many points with a mean and covariance.
+- The score reflects local surface orientation and spread.
+- A precomputed 3D map can support repeated LiDAR localization.
+
+The distribution representation avoids a direct nearest raw-point correspondence for every point in the same form as point-to-point ICP. Covariance gives directional information about local geometry. Precomputed cell statistics can be reused. Runtime and accuracy still depend on resolution, point count, optimizer, and implementation. Autoware provides a concrete 3D LiDAR scan-to-map NDT localizer; this is an application example, not evidence that NDT always outperforms ICP.
+
+Sources:
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
+- https://autowarefoundation.github.io/autoware_core/latest/localization/autoware_ndt_scan_matcher/
+
+## 29. NDT problem: choosing the cell size
 
 - Fine cells preserve local detail but may be undersupported.
 - Coarse cells combine more geometry into each Gaussian.
@@ -268,42 +395,111 @@ Compare 0.5 m and 2 m. A cell containing a corner mixes two surface directions i
 
 Visual: `ndt-coarse.gif`
 
-### 29. NDT interactive demo
+Sources:
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
 
-- Compare the map ellipses at different resolutions.
-- Watch the Gaussian cost and true pose error.
-- Repeat with a poor initial guess.
+## 30. NDT problems: initialization and map mismatch
 
-Instructor-led demo, 3 minutes. Reset for each resolution so the initial pose is identical. Explain that NDT cost is not in meters, while ICP RMSE is. Do not directly rank the algorithms using incomparable scores or this tiny synthetic scene.
+- A poor initial pose can still lead to the wrong solution.
+- Sparse or repetitive geometry can leave the alignment weak.
+- Moving objects and map changes can distort the scan score.
+
+NDT is generally used as a local registration method and benefits from an initial pose estimate. A Gaussian representation does not make dynamic returns static or resolve an unobservable direction. Sparse cells need adequate support and covariance regularization. Reject inconsistent returns, retain stable structures, and monitor the estimate against other sensors. Dynamic map loading in Autoware refers to loading map regions; it does not mean NDT inherently tracks moving objects.
+
+Sources:
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
+- https://autowarefoundation.github.io/autoware_core/latest/localization/autoware_ndt_scan_matcher/
+- https://arxiv.org/abs/2104.03657
+
+## 31. NDT interactive demo
+
+- Change cell size and inspect a cell’s statistics.
+- Move the vehicle, then align the new scan.
+- Try a poor pose guess and watch for a wrong solution.
+
+Demonstration, 3 minutes. Inspect shows cell point count, mean, and covariance. Compare 0.5 m, 1 m, and 2 m cells using the same initial pose. A lower cost is not a calibrated pose probability. The demo uses a simplified optimizer and is not a performance comparison with PCL or AMCL.
 
 Visual: `ndt-fit.png`
 
-Online demo: https://croquembouche.github.io/Intro2AV-CourseContent/localization/#ndt
+Demo: https://croquembouche.github.io/Intro2AV-CourseContent/localization/#ndt
 
-### 30. ICP, AMCL, and NDT in one system
+Sources:
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
+
+## 32. Indoor localization: useful starting points
 
 
 
-Comparison, 3 minutes. All three assume a map in this lecture. ICP and NDT are local registration methods here. AMCL maintains a temporal belief and can start globally if sufficiently covered. Systems may use registration measurements inside a filter. Avoid the claim that NDT is always superior to ICP or AMCL.
+Situation | Candidate | What it needs
+2D mobile robot | AMCL | Occupancy map; odometry
+Local scan alignment | ICP | Good guess; scan overlap
+3D mapped building | NDT | Dense map; useful geometry
 
-### 31. Localization reliability
+These are conditional engineering choices, not indoor-only restrictions. A mapped office or warehouse with planar motion and a 2D laser fits the assumptions of standard AMCL. ICP is useful for local scan registration with a reliable prior. NDT can also work indoors with a sufficiently detailed point-cloud map and supported cells. Repeated aisles can confuse all methods; distinct structure and independent constraints remain important.
 
-- Check geometry support and temporal consistency.
-- Treat dynamic objects and map changes as possible mismatches.
-- Use independent information when available.
+Sources:
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
 
-Closing, 3 minutes. Ask: a long corridor produces a low residual but position jumps along the corridor; what is missing? Answer: observability along the repeated direction and independent constraints. Ask: would simply increasing iterations resolve a wrong correspondence basin? Usually no. Mention GNSS/IMU/wheel odometry as sources of prior or consistency evidence, without presenting this lecture as a complete fusion design.
+## 33. Outdoor localization: map and sensor matter
 
-### 32. Lecture resources and discussion
 
-- Why can ICP converge to the wrong pose?
-- What does resampling do to particle weights?
-- Why is NDT covariance different from pose covariance?
 
-Expected answers: locally consistent wrong correspondences; selection proportional to weights followed by equal output weights; covariance of map points versus uncertainty over the vehicle state. Suggested pacing: introduction 8, ICP 20, AMCL 22, NDT 18, comparison and discussion 7 minutes. No student installation is required.
+Situation | Candidate | What it needs
+Mapped urban route | NDT or ICP | Stable 3D structure; prior
+Flat mapped campus | AMCL possible | Useful 2D map; odometry
+Open, sparse terrain | Additional sensors | GNSS/IMU; more constraints
 
-## Sources
+NDT is used in Autoware for 3D LiDAR localization against a point-cloud map. ICP can also register outdoor scans; outdoors is not a reason to rule it out. AMCL can work on a mostly planar outdoor site with a stable 2D map. An open field or feature-poor road can provide too little geometry for any LiDAR-map method; GNSS/IMU or other independent constraints may be needed. These comparisons are inferences from algorithm assumptions and documented system designs, not benchmark rankings.
 
+Sources:
+- https://autowarefoundation.github.io/autoware_core/latest/localization/autoware_ndt_scan_matcher/
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+
+## 34. Static and dynamic environments
+
+
+
+Scene | Effect | Practical response
+Mostly static | Map agreement is useful | Any method; match assumptions
+People / traffic | Occlusion and outliers | Use stable returns; reject outliers
+Changed layout | The map may be wrong | Update map; check localization
+
+Static means stable map geometry, not a stationary robot. All three methods can localize a moving robot. In dynamic scenes, people and vehicles may hide mapped surfaces or generate conflicting returns. ICP can reject bad pairs; AMCL can use robust measurement models or beam skipping; NDT needs robust scoring or preprocessing as well. None is inherently immune to moving objects. Long-term map changes may require map maintenance or relocalization; simply tuning an optimizer cannot restore absent geometry.
+
+Sources:
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
+- https://arxiv.org/abs/2104.03657
+
+## 35. Choosing a localization method
+
+
+
+Method | Best fit | Main limitation
+ICP | Local geometric alignment | Wrong matches / initial pose
+AMCL | 2D tracking or global belief | Particle coverage / map fit
+NDT | Local alignment to a 3D map | Cell scale / initial pose
+
+Start with the map and the state to estimate. Is there a 2D occupancy map or a 3D point-cloud map? Is a good pose prior available, or is the robot globally uncertain? Then consider stable geometry, dynamics, computation, and recovery. These methods can be combined; a registration result can feed a filter. Avoid universal rankings by indoor/outdoor alone.
+
+Sources:
+- https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
+- https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
+- https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
+
+## 36. Discussion and demo links
+
+- Why can both ICP and NDT converge to a wrong pose?
+- When does keeping several pose hypotheses help?
+- What changes when moving objects hide most of the map?
+
+Answers: both optimize locally and can be misled by initialization, ambiguity, or map mismatch. Multiple hypotheses help with uncertain or ambiguous location if particles cover the correct region. Heavy occlusion reduces stable evidence for every method; reject inconsistent returns and use other constraints rather than assuming a more complex method will fix it. Suggested pacing: setup 5, ICP 20, AMCL 23, NDT 20, comparisons and discussion 12 minutes.
+
+Sources:
 - https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
 - https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/
 - https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html
