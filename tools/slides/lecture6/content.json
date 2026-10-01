@@ -1,0 +1,893 @@
+[
+  {
+    "slide": 1,
+    "title": "Mapping for autonomous driving",
+    "body": [
+      "Mapping",
+      "Visual SLAM and LiDAR mapping",
+      "Introduction to Autonomous Driving \u00b7 Fall 2026"
+    ],
+    "notes": "Suggested pacing: 80\u201390 minutes, including 15 minutes of frame-by-frame exploration. Begin with the known-map localization problem from Lecture 5. Here the vehicle also has to build the map it uses.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 2,
+    "title": "Learning goals",
+    "body": [
+      "Explain how successive observations constrain motion and map structure.",
+      "Follow visual landmarks and LiDAR surface correspondences.",
+      "Compare map outputs, failure conditions, and sensor tradeoffs."
+    ],
+    "notes": "Students should explain each intermediate result, rather than only recognize algorithm names. Ask them to trace one accepted observation through detection, association, pose estimation, and map insertion.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 3,
+    "title": "Localization, mapping, and SLAM",
+    "body": [
+      "Localization estimates a pose in an existing map.",
+      "Mapping combines observations using their sensor poses.",
+      "SLAM estimates the trajectory and map together."
+    ],
+    "notes": "In Lecture 5, ICP and NDT matched observations to a known map. For SLAM the target map grows and may also need correction. A wrong pose places otherwise correct measurements in the wrong location.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 4,
+    "title": "Map representations",
+    "body": [],
+    "notes": "A visual feature map supports pose estimation but its sparse points do not imply that unobserved space is free. Point clouds record sampled surfaces. Occupancy maps explicitly distinguish free, occupied, and unknown areas. Semantic maps add meaning, while metric geometry still needs consistent poses.",
+    "refs": [
+      "https://arxiv.org/abs/1610.06475",
+      "https://octomap.github.io/"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Representation",
+        "Stored information",
+        "Typical use"
+      ],
+      [
+        "Sparse landmarks",
+        "3D points and observations",
+        "Visual localization"
+      ],
+      [
+        "Point cloud / surfels",
+        "Surface geometry",
+        "Registration and reconstruction"
+      ],
+      [
+        "Occupancy grid / voxels",
+        "Free, occupied, unknown",
+        "Planning and exploration"
+      ],
+      [
+        "Semantic map",
+        "Geometry with labels",
+        "Task and scene reasoning"
+      ]
+    ],
+    "take": ""
+  },
+  {
+    "slide": 5,
+    "title": "The pose places each observation",
+    "body": [
+      "T maps sensor coordinates into the chosen map frame.",
+      "A pose error shifts or rotates every point in the new frame."
+    ],
+    "notes": "Define p_s as a sensor-frame measurement and p_m as a map-frame point. Calibration connects camera, LiDAR, and vehicle frames. A SLAM map normally chooses its first pose as the local origin. It does not automatically supply global latitude and longitude.",
+    "refs": [
+      "https://www.roboticsproceedings.org/rss10/p07.html",
+      "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "p_map = R p_sensor + t",
+      "T = [ R  t ; 0  1 ]"
+    ],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 6,
+    "title": "The SLAM pipeline",
+    "body": [
+      "Associate the current observations with earlier observations or map elements.",
+      "Estimate pose, then add useful new map structure.",
+      "Refine local estimates and verify revisited places."
+    ],
+    "notes": "Separate the front end, which makes associations and estimates motion, from the back end, which revises poses and map structure using accumulated constraints. Sensor-specific residuals differ, but both approaches need reliable associations.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "steps",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 7,
+    "title": "The real driving sequence",
+    "body": [
+      "KITTI tracking sequence 0001.",
+      "80 camera and LiDAR frames at nominal 10 Hz.",
+      "Both maps use estimated poses."
+    ],
+    "notes": "Open the demo. It uses original frames 20 through 99, with time relative to the chosen excerpt. The visual map starts after a two-view initialization. The LiDAR map starts at the first scan. These are local mapping traces, not an ORB-SLAM3 or LOAM run.",
+    "refs": [
+      "https://www.cvlibs.net/datasets/kitti/"
+    ],
+    "layout": "visual",
+    "media": [
+      "sequence.png"
+    ],
+    "demo": "visual",
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 8,
+    "title": "Visual features",
+    "body": [
+      "Corners vary in more than one image direction.",
+      "A track links the same image detail across time.",
+      "Depth and geometry decide whether it becomes a landmark."
+    ],
+    "notes": "A uniform road patch gives little information about local translation. A long straight edge constrains displacement mainly across that edge. Corners provide stronger 2D localization. The demo uses Shi-Tomasi corners; ORB systems use their own detection and descriptor machinery.",
+    "refs": [
+      "https://docs.opencv.org/4.x/d4/d8c/tutorial_py_shi_tomasi.html"
+    ],
+    "layout": "visual",
+    "media": [
+      "features.png"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 9,
+    "title": "Tracking across video frames",
+    "body": [
+      "Green tracks contribute to pose estimation.",
+      "Orange tracks remain unused for the current pose.",
+      "Track identity connects an observation to a 3D landmark."
+    ],
+    "notes": "Play the real frames at quarter speed. The demo runs pyramidal Lucas-Kanade offline, then checks tracking forward and backward. Optical flow supplies candidate correspondences. It does not itself reconstruct the map or establish whether every feature belongs to a static object.",
+    "refs": [
+      "https://docs.opencv.org/4.x/dc/d6b/group__video__track.html",
+      "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
+    ],
+    "layout": "visual",
+    "media": [
+      "visual-tracking.gif"
+    ],
+    "demo": "visual",
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 10,
+    "title": "Robust correspondence checks",
+    "body": [
+      "Tracking consistency removes unreliable image matches.",
+      "RANSAC finds a pose supported by many mapped observations.",
+      "Reprojection error tests the agreement with that pose."
+    ],
+    "notes": "At original frame 50, many features are tracked, but only a subset has valid map depth and passes PnP RANSAC. Rejected observations may come from ambiguity, inaccurate depth, noise, or motion. Do not present the orange overlay as a semantic moving-object mask.",
+    "refs": [
+      "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html",
+      "https://docs.opencv.org/4.x/dc/d6b/group__video__track.html"
+    ],
+    "layout": "visual",
+    "media": [
+      "inliers.png"
+    ],
+    "demo": "visual",
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 11,
+    "title": "The camera projection model",
+    "body": [
+      "A 3D landmark predicts a pixel at a candidate camera pose.",
+      "Depth disappears in projection, so one pixel defines a viewing ray."
+    ],
+    "notes": "Use X_c = R_cw X_w + t_cw, where the transform maps world to camera. K contains calibrated focal length and principal point. A monocular observation alone does not reveal how far along the ray the landmark lies.",
+    "refs": [
+      "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "X_camera = R_camera,world X_world + t",
+      "u = f_x X / Z + c_x",
+      "v = f_y Y / Z + c_y"
+    ],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 12,
+    "title": "Parallax and triangulation",
+    "body": [
+      "Two views of a static point provide two viewing rays.",
+      "Camera translation creates parallax between the observations.",
+      "Small parallax makes depth sensitive to pixel error."
+    ],
+    "notes": "Explain triangulation as finding the 3D point consistent with observations from different camera centers. Pure rotation changes image coordinates but does not provide a translation baseline for new depth. Distant features can track well while giving weak depth constraints. The demo applies positive-depth, parallax, and reprojection tests.",
+    "refs": [
+      "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html",
+      "https://arxiv.org/abs/1610.06475"
+    ],
+    "layout": "visual",
+    "media": [
+      "triangulation.png"
+    ],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 13,
+    "title": "Monocular initialization",
+    "body": [
+      "Estimate relative rotation and translation direction from image matches.",
+      "Choose an initial baseline as one map unit.",
+      "Triangulate a first set of sparse landmarks."
+    ],
+    "notes": "The essential matrix constrains matching normalized image coordinates. Decomposing it yields relative R and the direction of t. The magnitude of t remains unknown in ordinary monocular geometry. The demo initializes using five frames of parallax, with no LiDAR or reference-pose input.",
+    "refs": [
+      "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "x\u2082\u1d40 E x\u2081 = 0",
+      "E = [t]\u00d7 R",
+      "Initial baseline length = 1 arbitrary unit"
+    ],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 14,
+    "title": "Pose estimation against a visual map",
+    "body": [
+      "Mapped 3D landmarks supply correspondences to current pixels.",
+      "PnP estimates the camera pose.",
+      "Only geometrically consistent inliers constrain the update."
+    ],
+    "notes": "PnP uses 3D-to-2D correspondences. In this demo solvePnPRansac estimates the pose, followed by nonlinear refinement on its inliers. Define the residual as observed pixel minus projected pixel. A small residual on accepted inliers does not guarantee a globally accurate map.",
+    "refs": [
+      "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "r_ij = u_ij \u2212 \u03c0(K, T_camera,world X_j)",
+      "Pose update minimizes \u03a3 \u03c1(\u2016r_ij\u2016\u00b2)"
+    ],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 15,
+    "title": "Keyframes and new map points",
+    "body": [
+      "Keyframes preserve useful views of the scene.",
+      "New observations need sufficient baseline before triangulation.",
+      "Repeated observations allow a landmark to support later poses."
+    ],
+    "notes": "A full system selects informative keyframes and removes weak or redundant points. The teaching mapper uses regular anchor frames to keep the mechanism inspectable. Click a green inlier in the demo to show the associated landmark and its line to the estimated camera position.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://arxiv.org/abs/1610.06475"
+    ],
+    "layout": "visual",
+    "media": [
+      "landmark.png"
+    ],
+    "demo": "visual",
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 16,
+    "title": "Bundle adjustment",
+    "body": [
+      "Optimize camera poses and landmark positions together.",
+      "Use repeated observations to reduce reprojection error.",
+      "Fix the coordinate gauge so the solution is well defined."
+    ],
+    "notes": "Contrast PnP, which solves a pose against currently fixed map points, with bundle adjustment, which also adjusts landmark coordinates and other poses. Robust losses reduce the effect of remaining bad associations. Monocular BA needs a fixed origin and scale convention. The short demo does not perform BA.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "min over {T_i, X_j}  \u03a3_(i,j) \u03c1(\u2016u_ij \u2212 \u03c0(K,T_i X_j)\u2016\u00b2)",
+      "Unknowns: camera poses and 3D landmarks"
+    ],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 17,
+    "title": "Drift and loop closure",
+    "body": [
+      "Small local estimation errors accumulate over a trajectory.",
+      "Place recognition proposes an earlier location.",
+      "Geometric verification supplies a loop constraint for correction."
+    ],
+    "notes": "A similar-looking building is only a candidate. Verify the relative geometry before adding the loop edge. Graph optimization or BA distributes correction across poses and map points. A short forward-driving clip without a revisit cannot demonstrate a genuine loop closure, so the demo contains no fabricated loop.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://arxiv.org/abs/1610.06475"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 18,
+    "title": "Scale in visual mapping",
+    "body": [],
+    "notes": "Stereo uses a calibrated physical baseline. RGB-D gives measured depth within its range. Visual-inertial systems can recover metric scale when calibration and excitation support it. The demo intentionally uses monocular frames and arbitrary scale, which is preserved during later PnP updates.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://arxiv.org/abs/1610.06475",
+      "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Sensor configuration",
+        "Depth / scale cue",
+        "Main limitation"
+      ],
+      [
+        "Monocular camera",
+        "Motion and parallax",
+        "Unknown metric scale"
+      ],
+      [
+        "Stereo cameras",
+        "Known camera baseline",
+        "Depth weak at long range"
+      ],
+      [
+        "RGB-D camera",
+        "Measured depth",
+        "Range and sensing conditions"
+      ],
+      [
+        "Camera + IMU",
+        "Inertial constraints",
+        "Calibration and initialization"
+      ]
+    ],
+    "take": ""
+  },
+  {
+    "slide": 19,
+    "title": "Visual SLAM advantages",
+    "body": [
+      "Cameras capture rich appearance with compact hardware.",
+      "Distinctive texture supports landmarks and place recognition.",
+      "Image data can also support semantic interpretation."
+    ],
+    "notes": "Do not claim that a sparse feature SLAM map already contains semantic labels. Appearance can help recognize places, while another perception stage may attach object or road semantics. Cost, power, and compute depend on the particular camera and algorithm.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://arxiv.org/abs/1610.06475"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 20,
+    "title": "Visual SLAM limitations",
+    "body": [
+      "Low texture, blur, and changing illumination weaken matching.",
+      "Repeated patterns create ambiguous correspondences.",
+      "Monocular depth and scale require additional constraints."
+    ],
+    "notes": "Compare a textured facade with a blank wall, and a clear exposure with motion blur. Moving objects can dominate observations if the static scene is poorly visible. Relocalization, additional cameras, depth sensors, or an IMU can improve robustness, but cannot remove all sensing failures.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://arxiv.org/abs/1610.06475"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 21,
+    "title": "Visual methods beyond feature tracking",
+    "body": [
+      "Direct methods minimize photometric error at selected pixels.",
+      "Dense methods estimate more of the visible surface.",
+      "The map representation depends on the estimator and sensors."
+    ],
+    "notes": "Keep the scope clear: visual SLAM is a family, not a synonym for corner tracking. The lecture and demo focus on feature-based sparse mapping because correspondences are visible. Direct methods use image intensity consistency and require attention to exposure, calibration, and scene assumptions.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 22,
+    "title": "LiDAR observations",
+    "body": [
+      "Each return measures range and direction to a sampled surface.",
+      "A scan contains points collected over a period of time.",
+      "Registration estimates the transform that aligns overlapping geometry."
+    ],
+    "notes": "Switch the demo to LiDAR at the same original frame. The displayed view is a projection of real 3D returns. LiDAR provides metric depth, but still requires correct pose estimation to put the returns into a consistent map.",
+    "refs": [
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "visual",
+    "media": [
+      "lidar-scan.png"
+    ],
+    "demo": "lidar",
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 23,
+    "title": "LiDAR preprocessing",
+    "body": [
+      "Remove invalid returns and select a useful range.",
+      "Voxel sampling reduces repeated nearby points.",
+      "Deskew compensates for sensor motion during a scan."
+    ],
+    "notes": "The demo filters invalid and extreme ranges, uses voxel samples, and limits the display density. It lacks per-point timestamps and does not deskew. Explain that the lack of deskew can bend apparent surfaces and bias registration during motion. An IMU or motion estimate may supply a trajectory for deskew.",
+    "refs": [
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 24,
+    "title": "Geometry used for registration",
+    "body": [
+      "Planes constrain motion along their surface normals.",
+      "Edges provide other geometric constraints.",
+      "The scene must contain enough independent structure."
+    ],
+    "notes": "LOAM uses edge and planar feature points with different residuals. The demo uses a simpler PCA planarity test and point-to-plane ICP. It does not implement LOAM edge selection. A single flat surface poorly constrains sliding within the surface and rotation around its normal.",
+    "refs": [
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "visual",
+    "media": [
+      "lidar-planes.png"
+    ],
+    "demo": "lidar",
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 25,
+    "title": "Scan registration objectives",
+    "body": [
+      "Point-to-point uses distance between corresponding samples.",
+      "Point-to-plane uses displacement along the map surface normal.",
+      "NDT compares points with local map distributions."
+    ],
+    "notes": "Connect this slide to Lecture 5. Point-to-plane and NDT make use of local geometry, but both need overlap and a reasonable initial estimate. The choice of objective changes which errors are penalized and how local structure affects the solution.",
+    "refs": [
+      "https://www.roboticsproceedings.org/rss10/p07.html",
+      "https://pointclouds.org/documentation/tutorials/normal_distributions_transform.html"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "Point-to-point: r = R p + t \u2212 q",
+      "Point-to-plane: r = n\u1d40(R p + t \u2212 q)"
+    ],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 26,
+    "title": "Scan-to-map registration",
+    "body": [
+      "Predict the next pose from recent motion.",
+      "Match current surface samples to the local map.",
+      "Refine the pose with a robust geometric objective."
+    ],
+    "notes": "The local map contains the preceding eight registered scans. Neighbor covariance supplies PCA normals and a planarity score. Distance and planarity checks gate correspondences. A robust loss downweights large normal residuals. The display shows a subset of accepted correspondences so the geometry stays readable.",
+    "refs": [
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "visual",
+    "media": [
+      "lidar-registration.gif"
+    ],
+    "demo": "lidar",
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 27,
+    "title": "Map integration",
+    "body": [
+      "Transform the accepted scan into the map frame.",
+      "Accumulate surface observations using the estimated pose.",
+      "Manage map resolution and remove inconsistent structure."
+    ],
+    "notes": "The demo inserts decimated returns after registration. Distinguish the points used to estimate a pose from the larger set that may be inserted afterward. A production persistent map needs better outlier and dynamic-object handling. Every point remains revisable when its supporting pose changes.",
+    "refs": [
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "visual",
+    "media": [
+      "lidar-growth.gif"
+    ],
+    "demo": "lidar",
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 28,
+    "title": "Occupancy and free space",
+    "body": [
+      "A return supplies evidence for an occupied endpoint.",
+      "The ray supplies evidence for free space before the return.",
+      "Space outside observed rays remains unknown."
+    ],
+    "notes": "A point cloud does not automatically encode safe free space. Occupancy mapping uses a sensor model and repeated observations to update probabilities. OctoMap stores probabilistic occupancy in an octree. Show why an empty-looking area with no measurements cannot be treated as free.",
+    "refs": [
+      "https://octomap.github.io/"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 29,
+    "title": "LiDAR mapping advantages",
+    "body": [
+      "Measured range provides metric scene geometry.",
+      "Ambient lighting and image texture matter less.",
+      "Surface maps support geometric localization and reconstruction."
+    ],
+    "notes": "A dark but geometrically structured street can remain useful to active ranging. LiDAR maps can support scan matching and reconstruction. Map density depends on the sensor, distance, viewpoint, and accumulation, so avoid promising uniformly dense coverage.",
+    "refs": [
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 30,
+    "title": "LiDAR mapping limitations",
+    "body": [
+      "Sparse or repetitive geometry weakens observability.",
+      "Motion distortion and moving objects corrupt alignment.",
+      "Weather, glass, and weak returns can reduce useful measurements."
+    ],
+    "notes": "A corridor can constrain lateral position while leaving motion along it uncertain. Flat ground alone leaves several directions weakly constrained. Fog, rain, reflective surfaces, and material response can affect returns. Sensor price, size, power, and compute are system-specific tradeoffs.",
+    "refs": [
+      "https://www.roboticsproceedings.org/rss10/p07.html",
+      "https://arxiv.org/abs/1912.03251"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 31,
+    "title": "Visual and LiDAR mapping",
+    "body": [],
+    "notes": "Use this table to compare evidence rather than nominate an unconditional winner. Both sensors need calibration, overlap, and static-environment support. A camera can supply rich appearance while a LiDAR supplies geometry. Their common failure modes include bad association and accumulated pose error.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Dimension",
+        "Visual mapping",
+        "LiDAR mapping"
+      ],
+      [
+        "Primary evidence",
+        "Appearance across images",
+        "Range and surface geometry"
+      ],
+      [
+        "Typical map",
+        "Sparse landmarks / depth",
+        "Surface points / voxels"
+      ],
+      [
+        "Scale",
+        "Depends on sensor configuration",
+        "Metric ranging"
+      ],
+      [
+        "Weak scene",
+        "Dark, blurred, low texture",
+        "Sparse or repetitive geometry"
+      ],
+      [
+        "Practical tradeoff",
+        "Compact sensors, rich appearance",
+        "Direct depth, sensor resources"
+      ]
+    ],
+    "take": ""
+  },
+  {
+    "slide": 32,
+    "title": "Mapping in different environments",
+    "body": [],
+    "notes": "Treat these as scenario-based reasoning, not benchmark rankings. In an indoor corridor, camera texture and 3D structural variety both matter. At night, LiDAR may retain useful geometry while visual matching degrades. Moving traffic affects both modalities. More sensor types help when they provide independent constraints.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Environment",
+        "Visual concern",
+        "LiDAR concern"
+      ],
+      [
+        "Textured indoor space",
+        "Blur and exposure",
+        "Glass and limited overlap"
+      ],
+      [
+        "Long corridor",
+        "Repeated appearance",
+        "Weak motion along corridor"
+      ],
+      [
+        "Night driving",
+        "Low light and glare",
+        "Return strength and geometry"
+      ],
+      [
+        "Open highway",
+        "Distant features, weak parallax",
+        "Few stable nearby structures"
+      ],
+      [
+        "Busy street",
+        "Many moving image features",
+        "Moving surfaces and ghost points"
+      ]
+    ],
+    "take": ""
+  },
+  {
+    "slide": 33,
+    "title": "Dynamic objects and map quality",
+    "body": [
+      "A static-scene model cannot explain independent object motion.",
+      "Robust estimation rejects some inconsistent observations.",
+      "Persistent mapping needs checks across time and viewpoints."
+    ],
+    "notes": "Parked and moving vehicles can look similar in one image or scan. Geometry-only rejection is not a semantic motion classifier. Temporal persistence and explicit dynamic-object handling improve static maps. Transient obstacles still belong in perception and planning, even when excluded from the persistent map.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 34,
+    "title": "Camera, LiDAR, and IMU fusion",
+    "body": [
+      "IMU measurements help predict rapid motion and support deskew.",
+      "Camera appearance and LiDAR geometry supply different constraints.",
+      "Timing and extrinsic calibration connect all measurements."
+    ],
+    "notes": "Connect to Lecture 4. Fusion needs consistent clocks and transforms, as well as a model of uncertainty. A miscalibrated extrinsic transform can make two accurate sensors disagree. Fusion also adds computational and calibration work, and it does not guarantee observability in every environment.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 35,
+    "title": "Interactive comparison exercise",
+    "body": [
+      "Open the demo and pause at original frame 50.",
+      "Select a visual inlier, then switch to LiDAR and inspect a correspondence.",
+      "Toggle accumulated mapping and compare the map outputs."
+    ],
+    "notes": "Students need only a browser and the supplied page. Ask them to explain which residual each method minimizes, why a tracked feature may be unused, and why the visual map cannot be reported in meters. The checkpoint is a growing map with frame-specific additions and a visible estimated path.",
+    "refs": [
+      "https://www.cvlibs.net/datasets/kitti/",
+      "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html",
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "visual",
+    "media": [
+      "comparison.png"
+    ],
+    "demo": "visual",
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 36,
+    "title": "Student deliverable",
+    "body": [
+      "Capture one image track and one LiDAR correspondence.",
+      "Explain how each observation constrains pose and contributes to the map.",
+      "Choose a sensor setup for one environment and justify its limitations."
+    ],
+    "notes": "Expected answer: visual tracks constrain projection of established 3D landmarks, while LiDAR surface correspondences constrain alignment along normals. Successful registration lets sensor observations enter a common map frame. A complete answer states that the visual demo has arbitrary scale and both traces omit global SLAM correction.",
+    "refs": [
+      "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html",
+      "https://www.roboticsproceedings.org/rss10/p07.html",
+      "https://arxiv.org/abs/2007.11898"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 37,
+    "title": "Discussion",
+    "body": [
+      "Can a well-tracked distant feature still have poor depth?",
+      "Why can a single plane leave some motion directions uncertain?",
+      "What extra evidence turns local mapping into a consistent long-term map?"
+    ],
+    "notes": "Answers: yes, small parallax makes depth unstable despite reliable tracking. One plane provides normal-distance constraints while allowing sliding within the plane and rotation around its normal. Verified revisits, repeated map associations, BA or graph optimization, and possibly external anchors improve long-term consistency. Ask students to name the actual constraint rather than simply say more sensors.",
+    "refs": [
+      "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html",
+      "https://arxiv.org/abs/2007.11898",
+      "https://www.roboticsproceedings.org/rss10/p07.html"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 38,
+    "title": "Lecture resources",
+    "body": [
+      "Online: real-frame visual and LiDAR mapping playback.",
+      "Offline: open Labs/Mapping/index.html from the lecture package.",
+      "References and implementation scope appear in the demo and slide notes."
+    ],
+    "notes": "The offline package includes the slides, frames, and precomputed traces. No NAS connection is needed for students. Attribute the KITTI frames and derived data under CC BY-NC-SA 3.0. Algorithm references are teaching context; the demo is a compact implementation of selected local mapping steps.",
+    "refs": [
+      "https://www.cvlibs.net/datasets/kitti/",
+      "https://arxiv.org/abs/2007.11898",
+      "https://www.roboticsproceedings.org/rss10/p07.html",
+      "https://octomap.github.io/"
+    ],
+    "layout": "resources",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  }
+]

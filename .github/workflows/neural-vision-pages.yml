@@ -6,6 +6,9 @@ on:
       - '2026/Labs/NeuralVision/**'
       - '2026/Labs/SensorFusion/**'
       - '2026/Labs/Localization/**'
+      - '2026/Labs/Mapping/**'
+      - '2026/Presentations/Lecture 6 Mapping for Autonomous Driving.pptx'
+      - '2026/Data/Lecture6_Mapping.zip'
       - '2026/Presentations/Lecture 5 Localization for Autonomous Driving.pptx'
       - '2026/Data/Lecture5_Localization.zip'
       - '2026/Labs/Portal/**'
@@ -50,6 +53,12 @@ jobs:
           cp -R 2026/Labs/Localization/. .build/pages/localization/
           cp "2026/Presentations/Lecture 5 Localization for Autonomous Driving.pptx" .build/pages/downloads/
           cp 2026/Data/Lecture5_Localization.zip .build/pages/downloads/
+      - name: Add Mapping demos and Lecture 6 downloads
+        run: |
+          mkdir -p .build/pages/mapping .build/pages/downloads
+          cp -R 2026/Labs/Mapping/. .build/pages/mapping/
+          cp "2026/Presentations/Lecture 6 Mapping for Autonomous Driving.pptx" .build/pages/downloads/
+          cp 2026/Data/Lecture6_Mapping.zip .build/pages/downloads/
       - name: Build course demo entry page
         run: python 2026/Labs/Portal/build_portal.py --output .build/pages
       - uses: actions/configure-pages@v5
