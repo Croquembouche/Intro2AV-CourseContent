@@ -18,7 +18,7 @@ for(let i=0;i<C.length;i++)p.slides.add();
 await fs.mkdir(path.join(BUILD,'render'),{recursive:true});
 const BLUE='#00539F',CYAN='#00A0DF',INK='#17324D';
 function text(s,t,x,y,w,h,size=24,color=INK,bold=false){const sh=s.shapes.add({geometry:'textbox',name:t.slice(0,65),position:{left:x,top:y,width:w,height:h},fill:'none',line:{fill:'none',width:0}});sh.text=t;sh.text.style={fontSize:size,typeface:'Arial',color,bold,autoFit:'none',wrap:'square',verticalAlignment:'middle',insets:{top:0,right:0,bottom:0,left:0}};return sh}
-async function media(s,f,x,y,w,h){const b=await fs.readFile(path.join(BUILD,'assets',f));s.images.add({blob:new Uint8Array(b),contentType:f.endsWith('.gif')?'image/gif':f.endsWith('.jpeg')?'image/jpeg':'image/png',alt:`Computed trace from real KITTI observations: ${f}`,fit:'contain',position:{left:x,top:y,width:w,height:h}})}
+async function media(s,f,x,y,w,h){const b=await fs.readFile(path.join(BUILD,'assets',f));s.images.add({blob:new Uint8Array(b),contentType:f.endsWith('.gif')?'image/gif':f.endsWith('.jpeg')?'image/jpeg':'image/png',alt:`${f.startsWith('challenge-')?'Controlled simulated mapping experiment':'Computed trace from real KITTI observations'}: ${f}`,fit:'contain',position:{left:x,top:y,width:w,height:h}})}
 function clear(s){for(const coll of [s.shapes,s.images,s.tables,s.charts])for(const x of [...coll.items])x.delete()}
 function link(s,label,uri,x,y,w=850){let sh=text(s,label,x,y,w,28,19,BLUE);sh.text.set([[{run:label,textStyle:{underline:'sng'},link:{uri,isExternal:true}}]])}
 for(let i=0;i<C.length;i++){
@@ -37,8 +37,9 @@ for(let i=0;i<C.length;i++){
  text(s,c.body.join('\n\n'),630,152,275,300,22);
  if(c.demo)link(s,'Open interactive demo',`https://croquembouche.github.io/Intro2AV-CourseContent/mapping/#${c.demo}`,55,438,540);
  }else if(c.layout==='pair'){
- for(let j=0;j<2;j++){await media(s,c.media[j],55+j*445,142,405,240);text(s,c.labels[j],55+j*445,374,405,26,20,BLUE,true)}
- text(s,c.body.join('\n'),55,410,850,52,21);
+ for(let j=0;j<2;j++){await media(s,c.media[j],55+j*445,142,405,240);text(s,c.labels[j],55+j*445,389,405,26,20,BLUE,true)}
+ text(s,c.body.join('\n'),55,425,850,52,21);
+ if(c.demo)link(s,'Explore GPS, terrain and drift',`https://croquembouche.github.io/Intro2AV-CourseContent/mapping/#${c.demo}`,55,480,800);
  }else if(c.layout==='equation'){
  const eqH=c.equations.length===3?205:225;
  c.equations.forEach((e,j)=>text(s,e,75,155+j*(eqH/c.equations.length),815,eqH/c.equations.length,e.length>58?25:e.length>42?28:32,BLUE,j===0));
@@ -54,7 +55,7 @@ for(let i=0;i<C.length;i++){
  }
  if(c.take){const takeShape=text(s,c.take,55,476,850,33,c.take.length>88?19:21,BLUE,true); if(c.demo)takeShape.text.set([[{run:c.take,link:{uri:`https://croquembouche.github.io/Intro2AV-CourseContent/mapping/#${c.demo}`,isExternal:true}}]]);}
  }
- s.speakerNotes.textFrame.setText(`${c.notes}\n\n[Sources]\n${c.refs.join('\n')}\n\n[Visuals]\n${c.media.length?'Recorded KITTI tracking sequence 0001, frames 20–99. Algorithm overlays and maps come from the accompanying Mapping demo. KITTI and derived data: CC BY-NC-SA 3.0. Geiger, Lenz, Urtasun, CVPR 2012. https://www.cvlibs.net/datasets/kitti/':'Editable instructional text, equations, or table.'}\n\n${c.demo?'Local demo: https://croquembouche.github.io/Intro2AV-CourseContent/mapping/#'+c.demo:''}`);
+ s.speakerNotes.textFrame.setText(`${c.notes}\n\n[Sources]\n${c.refs.join('\n')}\n\n[Visuals]\n${c.media.some(f=>f.startsWith('challenge-'))?'Actual screenshots of the controlled synthetic Mapping experiment. Road, observations, odometry, GPS and verified loop constraints are simulated. These are not KITTI data or benchmark scores.':c.media.length?'Recorded KITTI tracking sequence 0001, frames 20–99. Algorithm overlays and maps come from the accompanying Mapping demo. KITTI and derived data: CC BY-NC-SA 3.0. Geiger, Lenz, Urtasun, CVPR 2012. https://www.cvlibs.net/datasets/kitti/':'Editable instructional text, equations, or table.'}\n\n${c.demo?'Local demo: https://croquembouche.github.io/Intro2AV-CourseContent/mapping/#'+c.demo:''}`);
 }
 const candidate=path.join(BUILD,'candidate.pptx');await(await PresentationFile.exportPptx(p)).save(candidate);console.log('EXPORTED',candidate);
 // The current runtime stalls on imported templates and PNG rendering. Use native LibreOffice PDF rendering for visual QA.

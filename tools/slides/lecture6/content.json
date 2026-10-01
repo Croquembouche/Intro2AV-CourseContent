@@ -7,7 +7,7 @@
       "Visual SLAM and LiDAR mapping",
       "Introduction to Autonomous Driving \u00b7 Fall 2026"
     ],
-    "notes": "Suggested pacing: 80\u201390 minutes, including 15 minutes of frame-by-frame exploration. Begin with the known-map localization problem from Lecture 5. Here the vehicle also has to build the map it uses.",
+    "notes": "Suggested pacing: 100\u2013110 minutes, including 25 minutes of frame-by-frame exploration. Begin with the known-map localization problem from Lecture 5. Here the vehicle also has to build the map it uses.",
     "refs": [
       "https://arxiv.org/abs/2007.11898",
       "https://www.roboticsproceedings.org/rss10/p07.html"
@@ -25,7 +25,7 @@
     "body": [
       "Explain how successive observations constrain motion and map structure.",
       "Follow visual landmarks and LiDAR surface correspondences.",
-      "Compare map outputs, failure conditions, and sensor tradeoffs."
+      "Compare sensor tradeoffs and diagnose GPS, terrain, and loop-closure effects."
     ],
     "notes": "Students should explain each intermediate result, rather than only recognize algorithm names. Ask them to trace one accepted observation through detection, association, pose estimation, and map insertion.",
     "refs": [
@@ -371,7 +371,7 @@
       "Place recognition proposes an earlier location.",
       "Geometric verification supplies a loop constraint for correction."
     ],
-    "notes": "A similar-looking building is only a candidate. Verify the relative geometry before adding the loop edge. Graph optimization or BA distributes correction across poses and map points. A short forward-driving clip without a revisit cannot demonstrate a genuine loop closure, so the demo contains no fabricated loop.",
+    "notes": "A similar-looking building is only a candidate. Verify the relative geometry before adding the loop edge. Graph optimization or BA distributes correction across poses and map points. A short forward-driving clip without a revisit cannot demonstrate a genuine loop closure, so the recorded replay has no loop. The separate controlled scenario supplies an explicitly verified return constraint at lap end; it does not perform place recognition.",
     "refs": [
       "https://arxiv.org/abs/2007.11898",
       "https://arxiv.org/abs/1610.06475"
@@ -805,6 +805,318 @@
   },
   {
     "slide": 35,
+    "title": "GPS anchors a local map",
+    "body": [
+      "Convert GPS into the map frame before adding a position factor.",
+      "Weight each fix using its measurement covariance."
+    ],
+    "notes": "GNSS supplies external position constraints. A GPS factor predicts the antenna position from the vehicle pose plus the calibrated antenna lever arm. Convert geodetic coordinates into a consistent local Cartesian frame such as ENU and establish map alignment. The controlled demo assumes this alignment is known and the lever arm is zero. It solves a simplified position chain; GPS does not directly observe heading there. A monocular system needs appropriate scale/frame alignment before using metric factors. A single antenna position factor does not directly observe all orientation components.",
+    "refs": [
+      "https://borglab.github.io/gtsam/gpsfactor/",
+      "https://arxiv.org/abs/2007.00258"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "r_GPS = p + R \u2113_antenna \u2212 g",
+      "GPS cost = r_GPS\u1d40 \u03a3_GPS\u207b\u00b9 r_GPS"
+    ],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 36,
+    "title": "GPS helps when its uncertainty is credible",
+    "body": [],
+    "notes": "Satellite geometry, obstruction, multipath, receiver quality and correction services affect accuracy. A small reported covariance can be misleading when an unmodeled bias is present. Do not promise centimeter accuracy for generic GPS. The demo sigma controls both generated noise and factor weight, so it represents an honestly modeled receiver. The biased-GPS option deliberately violates that assumption. Innovation gating is useful but can also reject good measurements when the prediction or uncertainty model is poor.",
+    "refs": [
+      "https://www.gps.gov/gps-accuracy",
+      "https://borglab.github.io/gtsam/gpsfactor/",
+      "https://arxiv.org/abs/2007.00258"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Condition",
+        "Effect on mapping",
+        "Response"
+      ],
+      [
+        "Reliable position fixes",
+        "Bound accumulated position drift",
+        "Fuse with credible covariance"
+      ],
+      [
+        "Noisy fixes",
+        "Weaker absolute constraints",
+        "Lower factor weight"
+      ],
+      [
+        "Blocked satellites / outage",
+        "Local drift grows between fixes",
+        "Continue local estimation"
+      ],
+      [
+        "Multipath / position bias",
+        "Wrong anchors can deform map",
+        "Gate; robustify; check consistency"
+      ],
+      [
+        "Wrong timing / lever arm",
+        "Systematic pose disagreement",
+        "Calibrate and synchronize"
+      ]
+    ],
+    "take": ""
+  },
+  {
+    "slide": 37,
+    "title": "Experiment: GPS off versus on",
+    "body": [
+      "Left: drifting odometry, GPS off.",
+      "Right: the same motion with GPS factors."
+    ],
+    "notes": "Controlled synthetic loop, default settings: hill 6 percent, bump 0.18 m, odometry drift 1x, GPS horizontal sigma 0.6 m, 3D model, no loop closure. Position RMS is about 2.10 m without GPS and 0.56 m with GPS. Map RMS changes from about 2.13 m to 0.80 m. These deterministic examples are not KITTI scores or general performance claims. White is reference, orange is odometry, cyan is the estimated path, purple is GPS. Ask why the GPS-corrected return can still have a gap and why orientation errors remain.",
+    "refs": [
+      "https://borglab.github.io/gtsam/gpsfactor/",
+      "https://www.gps.gov/gps-accuracy",
+      "https://arxiv.org/abs/2007.00258"
+    ],
+    "layout": "pair",
+    "media": [
+      "challenge-no-gps.png",
+      "challenge-gps.png"
+    ],
+    "demo": "challenge",
+    "equations": [],
+    "table": null,
+    "take": "",
+    "labels": [
+      "GPS off \u00b7 position RMS 2.10 m",
+      "GPS on \u00b7 position RMS 0.56 m"
+    ]
+  },
+  {
+    "slide": 38,
+    "title": "Slopes require a pose with height and tilt",
+    "body": [
+      "3D poses include x, y, z and roll, pitch, yaw.",
+      "A planar approximation can misplace observations on uneven roads."
+    ],
+    "notes": "A planar pose can be appropriate for a deliberately flat-world task, but a metric 3D surface map needs the orientation and elevation of its sensor. On a slope, pitching the sensor changes both the height and horizontal position of transformed observations. For a small angular error delta theta, a point at range d can move by roughly d times delta theta. At 20 m, a 1 degree error is about 0.35 m. The demo varies pitch and elevation; roll remains zero. This is an illustration of model mismatch, not a full six-degree-of-freedom estimator.",
+    "refs": [
+      "https://www.roboticsproceedings.org/rss10/p07.html",
+      "https://arxiv.org/abs/2007.00258"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "p_map = R(roll, pitch, yaw) p_sensor + [x, y, z]\u1d40",
+      "Point displacement \u2248 range \u00d7 angular error",
+      "20 m \u00d7 (1\u00b0 \u00d7 \u03c0 / 180) \u2248 0.35 m"
+    ],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 39,
+    "title": "Bumps change motion within a frame or scan",
+    "body": [
+      "Rapid pitch and vertical motion can break a constant-pose assumption.",
+      "Camera blur and rolling shutter can weaken visual tracking.",
+      "A rotating LiDAR needs motion compensation during its scan."
+    ],
+    "notes": "A bump does not inherently make SLAM fail. Problems arise if motion is poorly observed, the model ignores tilt, or measurements from different times are treated as one rigid observation. An IMU can predict rapid rotation and help deskew LiDAR points, provided timing and calibration are correct. Camera exposure and rolling shutter require their own models. LIO-SAM uses inertial preintegration for point-cloud deskew and initial guesses. The controlled demo shows frame-to-frame height/pitch effects only; it does not synthesize rolling scans, motion blur, rolling shutter or IMU estimation.",
+    "refs": [
+      "https://arxiv.org/abs/2007.00258",
+      "https://www.roboticsproceedings.org/rss10/p07.html",
+      "https://arxiv.org/abs/2007.11898"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 40,
+    "title": "Experiment: planar versus 3D terrain",
+    "body": [
+      "Left: height and pitch excluded.",
+      "Right: elevation and pitch retained."
+    ],
+    "notes": "Controlled comparison: hill 12 percent, bump 0.50 m, zero odometry noise/drift, GPS off, no loop closure. Planar map RMS is about 2.63 m; with the correct 3D model it is approximately zero. This isolates model mismatch from noise. The reference road is white; green map points are below 0.25 m error, yellow 0.25\u20130.8 m, red above 0.8 m. Returning near the start does not establish map correctness: the planar model nearly closes the path while still deforming the road.",
+    "refs": [
+      "https://www.roboticsproceedings.org/rss10/p07.html",
+      "https://arxiv.org/abs/2007.00258"
+    ],
+    "layout": "pair",
+    "media": [
+      "challenge-planar.png",
+      "challenge-3d.png"
+    ],
+    "demo": "challenge",
+    "equations": [],
+    "table": null,
+    "take": "",
+    "labels": [
+      "Planar model \u00b7 map RMS 2.63 m",
+      "3D model \u00b7 noise-free geometry"
+    ]
+  },
+  {
+    "slide": 41,
+    "title": "When mapping goes wrong",
+    "body": [],
+    "notes": "Pose estimation and integration are separate decisions. A low residual on a degenerate plane or repeated appearance is not enough to establish reliable motion. A false match can create a sudden jump, and integrating measurements under the wrong pose creates ghost walls, duplicated surfaces or a bent road. Tracking loss should change confidence and insertion policy. Downstream localization can inherit map errors; planning that relies on incorrect geometry or free-space inference can make unsafe decisions. Preserve a recovery path through relocalization, local submaps or other sensors rather than accumulating unsupported geometry.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://www.roboticsproceedings.org/rss10/p07.html",
+      "https://arxiv.org/abs/2007.00258"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Failure",
+        "Visible consequence",
+        "Useful response"
+      ],
+      [
+        "False association",
+        "Pose jump; duplicated surfaces",
+        "Geometric / motion checks"
+      ],
+      [
+        "Tracking lost",
+        "Uncertain predicted motion",
+        "Pause insertion; relocalize"
+      ],
+      [
+        "Weak geometry / texture",
+        "Drift in unconstrained directions",
+        "Check observability; add evidence"
+      ],
+      [
+        "Biased GPS",
+        "Trajectory pulled off the road",
+        "Innovation / covariance checks"
+      ],
+      [
+        "Wrong sensor pose model",
+        "Bent or displaced road surfaces",
+        "Model 3D motion; calibrate"
+      ]
+    ],
+    "take": ""
+  },
+  {
+    "slide": 42,
+    "title": "Mapping errors affect the driving stack",
+    "body": [
+      "Incorrect map geometry biases later localization.",
+      "Duplicated surfaces or false free space can mislead planning.",
+      "Monitor confidence, pause unsupported insertion, and recover."
+    ],
+    "notes": "A map is evidence accumulated from measurements and estimated poses. If the poses are wrong, measurements may be individually accurate but collectively inconsistent. Localization against such a map can be biased or fail; planning may inherit incorrect obstacle or traversability geometry. Keep unknown space distinct from free space. A persistent mapper should support relocalization, corrected submaps, reintegration and removal of transient objects. The demo visualizes geometric errors; it does not simulate vehicle planning or a safety fallback.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://www.roboticsproceedings.org/rss10/p07.html",
+      "https://octomap.github.io/"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 43,
+    "title": "Experiment: reject a false match",
+    "body": [
+      "Left: a bad pose enters the map.",
+      "Right: the motion gate skips that insertion."
+    ],
+    "notes": "A controlled false translation/yaw match is injected at frame 50. This screenshot uses hill 12 percent, bump 0.50 m, no drift, no GPS and no loop. Map RMS is about 6.29 m with the gate off and 0.08 m with it on. The gate substitutes a weaker motion prediction and skips one scan. It does not guarantee perfect recovery. Try tracking loss separately: frames 50\u201367 have only predicted motion, and the insertion gate skips 18 scans. Bad mapping can persist even after tracking resumes. The synthetic quality flag represents a detector decision, not a validated production failure detector.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://www.roboticsproceedings.org/rss10/p07.html",
+      "https://arxiv.org/abs/2007.00258"
+    ],
+    "layout": "pair",
+    "media": [
+      "challenge-bad-match.png",
+      "challenge-gated-match.png"
+    ],
+    "demo": "challenge",
+    "equations": [],
+    "table": null,
+    "take": "",
+    "labels": [
+      "Gate off \u00b7 map RMS 6.29 m",
+      "Gate on \u00b7 map RMS 0.08 m"
+    ]
+  },
+  {
+    "slide": 44,
+    "title": "What if there is no loop closure?",
+    "body": [
+      "Local mapping continues while uncorrected drift accumulates.",
+      "A revisited street may appear twice or fail to line up.",
+      "GPS bounds position drift but does not replace every loop constraint."
+    ],
+    "notes": "Loop closure is possible only when the vehicle revisits a recognizable place and verifies a consistent relative pose. No revisit, failed recognition, or failed geometric verification means no loop edge. Missing loop closure does not make every map unusable, and a loop is not required to finish every short drive. GPS anchors can improve global position while relative geometry and heading still drift. A falsely accepted loop can be worse than a missed loop. In the controlled demo the loop edge remains unavailable until frame 120 even when the switch is enabled.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://arxiv.org/abs/1610.06475",
+      "https://arxiv.org/abs/2007.00258",
+      "https://borglab.github.io/gtsam/gpsfactor/"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "take": ""
+  },
+  {
+    "slide": 45,
+    "title": "Close the loop and correct the map",
+    "body": [
+      "Left: GPS helps, with no return constraint.",
+      "Right: corrected poses rebuild the map geometry."
+    ],
+    "notes": "Controlled default settings, same GPS factors in both images. Map RMS is about 0.80 m without the loop and 0.36 m with it; return separation changes from 1.38 m to about 0.003 m. The heading chain receives a 2 pi return rotation and the position graph receives a start/end displacement constraint. This simplified split graph is not full nonlinear SE(3) optimization or automatic loop detection. Disable Rebuild map after correction: the corrected path remains, but old map geometry retains about 2.13 m RMS because scans still use the odometry poses. In real systems revise landmarks, rebuild submaps or reintegrate measurements using corrected poses.",
+    "refs": [
+      "https://arxiv.org/abs/2007.11898",
+      "https://arxiv.org/abs/2007.00258",
+      "https://borglab.github.io/gtsam/gpsfactor/"
+    ],
+    "layout": "pair",
+    "media": [
+      "challenge-loop-before.png",
+      "challenge-loop.png"
+    ],
+    "demo": "challenge",
+    "equations": [],
+    "table": null,
+    "take": "",
+    "labels": [
+      "GPS only \u00b7 return gap 1.38 m",
+      "GPS + verified loop \u00b7 rebuilt map"
+    ]
+  },
+  {
+    "slide": 46,
     "title": "Interactive comparison exercise",
     "body": [
       "Open the demo and pause at original frame 50.",
@@ -827,12 +1139,12 @@
     "take": ""
   },
   {
-    "slide": 36,
+    "slide": 47,
     "title": "Student deliverable",
     "body": [
       "Capture one image track and one LiDAR correspondence.",
       "Explain how each observation constrains pose and contributes to the map.",
-      "Choose a sensor setup for one environment and justify its limitations."
+      "Compare GPS, terrain models, and missing loop closure in the controlled scenario."
     ],
     "notes": "Expected answer: visual tracks constrain projection of established 3D landmarks, while LiDAR surface correspondences constrain alignment along normals. Successful registration lets sensor observations enter a common map frame. A complete answer states that the visual demo has arbitrary scale and both traces omit global SLAM correction.",
     "refs": [
@@ -848,12 +1160,12 @@
     "take": ""
   },
   {
-    "slide": 37,
+    "slide": 48,
     "title": "Discussion",
     "body": [
       "Can a well-tracked distant feature still have poor depth?",
       "Why can a single plane leave some motion directions uncertain?",
-      "What extra evidence turns local mapping into a consistent long-term map?"
+      "Can a closed trajectory still contain a distorted map? What can GPS fix?"
     ],
     "notes": "Answers: yes, small parallax makes depth unstable despite reliable tracking. One plane provides normal-distance constraints while allowing sliding within the plane and rotation around its normal. Verified revisits, repeated map associations, BA or graph optimization, and possibly external anchors improve long-term consistency. Ask students to name the actual constraint rather than simply say more sensors.",
     "refs": [
@@ -869,14 +1181,14 @@
     "take": ""
   },
   {
-    "slide": 38,
+    "slide": 49,
     "title": "Lecture resources",
     "body": [
-      "Online: real-frame visual and LiDAR mapping playback.",
+      "Online: real KITTI replay plus GPS, terrain, and drift experiments.",
       "Offline: open Labs/Mapping/index.html from the lecture package.",
       "References and implementation scope appear in the demo and slide notes."
     ],
-    "notes": "The offline package includes the slides, frames, and precomputed traces. No NAS connection is needed for students. Attribute the KITTI frames and derived data under CC BY-NC-SA 3.0. Algorithm references are teaching context; the demo is a compact implementation of selected local mapping steps.",
+    "notes": "The offline package includes the slides, frames, precomputed traces, and the controlled experiment. New topics: GPS factors, slopes, bumps, failure recovery, absent loops and map rebuilding. No NAS connection is needed for students. Attribute the KITTI frames and derived data under CC BY-NC-SA 3.0. Algorithm references are teaching context; the demo is a compact implementation of selected local mapping steps.",
     "refs": [
       "https://www.cvlibs.net/datasets/kitti/",
       "https://arxiv.org/abs/2007.11898",

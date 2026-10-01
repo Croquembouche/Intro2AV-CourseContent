@@ -15,3 +15,11 @@ Data and derived data: [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by
 Preparation code is in `tools/slides/lecture6/prepare_data.py`. The published excerpt contains resized/compressed image derivatives and computed traces, not the full NAS dataset.
 
 The offline bundle includes Three.js r160 under the MIT license (`vendor/THREE-LICENSE.txt`), reused from the existing Sensor Fusion demo. Source: https://github.com/mrdoob/three.js/tree/r160 .
+
+## GPS, terrain and failure experiments
+
+The third tab is a controlled synthetic road loop, separate from KITTI. Its surfaces, local observations, relative motion and GPS fixes are simulated. A small weighted position graph and a separate heading chain illustrate GPS anchoring, uncertainty, gating, a verified return constraint, and rebuilding a map after pose correction. No future GPS fixes or loop constraint are used before their frame arrives. GPS assumes a known local Cartesian frame and zero antenna offset. GPS does not directly constrain heading in this example.
+
+Set hill grade and bump height, compare a planar pose with elevation/pitch, and inject a false match, tracking loss, GPS bias or outage. Map point colors show error against the known reference: green below 0.25 m, yellow 0.25–0.8 m, red above 0.8 m. Reference geometry supplies synthetic observations and evaluation, never absolute poses to the estimator. The loop edge is supplied only at lap end when enabled; automatic place recognition and verification are outside this model. These are controlled comparisons, not KITTI performance scores. Rolling-scan deskew and IMU estimation are discussed in the slides but not simulated here.
+
+Node verification: `node tools/slides/lecture6/test_challenges.cjs` and `node tools/slides/lecture6/test_controls.cjs` from the repository root.
