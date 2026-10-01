@@ -11,4 +11,6 @@ The deck reuses the course starter's original cover background and logo, Arial t
 
 The Pages workflow adds the mapping route and Lecture 6 downloads while retaining the existing demo collections.
 
+The perspective 3D map and LiDAR scan viewer are in `2026/Labs/Mapping/scene3d.js`. Run `node tools/slides/lecture6/test_controls.cjs` to check orbit, pan, zoom, keyboard controls, multi-touch transitions, and camera limits. Verify the rendered desktop and mobile views in the browser before publication.
+
 The current Artifact Tool runtime stalls during legacy template import and PNG rendering. The builder therefore preserves the original background artwork and logo while authoring editable content into a fresh deck. Render the exported PPTX with system LibreOffice and Poppler for visual QA. Package and layout validation still use the presentation finalizer.
