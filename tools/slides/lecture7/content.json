@@ -1,0 +1,1220 @@
+[
+  {
+    "slide": 1,
+    "title": "Path planning",
+    "body": [
+      "Path planning",
+      "Search, robot geometry, and navigation",
+      "Introduction to Autonomous Driving · Fall 2026"
+    ],
+    "notes": "Suggested pacing: 90–105 minutes including 20 minutes of interactive exploration. Begin with the mapping lecture: knowing the map does not tell us which motion to execute. Use a warehouse doorway and a vehicle encountering a road closure as recurring examples.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf",
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/"
+    ],
+    "layout": "cover",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 2,
+    "title": "Learning goals",
+    "body": [
+      "Explain how A* and D* use a graph and its costs.",
+      "Predict when an algorithm succeeds, slows down, or returns an unusable path.",
+      "Connect obstacle clearance and vehicle motion to global and local planning."
+    ],
+    "notes": "Students should connect an algorithm choice to an assumption. Ask whether the challenge comes from the search, the map, the representation of the robot, or the execution model. These causes can produce similar visible symptoms.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf",
+      "https://lavalle.pl/planning/ch4.pdf",
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 3,
+    "title": "Planning in the autonomy stack",
+    "body": [
+      "Perception estimates nearby objects and free space.",
+      "Localization and mapping place the robot in an environment.",
+      "Planning chooses a route and motion. Control tracks that motion."
+    ],
+    "notes": "Connect explicitly to Lectures 4–6. A localization error moves the robot footprint relative to every mapped obstacle. A planner may search correctly yet collide because its input geometry or timing is wrong. The demo uses exact synthetic states so that algorithm behavior is visible.",
+    "refs": [
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 4,
+    "title": "Path, trajectory, and control",
+    "body": [],
+    "notes": "A path is a sequence or continuous curve of configurations. A trajectory adds time, which defines speed and acceleration. A controller produces inputs using the current state. In some systems the local planner and controller share one optimization loop. A lane-center path alone cannot say whether crossing traffic is safe at a particular time.",
+    "refs": [
+      "https://lavalle.pl/planning/ch13.pdf",
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Object",
+        "Describes",
+        "Example"
+      ],
+      [
+        "Path",
+        "Where the robot can move",
+        "Positions and headings"
+      ],
+      [
+        "Trajectory",
+        "Where and when it moves",
+        "Pose and speed over time"
+      ],
+      [
+        "Control",
+        "Inputs applied now",
+        "Steering, throttle, braking"
+      ]
+    ],
+    "labels": []
+  },
+  {
+    "slide": 5,
+    "title": "Global and local planning",
+    "body": [],
+    "notes": "Global and local describe scope and function rather than one mandatory algorithm. A global map can include live updates. A global plan can respect vehicle constraints. Local planners can reason predictively and need not be simple reflexes. Rates depend on the system, so the table uses relative horizons rather than fixed frequencies.",
+    "refs": [
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Dimension",
+        "Global planning",
+        "Local planning / control"
+      ],
+      [
+        "Question",
+        "Which route reaches the goal?",
+        "Which motion is feasible now?"
+      ],
+      [
+        "Inputs",
+        "Map, start, destination",
+        "State, nearby objects, route"
+      ],
+      [
+        "Output",
+        "Route or reference path",
+        "Short trajectory / command"
+      ],
+      [
+        "Horizon",
+        "Whole task or map region",
+        "Limited distance or time"
+      ],
+      [
+        "Update trigger",
+        "Goal or route/map changes",
+        "New state and observations"
+      ]
+    ],
+    "labels": []
+  },
+  {
+    "slide": 6,
+    "title": "A map becomes a search graph",
+    "body": [
+      "Nodes represent candidate robot states.",
+      "Edges represent allowed transitions.",
+      "Costs express distance, terrain, risk, or time."
+    ],
+    "notes": "The four-neighbor grid uses unit moves and a terrain entry cost of 1 or 6. The state count and connectivity change the optimization problem. A continuous shortest path may cut between these cells, but that path is outside this graph. Start and goal markers refer to cell centers.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf"
+    ],
+    "layout": "visual",
+    "media": [
+      "search-start.png"
+    ],
+    "demo": "search",
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 7,
+    "title": "BFS and Dijkstra",
+    "body": [],
+    "notes": "BFS treats every edge equally. Dijkstra uses a priority queue ordered by accumulated cost. On this demo, a weighted priority implementation with unit costs gives BFS-equivalent shortest-edge behavior. Both can explore broadly because neither uses the goal direction. Nonnegative costs are essential for Dijkstra’s settled-distance argument.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Method",
+        "Next state priority",
+        "Useful when"
+      ],
+      [
+        "Breadth-first search",
+        "Fewest edges from start",
+        "All edges have equal cost"
+      ],
+      [
+        "Dijkstra",
+        "Lowest accumulated cost g",
+        "Nonnegative unequal costs"
+      ],
+      [
+        "Shared limitation",
+        "Search can spread widely",
+        "Large graphs consume memory"
+      ]
+    ],
+    "labels": []
+  },
+  {
+    "slide": 8,
+    "title": "Distance and terrain cost",
+    "body": [
+      "BFS crosses rough ground to use fewer steps.",
+      "A* takes a longer route with lower modeled cost."
+    ],
+    "notes": "Both screenshots use the same start, goal and terrain. Yellow cells cost 6 on entry. The blue paths are computed results. Ask students to count steps separately from total cost. The objective function, rather than the algorithm name alone, defines what counts as a good route.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf"
+    ],
+    "layout": "pair",
+    "media": [
+      "bfs-terrain.png",
+      "astar-terrain.png"
+    ],
+    "demo": "search",
+    "equations": [],
+    "table": null,
+    "labels": [
+      "BFS: shortest in number of edges",
+      "A*: lower total terrain cost"
+    ]
+  },
+  {
+    "slide": 9,
+    "title": "A* search",
+    "body": [
+      "g measures the cost already spent.",
+      "h estimates the remaining cost.",
+      "A* expands the state with the lowest g + h."
+    ],
+    "notes": "The animation shows actual expansion order on the two-wall map. The heuristic points toward the goal, while the accumulated cost prevents greedy commitment to an expensive route. A* still searches around walls because a straight-line estimate cannot predict the detour.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf"
+    ],
+    "layout": "visual",
+    "media": [
+      "astar-search.gif"
+    ],
+    "demo": "search",
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 10,
+    "title": "A* priority calculation",
+    "body": [
+      "Both candidates have a priority of 17.",
+      "Tie breaking affects expansion order, even when the optimal cost is unchanged."
+    ],
+    "notes": "This is a worked arithmetic example, not a result from the rendered map. Candidate A has g=6 and h=11. Candidate B has g=9 and h=8. A consistent Manhattan heuristic with four-neighbor moves satisfies the unit-cost lower bound. Keep heuristic units compatible with edge costs.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "f(n) = g(n) + h(n)",
+      "A: 6 + 11 = 17       B: 9 + 8 = 17"
+    ],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 11,
+    "title": "Heuristic assumptions",
+    "body": [],
+    "notes": "Admissibility means h never exceeds the true remaining optimal cost. Consistency means h(u) is at most c(u,v)+h(v). For graph search without reopening, consistency provides the standard guarantee. With admissible but inconsistent heuristics, improved states must reopen. If the minimum move cost is lower than one, rescale Manhattan distance. Manhattan can overestimate when diagonal moves are allowed.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Graph",
+        "Lower-bound heuristic",
+        "Condition"
+      ],
+      [
+        "4-neighbor grid",
+        "Manhattan distance",
+        "Unit minimum step cost"
+      ],
+      [
+        "8-neighbor grid",
+        "Octile distance",
+        "Diagonal cost √2"
+      ],
+      [
+        "Euclidean motion",
+        "Straight-line distance",
+        "Cost ≥ geometric length"
+      ],
+      [
+        "Changed cost model",
+        "Recheck the lower bound",
+        "Match units and transitions"
+      ]
+    ],
+    "labels": []
+  },
+  {
+    "slide": 12,
+    "title": "The A* search loop",
+    "body": [
+      "Initialize the start with g = 0 and put it in OPEN.",
+      "Remove the lowest f state and relax its outgoing edges.",
+      "Update a neighbor when the new g improves its route.",
+      "Stop when the goal leaves OPEN, or OPEN becomes empty."
+    ],
+    "notes": "Use the parent links to reconstruct a route only after the goal is selected for expansion. Discovering the goal as a neighbor is not the general optimal stopping condition. A robust implementation handles stale queue entries and reopens improved states when required.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf"
+    ],
+    "layout": "steps",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 13,
+    "title": "Dijkstra and A* on the same graph",
+    "body": [
+      "Dijkstra spreads according to cost from the start.",
+      "A* also uses a lower bound on distance to the goal."
+    ],
+    "notes": "The screenshots show actual expanded cells on the same two-wall map. Cyan indicates processed states. Both algorithms use the same costs and return the same minimum route cost. Expansion savings depend on the heuristic and scene. Compare work counts rather than assuming a fixed speedup.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf"
+    ],
+    "layout": "pair",
+    "media": [
+      "dijkstra.png",
+      "astar.png"
+    ],
+    "demo": "search",
+    "equations": [],
+    "table": null,
+    "labels": [
+      "Dijkstra: g priority",
+      "A*: g + h priority"
+    ]
+  },
+  {
+    "slide": 14,
+    "title": "A* strengths and limits",
+    "body": [
+      "A* finds an optimal graph path under the appropriate search assumptions.",
+      "A coarse graph can omit a usable passage or a feasible steering motion.",
+      "A changed map requires a fresh search or an incremental method."
+    ],
+    "notes": "The finite demo graph has positive costs and a consistent heuristic. Its shortest path does not claim continuous shortest length, feasible vehicle dynamics, or safety against future obstacle motion. Weighted A* uses f=g+w h for w>1 and can expand fewer states at the expense of exact optimality. A* failure to find a path on a graph does not prove that no physical path exists.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf"
+    ],
+    "layout": "visual",
+    "media": [
+      "weighted.png"
+    ],
+    "demo": "search",
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 15,
+    "title": "Replanning after a map change",
+    "body": [
+      "A sensor discovers a blockage on the planned route.",
+      "Edge costs change when a cell becomes occupied or free.",
+      "Incremental search reuses earlier work."
+    ],
+    "notes": "D* originated with Stentz in 1994. Present the road-closure example: the destination remains the same while the robot advances and its knowledge changes. A robot must still detect the blockage and stop safely. Incremental graph search addresses recomputation after changes, not perception or collision prediction.",
+    "refs": [
+      "https://publications.ri.cmu.edu/the-d-algorithm-for-real-time-planning-of-optimal-traverses"
+    ],
+    "layout": "visual",
+    "media": [
+      "dstar-before.png"
+    ],
+    "demo": "replan",
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 16,
+    "title": "D* and D* Lite",
+    "body": [],
+    "notes": "D* Lite is algorithmically distinct from D*. It builds on Lifelong Planning A* and produces a similar replanning behavior. The demo implements D* Lite, so name it accurately when explaining the code. Both belong to incremental graph search. Neither automatically reasons about the time at which a moving object will intersect the robot.",
+    "refs": [
+      "https://publications.ri.cmu.edu/the-d-algorithm-for-real-time-planning-of-optimal-traverses",
+      "https://idm-lab.org/bib/abstracts/papers/aaai02b.pdf"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Method",
+        "Origin",
+        "Core idea"
+      ],
+      [
+        "D*",
+        "Stentz, 1994",
+        "Repair routes after cost changes"
+      ],
+      [
+        "D* Lite",
+        "Koenig & Likhachev, 2002",
+        "Reuse backward g / rhs values"
+      ],
+      [
+        "Repeated A*",
+        "New search after each edit",
+        "Discard previous search state"
+      ]
+    ],
+    "labels": []
+  },
+  {
+    "slide": 17,
+    "title": "D* Lite consistency",
+    "body": [
+      "g is the stored estimate of cost to the goal.",
+      "rhs checks that estimate against one step through a neighbor.",
+      "A changed edge makes affected states inconsistent."
+    ],
+    "notes": "D* Lite initializes rhs(goal)=0, searches backward, and processes inconsistent states by a two-part priority key. The start-dependent heuristic and km adjustment allow the start to move while retaining estimates. This slide shows the local consistency relation rather than the full algorithm. The engine updates both endpoints affected by a cell/cost edit.",
+    "refs": [
+      "https://idm-lab.org/bib/abstracts/papers/aaai02b.pdf"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "rhs(s) = min [ c(s, s′) + g(s′) ]",
+      "g(s) = rhs(s)   means locally consistent"
+    ],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 18,
+    "title": "D* Lite repairs the route",
+    "body": [
+      "The blocked cell changes the route.",
+      "Cyan shows the states processed by this repair.",
+      "The demo compares route cost and expansions with a fresh A* search."
+    ],
+    "notes": "The after screenshot comes from a real click on the route, followed by D* Lite repair. Earlier g and rhs arrays remain in memory. Both final costs agree with the same graph optimum. Initial search and latest repair counts are distinct, and cumulative D* work remains visible. Some map changes can make repair more expensive than a new search.",
+    "refs": [
+      "https://idm-lab.org/bib/abstracts/papers/aaai02b.pdf"
+    ],
+    "layout": "visual",
+    "media": [
+      "dstar-after.png"
+    ],
+    "demo": "replan",
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 19,
+    "title": "When incremental replanning helps",
+    "body": [],
+    "notes": "Small localized changes often let incremental search reuse much of its earlier computation. Changed goals, major remapping and altered state spaces can reduce that benefit or require reinitialization. Fast replanning also depends on how many sensor changes reach the costmap. Repeatedly flipping occupancy from noisy observations can create excessive work.",
+    "refs": [
+      "https://publications.ri.cmu.edu/the-d-algorithm-for-real-time-planning-of-optimal-traverses",
+      "https://idm-lab.org/bib/abstracts/papers/aaai02b.pdf"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Situation",
+        "Expected benefit",
+        "Remaining problem"
+      ],
+      [
+        "Few changed edges",
+        "Reuse unaffected estimates",
+        "Detect changes correctly"
+      ],
+      [
+        "Robot advances",
+        "Retain goal-distance values",
+        "Maintain consistent priorities"
+      ],
+      [
+        "Large map revisions",
+        "Benefit can shrink",
+        "Many states need repair"
+      ],
+      [
+        "Moving traffic",
+        "Update current occupancy",
+        "Predict motion and timing"
+      ]
+    ],
+    "labels": []
+  },
+  {
+    "slide": 20,
+    "title": "Popular planning families",
+    "body": [],
+    "notes": "These are families, not a ranking. Graph search needs a useful discretization. Sampling methods become attractive as configuration dimension grows. Optimization can encode smoothness and dynamics, but often needs a good initial guess. Many deployed systems combine a coarse global search with local optimization.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf",
+      "https://lavalle.pl/planning/ch5.pdf",
+      "https://docs.nav2.org/rolling/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Family",
+        "Examples",
+        "Useful problem"
+      ],
+      [
+        "Graph search",
+        "Dijkstra, A*, D* Lite",
+        "Costed map / state graph"
+      ],
+      [
+        "Sampling",
+        "PRM, RRT, RRT*",
+        "Continuous configuration space"
+      ],
+      [
+        "Potential fields",
+        "Attraction / repulsion",
+        "Fast reactive motion guidance"
+      ],
+      [
+        "Trajectory optimization",
+        "MPC, MPPI, trajectory fitting",
+        "Motion with costs and constraints"
+      ]
+    ],
+    "labels": []
+  },
+  {
+    "slide": 21,
+    "title": "PRM and RRT",
+    "body": [
+      "PRM builds a roadmap that can support many queries.",
+      "RRT grows a tree outward from a starting configuration.",
+      "Collision checks decide which connections survive."
+    ],
+    "notes": "PRM samples free configurations and connects nearby samples to form a roadmap, often for repeated queries in a largely static environment. RRT incrementally extends toward random samples. The animation is the actual seeded RRT implementation in this demo. Narrow passages receive relatively few random samples.",
+    "refs": [
+      "https://lavalle.pl/planning/ch5.pdf"
+    ],
+    "layout": "visual",
+    "media": [
+      "rrt-growth.gif"
+    ],
+    "demo": "sampling",
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 22,
+    "title": "RRT and RRT* tradeoffs",
+    "body": [
+      "RRT often finds a feasible path before refining its quality.",
+      "RRT* rewires nearby connections to improve path cost.",
+      "Finite compute time can still leave a poor path or miss a narrow passage."
+    ],
+    "notes": "Probabilistic completeness is an asymptotic property under assumptions, not a finite-time success guarantee. RRT* asymptotic optimality also requires its prescribed connection strategy and regularity assumptions. The demo implements basic RRT with fixed extension length and goal bias, without RRT* rewiring. It checks sampled segments with a small disk radius.",
+    "refs": [
+      "https://lavalle.pl/planning/ch5.pdf",
+      "https://arxiv.org/abs/1105.1186"
+    ],
+    "layout": "visual",
+    "media": [
+      "rrt.png"
+    ],
+    "demo": "sampling",
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 23,
+    "title": "The robot occupies space",
+    "body": [
+      "A point path ignores the physical footprint.",
+      "Configuration includes every variable needed to locate the body.",
+      "A mobile rectangle needs position and orientation."
+    ],
+    "notes": "For a planar rigid body, q=(x,y,theta). An arm needs joint angles. An obstacle can block different configurations at different orientations. Configuration-space planning accounts for the entire robot body, including attached tools and loads. The exact geometry changes when the robot rotates.",
+    "refs": [
+      "https://lavalle.pl/planning/ch4.pdf"
+    ],
+    "layout": "visual",
+    "media": [
+      "imagination-collision.png"
+    ],
+    "demo": "imagination",
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 24,
+    "title": "Obstacle expansion",
+    "body": [
+      "A circular robot of radius r expands each obstacle by r.",
+      "A safety margin adds clearance for model and pose error."
+    ],
+    "notes": "For translation at fixed orientation, the configuration obstacle is O ⊕ (−R), where the negative reflects the robot footprint about the reference point. For a symmetric disk this reflection has no visible effect. An orientation-dependent footprint needs a different expansion at each theta or direct footprint checking. Inflation does not compensate for arbitrarily wrong localization.",
+    "refs": [
+      "https://lavalle.pl/planning/ch4.pdf",
+      "https://github.com/ros-navigation/docs.nav2.org/blob/rolling/docs/configuration_and_development/tuning_guide.md"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "C_obstacle = O ⊕ (−R)",
+      "Circular robot: expansion radius = r + margin"
+    ],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 25,
+    "title": "A passage closes as clearance grows",
+    "body": [
+      "A small footprint leaves a center route through the gap.",
+      "A larger footprint and margin remove that route."
+    ],
+    "notes": "Orange cells show conservative forbidden occupancy. The obstacle cells are unit squares, and any grid cell that intersects their Minkowski expansion is excluded. This whole-cell representation can reject a physically feasible route near a tight threshold. Reducing resolution or checking continuous geometry can distinguish a grid artifact from actual collision.",
+    "refs": [
+      "https://lavalle.pl/planning/ch4.pdf"
+    ],
+    "layout": "pair",
+    "media": [
+      "clearance-small.png",
+      "clearance-closed.png"
+    ],
+    "demo": "clearance",
+    "equations": [],
+    "table": null,
+    "labels": [
+      "Small robot and margin",
+      "Larger robot and margin"
+    ]
+  },
+  {
+    "slide": 26,
+    "title": "Hard clearance and soft cost",
+    "body": [],
+    "notes": "Hard constraints exclude collisions. A soft cost encourages wider clearance among feasible paths. Nav2 inflation includes lethal/inscribed behavior and a graded cost region, with footprint handling varying by plugin. A simple radius threshold is not a complete account of the Nav2 inflation layer. Large cost penalties can discourage progress through otherwise feasible narrow passages.",
+    "refs": [
+      "https://github.com/ros-navigation/docs.nav2.org/blob/rolling/docs/configuration_and_development/tuning_guide.md",
+      "https://docs.nav2.org/rolling/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Mechanism",
+        "Effect",
+        "Tuning consequence"
+      ],
+      [
+        "Footprint collision",
+        "Reject overlap with obstacles",
+        "Physical feasibility"
+      ],
+      [
+        "Extra safety margin",
+        "Exclude additional space",
+        "Can close narrow gaps"
+      ],
+      [
+        "Graded obstacle cost",
+        "Prefer farther clearance",
+        "Trades clearance against length"
+      ],
+      [
+        "Excessive repulsion",
+        "Avoid high-cost regions",
+        "Can stall in narrow corridors"
+      ]
+    ],
+    "labels": []
+  },
+  {
+    "slide": 27,
+    "title": "A vehicle cannot follow every point path",
+    "body": [
+      "Steering constrains curvature.",
+      "Speed and braking limit what can happen next."
+    ],
+    "notes": "Use the bicycle-model turning-radius relation, with wheelbase L and steering delta. A 90-degree grid corner has a direction discontinuity. Smoothing might still violate obstacles or turning radius. A differential-drive robot and an Ackermann vehicle have different allowed transitions. Reverse maneuvers also change the search.",
+    "refs": [
+      "https://lavalle.pl/planning/ch13.pdf"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "q = (x, y, θ)",
+      "Turning radius ≈ L / tan(δ)"
+    ],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 28,
+    "title": "Hybrid A* and state lattices",
+    "body": [],
+    "notes": "Hybrid A* propagates continuous vehicle motions while using discretized search bookkeeping. State lattices connect states through predefined feasible motion primitives. Both can include reverse driving and heading. Their exact guarantees depend on discretization, primitive coverage, costs and implementation. Nav2 lists Smac Hybrid-A* and lattice planners for relevant robot kinematics.",
+    "refs": [
+      "https://docs.nav2.org/rolling/configuration_and_development/navigation_plugins/",
+      "https://lavalle.pl/planning/ch13.pdf"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Method",
+        "State / transitions",
+        "Why use it"
+      ],
+      [
+        "Grid A*",
+        "Position and grid steps",
+        "Simple holonomic planning"
+      ],
+      [
+        "Hybrid A*",
+        "Pose with curved motions",
+        "Respect turning constraints"
+      ],
+      [
+        "State lattice",
+        "Pose and motion primitives",
+        "Search executable connections"
+      ],
+      [
+        "Remaining check",
+        "Full footprint and timing",
+        "Steering feasibility alone is insufficient"
+      ]
+    ],
+    "labels": []
+  },
+  {
+    "slide": 29,
+    "title": "Attraction and repulsion",
+    "body": [
+      "The goal supplies an attractive potential.",
+      "Nearby obstacles supply repulsive potentials.",
+      "The robot follows the negative gradient of their sum."
+    ],
+    "notes": "Show the open-scene screenshot. The short blue-gray strokes indicate net force direction, and the executed blue trace bends around the obstacle. The physical robot still needs a motion controller and collision checks. A potential gradient in x/y alone does not automatically satisfy car kinematics.",
+    "refs": [
+      "https://lavalle.pl/planning/ch8.pdf"
+    ],
+    "layout": "visual",
+    "media": [
+      "field-open.png"
+    ],
+    "demo": "field",
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 30,
+    "title": "An artificial potential field",
+    "body": [
+      "Attraction grows with distance from the goal.",
+      "Repulsion grows rapidly near an obstacle."
+    ],
+    "notes": "This is a common elementary potential construction. d is clearance to an obstacle, d0 is its influence range, and eta sets repulsion strength. Apply repulsion only when d<d0. The demo sums circular obstacle contributions and caps integration steps. Discuss units and gain tuning without suggesting this construction has a general global convergence guarantee.",
+    "refs": [
+      "https://lavalle.pl/planning/ch8.pdf"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "U_att = ½ k ||p − goal||²",
+      "U_rep = ½ η (1/d − 1/d₀)²   for d < d₀",
+      "Motion direction = −∇(U_att + Σ U_rep)"
+    ],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 31,
+    "title": "The U-shaped potential-field trap",
+    "body": [
+      "Attraction points toward a goal beyond the wall.",
+      "Repulsion balances attraction inside the U.",
+      "The robot stops with the goal still far away."
+    ],
+    "notes": "The animation computes the robot’s motion and net force in the U-shaped scene. The symmetric start makes the competing forces particularly clear. Here force magnitude approaches zero while distance to the goal stays large. An asymmetric perturbation may change this particular outcome but does not give the general method a completeness guarantee.",
+    "refs": [
+      "https://lavalle.pl/planning/ch8.pdf"
+    ],
+    "layout": "visual",
+    "media": [
+      "field-trap.gif"
+    ],
+    "demo": "field",
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 32,
+    "title": "Responses to potential-field failure",
+    "body": [
+      "A global route can provide waypoints around the U.",
+      "Recovery behaviors can leave a stalled configuration.",
+      "A longer-horizon search can evaluate a detour before moving."
+    ],
+    "notes": "A short controller that only descends a scalar potential cannot see that temporarily moving away from the goal may enable eventual progress. Random perturbations, wall-following or changing intermediate goals can help individual scenes. Each response needs explicit safety and progress checks. Specialized navigation functions have stronger properties under restrictive construction assumptions.",
+    "refs": [
+      "https://lavalle.pl/planning/ch8.pdf",
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 33,
+    "title": "The global and local navigation loop",
+    "body": [
+      "The global planner computes a route to the goal.",
+      "The local planner predicts candidate motions near the robot.",
+      "A controller executes a short part and receives a new state.",
+      "A blocked route or missing progress triggers replanning or recovery."
+    ],
+    "notes": "The same robot repeatedly closes this loop. Routes, local trajectories and commands should use consistent frames and timestamps. A local planner can stop even while the global route remains visible, because nearby sensed geometry differs from the global map. Stopping can be a valid action, but indefinite stopping requires a progress/recovery policy.",
+    "refs": [
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/"
+    ],
+    "layout": "steps",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 34,
+    "title": "Local trajectory sampling",
+    "body": [
+      "Each candidate uses a different forward speed and turn rate.",
+      "Prediction rejects motions that intersect obstacles.",
+      "A score balances progress, path following, and motion."
+    ],
+    "notes": "The screenshot shows actual unicycle rollouts from the current pose. Orange marks the chosen candidate. Cyan/red mark admissible/rejected predictions. The controller executes only the first 0.1 second, then samples again. It uses an ideal sinusoidal obstacle model. This is DWA-like sampling, without the acceleration-reachable dynamic window or full Nav2 implementation.",
+    "refs": [
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/",
+      "https://docs.nav2.org/rolling/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/"
+    ],
+    "layout": "visual",
+    "media": [
+      "local-rollouts.png"
+    ],
+    "demo": "local",
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 35,
+    "title": "A crossing obstacle and a permanent blockage",
+    "body": [
+      "A moving obstacle clears and local execution progresses.",
+      "A permanent blockage stalls the controller until the route changes."
+    ],
+    "notes": "These two screenshots use the same initial route and 30 seconds of simulated control. The moving scene predicts the sinusoidal obstacle and progresses after it clears. The stationary scene stops before collision. Use Update global map and replan to run A* with the current obstacle occupancy. A route built from a snapshot of a moving object can become stale, so local prediction remains necessary.",
+    "refs": [
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/",
+      "https://docs.nav2.org/rolling/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/"
+    ],
+    "layout": "pair",
+    "media": [
+      "local-moving.png",
+      "local-blocked.png"
+    ],
+    "demo": "local",
+    "equations": [],
+    "table": null,
+    "labels": [
+      "Moving obstacle clears the route",
+      "Stationary obstacle blocks the route"
+    ]
+  },
+  {
+    "slide": 36,
+    "title": "Common local planning approaches",
+    "body": [],
+    "notes": "DWA constrains sampled velocities by the robot’s dynamic reachability and braking feasibility. The demo uses only a simplified bounded sample set. MPC repeatedly solves a finite-horizon control problem. MPPI uses sampled control sequences with weighted updates to improve a sequence. A pure path follower needs its own collision handling when the scene changes.",
+    "refs": [
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/",
+      "https://docs.nav2.org/rolling/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/",
+      "https://docs.nav2.org/rolling/configuration_and_development/navigation_plugins/"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Approach",
+        "Mechanism",
+        "Typical limitation"
+      ],
+      [
+        "DWA / DWB",
+        "Score candidate velocity motions",
+        "Sampling and critic tuning"
+      ],
+      [
+        "MPC",
+        "Optimize predicted controls",
+        "Model error and solve budget"
+      ],
+      [
+        "MPPI",
+        "Improve sampled control sequences",
+        "Cost / noise / horizon tuning"
+      ],
+      [
+        "Path following",
+        "Track a given reference",
+        "Avoidance depends on controller"
+      ]
+    ],
+    "labels": []
+  },
+  {
+    "slide": 37,
+    "title": "Prediction horizon and stopping distance",
+    "body": [
+      "A short horizon can hide a future collision.",
+      "A longer horizon costs more computation and needs useful predictions."
+    ],
+    "notes": "Reaction time includes sensing, communication and control latency. The simple distance relation assumes constant speed during reaction and constant braking deceleration afterward on a suitable surface. The demo does not model this braking envelope, so it must not claim hardware safety. The execution guard catches sampled collisions and supports teaching the distinction between planning and safety enforcement.",
+    "refs": [
+      "https://lavalle.pl/planning/ch13.pdf",
+      "https://docs.nav2.org/rolling/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/"
+    ],
+    "layout": "equation",
+    "media": [],
+    "demo": null,
+    "equations": [
+      "Distance ≈ v t_reaction + v² / (2 a_brake)",
+      "Horizon distance ≈ v × prediction time"
+    ],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 38,
+    "title": "Planning in different environments",
+    "body": [],
+    "notes": "These are qualitative fit examples, not empirical rankings. Indoor geometry can be known while people move unpredictably. Outdoor terrain adds traversal costs and larger maps. A road vehicle requires kinematics, rules and actor prediction. Rapidly changing scenes can invalidate a graph path immediately after computation. Name the missing evidence before switching algorithms.",
+    "refs": [
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/",
+      "https://lavalle.pl/planning/ch5.pdf",
+      "https://lavalle.pl/planning/ch13.pdf"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Environment",
+        "Planning emphasis",
+        "Common failure"
+      ],
+      [
+        "Static warehouse",
+        "Map search and footprint",
+        "Narrow aisles / loaded robot"
+      ],
+      [
+        "People in a corridor",
+        "Local prediction and stopping",
+        "Wrong motion forecast"
+      ],
+      [
+        "Outdoor rough terrain",
+        "Traversability and replanning",
+        "Map misses slope / traction"
+      ],
+      [
+        "Road vehicle",
+        "Feasible timed maneuvers",
+        "Grid corner / crossing actor"
+      ]
+    ],
+    "labels": []
+  },
+  {
+    "slide": 39,
+    "title": "Greg Chirikjian’s Robot Imagination",
+    "body": [
+      "Reconstruct an unfamiliar object for simulation.",
+      "Test candidate physical interactions and evaluate their outcomes.",
+      "Use the resulting affordance to guide a real action."
+    ],
+    "notes": "The University of Delaware reference is Gregory S. Chirikjian’s Robot Imagination work, documented in his 2024 seminar. Affordance means a possible useful interaction, such as sitting on an object or using a tool. Physical simulation can test whether a candidate interaction works before execution. This extends planning from finding free-space routes to choosing useful actions with objects. Avoid asserting a current faculty appointment from the historical seminar.",
+    "refs": [
+      "https://ame.nd.edu/events/from-state-estimation-to-affordance-learning-and-robot-imagination/"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 40,
+    "title": "Imagination and motion planning",
+    "body": [
+      "PRIMP learns distributions of demonstrated end-effector motions.",
+      "Planning uses those distributions to adapt motions around new obstacles.",
+      "RAIL combines language-based reasoning with simulated affordance tests."
+    ],
+    "notes": "PRIMP represents both end-effector position and orientation in six-dimensional workspace and guides optimization-based motion planning. RAIL generates and evaluates simulated interactions to infer object functionality and functional poses. These examples show how task reasoning, geometry and motion planning connect. Neither establishes an unconditional navigation or safety guarantee.",
+    "refs": [
+      "https://arxiv.org/abs/2305.15761",
+      "https://arxiv.org/abs/2403.19369"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 41,
+    "title": "Demo: imagined doorway motions",
+    "body": [
+      "The center follows the same straight route.",
+      "Changing orientation changes the swept robot footprint.",
+      "Candidate motions must pass collision checks before execution."
+    ],
+    "notes": "The demo tests seven fixed orientations, each with sampled translation poses through the door. It illustrates evaluating candidate actions, but omits physical contact, object affordance inference, learned motion distributions and language models. A collision-free center line alone is insufficient. Ask why a rectangle with its short side across the doorway fits while the rotated version collides.",
+    "refs": [
+      "https://lavalle.pl/planning/ch4.pdf",
+      "https://ame.nd.edu/events/from-state-estimation-to-affordance-learning-and-robot-imagination/",
+      "https://arxiv.org/abs/2305.15761"
+    ],
+    "layout": "visual",
+    "media": [
+      "imagination.png"
+    ],
+    "demo": "imagination",
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 42,
+    "title": "Choosing a planning approach",
+    "body": [],
+    "notes": "Ask students to state the model before the name of an algorithm. A known grid can support A*. Localized cost updates can justify D* Lite. Higher-dimensional configuration spaces can favor sampling. A car requires allowed steering motions. Dynamic obstacles require temporal prediction and feedback in addition to whichever global method is selected.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf",
+      "https://idm-lab.org/bib/abstracts/papers/aaai02b.pdf",
+      "https://lavalle.pl/planning/ch5.pdf",
+      "https://lavalle.pl/planning/ch13.pdf",
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/"
+    ],
+    "layout": "table",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": [
+      [
+        "Problem",
+        "Candidate approach",
+        "First check"
+      ],
+      [
+        "Known cost map",
+        "A* / Dijkstra",
+        "Heuristic and graph costs"
+      ],
+      [
+        "Changing map, same goal",
+        "D* Lite",
+        "Cost-change updates"
+      ],
+      [
+        "Arm / complex geometry",
+        "PRM / RRT / RRT*",
+        "Configuration collision model"
+      ],
+      [
+        "Vehicle maneuvers",
+        "Hybrid A* / lattice",
+        "Curvature and footprint"
+      ],
+      [
+        "Moving nearby objects",
+        "Local prediction / optimization",
+        "Timing and stopping feasibility"
+      ]
+    ],
+    "labels": []
+  },
+  {
+    "slide": 43,
+    "title": "Interactive experiments",
+    "body": [
+      "Search: compare BFS and A* across terrain. Record path cost and expansions.",
+      "Replanning: block and reopen a route cell. Compare D* Lite with fresh A*.",
+      "Geometry: grow the footprint, then rotate a rectangle at the doorway.",
+      "Local motion: change horizon and obstacle motion. Explain rejected candidates."
+    ],
+    "notes": "Use the offline package or open the companion HTML page. Students should submit a brief table of settings, observations and explanations, with one screenshot for a failure case. They should distinguish modeled infeasibility from missing representation, poor tuning and execution-model error. The README contains exact starting settings and interpretation questions.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf",
+      "https://idm-lab.org/bib/abstracts/papers/aaai02b.pdf",
+      "https://lavalle.pl/planning/ch4.pdf",
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/"
+    ],
+    "layout": "steps",
+    "media": [],
+    "demo": "search",
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 44,
+    "title": "Discussion and exit questions",
+    "body": [
+      "Why can an optimal A* path still be unsafe for a vehicle?",
+      "When might D* Lite repair cost more work than a fresh search?",
+      "Why can a local planner stop while a global route still exists?",
+      "Which assumptions would an imagination model need before real execution?"
+    ],
+    "notes": "Expected answers: graph optimality is relative to representation and cost; large changes can invalidate extensive prior search; local geometry, prediction and horizon can differ from the global model; and simulated geometry, contact, dynamics and uncertainty must correspond to the real situation. Use these questions to assess reasoning rather than memorized names.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf",
+      "https://idm-lab.org/bib/abstracts/papers/aaai02b.pdf",
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/",
+      "https://ame.nd.edu/events/from-state-estimation-to-affordance-learning-and-robot-imagination/"
+    ],
+    "layout": "text",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "labels": []
+  },
+  {
+    "slide": 45,
+    "title": "Reading and resources",
+    "body": [
+      "LaValle, Planning Algorithms: search, configuration space, sampling, feedback.",
+      "Stentz: D*. Koenig and Likhachev: D* Lite.",
+      "Nav2 documentation: planners, controllers, footprints, and cost tuning.",
+      "Chirikjian and collaborators: Robot Imagination, PRIMP, and RAIL."
+    ],
+    "notes": "References on this slide and in the speaker notes link to primary research and official documentation. Course screenshots are actual synthetic-demo computations. The demo is self-contained and requires no ROS installation. The slides remain editable, with sources and teaching explanations in their notes.",
+    "refs": [
+      "https://lavalle.pl/planning/ch2.pdf",
+      "https://lavalle.pl/planning/ch4.pdf",
+      "https://lavalle.pl/planning/ch5.pdf",
+      "https://lavalle.pl/planning/ch8.pdf",
+      "https://publications.ri.cmu.edu/the-d-algorithm-for-real-time-planning-of-optimal-traverses",
+      "https://idm-lab.org/bib/abstracts/papers/aaai02b.pdf",
+      "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/",
+      "https://arxiv.org/abs/2305.15761",
+      "https://arxiv.org/abs/2403.19369"
+    ],
+    "layout": "resources",
+    "media": [],
+    "demo": null,
+    "equations": [],
+    "table": null,
+    "labels": []
+  }
+]

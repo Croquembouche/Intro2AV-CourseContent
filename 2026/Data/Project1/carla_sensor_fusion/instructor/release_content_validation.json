@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "reviewed_frames_checked": 29,
+  "local_gallery_links_checked": 89,
+  "review_image_hashes_match": true,
+  "review_stamps_match_both_sensor_topics": true,
+  "both_playback_checks_passed": true,
+  "driving_sustained_motion_check_passed": true,
+  "package_xml_well_formed": true,
+  "gallery_visual_check": "Browser rendering inspected; header, image pairs, labels and links displayed correctly."
+}

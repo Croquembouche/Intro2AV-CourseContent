@@ -1,0 +1,284 @@
+{
+  "status": "passed",
+  "method": "Reconstruct world-space box corners from actor world poses and separately captured local geometry, convert CARLA world y to ROS map y, then transform using inverse map-to-base_link TF deserialized from the actual delivered bags. No precomputed T_base_from_bbox_carla used for reconstructed reference.",
+  "sequences": {
+    "stationary": {
+      "synchronized_pairs": 102,
+      "reviewed_frames": 1,
+      "ground_truth_records": 102,
+      "first_stamp_ns": 12475120533,
+      "last_stamp_ns": 17525120608,
+      "all_sensor_header_timestamps_match": true
+    },
+    "driving": {
+      "synchronized_pairs": 1203,
+      "reviewed_frames": 28,
+      "ground_truth_records": 1203,
+      "first_stamp_ns": 20025120645,
+      "last_stamp_ns": 80125121541,
+      "all_sensor_header_timestamps_match": true
+    }
+  },
+  "objects": [
+    {
+      "sequence": "stationary",
+      "frame_id": "stationary_00s",
+      "stamp_ns": 12475120533,
+      "actor_id": 55,
+      "class_name": "car",
+      "center_disagreement_m": 4.43758115479066e-07,
+      "max_dimension_disagreement_m": 9.810184109504405e-08,
+      "body_support_candidates": 18
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_00s",
+      "stamp_ns": 20025120645,
+      "actor_id": 55,
+      "class_name": "car",
+      "center_disagreement_m": 4.43758115479066e-07,
+      "max_dimension_disagreement_m": 9.810184109504405e-08,
+      "body_support_candidates": 56
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_02s",
+      "stamp_ns": 22025120675,
+      "actor_id": 55,
+      "class_name": "car",
+      "center_disagreement_m": 1.350100367395053e-07,
+      "max_dimension_disagreement_m": 4.349492588318071e-08,
+      "body_support_candidates": 68
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_02s",
+      "stamp_ns": 22025120675,
+      "actor_id": 62,
+      "class_name": "car",
+      "center_disagreement_m": 2.94952837389281e-07,
+      "max_dimension_disagreement_m": 4.1546152296234595e-08,
+      "body_support_candidates": 9
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_03s",
+      "stamp_ns": 23025120690,
+      "actor_id": 55,
+      "class_name": "car",
+      "center_disagreement_m": 3.0276540819450785e-07,
+      "max_dimension_disagreement_m": 2.0157993962932608e-07,
+      "body_support_candidates": 255
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_04s",
+      "stamp_ns": 24025120705,
+      "actor_id": 84,
+      "class_name": "person",
+      "center_disagreement_m": 1.3369757536520103e-06,
+      "max_dimension_disagreement_m": 5.180770662471801e-08,
+      "body_support_candidates": 6
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_04s",
+      "stamp_ns": 24025120705,
+      "actor_id": 73,
+      "class_name": "car",
+      "center_disagreement_m": 3.1684041401654613e-06,
+      "max_dimension_disagreement_m": 3.796518106558011e-07,
+      "body_support_candidates": 18
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_04.5s",
+      "stamp_ns": 24525120712,
+      "actor_id": 84,
+      "class_name": "person",
+      "center_disagreement_m": 9.805250502908302e-07,
+      "max_dimension_disagreement_m": 4.72550565344676e-08,
+      "body_support_candidates": 10
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_04.5s",
+      "stamp_ns": 24525120712,
+      "actor_id": 73,
+      "class_name": "car",
+      "center_disagreement_m": 2.534851968659585e-06,
+      "max_dimension_disagreement_m": 3.338350655912592e-07,
+      "body_support_candidates": 9
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_05s",
+      "stamp_ns": 25025120720,
+      "actor_id": 73,
+      "class_name": "car",
+      "center_disagreement_m": 7.12058737140687e-07,
+      "max_dimension_disagreement_m": 1.0352634038923725e-07,
+      "body_support_candidates": 16
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_12.5s",
+      "stamp_ns": 32525120831,
+      "actor_id": 86,
+      "class_name": "person",
+      "center_disagreement_m": 7.462471891614678e-07,
+      "max_dimension_disagreement_m": 3.205129572858567e-08,
+      "body_support_candidates": 8
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_16s",
+      "stamp_ns": 36025120883,
+      "actor_id": 56,
+      "class_name": "car",
+      "center_disagreement_m": 1.854738471245528e-06,
+      "max_dimension_disagreement_m": 1.8088335673738243e-07,
+      "body_support_candidates": 5
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_16s",
+      "stamp_ns": 36025120883,
+      "actor_id": 60,
+      "class_name": "car",
+      "center_disagreement_m": 2.047033805016382e-06,
+      "max_dimension_disagreement_m": 1.652661043571868e-07,
+      "body_support_candidates": 21
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_16s",
+      "stamp_ns": 36025120883,
+      "actor_id": 61,
+      "class_name": "car",
+      "center_disagreement_m": 2.033556748257268e-06,
+      "max_dimension_disagreement_m": 1.6581210582344852e-07,
+      "body_support_candidates": 17
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_18s",
+      "stamp_ns": 38025120913,
+      "actor_id": 56,
+      "class_name": "car",
+      "center_disagreement_m": 3.198359177954069e-06,
+      "max_dimension_disagreement_m": 3.8407320479549867e-07,
+      "body_support_candidates": 11
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_24s",
+      "stamp_ns": 44025121003,
+      "actor_id": 60,
+      "class_name": "car",
+      "center_disagreement_m": 2.4805795547592204e-07,
+      "max_dimension_disagreement_m": 1.0912525549855445e-07,
+      "body_support_candidates": 126
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_24s",
+      "stamp_ns": 44025121003,
+      "actor_id": 78,
+      "class_name": "car",
+      "center_disagreement_m": 5.616071017311538e-07,
+      "max_dimension_disagreement_m": 1.1806955568793853e-07,
+      "body_support_candidates": 40
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_40s",
+      "stamp_ns": 60025121241,
+      "actor_id": 68,
+      "class_name": "car",
+      "center_disagreement_m": 5.858485603333452e-08,
+      "max_dimension_disagreement_m": 6.033705535202216e-09,
+      "body_support_candidates": 19
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_44s",
+      "stamp_ns": 64025121301,
+      "actor_id": 68,
+      "class_name": "car",
+      "center_disagreement_m": 1.223173188985875e-08,
+      "max_dimension_disagreement_m": 4.814482146286991e-09,
+      "body_support_candidates": 59
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_56s",
+      "stamp_ns": 76025121479,
+      "actor_id": 66,
+      "class_name": "car",
+      "center_disagreement_m": 8.059820377138012e-08,
+      "max_dimension_disagreement_m": 6.4777911923386e-09,
+      "body_support_candidates": 8
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_60s",
+      "stamp_ns": 80025121539,
+      "actor_id": 70,
+      "class_name": "car",
+      "center_disagreement_m": 3.9484893300032014e-07,
+      "max_dimension_disagreement_m": 1.6428277449520579e-07,
+      "body_support_candidates": 109
+    },
+    {
+      "sequence": "driving",
+      "frame_id": "driving_60s",
+      "stamp_ns": 80025121539,
+      "actor_id": 66,
+      "class_name": "car",
+      "center_disagreement_m": 6.465167504731659e-07,
+      "max_dimension_disagreement_m": 1.4851726781728303e-07,
+      "body_support_candidates": 61
+    }
+  ],
+  "max_center_disagreement_m": 3.198359177954069e-06,
+  "max_dimension_disagreement_m": 3.8407320479549867e-07,
+  "minimum_body_support_candidates": 5,
+  "all_29_review_images_match_bag_pixels": true,
+  "all_22_support_counts_reproduced": true,
+  "support_rule": "Original review rule: positive camera depth, inside reviewed RGB box, within oriented physical box plus 0.15 m, exclude bottom 0.25 m.",
+  "independent_reference_evaluator_result": {
+    "measurements": 22,
+    "center_error_m": {
+      "mean": 1.010701867599993e-06,
+      "median": 6.040619261021598e-07,
+      "rmse": 1.4113822863451768e-06,
+      "p90": 2.4860701522952655e-06,
+      "maximum": 3.198359177954069e-06
+    },
+    "dimension_mae_xyz_m": [
+      7.544995501858458e-08,
+      1.0258065642880383e-07,
+      1.992758725709688e-09
+    ],
+    "dimension_mae_m": 6.000779005769936e-08,
+    "bbox_corner_mean_error_m": {
+      "mean": 1.0118932893256112e-06,
+      "median": 6.04449797454963e-07,
+      "rmse": 1.4125579015504417e-06,
+      "p90": 2.4878776325320617e-06,
+      "maximum": 3.2023078318996743e-06
+    }
+  },
+  "student_release_bytes": {
+    "stationary": {
+      "student_zip_db_matches_audited_db": true,
+      "sha256": "16c4f586c789367d0fc364a8df204c630141b82bf7107d06a29a62185a88c2e3"
+    },
+    "driving": {
+      "student_zip_db_matches_audited_db": true,
+      "sha256": "6abc85263494b23120fb14cc926f937287d18a6e9eb0a4225e3d8081f4783d92"
+    },
+    "evaluation_zip_matches_source": true
+  }
+}

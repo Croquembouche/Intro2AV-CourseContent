@@ -1,0 +1,826 @@
+{
+  "method": "Map lane samples within 3 m and 45 degrees of actual CARLA ego pose; 2 m nominal map sampling.",
+  "objective": "Every non-junction driving lane in both directions; junction turns reported separately.",
+  "required_lanes": 40,
+  "complete_lanes": 17,
+  "road_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "lanes": [
+    {
+      "lane_id": "412:0:-1",
+      "road_id": 412,
+      "junction": true,
+      "length_m": 16.000000749999955,
+      "samples": 9,
+      "covered_samples": 9,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "411:0:1",
+      "road_id": 411,
+      "junction": true,
+      "length_m": 16.000000749999955,
+      "samples": 9,
+      "covered_samples": 5,
+      "fraction": 0.5555555555555556
+    },
+    {
+      "lane_id": "385:0:1",
+      "road_id": 385,
+      "junction": true,
+      "length_m": 10.832094473726558,
+      "samples": 8,
+      "covered_samples": 8,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "358:0:1",
+      "road_id": 358,
+      "junction": true,
+      "length_m": 10.832468048928993,
+      "samples": 8,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "447:0:1",
+      "road_id": 447,
+      "junction": true,
+      "length_m": 10.8301318723145,
+      "samples": 8,
+      "covered_samples": 8,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "341:0:1",
+      "road_id": 341,
+      "junction": true,
+      "length_m": 20.000002249999874,
+      "samples": 11,
+      "covered_samples": 11,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "317:0:1",
+      "road_id": 317,
+      "junction": true,
+      "length_m": 19.092059980433298,
+      "samples": 9,
+      "covered_samples": 4,
+      "fraction": 0.4444444444444444
+    },
+    {
+      "lane_id": "290:0:-1",
+      "road_id": 290,
+      "junction": true,
+      "length_m": 17.094873880544693,
+      "samples": 8,
+      "covered_samples": 2,
+      "fraction": 0.25
+    },
+    {
+      "lane_id": "283:0:-1",
+      "road_id": 283,
+      "junction": true,
+      "length_m": 10.835151577116239,
+      "samples": 8,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "277:0:1",
+      "road_id": 277,
+      "junction": true,
+      "length_m": 18.000000999999937,
+      "samples": 10,
+      "covered_samples": 4,
+      "fraction": 0.4
+    },
+    {
+      "lane_id": "276:0:-1",
+      "road_id": 276,
+      "junction": true,
+      "length_m": 18.00000099999994,
+      "samples": 10,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "252:0:-1",
+      "road_id": 252,
+      "junction": true,
+      "length_m": 17.071612265558972,
+      "samples": 8,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "236:0:-1",
+      "road_id": 236,
+      "junction": true,
+      "length_m": 17.09917797988406,
+      "samples": 8,
+      "covered_samples": 3,
+      "fraction": 0.375
+    },
+    {
+      "lane_id": "426:0:-1",
+      "road_id": 426,
+      "junction": true,
+      "length_m": 10.83276231251031,
+      "samples": 8,
+      "covered_samples": 5,
+      "fraction": 0.625
+    },
+    {
+      "lane_id": "232:0:-1",
+      "road_id": 232,
+      "junction": true,
+      "length_m": 10.832493349144817,
+      "samples": 8,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "216:0:-1",
+      "road_id": 216,
+      "junction": true,
+      "length_m": 10.830619511786157,
+      "samples": 8,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "177:0:-1",
+      "road_id": 177,
+      "junction": true,
+      "length_m": 18.000003749999387,
+      "samples": 10,
+      "covered_samples": 10,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "134:0:1",
+      "road_id": 134,
+      "junction": true,
+      "length_m": 17.09150270065138,
+      "samples": 8,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "178:0:1",
+      "road_id": 178,
+      "junction": true,
+      "length_m": 18.000003749999404,
+      "samples": 10,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "131:0:1",
+      "road_id": 131,
+      "junction": true,
+      "length_m": 18.88657765353498,
+      "samples": 9,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "224:0:1",
+      "road_id": 224,
+      "junction": true,
+      "length_m": 17.097521619945212,
+      "samples": 8,
+      "covered_samples": 3,
+      "fraction": 0.375
+    },
+    {
+      "lane_id": "118:0:-1",
+      "road_id": 118,
+      "junction": true,
+      "length_m": 14.832889758517368,
+      "samples": 10,
+      "covered_samples": 5,
+      "fraction": 0.5
+    },
+    {
+      "lane_id": "19:0:-1",
+      "road_id": 19,
+      "junction": false,
+      "length_m": 128.0040492479818,
+      "samples": 65,
+      "covered_samples": 65,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "19:0:1",
+      "road_id": 19,
+      "junction": false,
+      "length_m": 127.99604925198183,
+      "samples": 65,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "384:0:1",
+      "road_id": 384,
+      "junction": true,
+      "length_m": 16.002004249749298,
+      "samples": 9,
+      "covered_samples": 4,
+      "fraction": 0.4444444444444444
+    },
+    {
+      "lane_id": "93:0:-1",
+      "road_id": 93,
+      "junction": true,
+      "length_m": 20.00000049999997,
+      "samples": 11,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "68:0:1",
+      "road_id": 68,
+      "junction": true,
+      "length_m": 10.831185487706145,
+      "samples": 8,
+      "covered_samples": 4,
+      "fraction": 0.5
+    },
+    {
+      "lane_id": "383:0:-1",
+      "road_id": 383,
+      "junction": true,
+      "length_m": 15.998004250249293,
+      "samples": 9,
+      "covered_samples": 9,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "92:0:1",
+      "road_id": 92,
+      "junction": true,
+      "length_m": 20.00000049999997,
+      "samples": 11,
+      "covered_samples": 5,
+      "fraction": 0.45454545454545453
+    },
+    {
+      "lane_id": "433:0:1",
+      "road_id": 433,
+      "junction": true,
+      "length_m": 17.09818141740808,
+      "samples": 8,
+      "covered_samples": 8,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "142:0:1",
+      "road_id": 142,
+      "junction": true,
+      "length_m": 10.833533389098323,
+      "samples": 8,
+      "covered_samples": 4,
+      "fraction": 0.5
+    },
+    {
+      "lane_id": "18:0:-1",
+      "road_id": 18,
+      "junction": false,
+      "length_m": 30.000007499998596,
+      "samples": 16,
+      "covered_samples": 16,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "18:0:1",
+      "road_id": 18,
+      "junction": false,
+      "length_m": 30.000007499998592,
+      "samples": 16,
+      "covered_samples": 16,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "308:0:-1",
+      "road_id": 308,
+      "junction": true,
+      "length_m": 19.095704989482673,
+      "samples": 9,
+      "covered_samples": 4,
+      "fraction": 0.4444444444444444
+    },
+    {
+      "lane_id": "17:0:-1",
+      "road_id": 17,
+      "junction": false,
+      "length_m": 12.905216052965919,
+      "samples": 9,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "17:0:1",
+      "road_id": 17,
+      "junction": false,
+      "length_m": 19.044185865523087,
+      "samples": 9,
+      "covered_samples": 9,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "351:0:1",
+      "road_id": 351,
+      "junction": true,
+      "length_m": 17.069779925606962,
+      "samples": 8,
+      "covered_samples": 7,
+      "fraction": 0.875
+    },
+    {
+      "lane_id": "157:0:-1",
+      "road_id": 157,
+      "junction": true,
+      "length_m": 10.830118835608564,
+      "samples": 8,
+      "covered_samples": 4,
+      "fraction": 0.5
+    },
+    {
+      "lane_id": "16:0:-1",
+      "road_id": 16,
+      "junction": false,
+      "length_m": 12.855904363303559,
+      "samples": 9,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "16:0:1",
+      "road_id": 16,
+      "junction": false,
+      "length_m": 19.09155172882503,
+      "samples": 9,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "62:0:1",
+      "road_id": 62,
+      "junction": true,
+      "length_m": 17.09241543273141,
+      "samples": 8,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "15:0:-1",
+      "road_id": 15,
+      "junction": false,
+      "length_m": 61.99704175148147,
+      "samples": 32,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "15:0:1",
+      "road_id": 15,
+      "junction": false,
+      "length_m": 62.00304174848145,
+      "samples": 32,
+      "covered_samples": 32,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "14:0:-1",
+      "road_id": 14,
+      "junction": false,
+      "length_m": 30.00000149999991,
+      "samples": 16,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "14:0:1",
+      "road_id": 14,
+      "junction": false,
+      "length_m": 30.00000149999991,
+      "samples": 16,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "301:0:-1",
+      "road_id": 301,
+      "junction": true,
+      "length_m": 12.830142511462068,
+      "samples": 9,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "10:0:-1",
+      "road_id": 10,
+      "junction": false,
+      "length_m": 38.000007749998765,
+      "samples": 20,
+      "covered_samples": 20,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "10:0:1",
+      "road_id": 10,
+      "junction": false,
+      "length_m": 38.000007749998765,
+      "samples": 20,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "107:0:-1",
+      "road_id": 107,
+      "junction": true,
+      "length_m": 12.831268012200358,
+      "samples": 9,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "13:0:-1",
+      "road_id": 13,
+      "junction": false,
+      "length_m": 46.001011499872845,
+      "samples": 24,
+      "covered_samples": 24,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "13:0:1",
+      "road_id": 13,
+      "junction": false,
+      "length_m": 45.99901150012284,
+      "samples": 24,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "6:0:-1",
+      "road_id": 6,
+      "junction": false,
+      "length_m": 36.00000399999975,
+      "samples": 19,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "6:0:1",
+      "road_id": 6,
+      "junction": false,
+      "length_m": 36.00000399999975,
+      "samples": 19,
+      "covered_samples": 19,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "200:0:1",
+      "road_id": 200,
+      "junction": true,
+      "length_m": 16.00000174999989,
+      "samples": 9,
+      "covered_samples": 9,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "12:0:-1",
+      "road_id": 12,
+      "junction": false,
+      "length_m": 176.00631223039673,
+      "samples": 89,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "12:0:1",
+      "road_id": 12,
+      "junction": false,
+      "length_m": 175.9933122740249,
+      "samples": 89,
+      "covered_samples": 80,
+      "fraction": 0.898876404494382
+    },
+    {
+      "lane_id": "5:0:-1",
+      "road_id": 5,
+      "junction": false,
+      "length_m": 70.0000079999995,
+      "samples": 36,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "5:0:1",
+      "road_id": 5,
+      "junction": false,
+      "length_m": 70.00000799999948,
+      "samples": 36,
+      "covered_samples": 36,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "199:0:-1",
+      "road_id": 199,
+      "junction": true,
+      "length_m": 16.00000174999989,
+      "samples": 9,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "11:0:-1",
+      "road_id": 11,
+      "junction": false,
+      "length_m": 70.00001399999782,
+      "samples": 36,
+      "covered_samples": 36,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "11:0:1",
+      "road_id": 11,
+      "junction": false,
+      "length_m": 70.00001399999782,
+      "samples": 36,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "32:0:-1",
+      "road_id": 32,
+      "junction": true,
+      "length_m": 18.00000099999994,
+      "samples": 10,
+      "covered_samples": 5,
+      "fraction": 0.5
+    },
+    {
+      "lane_id": "9:0:-1",
+      "road_id": 9,
+      "junction": false,
+      "length_m": 30.000014999996242,
+      "samples": 16,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "9:0:1",
+      "road_id": 9,
+      "junction": false,
+      "length_m": 30.000014999996242,
+      "samples": 16,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "322:0:-1",
+      "road_id": 322,
+      "junction": true,
+      "length_m": 12.831321307416633,
+      "samples": 9,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "31:0:1",
+      "road_id": 31,
+      "junction": true,
+      "length_m": 18.000000999999937,
+      "samples": 10,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "55:0:1",
+      "road_id": 55,
+      "junction": true,
+      "length_m": 10.834856028430952,
+      "samples": 8,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "8:0:-1",
+      "road_id": 8,
+      "junction": false,
+      "length_m": 28.00000049999997,
+      "samples": 15,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "8:0:1",
+      "road_id": 8,
+      "junction": false,
+      "length_m": 28.00000049999997,
+      "samples": 15,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "342:0:-1",
+      "road_id": 342,
+      "junction": true,
+      "length_m": 20.00000224999986,
+      "samples": 11,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "245:0:1",
+      "road_id": 245,
+      "junction": true,
+      "length_m": 10.82752155632405,
+      "samples": 8,
+      "covered_samples": 8,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "148:0:1",
+      "road_id": 148,
+      "junction": true,
+      "length_m": 17.08891815647423,
+      "samples": 8,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "7:0:-1",
+      "road_id": 7,
+      "junction": false,
+      "length_m": 48.00000099999991,
+      "samples": 25,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "7:0:1",
+      "road_id": 7,
+      "junction": false,
+      "length_m": 48.00000099999991,
+      "samples": 25,
+      "covered_samples": 25,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "437:0:1",
+      "road_id": 437,
+      "junction": true,
+      "length_m": 17.07651280106405,
+      "samples": 8,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "390:0:-1",
+      "road_id": 390,
+      "junction": true,
+      "length_m": 17.085138377005052,
+      "samples": 8,
+      "covered_samples": 4,
+      "fraction": 0.5
+    },
+    {
+      "lane_id": "2:0:-1",
+      "road_id": 2,
+      "junction": false,
+      "length_m": 12.83845943039774,
+      "samples": 9,
+      "covered_samples": 9,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "2:0:1",
+      "road_id": 2,
+      "junction": false,
+      "length_m": 19.10277313434625,
+      "samples": 9,
+      "covered_samples": 9,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "99:0:-1",
+      "road_id": 99,
+      "junction": true,
+      "length_m": 19.093450577062487,
+      "samples": 9,
+      "covered_samples": 9,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "4:0:-1",
+      "road_id": 4,
+      "junction": false,
+      "length_m": 30.000003499999785,
+      "samples": 16,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "4:0:1",
+      "road_id": 4,
+      "junction": false,
+      "length_m": 30.00000349999979,
+      "samples": 16,
+      "covered_samples": 16,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "3:0:-1",
+      "road_id": 3,
+      "junction": false,
+      "length_m": 12.8334306535449,
+      "samples": 9,
+      "covered_samples": 9,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "3:0:1",
+      "road_id": 3,
+      "junction": false,
+      "length_m": 19.114361636969456,
+      "samples": 9,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "1:0:-1",
+      "road_id": 1,
+      "junction": false,
+      "length_m": 61.99510850236429,
+      "samples": 32,
+      "covered_samples": 2,
+      "fraction": 0.0625
+    },
+    {
+      "lane_id": "1:0:1",
+      "road_id": 1,
+      "junction": false,
+      "length_m": 62.00410849786203,
+      "samples": 32,
+      "covered_samples": 0,
+      "fraction": 0.0
+    },
+    {
+      "lane_id": "47:0:-1",
+      "road_id": 47,
+      "junction": true,
+      "length_m": 17.093764469171663,
+      "samples": 8,
+      "covered_samples": 8,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "0:0:-1",
+      "road_id": 0,
+      "junction": false,
+      "length_m": 93.99705925108661,
+      "samples": 48,
+      "covered_samples": 48,
+      "fraction": 1.0
+    },
+    {
+      "lane_id": "0:0:1",
+      "road_id": 0,
+      "junction": false,
+      "length_m": 94.00205924883656,
+      "samples": 48,
+      "covered_samples": 48,
+      "fraction": 1.0
+    }
+  ],
+  "source": "Every recorded nav_msgs/Odometry message in the delivered bag, converted to the map API coordinates.",
+  "trajectory_distance_m": 1176.6737853094587,
+  "recorded_frames": 3962,
+  "complete": false
+}

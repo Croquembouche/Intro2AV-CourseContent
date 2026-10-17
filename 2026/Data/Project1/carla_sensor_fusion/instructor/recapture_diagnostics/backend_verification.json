@@ -1,0 +1,33 @@
+{
+  "status": "cpu_backend_verified",
+  "gpu_probe_session": "20260911-224937-0c59a9",
+  "cpu_probe_session": "20260911-231012-287ec5",
+  "probe_frames_each": 10,
+  "gpu_body_height_candidates_per_frame": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "cpu_body_height_candidates_per_frame": [
+    1023,
+    1338,
+    1011,
+    1031,
+    545,
+    672,
+    711,
+    1395,
+    700,
+    718
+  ],
+  "visual_result": "CPU points overlay the visible vehicle roof/body; GPU probe produced no vehicle-body candidates. The matched scenario was restored, with new actor IDs and a small pose difference.",
+  "server_change": "Changed control-center launcher argument from --backend gpu to --backend cpu and restarted the simulator. Original controller source was backed up on the server.",
+  "scope": "Controlled backend workaround verified for the probe and followed by recapture. The exact GPU implementation defect has not been isolated."
+}

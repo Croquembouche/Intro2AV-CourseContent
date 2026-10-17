@@ -1,0 +1,50 @@
+rosbag2_bagfile_information:
+  version: 5
+  storage_identifier: sqlite3
+  duration:
+    nanoseconds: 5050000075
+  starting_time:
+    nanoseconds_since_epoch: 12475120533
+  message_count: 510
+  topics_with_message_count:
+    - topic_metadata:
+        name: /clock
+        type: rosgraph_msgs/msg/Clock
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 102
+    - topic_metadata:
+        name: /tf
+        type: tf2_msgs/msg/TFMessage
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 102
+    - topic_metadata:
+        name: /camera/front/camera_info
+        type: sensor_msgs/msg/CameraInfo
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 102
+    - topic_metadata:
+        name: /lidar/roof/points
+        type: sensor_msgs/msg/PointCloud2
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 102
+    - topic_metadata:
+        name: /camera/front/image_raw
+        type: sensor_msgs/msg/Image
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 102
+  compression_format: ""
+  compression_mode: ""
+  relative_file_paths:
+    - bag_0.db3
+  files:
+    - path: bag_0.db3
+      starting_time:
+        nanoseconds_since_epoch: 12475120533
+      duration:
+        nanoseconds: 5050000075
+      message_count: 510

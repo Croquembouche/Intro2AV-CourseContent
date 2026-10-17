@@ -1,0 +1,555 @@
+{
+  "stationary_00s": [
+    {
+      "actor_id": 55,
+      "class_name": "car",
+      "range_m": 22.3,
+      "bbox_xyxy": [
+        350,
+        194,
+        392,
+        225
+      ],
+      "support_points": 18
+    },
+    {
+      "actor_id": 84,
+      "class_name": "person",
+      "range_m": 25.4,
+      "bbox_xyxy": [
+        432,
+        187,
+        445,
+        215
+      ],
+      "support_points": 1
+    },
+    {
+      "actor_id": 62,
+      "class_name": "car",
+      "range_m": 39.5,
+      "bbox_xyxy": [
+        123,
+        190,
+        168,
+        206
+      ],
+      "support_points": 5
+    }
+  ],
+  "driving_00s": [
+    {
+      "actor_id": 55,
+      "class_name": "car",
+      "range_m": 22.3,
+      "bbox_xyxy": [
+        350,
+        194,
+        392,
+        225
+      ],
+      "support_points": 59
+    },
+    {
+      "actor_id": 84,
+      "class_name": "person",
+      "range_m": 33.9,
+      "bbox_xyxy": [
+        414,
+        186,
+        423,
+        206
+      ],
+      "support_points": 3
+    },
+    {
+      "actor_id": 62,
+      "class_name": "car",
+      "range_m": 39.5,
+      "bbox_xyxy": [
+        123,
+        190,
+        168,
+        206
+      ],
+      "support_points": 14
+    }
+  ],
+  "driving_02s": [
+    {
+      "actor_id": 55,
+      "class_name": "car",
+      "range_m": 15.3,
+      "bbox_xyxy": [
+        362,
+        196,
+        435,
+        248
+      ],
+      "support_points": 76
+    },
+    {
+      "actor_id": 84,
+      "class_name": "person",
+      "range_m": 29.8,
+      "bbox_xyxy": [
+        425,
+        185,
+        436,
+        208
+      ],
+      "support_points": 2
+    },
+    {
+      "actor_id": 73,
+      "class_name": "car",
+      "range_m": 55.9,
+      "bbox_xyxy": [
+        197,
+        185,
+        220,
+        196
+      ],
+      "support_points": 3
+    },
+    {
+      "actor_id": 62,
+      "class_name": "car",
+      "range_m": 33.4,
+      "bbox_xyxy": [
+        63,
+        189,
+        128,
+        210
+      ],
+      "support_points": 9
+    }
+  ],
+  "driving_03s": [
+    {
+      "actor_id": 55,
+      "class_name": "car",
+      "range_m": 7.4,
+      "bbox_xyxy": [
+        406,
+        211,
+        639,
+        359
+      ],
+      "support_points": 252
+    },
+    {
+      "actor_id": 84,
+      "class_name": "person",
+      "range_m": 23.3,
+      "bbox_xyxy": [
+        458,
+        185,
+        473,
+        216
+      ],
+      "support_points": 4
+    },
+    {
+      "actor_id": 73,
+      "class_name": "car",
+      "range_m": 48.2,
+      "bbox_xyxy": [
+        170,
+        184,
+        201,
+        198
+      ],
+      "support_points": 4
+    }
+  ],
+  "driving_03.5s": [
+    {
+      "actor_id": 84,
+      "class_name": "person",
+      "range_m": 20.2,
+      "bbox_xyxy": [
+        485,
+        184,
+        504,
+        221
+      ],
+      "support_points": 7
+    },
+    {
+      "actor_id": 73,
+      "class_name": "car",
+      "range_m": 44.4,
+      "bbox_xyxy": [
+        153,
+        183,
+        188,
+        198
+      ],
+      "support_points": 4
+    }
+  ],
+  "driving_04s": [
+    {
+      "actor_id": 84,
+      "class_name": "person",
+      "range_m": 17.2,
+      "bbox_xyxy": [
+        525,
+        189,
+        550,
+        235
+      ],
+      "support_points": 8
+    },
+    {
+      "actor_id": 73,
+      "class_name": "car",
+      "range_m": 40.7,
+      "bbox_xyxy": [
+        132,
+        187,
+        174,
+        204
+      ],
+      "support_points": 18
+    }
+  ],
+  "driving_04.5s": [
+    {
+      "actor_id": 86,
+      "class_name": "person",
+      "range_m": 56.8,
+      "bbox_xyxy": [
+        372,
+        181,
+        378,
+        193
+      ],
+      "support_points": 0
+    },
+    {
+      "actor_id": 84,
+      "class_name": "person",
+      "range_m": 14.3,
+      "bbox_xyxy": [
+        595,
+        187,
+        631,
+        250
+      ],
+      "support_points": 8
+    },
+    {
+      "actor_id": 73,
+      "class_name": "car",
+      "range_m": 37.0,
+      "bbox_xyxy": [
+        105,
+        184,
+        155,
+        204
+      ],
+      "support_points": 9
+    }
+  ],
+  "driving_05s": [
+    {
+      "actor_id": 86,
+      "class_name": "person",
+      "range_m": 53.4,
+      "bbox_xyxy": [
+        375,
+        183,
+        382,
+        195
+      ],
+      "support_points": 0
+    },
+    {
+      "actor_id": 73,
+      "class_name": "car",
+      "range_m": 33.5,
+      "bbox_xyxy": [
+        68,
+        186,
+        132,
+        209
+      ],
+      "support_points": 16
+    }
+  ],
+  "driving_06s": [
+    {
+      "actor_id": 86,
+      "class_name": "person",
+      "range_m": 46.8,
+      "bbox_xyxy": [
+        382,
+        182,
+        390,
+        196
+      ],
+      "support_points": 0
+    },
+    {
+      "actor_id": 73,
+      "class_name": "car",
+      "range_m": 27.1,
+      "bbox_xyxy": [
+        0,
+        184,
+        60,
+        218
+      ],
+      "support_points": 6
+    }
+  ],
+  "driving_08s": [
+    {
+      "actor_id": 86,
+      "class_name": "person",
+      "range_m": 37.0,
+      "bbox_xyxy": [
+        493,
+        186,
+        505,
+        206
+      ],
+      "support_points": 2
+    }
+  ],
+  "driving_10s": [
+    {
+      "actor_id": 86,
+      "class_name": "person",
+      "range_m": 32.0,
+      "bbox_xyxy": [
+        493,
+        184,
+        507,
+        207
+      ],
+      "support_points": 0
+    }
+  ],
+  "driving_12s": [
+    {
+      "actor_id": 86,
+      "class_name": "person",
+      "range_m": 22.3,
+      "bbox_xyxy": [
+        533,
+        184,
+        554,
+        219
+      ],
+      "support_points": 2
+    }
+  ],
+  "driving_12.5s": [
+    {
+      "actor_id": 86,
+      "class_name": "person",
+      "range_m": 19.5,
+      "bbox_xyxy": [
+        584,
+        184,
+        611,
+        228
+      ],
+      "support_points": 8
+    }
+  ],
+  "driving_13s": [],
+  "driving_13.5s": [],
+  "driving_14s": [],
+  "driving_16s": [
+    {
+      "actor_id": 56,
+      "class_name": "car",
+      "range_m": 50.1,
+      "bbox_xyxy": [
+        484,
+        189,
+        530,
+        202
+      ],
+      "support_points": 0
+    },
+    {
+      "actor_id": 60,
+      "class_name": "car",
+      "range_m": 55.3,
+      "bbox_xyxy": [
+        55,
+        187,
+        101,
+        201
+      ],
+      "support_points": 21
+    },
+    {
+      "actor_id": 61,
+      "class_name": "car",
+      "range_m": 55.0,
+      "bbox_xyxy": [
+        546,
+        187,
+        595,
+        202
+      ],
+      "support_points": 17
+    }
+  ],
+  "driving_18s": [
+    {
+      "actor_id": 56,
+      "class_name": "car",
+      "range_m": 40.7,
+      "bbox_xyxy": [
+        543,
+        187,
+        610,
+        205
+      ],
+      "support_points": 11
+    }
+  ],
+  "driving_20s": [],
+  "driving_24s": [
+    {
+      "actor_id": 88,
+      "class_name": "person",
+      "range_m": 39.7,
+      "bbox_xyxy": [
+        184,
+        189,
+        191,
+        201
+      ],
+      "support_points": 1
+    },
+    {
+      "actor_id": 60,
+      "class_name": "car",
+      "range_m": 10.2,
+      "bbox_xyxy": [
+        514,
+        196,
+        639,
+        350
+      ],
+      "support_points": 125
+    },
+    {
+      "actor_id": 78,
+      "class_name": "car",
+      "range_m": 23.2,
+      "bbox_xyxy": [
+        393,
+        190,
+        447,
+        221
+      ],
+      "support_points": 40
+    }
+  ],
+  "driving_28s": [],
+  "driving_32s": [],
+  "driving_36s": [],
+  "driving_40s": [
+    {
+      "actor_id": 68,
+      "class_name": "car",
+      "range_m": 43.2,
+      "bbox_xyxy": [
+        221,
+        186,
+        247,
+        200
+      ],
+      "support_points": 19
+    }
+  ],
+  "driving_44s": [
+    {
+      "actor_id": 71,
+      "class_name": "car",
+      "range_m": 41.1,
+      "bbox_xyxy": [
+        364,
+        191,
+        388,
+        204
+      ],
+      "support_points": 2
+    },
+    {
+      "actor_id": 68,
+      "class_name": "car",
+      "range_m": 15.6,
+      "bbox_xyxy": [
+        0,
+        201,
+        97,
+        275
+      ],
+      "support_points": 60
+    }
+  ],
+  "driving_48s": [],
+  "driving_52s": [],
+  "driving_56s": [
+    {
+      "actor_id": 70,
+      "class_name": "car",
+      "range_m": 42.6,
+      "bbox_xyxy": [
+        147,
+        190,
+        186,
+        204
+      ],
+      "support_points": 4
+    },
+    {
+      "actor_id": 66,
+      "class_name": "car",
+      "range_m": 49.2,
+      "bbox_xyxy": [
+        97,
+        188,
+        139,
+        202
+      ],
+      "support_points": 8
+    }
+  ],
+  "driving_60s": [
+    {
+      "actor_id": 70,
+      "class_name": "car",
+      "range_m": 10.6,
+      "bbox_xyxy": [
+        462,
+        211,
+        639,
+        322
+      ],
+      "support_points": 109
+    },
+    {
+      "actor_id": 66,
+      "class_name": "car",
+      "range_m": 17.4,
+      "bbox_xyxy": [
+        347,
+        195,
+        434,
+        238
+      ],
+      "support_points": 61
+    }
+  ]
+}

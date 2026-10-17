@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "zip": "/media/william/blueicedrive/Github/Intro2AV-CourseContent/2026/Data/project1_udrive_student.zip",
+  "bytes": 1059732601,
+  "sha256": "ce9bb2c953fab8263c2fa654da7207be71d17e5b749adc5e4d93266a6f636a34",
+  "file_count": 12,
+  "zip_crc_and_all_file_hashes": "passed",
+  "contents": {
+    "Project1_Description.pdf": "2315defdc4d222e879a4b160159df31a78709ffad065fb9188c46a1aa7ffbe08",
+    "Project1_Description.md": "3fc78d15808de448d97c3dd5623575f302bfdb19705f7d197b7516b66fb180b0",
+    "README.md": "e40a1d4ceda909b6114f0d4c8527b28407766de7df95ab735362c5798e24b74a",
+    "stationary/bag/metadata.yaml": "1b54aeff2e0ffaf71da352ebab482bc4c8cb155ebdbacec0ae73b7db3ef699ef",
+    "stationary/bag/bag_0.db3": "16c4f586c789367d0fc364a8df204c630141b82bf7107d06a29a62185a88c2e3",
+    "driving/bag/metadata.yaml": "6fee974eb3513eda5eb87fc5b06da94353f095c182be4c893beaf4021065319c",
+    "driving/bag/bag_0.db3": "6abc85263494b23120fb14cc926f937287d18a6e9eb0a4225e3d8081f4783d92",
+    "project1_interfaces/CMakeLists.txt": "849914d9594478700cf4378100c79b15f76b44c77ca70f7ee44a107a6b624c39",
+    "project1_interfaces/package.xml": "f16fb9214ef7452f0a463ee73e946283e9ab224a67573f934516d0bb9f3a9c34",
+    "project1_interfaces/msg/DetectedObject.msg": "48552f90cacba5381d56d34c54b7f8bda67a9c7c5e53cc7f9013fa1195ee333f",
+    "project1_interfaces/msg/DetectedObjectArray.msg": "ff52a4c613f248a88dab8d1a9d096ef6a62950fb2f0c8434853326d3f104516a"
+  },
+  "scope": "Only handout, setup, complete bags, output interface definitions and checksum manifest"
+}

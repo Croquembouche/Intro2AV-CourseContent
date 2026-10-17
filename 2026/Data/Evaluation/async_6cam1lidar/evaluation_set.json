@@ -1,0 +1,4371 @@
+{
+  "schema_version": 2,
+  "status": "ready_for_instructor_use",
+  "name": "Surround fusion asynchronous public self-check v1",
+  "classes": [
+    "car",
+    "person"
+  ],
+  "confidence_threshold": 0.25,
+  "location_tolerance_by_class_m": {
+    "car": 3.0,
+    "person": 1.0
+  },
+  "location_reference": "CARLA bounding-box center in base_link at the original LiDAR acquisition timestamp; metres, x forward, y left.",
+  "max_range_m": 60.0,
+  "minimum_lidar_support": 5,
+  "review_method": "Codex visual review of 90 actual asynchronous camera images and actor-box projections. Body support uses 10 cm box tolerance, excluding the lowest 20 cm above the box bottom. No instructor sign-off implied.",
+  "review_coverage": "15 scan keyframes at four-second intervals, from 2 to 58 seconds of the released recording. Repeated views of a small number of actors; not a full-sequence benchmark.",
+  "frames": [
+    {
+      "id": "surround_020",
+      "stamp_ns": 12162790580,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": 101.84862489124022,
+          "y": -41.9689703374319,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": 28.103326529543846,
+          "y": -16.832964065421695,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": 26.8661864647557,
+          "y": 36.6290101584627,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": -28.56306277617451,
+          "y": 37.13924277089286,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": 31.207792455948713,
+          "y": 53.50610756822394,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": 87.47886604651902,
+          "y": -63.09098383499319,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": -49.69720502815337,
+          "y": 56.608449185629695,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": 121.28046851356466,
+          "y": 0.1951248430825379,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": 94.72725697368044,
+          "y": 37.302250332220595,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": 84.72493072204531,
+          "y": 34.79028663951362,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": 53.11081432388767,
+          "y": 27.75768798680609,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": -33.9113578485939,
+          "y": 80.30145334569909,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": 165.04715014517993,
+          "y": 66.56149713972277,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": 136.27528280003614,
+          "y": 161.86986306097512,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": 148.72780848966758,
+          "y": 37.73201626276387,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": 128.3100134281625,
+          "y": 164.6332278899751,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": -49.36613771076141,
+          "y": 29.475024220247672,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": -50.44289939759004,
+          "y": 87.29109935579787,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": 30.138884364164703,
+          "y": 116.81622245715425,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": 84.16269135036408,
+          "y": 65.50123561188944,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": 7.474784364686104,
+          "y": -64.15116082447702,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": 73.20544132510436,
+          "y": -63.334194209837015,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": 15.960820031112902,
+          "y": -63.73715460950524,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": 31.29492715487513,
+          "y": 65.26086024597824,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": -33.65273620931091,
+          "y": 69.95027902785309,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": -34.06076412721137,
+          "y": 86.29279228030464,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 12212790581,
+          "candidate_actor_ids_in_image": [
+            46
+          ]
+        },
+        "front_left": {
+          "stamp_ns": 12212790581,
+          "candidate_actor_ids_in_image": [
+            46
+          ]
+        },
+        "rear_left": {
+          "stamp_ns": 12212790581,
+          "candidate_actor_ids_in_image": [
+            38
+          ]
+        },
+        "rear": {
+          "stamp_ns": 12112790580,
+          "candidate_actor_ids_in_image": [
+            38
+          ]
+        },
+        "rear_right": {
+          "stamp_ns": 12212790581,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_right": {
+          "stamp_ns": 12112790580,
+          "candidate_actor_ids_in_image": []
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_060",
+      "stamp_ns": 16162790640,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": 78.28564574444619,
+          "y": -45.103482100937825,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": 5.421813117830773,
+          "y": -17.511594358816314,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": 5.9734615295270705,
+          "y": 35.9630160689661,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": -49.40502657646394,
+          "y": 38.32709645603191,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": 10.878784222655517,
+          "y": 52.684587756457674,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": 63.21734568732521,
+          "y": -65.73291897324914,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": -69.87602372546597,
+          "y": 58.493323773995755,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": 99.1160275857147,
+          "y": -3.6121694473361714,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": 73.81955591005244,
+          "y": 34.36350494973596,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": 63.73904813926409,
+          "y": 32.18763270256802,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": 31.90812941687962,
+          "y": 26.216840275247836,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": -53.306807224870425,
+          "y": 81.6451919894546,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": 145.07785958804848,
+          "y": 61.25313936747013,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": 119.51025475484117,
+          "y": 157.47321035329233,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": 127.80312980885518,
+          "y": 32.98575796878922,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": 111.64146313835639,
+          "y": 160.50203471363074,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": -70.45401784217653,
+          "y": 31.36430347007711,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": -69.59617912706845,
+          "y": 89.18512463359053,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": 11.926035953659692,
+          "y": 115.99763684367404,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": 64.20449380146118,
+          "y": 62.900737063150046,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": -16.776472807454667,
+          "y": -64.11449426299512,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": 48.94330591812031,
+          "y": -65.49780406631716,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": -8.280946812163332,
+          "y": -63.98508703703607,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": 11.359365151250008,
+          "y": 64.42987278040646,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": -53.39430213343603,
+          "y": 71.29078081690811,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": -53.25551052246445,
+          "y": 87.63815797897894,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 16212790641,
+          "candidate_actor_ids_in_image": [
+            46
+          ]
+        },
+        "front_left": {
+          "stamp_ns": 16112790639,
+          "candidate_actor_ids_in_image": [
+            46
+          ]
+        },
+        "rear_left": {
+          "stamp_ns": 16112790639,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear": {
+          "stamp_ns": 16112790639,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear_right": {
+          "stamp_ns": 16112790639,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_right": {
+          "stamp_ns": 16112790639,
+          "candidate_actor_ids_in_image": [
+            57
+          ]
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_100",
+      "stamp_ns": 20162790700,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": 21.4204534881664,
+          "y": 65.40362756215043,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": -4.479643159160249,
+          "y": -8.076296340888087,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": -57.95224777355037,
+          "y": -8.758584850665192,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": -59.03656878433911,
+          "y": -64.17997821631633,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": -74.78307630814386,
+          "y": -4.2425676397355705,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": 42.3924958156623,
+          "y": 50.8155780803909,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": -78.72415079567259,
+          "y": -85.11086875897742,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": -20.54059871513272,
+          "y": 85.27207766164338,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": -57.92137895885422,
+          "y": 59.1052922508192,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": -55.51319730124901,
+          "y": 49.077429845058084,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": -48.80859182302298,
+          "y": 17.39202080332509,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": -102.25250741103507,
+          "y": -69.08003355463484,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": -86.45026086830585,
+          "y": 129.72485292904375,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": -182.05300257322878,
+          "y": 101.94359171375544,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": -57.791340995738864,
+          "y": 113.10739853527312,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": -184.89900744778643,
+          "y": 94.00758486136657,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": -51.58884942715419,
+          "y": -85.0610062892917,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": -109.4136239004522,
+          "y": -85.5378192870174,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": -138.1022871333075,
+          "y": -4.653907264192952,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": -86.22864629776059,
+          "y": 48.83385541355738,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": 42.62304871932723,
+          "y": -29.194999521050406,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": 42.48748670666854,
+          "y": 36.54061050232254,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": 42.29721176536916,
+          "y": -20.705282544036628,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": -86.53633024315727,
+          "y": -4.033553956980075,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": -91.89900130797649,
+          "y": -68.92890726105551,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": -108.24507462373364,
+          "y": -69.16732297670309,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 20212790700,
+          "candidate_actor_ids_in_image": [
+            33,
+            32,
+            28
+          ]
+        },
+        "front_left": {
+          "stamp_ns": 20212790700,
+          "candidate_actor_ids_in_image": [
+            32
+          ]
+        },
+        "rear_left": {
+          "stamp_ns": 20112790699,
+          "candidate_actor_ids_in_image": [
+            46
+          ]
+        },
+        "rear": {
+          "stamp_ns": 20112790699,
+          "candidate_actor_ids_in_image": [
+            46
+          ]
+        },
+        "rear_right": {
+          "stamp_ns": 20112790699,
+          "candidate_actor_ids_in_image": [
+            57
+          ]
+        },
+        "front_right": {
+          "stamp_ns": 20212790700,
+          "candidate_actor_ids_in_image": [
+            33,
+            28
+          ]
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_140",
+      "stamp_ns": 24162790759,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": -27.39624339084969,
+          "y": 61.32354295926929,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": -22.06016032866214,
+          "y": -16.386019898570193,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": -70.88036558999718,
+          "y": -38.17968848828585,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": -49.92329641098225,
+          "y": -89.4964835061071,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": -88.12449748912888,
+          "y": -40.70117508252853,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": -2.362825033962613,
+          "y": 56.23318699365645,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": -59.7049859358465,
+          "y": -116.50595777184192,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": -73.78881706417495,
+          "y": 62.95578737160486,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": -97.7405780903622,
+          "y": 24.133704410094712,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": -91.55719335467961,
+          "y": 15.880197120072811,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": -72.8497491287258,
+          "y": -10.556728780876922,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": -87.6561197933516,
+          "y": -111.1018943574233,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": -151.90920980481806,
+          "y": 77.67538100405935,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": -228.67134088089335,
+          "y": 14.324736668207333,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": -119.01449919602919,
+          "y": 73.76524636462031,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": -228.13907163926598,
+          "y": 5.91364842905178,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": -34.81043805569892,
+          "y": -105.71458928893716,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": -87.70811039542495,
+          "y": -129.04324110256871,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": -146.08789280251722,
+          "y": -66.13830171471206,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": -119.65942519886755,
+          "y": 3.4971714818522783,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": 29.547024675788574,
+          "y": -17.13221849463126,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": 3.3810434092250996,
+          "y": 43.16699269675934,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": 25.883489146361207,
+          "y": -9.468345690971441,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": -98.9980723964591,
+          "y": -45.1628567400036,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": -78.21142932323524,
+          "y": -106.8653728505985,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": -93.12347739176748,
+          "y": -113.55488572994867,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 24112790758,
+          "candidate_actor_ids_in_image": [
+            33,
+            28
+          ]
+        },
+        "front_left": {
+          "stamp_ns": 24112790758,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear_left": {
+          "stamp_ns": 24112790758,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear": {
+          "stamp_ns": 24212790760,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear_right": {
+          "stamp_ns": 24212790760,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_right": {
+          "stamp_ns": 24112790758,
+          "candidate_actor_ids_in_image": [
+            33,
+            28
+          ]
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_180",
+      "stamp_ns": 28162790819,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": -97.4983957409385,
+          "y": -9.119174149181557,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": -23.649144877519777,
+          "y": -33.9510153423841,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": -22.189500772149625,
+          "y": -87.4090483723915,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": 33.241418715362464,
+          "y": -87.68639510113216,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": -26.46079745523033,
+          "y": -104.30238390529364,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": -83.21667964664107,
+          "y": 12.062639181869637,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": 54.45640766558852,
+          "y": -107.06833365018097,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": -116.75458649017342,
+          "y": -51.36568988691465,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": -90.04715554192391,
+          "y": -88.36268771939429,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": -80.05537003775949,
+          "y": -85.80895303943383,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": -48.47079532310444,
+          "y": -78.64438562644399,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": 38.76931090608106,
+          "y": -130.82752418441615,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": -160.24465334347852,
+          "y": -117.91482449105035,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": -131.07635099050827,
+          "y": -213.1055727735116,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": -144.04545362857021,
+          "y": -89.017493934135,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": -123.09965759358774,
+          "y": -215.8365263378784,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": 54.01238946425493,
+          "y": -79.93740747154018,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": 55.329783173475164,
+          "y": -137.74995591634314,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": -25.128424531897778,
+          "y": -167.61189213558208,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": -79.36530982984769,
+          "y": -116.51798997255457,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": -3.2177103243285443,
+          "y": 13.45531446208883,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": -68.94440197277035,
+          "y": 12.364365958738402,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": -11.701940943757549,
+          "y": 13.006656207998656,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": -26.49900134206454,
+          "y": -116.05732276692972,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": 38.467612416572415,
+          "y": -120.47689537125528,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": 38.943656131395834,
+          "y": -136.81808357732635,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 28212790819,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_left": {
+          "stamp_ns": 28212790819,
+          "candidate_actor_ids_in_image": [
+            33
+          ]
+        },
+        "rear_left": {
+          "stamp_ns": 28212790819,
+          "candidate_actor_ids_in_image": [
+            33,
+            28
+          ]
+        },
+        "rear": {
+          "stamp_ns": 28212790819,
+          "candidate_actor_ids_in_image": [
+            28
+          ]
+        },
+        "rear_right": {
+          "stamp_ns": 28212790819,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_right": {
+          "stamp_ns": 28212790819,
+          "candidate_actor_ids_in_image": []
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_220",
+      "stamp_ns": 32162790878,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": -96.68724308084849,
+          "y": -83.72328607787476,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": -24.89499942587529,
+          "y": -53.452648925218995,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": 11.584630790765619,
+          "y": -92.55649996492161,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": 53.314339354475024,
+          "y": -56.072998460961465,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": 19.563438747875782,
+          "y": -108.04664577546386,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": -100.00294156702734,
+          "y": -58.39261750907361,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": 82.04567583062932,
+          "y": -56.55797715100567,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": -83.15582785989713,
+          "y": -128.1358832363066,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": -38.648293297602564,
+          "y": -138.18885985106118,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": -32.849463608387936,
+          "y": -129.66078307335866,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": -13.918033937349445,
+          "y": -103.383612624069,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": 86.01439641033767,
+          "y": -84.75076765926568,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": -71.703410062101,
+          "y": -206.8061717091262,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": 13.169308266383542,
+          "y": -258.8499121472602,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": -78.68880759982716,
+          "y": -174.42297965762316,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": 20.956488308698997,
+          "y": -255.61680363318362,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": 63.75552977277971,
+          "y": -36.51541881915677,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": 103.0106276290377,
+          "y": -78.97744310216893,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": 62.470738446837274,
+          "y": -154.6187510179163,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": -12.005177914195079,
+          "y": -152.2223248490069,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": -40.96148586166615,
+          "y": -4.39459239288943,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": -89.50417459003363,
+          "y": -48.71904260527292,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": -47.02440142177488,
+          "y": -10.346969115483727,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": 27.31539045003527,
+          "y": -116.88302363491916,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": 78.93659751935274,
+          "y": -77.19208106402093,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": 90.11016595292065,
+          "y": -89.12568308150747,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 32212790879,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_left": {
+          "stamp_ns": 32112790878,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear_left": {
+          "stamp_ns": 32112790878,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear": {
+          "stamp_ns": 32112790878,
+          "candidate_actor_ids_in_image": [
+            33,
+            28
+          ]
+        },
+        "rear_right": {
+          "stamp_ns": 32112790878,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_right": {
+          "stamp_ns": 32112790878,
+          "candidate_actor_ids_in_image": []
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_260",
+      "stamp_ns": 36162790938,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": -31.303406629448727,
+          "y": -135.72101803316468,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": -2.2522765309468857,
+          "y": -63.42725791742389,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": 51.19759711205792,
+          "y": -65.05520748044022,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": 54.6669808079649,
+          "y": -9.734415880804002,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": 67.81163350483774,
+          "y": -70.29558282651801,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": -51.624270858254995,
+          "y": -120.24050254754393,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": 75.2392047932993,
+          "y": 10.326625879495005,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": 9.760797546399745,
+          "y": -157.3827263331934,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": 48.23315202386125,
+          "y": -132.85544563367907,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": 46.25983951466829,
+          "y": -122.73306396465532,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": 40.92851105511043,
+          "y": -90.78804495597616,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": 98.05270780637812,
+          "y": -6.705407491612216,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": 73.68567553908397,
+          "y": -204.64113324265148,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": 170.39391811733768,
+          "y": -181.015307192928,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": 45.77359994150947,
+          "y": -186.80093162740533,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": 173.58128824584665,
+          "y": -173.20918584546018,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": 48.132530804018664,
+          "y": 11.450132104240774,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": 105.92058906968137,
+          "y": 9.428659352349591,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": 131.09279939862506,
+          "y": -72.61772796532034,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": 76.95517049263073,
+          "y": -123.81658242167677,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": -48.400679090828426,
+          "y": -40.29485197175854,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": -51.10094434030585,
+          "y": -105.97419339033489,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": -48.443192381969546,
+          "y": -48.7911600937871,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": 79.54330321742997,
+          "y": -71.01237698827356,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": 87.7020450279502,
+          "y": -6.409422527745425,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": 104.0424674968432,
+          "y": -6.877250030292053,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 36112790937,
+          "candidate_actor_ids_in_image": [
+            38
+          ]
+        },
+        "front_left": {
+          "stamp_ns": 36112790937,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear_left": {
+          "stamp_ns": 36112790937,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear": {
+          "stamp_ns": 36212790939,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear_right": {
+          "stamp_ns": 36112790937,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_right": {
+          "stamp_ns": 36212790939,
+          "candidate_actor_ids_in_image": []
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_300",
+      "stamp_ns": 40162790998,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": 118.33601553834768,
+          "y": -47.076202234786166,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": 45.76246173647447,
+          "y": -18.729652472074417,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": 46.862920305651876,
+          "y": 34.7230897541662,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": -8.492057804183188,
+          "y": 37.651530135292404,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": 51.936109730012994,
+          "y": 51.380330555493124,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": 103.05749916107787,
+          "y": -67.54150185877026,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": -28.754664844405564,
+          "y": 58.024633235244615,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": 139.59215430379368,
+          "y": -5.810875887684847,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": 114.68598135391522,
+          "y": 32.413569353574474,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": 104.58350598663087,
+          "y": 30.342425559379663,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": 72.69251258898463,
+          "y": 24.70219355059772,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": -11.948727249012675,
+          "y": 80.99772403402761,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": 186.2160394620309,
+          "y": 58.5554243935438,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": 161.63722030112493,
+          "y": 155.01112241283866,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": 168.65318885543945,
+          "y": 30.478251427373802,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": 153.80098020748304,
+          "y": 158.12311886188002,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": -29.608317206238624,
+          "y": 30.916438112578273,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": -28.15763381156088,
+          "y": 88.7095608421697,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": 53.636952544549494,
+          "y": 114.67264784588339,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": 105.36373109544955,
+          "y": 61.04041249845268,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": 23.085046870888352,
+          "y": -65.09321351496686,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": 88.78799950478029,
+          "y": -67.15520454307664,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": 31.58040737493381,
+          "y": -65.0544170666351,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": 52.53651313469226,
+          "y": 63.115396584556635,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": -12.142961972071689,
+          "y": 70.64620905761056,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": -11.836389388358773,
+          "y": 86.98722534784227,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 40112790997,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_left": {
+          "stamp_ns": 40212790998,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear_left": {
+          "stamp_ns": 40212790998,
+          "candidate_actor_ids_in_image": [
+            38
+          ]
+        },
+        "rear": {
+          "stamp_ns": 40212790998,
+          "candidate_actor_ids_in_image": [
+            38
+          ]
+        },
+        "rear_right": {
+          "stamp_ns": 40212790998,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_right": {
+          "stamp_ns": 40212790998,
+          "candidate_actor_ids_in_image": []
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_340",
+      "stamp_ns": 44162791057,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": 89.88779356039367,
+          "y": -44.22051470327208,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": 16.753821285854578,
+          "y": -17.358577194108378,
+          "eligibility": "ignore",
+          "reason": "Pedestrian partly hidden by street furniture; visibility ambiguous."
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": 16.772531068045065,
+          "y": 36.118868445497256,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": -38.62995599886621,
+          "y": 37.929116851267956,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": 21.508687149581018,
+          "y": 52.88865952383578,
+          "eligibility": "ignore",
+          "reason": "Small distant view partly obstructed; visibility ambiguous."
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": 75.02611581831911,
+          "y": -64.99958582973527,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": -59.30095496666651,
+          "y": 57.88964491783758,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": 110.30459437835573,
+          "y": -2.523003984686838,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": 84.6300515750188,
+          "y": 35.19783214229439,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": 74.57148447126183,
+          "y": 32.921275482629966,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": 42.80091622897038,
+          "y": 26.632509621367397,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": -42.96308816164175,
+          "y": 81.20602649611892,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": 155.6174595628194,
+          "y": 62.798624341717655,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": 129.09179477005986,
+          "y": 158.75822434805417,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": 138.6258000389628,
+          "y": 34.359928669745734,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": 121.19380942609044,
+          "y": 161.7082146897448,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": -59.60672155929375,
+          "y": 30.756197551903224,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": -59.3255193389211,
+          "y": 88.58269918241695,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": 21.927500026440555,
+          "y": 116.20899535604491,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": 74.73054941194954,
+          "y": 63.63749533266287,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": -4.980549851999637,
+          "y": -64.18109369752675,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": 60.75117511051495,
+          "y": -64.90721121972643,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": 3.5126755634137448,
+          "y": -63.96674413399099,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": 21.87172976283002,
+          "y": 64.63816300710828,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": -42.947705515315626,
+          "y": 70.851260858051,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": -42.971829882585325,
+          "y": 87.19920627735343,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 44112791056,
+          "candidate_actor_ids_in_image": [
+            46
+          ]
+        },
+        "front_left": {
+          "stamp_ns": 44212791058,
+          "candidate_actor_ids_in_image": [
+            52,
+            46
+          ]
+        },
+        "rear_left": {
+          "stamp_ns": 44212791058,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear": {
+          "stamp_ns": 44212791058,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear_right": {
+          "stamp_ns": 44112791056,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_right": {
+          "stamp_ns": 44112791056,
+          "candidate_actor_ids_in_image": [
+            57
+          ]
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_380",
+      "stamp_ns": 48162791117,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": 72.33060204039317,
+          "y": 28.457084783947987,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": 5.727290900112132,
+          "y": -11.921320432350129,
+          "eligibility": "ignore",
+          "reason": "Pedestrian substantially occluded by cabinet and pole."
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": -36.06406830017464,
+          "y": 21.442231804156478,
+          "eligibility": "ignore",
+          "reason": "Small distant pedestrian view; visibility ambiguous."
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": -72.03008103704191,
+          "y": -20.72277481899249,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": -46.22091265717739,
+          "y": 35.59146554746837,
+          "eligibility": "ignore",
+          "reason": "Small distant view; visibility ambiguous."
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": 79.3059474240581,
+          "y": 3.889828529977096,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": -100.52355643463055,
+          "y": -24.42417027716743,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": 52.468377648024855,
+          "y": 70.41366159540883,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": 6.971037600237858,
+          "y": 73.87572809567428,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": 2.477944293586671,
+          "y": 64.59710808946733,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": -12.418715284768007,
+          "y": 35.85260132048831,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": -108.56144528793158,
+          "y": 2.8804282975459636,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": 29.663701091766868,
+          "y": 146.54740541417593,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": -61.88903860289741,
+          "y": 185.6643421375813,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": 41.29841970483233,
+          "y": 115.54037808688966,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": -69.11982206311245,
+          "y": 181.3361037924195,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": -79.50299427920164,
+          "y": -41.576770989313644,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": -124.53053202615435,
+          "y": -5.297433980689717,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": -95.45526536532493,
+          "y": 75.41532487087697,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": -21.433742404012982,
+          "y": 83.87518785752232,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": 28.77363976535274,
+          "y": -58.105739463396,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": 70.33237004151049,
+          "y": -7.201792232441747,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": 33.902073856060994,
+          "y": -51.33913688297942,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": -55.179337951385044,
+          "y": 43.20042159860925,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": -100.45778988679645,
+          "y": -3.566046525151213,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": -113.25193088879519,
+          "y": 6.609822156633572,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 48212791117,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_left": {
+          "stamp_ns": 48212791117,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear_left": {
+          "stamp_ns": 48212791117,
+          "candidate_actor_ids_in_image": [
+            55,
+            52,
+            46
+          ]
+        },
+        "rear": {
+          "stamp_ns": 48112791116,
+          "candidate_actor_ids_in_image": [
+            55,
+            52
+          ]
+        },
+        "rear_right": {
+          "stamp_ns": 48212791117,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_right": {
+          "stamp_ns": 48112791116,
+          "candidate_actor_ids_in_image": [
+            57
+          ]
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_420",
+      "stamp_ns": 52162791176,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": 11.597727975045276,
+          "y": 65.53919613333996,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": -13.852222166130035,
+          "y": -8.096990674475132,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": -67.32025622360636,
+          "y": -9.106971708093429,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": -68.06392185462697,
+          "y": -64.53433351229637,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": -84.1779328076554,
+          "y": -4.6948924648974595,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": 32.65893398848138,
+          "y": 51.080179379317194,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": -87.62306721376717,
+          "y": -85.58529192902168,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": -30.48507821047356,
+          "y": 85.15018318192092,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": -67.70494824429488,
+          "y": 58.75480800429311,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": -65.23525106064713,
+          "y": 48.741923002111264,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": -58.336277777604124,
+          "y": 17.0983054623369,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": -111.24956150203276,
+          "y": -69.69905770479495,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": -96.66661760879623,
+          "y": 129.19766901834993,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": -192.09826820914904,
+          "y": 100.83117337739418,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": -67.906220890466,
+          "y": 112.75647943272857,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": -194.89580103917677,
+          "y": 92.8781263779906,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": -60.48883873518756,
+          "y": -85.3685985608569,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": -118.3101557505843,
+          "y": -86.19988941432551,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": -147.49495855267506,
+          "y": -5.4935362064682485,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": -95.94889692733443,
+          "y": 48.310031961062336,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": 33.38005768148324,
+          "y": -28.926878438059404,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": 32.84118357469933,
+          "y": 36.80641707977202,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": 33.002374918286655,
+          "y": -20.439573116489594,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": -95.93223827019469,
+          "y": -4.558049897892218,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": -100.89695915116296,
+          "y": -69.48457436797709,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": -117.24145353583867,
+          "y": -69.8231606668561,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 52112791176,
+          "candidate_actor_ids_in_image": [
+            33,
+            28
+          ]
+        },
+        "front_left": {
+          "stamp_ns": 52112791176,
+          "candidate_actor_ids_in_image": [
+            32
+          ]
+        },
+        "rear_left": {
+          "stamp_ns": 52112791176,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear": {
+          "stamp_ns": 52212791177,
+          "candidate_actor_ids_in_image": [
+            57
+          ]
+        },
+        "rear_right": {
+          "stamp_ns": 52112791176,
+          "candidate_actor_ids_in_image": [
+            57
+          ]
+        },
+        "front_right": {
+          "stamp_ns": 52212791177,
+          "candidate_actor_ids_in_image": [
+            33,
+            28
+          ]
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_460",
+      "stamp_ns": 56162791236,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": -78.91228610860824,
+          "y": 2.9600650019591175,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": -9.533129609202799,
+          "y": -32.49374877801285,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": -15.971462325454793,
+          "y": -85.57278522095939,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": 38.80478854944144,
+          "y": -94.0364027454191,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": -22.690353999889382,
+          "y": -101.65294883051696,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": -61.66382079001529,
+          "y": 21.798870205122807,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": 56.92906444226246,
+          "y": -116.3344572097073,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": -104.18442911608146,
+          "y": -35.97213647974898,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": -83.2265527389331,
+          "y": -76.50197706388415,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": -72.96833935532698,
+          "y": -75.4520752238344,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": -40.67537627860096,
+          "y": -73.0310226290814,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": 37.91142325744138,
+          "y": -137.51343332889866,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": -157.00954921414058,
+          "y": -95.36227799178106,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": -142.1972939241598,
+          "y": -193.80099826196957,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": -136.72670376195057,
+          "y": -69.17629050770186,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": -134.7098613993967,
+          "y": -197.67766098423644,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": 60.49314393412771,
+          "y": -89.43551978830092,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": 53.271484172842996,
+          "y": -146.8004891423368,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": -30.702902396888543,
+          "y": -164.4493022031469,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": -76.81410818854629,
+          "y": -105.9221218671649,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": 17.661030118854192,
+          "y": 11.365884443352341,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": -47.50256437683168,
+          "y": 19.99217848793975,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": 9.202842448346104,
+          "y": 12.173234373140156,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": -24.462063217573988,
+          "y": -113.27258565067484,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": 39.13864017843317,
+          "y": -127.23408486817019,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": 37.2000884572465,
+          "y": -143.46381893948885,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 56112791235,
+          "candidate_actor_ids_in_image": [
+            33,
+            28
+          ]
+        },
+        "front_left": {
+          "stamp_ns": 56112791235,
+          "candidate_actor_ids_in_image": [
+            33,
+            28
+          ]
+        },
+        "rear_left": {
+          "stamp_ns": 56112791235,
+          "candidate_actor_ids_in_image": [
+            32
+          ]
+        },
+        "rear": {
+          "stamp_ns": 56112791235,
+          "candidate_actor_ids_in_image": [
+            32
+          ]
+        },
+        "rear_right": {
+          "stamp_ns": 56112791235,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_right": {
+          "stamp_ns": 56212791237,
+          "candidate_actor_ids_in_image": []
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_500",
+      "stamp_ns": 60162791296,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": -106.63081977897927,
+          "y": -33.349266176082445,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": -29.0411980144926,
+          "y": -40.39621636968264,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": -15.24622588259075,
+          "y": -92.05180574749255,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": 38.743965125780555,
+          "y": -79.49381071006151,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": -15.489545555959689,
+          "y": -109.47755575043817,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": -97.64082961957922,
+          "y": -9.439697796264902,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": 63.869062415998634,
+          "y": -93.43213265289968,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": -115.58447354869632,
+          "y": -78.89515960506932,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": -81.03806438439454,
+          "y": -108.69629812213002,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": -71.90889667023713,
+          "y": -103.89935397876243,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": -42.840948263394274,
+          "y": -89.61890707738982,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": 54.10826473211146,
+          "y": -120.17262790941801,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": -142.48683688589435,
+          "y": -153.69300735166428,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": -92.07541206167582,
+          "y": -239.52268525966883,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": -133.4176677276717,
+          "y": -121.83465659875533,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": -83.68367032623834,
+          "y": -240.33005047820174,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": 57.15557368436684,
+          "y": -67.14235205506724,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": 71.82038986930255,
+          "y": -123.06709546841022,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": 0.46073541582525784,
+          "y": -170.73736921783131,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": -64.12860412739496,
+          "y": -133.6080952888943,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": -20.1383235286086,
+          "y": 10.43849860577413,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": -83.82673147223034,
+          "y": -5.839223915034796,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": -28.287764504336472,
+          "y": 8.035851720398883,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": -12.805307102432776,
+          "y": -120.9205645239718,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": 51.41887072818946,
+          "y": -110.17625051845174,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": 55.6647954926234,
+          "y": -125.95953931739332,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 60112791295,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_left": {
+          "stamp_ns": 60212791296,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear_left": {
+          "stamp_ns": 60212791296,
+          "candidate_actor_ids_in_image": [
+            33,
+            28
+          ]
+        },
+        "rear": {
+          "stamp_ns": 60212791296,
+          "candidate_actor_ids_in_image": [
+            33,
+            28
+          ]
+        },
+        "rear_right": {
+          "stamp_ns": 60212791296,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_right": {
+          "stamp_ns": 60112791295,
+          "candidate_actor_ids_in_image": []
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_540",
+      "stamp_ns": 64162791355,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": -68.26801759725589,
+          "y": -116.85982599630917,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": -14.034518970144369,
+          "y": -60.920769943283844,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": 34.83354938929011,
+          "y": -82.64111904180322,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": 58.96936516885652,
+          "y": -32.74144214358212,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": 48.23533202946418,
+          "y": -93.77592378899556,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": -81.227036960925,
+          "y": -94.84404705996516,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": 85.60158212831556,
+          "y": -21.950044182217432,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": -38.44367261710602,
+          "y": -152.4420093627564,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": 6.4502567276659555,
+          "y": -144.28561012065867,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": 8.451594320876392,
+          "y": -134.1687488375173,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": 15.597244490619572,
+          "y": -102.58006342128493,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": 100.28104905911117,
+          "y": -46.34464062559066,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": 2.8663327778572882,
+          "y": -220.3656386219107,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": 101.33349470146331,
+          "y": -235.0668667295703,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": -16.228466953956893,
+          "y": -193.29455880205356,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": 107.23577919697199,
+          "y": -229.04565976408637,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": 60.929325517382,
+          "y": -10.658468719424366,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": 113.6652269945753,
+          "y": -34.38380022283865,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": 105.94004397318263,
+          "y": -119.8561550914126,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": 36.45975714899262,
+          "y": -146.78002091849467,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": -48.008939684574834,
+          "y": -22.05458067184257,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": -75.3482044043446,
+          "y": -81.83489382978074,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": -51.260745038869636,
+          "y": -29.90401654182999,
+          "eligibility": "eligible",
+          "reason": "Visually identifiable in at least one retained image; at least five body-height LiDAR support candidates and within 60 m."
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": 58.825873340991784,
+          "y": -98.87621165376868,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": 90.81069383621487,
+          "y": -42.15638044748139,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": 105.76167886296246,
+          "y": -48.768970273374784,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 64112791354,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_left": {
+          "stamp_ns": 64212791356,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear_left": {
+          "stamp_ns": 64112791354,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear": {
+          "stamp_ns": 64212791356,
+          "candidate_actor_ids_in_image": [
+            33,
+            28
+          ]
+        },
+        "rear_right": {
+          "stamp_ns": 64112791354,
+          "candidate_actor_ids_in_image": [
+            33,
+            28
+          ]
+        },
+        "front_right": {
+          "stamp_ns": 64112791354,
+          "candidate_actor_ids_in_image": []
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    },
+    {
+      "id": "surround_580",
+      "stamp_ns": 68162791415,
+      "objects": [
+        {
+          "actor_id": 59,
+          "class_name": "person",
+          "x": 8.3364282082531,
+          "y": -140.07049948879583,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 57,
+          "class_name": "person",
+          "x": 10.146001424414113,
+          "y": -62.20146188574403,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 55,
+          "class_name": "person",
+          "x": 60.76234967831838,
+          "y": -44.96936910244405,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 53,
+          "class_name": "person",
+          "x": 44.58094901331184,
+          "y": 8.023119027935692,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 52,
+          "class_name": "car",
+          "x": 78.15829550684425,
+          "y": -44.050898462485,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 51,
+          "class_name": "car",
+          "x": -16.12679516247597,
+          "y": -132.7097285441646,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 50,
+          "class_name": "car",
+          "x": 56.796742885773156,
+          "y": 34.020323895145005,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 49,
+          "class_name": "car",
+          "x": 54.39243639420024,
+          "y": -145.9349192277698,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 48,
+          "class_name": "car",
+          "x": 81.79928399692533,
+          "y": -109.47799056154247,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 47,
+          "class_name": "car",
+          "x": 76.39652920955277,
+          "y": -100.69592093119722,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 46,
+          "class_name": "car",
+          "x": 60.18519793595411,
+          "y": -72.6661795535509,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 45,
+          "class_name": "car",
+          "x": 84.13874329966255,
+          "y": 26.083238142464126,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 44,
+          "class_name": "car",
+          "x": 130.8425912414752,
+          "y": -167.7407313245229,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 43,
+          "class_name": "car",
+          "x": 213.09175072935076,
+          "y": -111.69101324777543,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 41,
+          "class_name": "car",
+          "x": 98.44304250755604,
+          "y": -160.83435813744538,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 39,
+          "class_name": "car",
+          "x": 213.33444484900053,
+          "y": -103.26389367145039,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 38,
+          "class_name": "car",
+          "x": 31.022534962976458,
+          "y": 25.565062295896848,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 37,
+          "class_name": "car",
+          "x": 85.83887505172804,
+          "y": 43.95008925066901,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 36,
+          "class_name": "car",
+          "x": 138.223531520398,
+          "y": -24.01175651551705,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 35,
+          "class_name": "car",
+          "x": 105.51679757780308,
+          "y": -90.93970562484242,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 33,
+          "class_name": "car",
+          "x": -41.18685972561999,
+          "y": -56.74629308637337,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 32,
+          "class_name": "car",
+          "x": -20.64733733934509,
+          "y": -119.16993889686248,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 28,
+          "class_name": "car",
+          "x": -38.24264999560336,
+          "y": -64.71588792581422,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 27,
+          "class_name": "car",
+          "x": 89.39426714200326,
+          "y": -40.60639557478185,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 26,
+          "class_name": "car",
+          "x": 74.34354941620167,
+          "y": 22.727316970707697,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        },
+        {
+          "actor_id": 25,
+          "class_name": "car",
+          "x": 89.80723351048147,
+          "y": 28.023386304733407,
+          "eligibility": "ignore",
+          "reason": "outside_range_or_insufficient_body_support"
+        }
+      ],
+      "camera_evidence": {
+        "front": {
+          "stamp_ns": 68212791416,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_left": {
+          "stamp_ns": 68212791416,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear_left": {
+          "stamp_ns": 68112791414,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear": {
+          "stamp_ns": 68112791414,
+          "candidate_actor_ids_in_image": []
+        },
+        "rear_right": {
+          "stamp_ns": 68112791414,
+          "candidate_actor_ids_in_image": []
+        },
+        "front_right": {
+          "stamp_ns": 68212791416,
+          "candidate_actor_ids_in_image": []
+        }
+      },
+      "review_status": "visually_reviewed",
+      "reviewer": "Codex visual inspection",
+      "review_note": "Inspected all six nearest retained camera images with actor-box projections at each camera acquisition time; LiDAR body support measured at the reference scan time."
+    }
+  ],
+  "dataset_id": "async_6cam1lidar",
+  "valid_output_stamps_ns": [
+    10162790551,
+    10262790552,
+    10362790553,
+    10462790555,
+    10562790556,
+    10662790558,
+    10762790559,
+    10862790561,
+    10962790562,
+    11062790564,
+    11162790565,
+    11262790567,
+    11362790568,
+    11462790570,
+    11562790571,
+    11662790573,
+    11762790574,
+    11862790576,
+    11962790577,
+    12062790579,
+    12162790580,
+    12262790582,
+    12362790583,
+    12462790585,
+    12562790586,
+    12662790588,
+    12762790589,
+    12862790591,
+    12962790592,
+    13062790594,
+    13162790595,
+    13262790597,
+    13362790598,
+    13462790600,
+    13562790601,
+    13662790603,
+    13762790604,
+    13862790606,
+    13962790607,
+    14062790609,
+    14162790610,
+    14262790612,
+    14362790613,
+    14462790615,
+    14562790616,
+    14662790618,
+    14762790619,
+    14862790621,
+    14962790622,
+    15062790624,
+    15162790625,
+    15262790626,
+    15362790628,
+    15462790629,
+    15562790631,
+    15662790632,
+    15762790634,
+    15862790635,
+    15962790637,
+    16062790638,
+    16162790640,
+    16262790641,
+    16362790643,
+    16462790644,
+    16562790646,
+    16662790647,
+    16762790649,
+    16862790650,
+    16962790652,
+    17062790653,
+    17162790655,
+    17262790656,
+    17362790658,
+    17462790659,
+    17562790661,
+    17662790662,
+    17762790664,
+    17862790665,
+    17962790667,
+    18062790668,
+    18162790670,
+    18262790671,
+    18362790673,
+    18462790674,
+    18562790676,
+    18662790677,
+    18762790679,
+    18862790680,
+    18962790682,
+    19062790683,
+    19162790685,
+    19262790686,
+    19362790688,
+    19462790689,
+    19562790691,
+    19662790692,
+    19762790694,
+    19862790695,
+    19962790697,
+    20062790698,
+    20162790700,
+    20262790701,
+    20362790702,
+    20462790704,
+    20562790705,
+    20662790707,
+    20762790708,
+    20862790710,
+    20962790711,
+    21062790713,
+    21162790714,
+    21262790716,
+    21362790717,
+    21462790719,
+    21562790720,
+    21662790722,
+    21762790723,
+    21862790725,
+    21962790726,
+    22062790728,
+    22162790729,
+    22262790731,
+    22362790732,
+    22462790734,
+    22562790735,
+    22662790737,
+    22762790738,
+    22862790740,
+    22962790741,
+    23062790743,
+    23162790744,
+    23262790746,
+    23362790747,
+    23462790749,
+    23562790750,
+    23662790752,
+    23762790753,
+    23862790755,
+    23962790756,
+    24062790758,
+    24162790759,
+    24262790761,
+    24362790762,
+    24462790764,
+    24562790765,
+    24662790767,
+    24762790768,
+    24862790770,
+    24962790771,
+    25062790773,
+    25162790774,
+    25262790776,
+    25362790777,
+    25462790778,
+    25562790780,
+    25662790781,
+    25762790783,
+    25862790784,
+    25962790786,
+    26062790787,
+    26162790789,
+    26262790790,
+    26362790792,
+    26462790793,
+    26562790795,
+    26662790796,
+    26762790798,
+    26862790799,
+    26962790801,
+    27062790802,
+    27162790804,
+    27262790805,
+    27362790807,
+    27462790808,
+    27562790810,
+    27662790811,
+    27762790813,
+    27862790814,
+    27962790816,
+    28062790817,
+    28162790819,
+    28262790820,
+    28362790822,
+    28462790823,
+    28562790825,
+    28662790826,
+    28762790828,
+    28862790829,
+    28962790831,
+    29062790832,
+    29162790834,
+    29262790835,
+    29362790837,
+    29462790838,
+    29562790840,
+    29662790841,
+    29762790843,
+    29862790844,
+    29962790846,
+    30062790847,
+    30162790849,
+    30262790850,
+    30362790852,
+    30462790853,
+    30562790854,
+    30662790856,
+    30762790857,
+    30862790859,
+    30962790860,
+    31062790862,
+    31162790863,
+    31262790865,
+    31362790866,
+    31462790868,
+    31562790869,
+    31662790871,
+    31762790872,
+    31862790874,
+    31962790875,
+    32062790877,
+    32162790878,
+    32262790880,
+    32362790881,
+    32462790883,
+    32562790884,
+    32662790886,
+    32762790887,
+    32862790889,
+    32962790890,
+    33062790892,
+    33162790893,
+    33262790895,
+    33362790896,
+    33462790898,
+    33562790899,
+    33662790901,
+    33762790902,
+    33862790904,
+    33962790905,
+    34062790907,
+    34162790908,
+    34262790910,
+    34362790911,
+    34462790913,
+    34562790914,
+    34662790916,
+    34762790917,
+    34862790919,
+    34962790920,
+    35062790922,
+    35162790923,
+    35262790925,
+    35362790926,
+    35462790928,
+    35562790929,
+    35662790930,
+    35762790932,
+    35862790933,
+    35962790935,
+    36062790936,
+    36162790938,
+    36262790939,
+    36362790941,
+    36462790942,
+    36562790944,
+    36662790945,
+    36762790947,
+    36862790948,
+    36962790950,
+    37062790951,
+    37162790953,
+    37262790954,
+    37362790956,
+    37462790957,
+    37562790959,
+    37662790960,
+    37762790962,
+    37862790963,
+    37962790965,
+    38062790966,
+    38162790968,
+    38262790969,
+    38362790971,
+    38462790972,
+    38562790974,
+    38662790975,
+    38762790977,
+    38862790978,
+    38962790980,
+    39062790981,
+    39162790983,
+    39262790984,
+    39362790986,
+    39462790987,
+    39562790989,
+    39662790990,
+    39762790992,
+    39862790993,
+    39962790995,
+    40062790996,
+    40162790998,
+    40262790999,
+    40362791001,
+    40462791002,
+    40562791003,
+    40662791005,
+    40762791006,
+    40862791008,
+    40962791009,
+    41062791011,
+    41162791012,
+    41262791014,
+    41362791015,
+    41462791017,
+    41562791018,
+    41662791020,
+    41762791021,
+    41862791023,
+    41962791024,
+    42062791026,
+    42162791027,
+    42262791029,
+    42362791030,
+    42462791032,
+    42562791033,
+    42662791035,
+    42762791036,
+    42862791038,
+    42962791039,
+    43062791041,
+    43162791042,
+    43262791044,
+    43362791045,
+    43462791047,
+    43562791048,
+    43662791050,
+    43762791051,
+    43862791053,
+    43962791054,
+    44062791056,
+    44162791057,
+    44262791059,
+    44362791060,
+    44462791062,
+    44562791063,
+    44662791065,
+    44762791066,
+    44862791068,
+    44962791069,
+    45062791071,
+    45162791072,
+    45262791074,
+    45362791075,
+    45462791077,
+    45562791078,
+    45662791079,
+    45762791081,
+    45862791082,
+    45962791084,
+    46062791085,
+    46162791087,
+    46262791088,
+    46362791090,
+    46462791091,
+    46562791093,
+    46662791094,
+    46762791096,
+    46862791097,
+    46962791099,
+    47062791100,
+    47162791102,
+    47262791103,
+    47362791105,
+    47462791106,
+    47562791108,
+    47662791109,
+    47762791111,
+    47862791112,
+    47962791114,
+    48062791115,
+    48162791117,
+    48262791118,
+    48362791120,
+    48462791121,
+    48562791123,
+    48662791124,
+    48762791126,
+    48862791127,
+    48962791129,
+    49062791130,
+    49162791132,
+    49262791133,
+    49362791135,
+    49462791136,
+    49562791138,
+    49662791139,
+    49762791141,
+    49862791142,
+    49962791144,
+    50062791145,
+    50162791147,
+    50262791148,
+    50362791150,
+    50462791151,
+    50562791153,
+    50662791154,
+    50762791155,
+    50862791157,
+    50962791158,
+    51062791160,
+    51162791161,
+    51262791163,
+    51362791164,
+    51462791166,
+    51562791167,
+    51662791169,
+    51762791170,
+    51862791172,
+    51962791173,
+    52062791175,
+    52162791176,
+    52262791178,
+    52362791179,
+    52462791181,
+    52562791182,
+    52662791184,
+    52762791185,
+    52862791187,
+    52962791188,
+    53062791190,
+    53162791191,
+    53262791193,
+    53362791194,
+    53462791196,
+    53562791197,
+    53662791199,
+    53762791200,
+    53862791202,
+    53962791203,
+    54062791205,
+    54162791206,
+    54262791208,
+    54362791209,
+    54462791211,
+    54562791212,
+    54662791214,
+    54762791215,
+    54862791217,
+    54962791218,
+    55062791220,
+    55162791221,
+    55262791223,
+    55362791224,
+    55462791226,
+    55562791227,
+    55662791229,
+    55762791230,
+    55862791231,
+    55962791233,
+    56062791234,
+    56162791236,
+    56262791237,
+    56362791239,
+    56462791240,
+    56562791242,
+    56662791243,
+    56762791245,
+    56862791246,
+    56962791248,
+    57062791249,
+    57162791251,
+    57262791252,
+    57362791254,
+    57462791255,
+    57562791257,
+    57662791258,
+    57762791260,
+    57862791261,
+    57962791263,
+    58062791264,
+    58162791266,
+    58262791267,
+    58362791269,
+    58462791270,
+    58562791272,
+    58662791273,
+    58762791275,
+    58862791276,
+    58962791278,
+    59062791279,
+    59162791281,
+    59262791282,
+    59362791284,
+    59462791285,
+    59562791287,
+    59662791288,
+    59762791290,
+    59862791291,
+    59962791293,
+    60062791294,
+    60162791296,
+    60262791297,
+    60362791299,
+    60462791300,
+    60562791302,
+    60662791303,
+    60762791304,
+    60862791306,
+    60962791307,
+    61062791309,
+    61162791310,
+    61262791312,
+    61362791313,
+    61462791315,
+    61562791316,
+    61662791318,
+    61762791319,
+    61862791321,
+    61962791322,
+    62062791324,
+    62162791325,
+    62262791327,
+    62362791328,
+    62462791330,
+    62562791331,
+    62662791333,
+    62762791334,
+    62862791336,
+    62962791337,
+    63062791339,
+    63162791340,
+    63262791342,
+    63362791343,
+    63462791345,
+    63562791346,
+    63662791348,
+    63762791349,
+    63862791351,
+    63962791352,
+    64062791354,
+    64162791355,
+    64262791357,
+    64362791358,
+    64462791360,
+    64562791361,
+    64662791363,
+    64762791364,
+    64862791366,
+    64962791367,
+    65062791369,
+    65162791370,
+    65262791372,
+    65362791373,
+    65462791375,
+    65562791376,
+    65662791378,
+    65762791379,
+    65862791380,
+    65962791382,
+    66062791383,
+    66162791385,
+    66262791386,
+    66362791388,
+    66462791389,
+    66562791391,
+    66662791392,
+    66762791394,
+    66862791395,
+    66962791397,
+    67062791398,
+    67162791400,
+    67262791401,
+    67362791403,
+    67462791404,
+    67562791406,
+    67662791407,
+    67762791409,
+    67862791410,
+    67962791412,
+    68062791413,
+    68162791415,
+    68262791416,
+    68362791418,
+    68462791419,
+    68562791421,
+    68662791422,
+    68762791424,
+    68862791425,
+    68962791427,
+    69062791428,
+    69162791430,
+    69262791431,
+    69362791433,
+    69462791434,
+    69562791436,
+    69662791437,
+    69762791439,
+    69862791440,
+    69962791442,
+    70062791443,
+    70162791445
+  ]
+}

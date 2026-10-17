@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "scope": "Synthetic ground-truth-derived outputs verify grader matching, ROS custom-message bag decoding, and JSONL parity. This is not detector performance.",
+  "oracle_frames": 29,
+  "oracle_objects": 22,
+  "oracle_joint_f1": 1.0,
+  "oracle_output_coverage": 1.0,
+  "empty_submission_f1": 0.0,
+  "empty_submission_false_negatives": 22,
+  "jsonl_and_ros_bag_reports_identical": true
+}

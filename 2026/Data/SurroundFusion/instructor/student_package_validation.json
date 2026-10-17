@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "zip_path": "/media/william/blueicedrive/Github/Intro2AV-CourseContent/2026/Data/surround_fusion_async_student.zip",
+  "bytes": 1610374105,
+  "sha256": "290242d44538a29e34719417251b9744d86180079271d2e32a75af842fe0a3f6",
+  "all_entry_crc_and_sha256_verified": true,
+  "entries": {
+    "README.md": {
+      "bytes": 6716,
+      "sha256": "c2e73e11d4f41dbcaa9b5dc4013d15905ad62338d17a6d53756a3c94eb1213f2"
+    },
+    "validation.json": {
+      "bytes": 3906,
+      "sha256": "db5c824e1a42ecd44eac0b171f5450e0c7e600476a30f9533f77521ae7ecda87"
+    },
+    "playback_validation.json": {
+      "bytes": 873,
+      "sha256": "edcf9c8204321e1fccd101f6fec9cc7ebad8cd29675c9ef2c48ed6894a0236ab"
+    },
+    "surround_preview.jpg": {
+      "bytes": 601343,
+      "sha256": "c741ed999e028ce9f97134a530f1201a299c41cbe4cc7c6acf26ff2eed7bcb21"
+    },
+    "bag/bag_0.db3": {
+      "bytes": 2667532288,
+      "sha256": "15d44c47376b028835897d464386af7b737417948ebc0e3c0c2878cc856c0d74"
+    },
+    "bag/metadata.yaml": {
+      "bytes": 3528,
+      "sha256": "c0708f17c4b2adb31d67cff6394219cd803aae981b273fffbe9dc1e34220e995"
+    },
+    "project1_interfaces/CMakeLists.txt": {
+      "bytes": 375,
+      "sha256": "849914d9594478700cf4378100c79b15f76b44c77ca70f7ee44a107a6b624c39"
+    },
+    "project1_interfaces/package.xml": {
+      "bytes": 627,
+      "sha256": "f16fb9214ef7452f0a463ee73e946283e9ab224a67573f934516d0bb9f3a9c34"
+    },
+    "project1_interfaces/msg/DetectedObject.msg": {
+      "bytes": 248,
+      "sha256": "48552f90cacba5381d56d34c54b7f8bda67a9c7c5e53cc7f9013fa1195ee333f"
+    },
+    "project1_interfaces/msg/DetectedObjectArray.msg": {
+      "bytes": 147,
+      "sha256": "480f9ee63062a168002dde8dab95ef780be1ae292791df4422834c2032a0df9b"
+    }
+  }
+}

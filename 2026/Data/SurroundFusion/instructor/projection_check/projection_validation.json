@@ -1,0 +1,50 @@
+{
+  "front": {
+    "projected_points": 7340,
+    "optical_forward_in_base": [
+      1.0,
+      2.220446049250313e-16,
+      2.220446049250313e-16
+    ]
+  },
+  "front_left": {
+    "projected_points": 9051,
+    "optical_forward_in_base": [
+      0.4999999469408748,
+      0.8660254344181368,
+      2.2204460492503136e-16
+    ]
+  },
+  "rear_left": {
+    "projected_points": 8590,
+    "optical_forward_in_base": [
+      -0.5000000432634947,
+      0.8660253788062471,
+      2.2204460492503136e-16
+    ]
+  },
+  "rear": {
+    "projected_points": 8620,
+    "optical_forward_in_base": [
+      -0.9999999999999963,
+      8.74227763514311e-08,
+      2.2204460492503136e-16
+    ]
+  },
+  "rear_right": {
+    "projected_points": 7915,
+    "optical_forward_in_base": [
+      -0.5000000432634942,
+      -0.8660253788062473,
+      2.2204460492503136e-16
+    ]
+  },
+  "front_right": {
+    "projected_points": 7750,
+    "optical_forward_in_base": [
+      0.49999994694087513,
+      -0.8660254344181366,
+      2.2204460492503136e-16
+    ]
+  }
+}

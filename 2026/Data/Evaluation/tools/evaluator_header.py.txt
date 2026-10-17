@@ -1,0 +1,62 @@
+"""Portable detection evaluator. The selected benchmark determines reference times."""
+import argparse
+import collections
+import json
+import math
+from pathlib import Path
+import numpy as np
+from scipy.optimize import linear_sum_assignment
+
+
+def message_typestore():
+    from rosbags.typesys import Stores, get_typestore, get_types_from_msg
+    store = get_typestore(Stores.ROS2_HUMBLE)
+    definitions = {}
+    for name in ('DetectedObject', 'DetectedObjectArray'):
+        definitions.update(get_types_from_msg(
+            Path(__file__).with_name(name + '.msg').read_text(),
+            'project1_interfaces/msg/' + name))
+    store.register(definitions)
+    return store
+
+
+def load_predictions(path, topic):
+    if path.is_dir():
+        from rosbags.highlevel import AnyReader
+        rows = []
+        with AnyReader([path], default_typestore=message_typestore()) as reader:
+            connections = [c for c in reader.connections if c.topic == topic]
+            if not connections:
+                raise ValueError(f'Missing output topic {topic}. Pass your prediction bag, not the input sensor bag.')
+            if any(c.msgtype != 'project1_interfaces/msg/DetectedObjectArray' for c in connections):
+                raise ValueError('Output topic must use project1_interfaces/msg/DetectedObjectArray')
+            for connection, _, data in reader.messages(connections=connections):
+                msg = reader.deserialize(data, connection.msgtype)
+                rows.append({'stamp_ns': int(msg.header.stamp.sec) * 10**9 + int(msg.header.stamp.nanosec),
+                             'frame_id': msg.header.frame_id,
+                             'objects': [{'class_name': o.class_name, 'confidence': float(o.confidence),
+                                          'x': float(o.x), 'y': float(o.y)} for o in msg.objects]})
+    else:
+        text = path.read_text(encoding='utf-8-sig').strip()
+        rows = json.loads(text) if text.startswith('[') else [json.loads(line) for line in text.splitlines() if line.strip()]
+    result = {}
+    for row in rows:
+        stamp = row['stamp_ns']
+        if type(stamp) is not int or stamp < 0:
+            raise ValueError('stamp_ns must be a nonnegative integer in nanoseconds')
+        if stamp in result:
+            raise ValueError(f'Duplicate output stamp {stamp}; publish one fused array per reference timestamp')
+        if row['frame_id'] != 'base_link':
+            raise ValueError('Output coordinates must use frame_id base_link')
+        if not isinstance(row['objects'], list):
+            raise ValueError('objects must be a list, including [] for no detections')
+        for obj in row['objects']:
+            if obj['class_name'] not in ('car', 'person'):
+                raise ValueError('class_name must be car or person; omit other classes')
+            if not all(type(obj[k]) in (int, float) and math.isfinite(obj[k]) for k in ('confidence', 'x', 'y')):
+                raise ValueError('Detection confidence/x/y must be finite numbers')
+            if not 0 <= obj['confidence'] <= 1:
+                raise ValueError('Confidence must be within [0,1]')
+        result[stamp] = row['objects']
+    return result
+

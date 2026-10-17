@@ -1,0 +1,115 @@
+{
+  "status": "passed",
+  "counts": {
+    "/clock": 1201,
+    "/ego/odometry": 1201,
+    "/lidar/roof/points": 601,
+    "/tf": 1201,
+    "/camera/front/image_raw": 398,
+    "/camera/front/camera_info": 398,
+    "/camera/front_left/image_raw": 493,
+    "/camera/front_left/camera_info": 493,
+    "/camera/rear_left/image_raw": 369,
+    "/camera/rear_left/camera_info": 369,
+    "/camera/rear/image_raw": 422,
+    "/camera/rear/camera_info": 422,
+    "/camera/rear_right/image_raw": 455,
+    "/camera/rear_right/camera_info": 455,
+    "/camera/front_right/image_raw": 346,
+    "/camera/front_right/camera_info": 346
+  },
+  "source_counts": {
+    "/clock": 1201,
+    "/carla/ego_61/odometry": 1201,
+    "/carla/ego_61/front_rgb/image": 1201,
+    "/carla/ego_61/front_rgb/camera_info": 1201,
+    "/carla/ego_61/front_left_rgb/image": 1201,
+    "/carla/ego_61/front_left_rgb/camera_info": 1201,
+    "/carla/ego_61/rear_left_rgb/image": 1201,
+    "/carla/ego_61/rear_left_rgb/camera_info": 1201,
+    "/carla/ego_61/rear_rgb/image": 1201,
+    "/carla/ego_61/rear_rgb/camera_info": 1201,
+    "/carla/ego_61/rear_right_rgb/image": 1201,
+    "/carla/ego_61/rear_right_rgb/camera_info": 1201,
+    "/carla/ego_61/front_right_rgb/image": 1201,
+    "/carla/ego_61/front_right_rgb/camera_info": 1201,
+    "/carla/ego_61/roof_lidar/points": 1201,
+    "/tf": 1201
+  },
+  "duration_seconds": 60.000000894,
+  "asynchrony_method": "Deterministic staggered selection of genuine 20 Hz source frames. Headers and retained sensor payloads preserve acquisition time and data. No clock offsets or drift are injected.",
+  "source_retained_digest": "9c688b2699f164e9c5ebabb6cc5f7159f97a16e86a1a74c93d2217304d666e81",
+  "cameras": {
+    "front": {
+      "images": 398,
+      "effective_hz": 6.627712755950793,
+      "interval_ms_min": 100.000001,
+      "interval_ms_max": 200.000003,
+      "nearest_lidar_skew_ms_min": 50.0,
+      "nearest_lidar_skew_ms_max": 50.000001,
+      "exact_lidar_matches": 0
+    },
+    "front_left": {
+      "images": 493,
+      "effective_hz": 8.227424626578005,
+      "interval_ms_min": 100.000001,
+      "interval_ms_max": 200.000003,
+      "nearest_lidar_skew_ms_min": 50.0,
+      "nearest_lidar_skew_ms_max": 50.000001,
+      "exact_lidar_matches": 0
+    },
+    "rear_left": {
+      "images": 369,
+      "effective_hz": 6.1744965522994475,
+      "interval_ms_min": 100.000001,
+      "interval_ms_max": 200.000003,
+      "nearest_lidar_skew_ms_min": 50.0,
+      "nearest_lidar_skew_ms_max": 50.000001,
+      "exact_lidar_matches": 0
+    },
+    "rear": {
+      "images": 422,
+      "effective_hz": 7.063758284016488,
+      "interval_ms_min": 100.000001,
+      "interval_ms_max": 200.000003,
+      "nearest_lidar_skew_ms_min": 50.0,
+      "nearest_lidar_skew_ms_max": 50.000001,
+      "exact_lidar_matches": 0
+    },
+    "rear_right": {
+      "images": 455,
+      "effective_hz": 7.6302519870918735,
+      "interval_ms_min": 100.000001,
+      "interval_ms_max": 200.000003,
+      "nearest_lidar_skew_ms_min": 50.0,
+      "nearest_lidar_skew_ms_max": 50.000001,
+      "exact_lidar_matches": 0
+    },
+    "front_right": {
+      "images": 346,
+      "effective_hz": 5.808080721546272,
+      "interval_ms_min": 100.000001,
+      "interval_ms_max": 200.000003,
+      "nearest_lidar_skew_ms_min": 50.0,
+      "nearest_lidar_skew_ms_max": 50.000001,
+      "exact_lidar_matches": 0
+    }
+  },
+  "lidar_scan_points": {
+    "min": 23072,
+    "max": 40426,
+    "median": 38831.0,
+    "minimum_returns_in_any_10deg_sector": 396
+  },
+  "ego_distance_m": 421.6197836822309,
+  "moving_fraction": 1.0,
+  "lidar_hz": 9.9999999,
+  "all_six_camera_common_timestamps": 71,
+  "payload_verification": {
+    "status": "passed",
+    "images_and_clouds_compared": 3084,
+    "all_exported_sensor_timestamps_found_in_source": true,
+    "all_exported_sensor_payloads_and_formats_equal_source": true,
+    "sqlite_integrity": "ok"
+  }
+}

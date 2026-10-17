@@ -1,0 +1,22 @@
+{
+  "purpose": "Perception and localization exercise with sustained ego motion",
+  "removed_moving_vehicle_ids_in_prior_scene": [
+    84,
+    85
+  ],
+  "restoration_configuration": "freeflow_scene_to_restore.json",
+  "front_camera_attribute": {
+    "use_ray_tracing": "false"
+  },
+  "lidar_backend": "CPU ray casting",
+  "traffic_manager_ego_settings": {
+    "ignore_lights_percentage": 100,
+    "ignore_signs_percentage": 100,
+    "collision_avoidance": "retained; collision ignoring was not enabled"
+  },
+  "notes": [
+    "Traffic signals may remain visibly red; this controlled free-flow capture does not evaluate traffic-rule compliance.",
+    "The first free-flow attempt was interrupted by a confirmed host OOM kill; that partial session is excluded from the release.",
+    "The RGB camera setting is a resource-use mitigation; the precise Unreal memory defect was not isolated."
+  ]
+}

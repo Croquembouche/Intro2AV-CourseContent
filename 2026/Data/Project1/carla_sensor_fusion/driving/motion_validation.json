@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "frames": 1203,
+  "duration_seconds": 60.10000089555979,
+  "moving_threshold_mps": 0.2,
+  "moving_seconds": 59.8500008918345,
+  "moving_fraction": 0.9958402662229617,
+  "required_moving_fraction": 0.9,
+  "longest_stopped_interval_seconds": 0.2500000037252903,
+  "ego_distance_m": 449.72585246839986,
+  "scope": "Trajectory continuity and sustained motion only; does not certify collision-free driving."
+}

@@ -1,0 +1,5580 @@
+{
+  "version": 6,
+  "lidar_weather_model": "scene-weather-v1",
+  "lidar_material_model": "optics-v1",
+  "scene_vehicles": {
+    "hidden": [
+      "SM_Mustang_prop_2",
+      "Vh_Car_BmwGranTourer_High_v001_11",
+      "Vh_Car_BmwGranTourer_High_v2",
+      "Vh_Car_BmwIsetta2016_2",
+      "Vh_Car_ChevroletImpala_High_V002_52",
+      "Vh_Car_NissanMicra_High_v005_5",
+      "Vh_Car_NissanMicra_High_v6_5",
+      "Vh_Car_NissanMicra_High_v8",
+      "Vh_Car_NissanMicra_High_v9",
+      "Vh_Car_SeatLeon2",
+      "Vh_Car_SeatLeon_5"
+    ]
+  },
+  "authoring": {
+    "running": false,
+    "elapsed": 0.0,
+    "config": {
+      "flows": [],
+      "events": []
+    },
+    "flows": [],
+    "events": [],
+    "log": [],
+    "actors": {}
+  },
+  "network_timing": {
+    "mode": "independent",
+    "epoch": 0.0,
+    "detectors": {},
+    "next_cycle_starts": {}
+  },
+  "map": "Carla/Maps/Town02_Opt",
+  "weather": {
+    "cloudiness": 95.0,
+    "precipitation": 70.0,
+    "precipitation_deposits": 60.0,
+    "wind_intensity": 10.0,
+    "sun_azimuth_angle": 0.0,
+    "sun_altitude_angle": 35.0,
+    "fog_density": 0.0,
+    "fog_distance": 0.0,
+    "wetness": 80.0,
+    "dust_storm": 0.0,
+    "fog_falloff": 0.8999999761581421,
+    "scattering_intensity": 1.0,
+    "mie_scattering_scale": 0.029999999329447746,
+    "rayleigh_scattering_scale": 0.03310000151395798
+  },
+  "movement_programs": {
+    "38": {
+      "active": false,
+      "members": [
+        38,
+        39,
+        46
+      ],
+      "conflicts": [
+        [
+          [
+            38,
+            "left"
+          ],
+          [
+            39,
+            "straight"
+          ]
+        ],
+        [
+          [
+            38,
+            "left"
+          ],
+          [
+            39,
+            "left"
+          ]
+        ],
+        [
+          [
+            38,
+            "left"
+          ],
+          [
+            46,
+            "straight"
+          ]
+        ],
+        [
+          [
+            38,
+            "right"
+          ],
+          [
+            46,
+            "straight"
+          ]
+        ],
+        [
+          [
+            39,
+            "left"
+          ],
+          [
+            46,
+            "straight"
+          ]
+        ],
+        [
+          [
+            39,
+            "left"
+          ],
+          [
+            46,
+            "right"
+          ]
+        ]
+      ],
+      "defaults": [
+        {
+          "name": "Approach 38",
+          "duration": 15.0,
+          "states": {
+            "38": {
+              "left": "Protected",
+              "right": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 39",
+          "duration": 15.0,
+          "states": {
+            "39": {
+              "straight": "Protected",
+              "left": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 46",
+          "duration": 15.0,
+          "states": {
+            "46": {
+              "straight": "Protected",
+              "right": "Protected"
+            }
+          }
+        }
+      ],
+      "elapsed": 0
+    },
+    "43": {
+      "active": false,
+      "members": [
+        43,
+        44,
+        45
+      ],
+      "conflicts": [
+        [
+          [
+            43,
+            "straight"
+          ],
+          [
+            44,
+            "left"
+          ]
+        ],
+        [
+          [
+            43,
+            "straight"
+          ],
+          [
+            44,
+            "right"
+          ]
+        ],
+        [
+          [
+            43,
+            "right"
+          ],
+          [
+            45,
+            "left"
+          ]
+        ],
+        [
+          [
+            43,
+            "straight"
+          ],
+          [
+            45,
+            "left"
+          ]
+        ],
+        [
+          [
+            44,
+            "left"
+          ],
+          [
+            45,
+            "straight"
+          ]
+        ],
+        [
+          [
+            44,
+            "left"
+          ],
+          [
+            45,
+            "left"
+          ]
+        ]
+      ],
+      "defaults": [
+        {
+          "name": "Approach 43",
+          "duration": 15.0,
+          "states": {
+            "43": {
+              "right": "Protected",
+              "straight": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 44",
+          "duration": 15.0,
+          "states": {
+            "44": {
+              "left": "Protected",
+              "right": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 45",
+          "duration": 15.0,
+          "states": {
+            "45": {
+              "straight": "Protected",
+              "left": "Protected"
+            }
+          }
+        }
+      ],
+      "elapsed": 0
+    },
+    "40": {
+      "active": false,
+      "members": [
+        40,
+        41,
+        42
+      ],
+      "conflicts": [
+        [
+          [
+            40,
+            "straight"
+          ],
+          [
+            41,
+            "left"
+          ]
+        ],
+        [
+          [
+            40,
+            "straight"
+          ],
+          [
+            41,
+            "right"
+          ]
+        ],
+        [
+          [
+            40,
+            "straight"
+          ],
+          [
+            42,
+            "left"
+          ]
+        ],
+        [
+          [
+            40,
+            "right"
+          ],
+          [
+            42,
+            "left"
+          ]
+        ],
+        [
+          [
+            41,
+            "left"
+          ],
+          [
+            42,
+            "straight"
+          ]
+        ],
+        [
+          [
+            41,
+            "left"
+          ],
+          [
+            42,
+            "left"
+          ]
+        ],
+        [
+          [
+            41,
+            "right"
+          ],
+          [
+            42,
+            "left"
+          ]
+        ]
+      ],
+      "defaults": [
+        {
+          "name": "Approach 40",
+          "duration": 15.0,
+          "states": {
+            "40": {
+              "straight": "Protected",
+              "right": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 41",
+          "duration": 15.0,
+          "states": {
+            "41": {
+              "left": "Protected",
+              "right": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 42",
+          "duration": 15.0,
+          "states": {
+            "42": {
+              "straight": "Protected",
+              "left": "Protected"
+            }
+          }
+        }
+      ],
+      "elapsed": 0
+    },
+    "35": {
+      "active": false,
+      "members": [
+        35,
+        36,
+        37
+      ],
+      "conflicts": [
+        [
+          [
+            35,
+            "straight"
+          ],
+          [
+            36,
+            "right"
+          ]
+        ],
+        [
+          [
+            35,
+            "straight"
+          ],
+          [
+            36,
+            "left"
+          ]
+        ],
+        [
+          [
+            35,
+            "straight"
+          ],
+          [
+            37,
+            "left"
+          ]
+        ],
+        [
+          [
+            35,
+            "right"
+          ],
+          [
+            37,
+            "left"
+          ]
+        ],
+        [
+          [
+            36,
+            "left"
+          ],
+          [
+            37,
+            "straight"
+          ]
+        ],
+        [
+          [
+            36,
+            "left"
+          ],
+          [
+            37,
+            "left"
+          ]
+        ]
+      ],
+      "defaults": [
+        {
+          "name": "Approach 35",
+          "duration": 15.0,
+          "states": {
+            "35": {
+              "straight": "Protected",
+              "right": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 36",
+          "duration": 15.0,
+          "states": {
+            "36": {
+              "right": "Protected",
+              "left": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 37",
+          "duration": 15.0,
+          "states": {
+            "37": {
+              "straight": "Protected",
+              "left": "Protected"
+            }
+          }
+        }
+      ],
+      "elapsed": 0
+    },
+    "32": {
+      "active": false,
+      "members": [
+        32,
+        33,
+        34
+      ],
+      "conflicts": [
+        [
+          [
+            32,
+            "straight"
+          ],
+          [
+            33,
+            "left"
+          ]
+        ],
+        [
+          [
+            32,
+            "straight"
+          ],
+          [
+            33,
+            "right"
+          ]
+        ],
+        [
+          [
+            32,
+            "right"
+          ],
+          [
+            34,
+            "left"
+          ]
+        ],
+        [
+          [
+            32,
+            "straight"
+          ],
+          [
+            34,
+            "left"
+          ]
+        ],
+        [
+          [
+            33,
+            "left"
+          ],
+          [
+            34,
+            "straight"
+          ]
+        ],
+        [
+          [
+            33,
+            "left"
+          ],
+          [
+            34,
+            "left"
+          ]
+        ]
+      ],
+      "defaults": [
+        {
+          "name": "Approach 32",
+          "duration": 15.0,
+          "states": {
+            "32": {
+              "right": "Protected",
+              "straight": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 33",
+          "duration": 15.0,
+          "states": {
+            "33": {
+              "left": "Protected",
+              "right": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 34",
+          "duration": 15.0,
+          "states": {
+            "34": {
+              "straight": "Protected",
+              "left": "Protected"
+            }
+          }
+        }
+      ],
+      "elapsed": 0
+    },
+    "29": {
+      "active": false,
+      "members": [
+        29,
+        30,
+        31
+      ],
+      "conflicts": [
+        [
+          [
+            29,
+            "straight"
+          ],
+          [
+            30,
+            "right"
+          ]
+        ],
+        [
+          [
+            29,
+            "straight"
+          ],
+          [
+            30,
+            "left"
+          ]
+        ],
+        [
+          [
+            29,
+            "straight"
+          ],
+          [
+            31,
+            "left"
+          ]
+        ],
+        [
+          [
+            29,
+            "right"
+          ],
+          [
+            31,
+            "left"
+          ]
+        ],
+        [
+          [
+            30,
+            "left"
+          ],
+          [
+            31,
+            "straight"
+          ]
+        ],
+        [
+          [
+            30,
+            "left"
+          ],
+          [
+            31,
+            "left"
+          ]
+        ]
+      ],
+      "defaults": [
+        {
+          "name": "Approach 29",
+          "duration": 15.0,
+          "states": {
+            "29": {
+              "straight": "Protected",
+              "right": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 30",
+          "duration": 15.0,
+          "states": {
+            "30": {
+              "right": "Protected",
+              "left": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 31",
+          "duration": 15.0,
+          "states": {
+            "31": {
+              "straight": "Protected",
+              "left": "Protected"
+            }
+          }
+        }
+      ],
+      "elapsed": 0
+    },
+    "26": {
+      "active": false,
+      "members": [
+        26,
+        27,
+        28
+      ],
+      "conflicts": [
+        [
+          [
+            26,
+            "straight"
+          ],
+          [
+            27,
+            "left"
+          ]
+        ],
+        [
+          [
+            26,
+            "straight"
+          ],
+          [
+            27,
+            "right"
+          ]
+        ],
+        [
+          [
+            26,
+            "right"
+          ],
+          [
+            28,
+            "left"
+          ]
+        ],
+        [
+          [
+            26,
+            "straight"
+          ],
+          [
+            28,
+            "left"
+          ]
+        ],
+        [
+          [
+            27,
+            "left"
+          ],
+          [
+            28,
+            "left"
+          ]
+        ],
+        [
+          [
+            27,
+            "left"
+          ],
+          [
+            28,
+            "straight"
+          ]
+        ]
+      ],
+      "defaults": [
+        {
+          "name": "Approach 26",
+          "duration": 15.0,
+          "states": {
+            "26": {
+              "right": "Protected",
+              "straight": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 27",
+          "duration": 15.0,
+          "states": {
+            "27": {
+              "left": "Protected",
+              "right": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 28",
+          "duration": 15.0,
+          "states": {
+            "28": {
+              "left": "Protected",
+              "straight": "Protected"
+            }
+          }
+        }
+      ],
+      "elapsed": 0
+    },
+    "23": {
+      "active": false,
+      "members": [
+        23,
+        24,
+        25
+      ],
+      "conflicts": [
+        [
+          [
+            23,
+            "straight"
+          ],
+          [
+            24,
+            "right"
+          ]
+        ],
+        [
+          [
+            23,
+            "straight"
+          ],
+          [
+            24,
+            "left"
+          ]
+        ],
+        [
+          [
+            23,
+            "right"
+          ],
+          [
+            25,
+            "left"
+          ]
+        ],
+        [
+          [
+            23,
+            "straight"
+          ],
+          [
+            25,
+            "left"
+          ]
+        ],
+        [
+          [
+            24,
+            "left"
+          ],
+          [
+            25,
+            "left"
+          ]
+        ],
+        [
+          [
+            24,
+            "left"
+          ],
+          [
+            25,
+            "straight"
+          ]
+        ]
+      ],
+      "defaults": [
+        {
+          "name": "Approach 23",
+          "duration": 15.0,
+          "states": {
+            "23": {
+              "right": "Protected",
+              "straight": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 24",
+          "duration": 15.0,
+          "states": {
+            "24": {
+              "right": "Protected",
+              "left": "Protected"
+            }
+          }
+        },
+        {
+          "name": "Approach 25",
+          "duration": 15.0,
+          "states": {
+            "25": {
+              "left": "Protected",
+              "straight": "Protected"
+            }
+          }
+        }
+      ],
+      "elapsed": 0
+    }
+  },
+  "traffic_lights": [
+    {
+      "id": 46,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": -0.8199999928474426,
+        "y": 202.51998901367188,
+        "z": 0.2199999988079071,
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        38,
+        39,
+        46
+      ],
+      "group_id": 38,
+      "opendrive_id": "479",
+      "heads": [
+        {
+          "x": -1.0256997346878052,
+          "y": 202.78057861328125,
+          "z": 2.724909543991089,
+          "yaw": 0.0
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "straight": {
+          "lanes": [
+            "412:-1"
+          ],
+          "paths": [
+            [
+              [
+                -3.452,
+                199.24,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                -3.452,
+                197.24,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                -3.453,
+                195.24,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                -3.453,
+                193.24,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                -3.453,
+                191.24,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                -3.454,
+                189.24,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                -3.454,
+                187.24,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                -3.455,
+                185.24,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                -3.455,
+                183.24,
+                0.0,
+                4.0,
+                -90.01
+              ]
+            ]
+          ]
+        },
+        "right": {
+          "lanes": [
+            "426:-1"
+          ],
+          "paths": [
+            [
+              [
+                -3.452,
+                199.24,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                -3.444,
+                197.335,
+                0.0,
+                4.0,
+                272.71
+              ],
+              [
+                -3.2,
+                195.798,
+                0.0,
+                4.0,
+                285.35
+              ],
+              [
+                -2.626,
+                194.353,
+                0.0,
+                4.0,
+                297.99
+              ],
+              [
+                -1.751,
+                193.036,
+                0.0,
+                4.0,
+                -50.07
+              ],
+              [
+                -0.734,
+                192.159,
+                0.0,
+                4.0,
+                -31.41
+              ],
+              [
+                0.51,
+                191.655,
+                0.0,
+                4.0,
+                -12.74
+              ],
+              [
+                2.057,
+                191.553,
+                0.0,
+                4.0,
+                0.03
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 45,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 32.06000900268555,
+        "y": 309.4100036621094,
+        "z": 0.2199999988079071,
+        "yaw": 89.9994888305664,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        43,
+        44,
+        45
+      ],
+      "group_id": 43,
+      "opendrive_id": "474",
+      "heads": [
+        {
+          "x": 31.799427032470703,
+          "y": 309.2043151855469,
+          "z": 2.724909543991089,
+          "yaw": 89.9994888305664
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "straight": {
+          "lanes": [
+            "383:-1"
+          ],
+          "paths": [
+            [
+              [
+                34.661,
+                306.54,
+                0.0,
+                4.0,
+                -360.04
+              ],
+              [
+                36.661,
+                306.538,
+                0.0,
+                4.0,
+                -360.04
+              ],
+              [
+                38.661,
+                306.537,
+                0.0,
+                4.0,
+                -360.04
+              ],
+              [
+                40.661,
+                306.535,
+                0.0,
+                4.0,
+                -360.04
+              ],
+              [
+                42.661,
+                306.534,
+                0.0,
+                4.0,
+                -360.04
+              ],
+              [
+                44.661,
+                306.533,
+                0.0,
+                4.0,
+                -360.04
+              ],
+              [
+                46.661,
+                306.531,
+                0.0,
+                4.0,
+                -360.04
+              ],
+              [
+                48.66,
+                306.53,
+                0.0,
+                4.0,
+                -0.01
+              ],
+              [
+                50.659,
+                306.531,
+                0.0,
+                4.0,
+                -359.98
+              ]
+            ]
+          ]
+        },
+        "left": {
+          "lanes": [
+            "390:-1"
+          ],
+          "paths": [
+            [
+              [
+                34.661,
+                306.54,
+                0.0,
+                4.0,
+                -360.04
+              ],
+              [
+                36.661,
+                306.538,
+                0.0,
+                4.0,
+                -360.04
+              ],
+              [
+                38.834,
+                306.509,
+                0.0,
+                4.0,
+                -5.01
+              ],
+              [
+                41.47,
+                305.761,
+                0.0,
+                4.0,
+                -26.68
+              ],
+              [
+                43.643,
+                304.092,
+                0.0,
+                4.0,
+                -48.35
+              ],
+              [
+                45.072,
+                301.96,
+                0.0,
+                4.0,
+                -64.85
+              ],
+              [
+                45.798,
+                299.439,
+                0.0,
+                4.0,
+                -83.02
+              ],
+              [
+                45.859,
+                297.198,
+                0.0,
+                4.0,
+                -450.0
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.15000000596046448,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 44,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 39.1299934387207,
+        "y": 289.5299987792969,
+        "z": 0.2199999988079071,
+        "yaw": -179.9996337890625,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        43,
+        44,
+        45
+      ],
+      "group_id": 43,
+      "opendrive_id": "475",
+      "heads": [
+        {
+          "x": 39.335697174072266,
+          "y": 289.2694091796875,
+          "z": 2.724909543991089,
+          "yaw": -179.9996337890625
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "left": {
+          "lanes": [
+            "351:1"
+          ],
+          "paths": [
+            [
+              [
+                41.859,
+                297.127,
+                0.0,
+                4.0,
+                90.0
+              ],
+              [
+                41.861,
+                299.16,
+                0.0,
+                4.0,
+                89.07
+              ],
+              [
+                42.335,
+                301.761,
+                0.0,
+                4.0,
+                70.28
+              ],
+              [
+                43.621,
+                304.071,
+                0.0,
+                4.0,
+                51.5
+              ],
+              [
+                45.849,
+                305.866,
+                0.0,
+                4.0,
+                26.13
+              ],
+              [
+                48.637,
+                306.53,
+                0.0,
+                4.0,
+                0.65
+              ],
+              [
+                50.659,
+                306.531,
+                0.0,
+                4.0,
+                0.02
+              ],
+              [
+                52.659,
+                306.531,
+                0.0,
+                4.0,
+                0.02
+              ]
+            ]
+          ]
+        },
+        "right": {
+          "lanes": [
+            "385:1"
+          ],
+          "paths": [
+            [
+              [
+                41.859,
+                297.325,
+                0.0,
+                4.0,
+                -270.0
+              ],
+              [
+                41.849,
+                299.171,
+                0.0,
+                4.0,
+                94.4
+              ],
+              [
+                41.526,
+                300.421,
+                0.0,
+                4.0,
+                114.53
+              ],
+              [
+                40.794,
+                301.484,
+                0.0,
+                4.0,
+                134.66
+              ],
+              [
+                39.752,
+                302.213,
+                0.0,
+                4.0,
+                155.32
+              ],
+              [
+                38.52,
+                302.528,
+                0.0,
+                4.0,
+                175.99
+              ],
+              [
+                36.659,
+                302.538,
+                0.0,
+                4.0,
+                -180.04
+              ],
+              [
+                34.659,
+                302.54,
+                0.0,
+                4.0,
+                -180.04
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 43,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 56.69001388549805,
+        "y": 299.98931884765625,
+        "z": 0.2199999988079071,
+        "yaw": -89.999755859375,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        43,
+        44,
+        45
+      ],
+      "group_id": 43,
+      "opendrive_id": "476",
+      "heads": [
+        {
+          "x": 56.950592041015625,
+          "y": 300.19500732421875,
+          "z": 2.724909543991089,
+          "yaw": -89.999755859375
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "right": {
+          "lanes": [
+            "358:1"
+          ],
+          "paths": [
+            [
+              [
+                52.08,
+                302.531,
+                0.0,
+                4.0,
+                -179.98
+              ],
+              [
+                50.188,
+                302.524,
+                0.0,
+                4.0,
+                -176.86
+              ],
+              [
+                48.818,
+                302.241,
+                0.0,
+                4.0,
+                -159.79
+              ],
+              [
+                47.592,
+                301.568,
+                0.0,
+                4.0,
+                -142.72
+              ],
+              [
+                46.636,
+                300.58,
+                0.0,
+                4.0,
+                -124.97
+              ],
+              [
+                46.043,
+                299.356,
+                0.0,
+                4.0,
+                -106.79
+              ],
+              [
+                45.859,
+                297.96,
+                0.0,
+                4.0,
+                -90.0
+              ],
+              [
+                45.859,
+                295.96,
+                0.0,
+                4.0,
+                -90.0
+              ]
+            ]
+          ]
+        },
+        "straight": {
+          "lanes": [
+            "384:1"
+          ],
+          "paths": [
+            [
+              [
+                50.661,
+                302.531,
+                0.0,
+                4.0,
+                -179.98
+              ],
+              [
+                48.66,
+                302.53,
+                0.0,
+                4.0,
+                179.99
+              ],
+              [
+                46.659,
+                302.531,
+                0.0,
+                4.0,
+                -180.04
+              ],
+              [
+                44.659,
+                302.533,
+                0.0,
+                4.0,
+                -180.04
+              ],
+              [
+                42.659,
+                302.534,
+                0.0,
+                4.0,
+                -180.04
+              ],
+              [
+                40.659,
+                302.535,
+                0.0,
+                4.0,
+                -180.04
+              ],
+              [
+                38.659,
+                302.537,
+                0.0,
+                4.0,
+                -180.04
+              ],
+              [
+                36.659,
+                302.538,
+                0.0,
+                4.0,
+                -180.04
+              ],
+              [
+                34.659,
+                302.54,
+                0.0,
+                4.0,
+                -180.04
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 42,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 39.27000045776367,
+        "y": 227.12998962402344,
+        "z": 0.2199999988079071,
+        "yaw": 179.99989318847656,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        40,
+        41,
+        42
+      ],
+      "group_id": 40,
+      "opendrive_id": "461",
+      "heads": [
+        {
+          "x": 39.4756965637207,
+          "y": 226.86941528320312,
+          "z": 2.724909543991089,
+          "yaw": 179.99989318847656
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "straight": {
+          "lanes": [
+            "92:1"
+          ],
+          "paths": [
+            [
+              [
+                41.853,
+                227.9,
+                0.0,
+                4.0,
+                90.0
+              ],
+              [
+                41.854,
+                229.9,
+                0.0,
+                4.0,
+                90.0
+              ],
+              [
+                41.854,
+                231.9,
+                0.0,
+                4.0,
+                90.0
+              ],
+              [
+                41.854,
+                233.9,
+                0.0,
+                4.0,
+                90.0
+              ],
+              [
+                41.854,
+                235.9,
+                0.0,
+                4.0,
+                90.0
+              ],
+              [
+                41.854,
+                237.9,
+                0.0,
+                4.0,
+                90.0
+              ],
+              [
+                41.854,
+                239.9,
+                0.0,
+                4.0,
+                90.0
+              ],
+              [
+                41.855,
+                241.9,
+                0.0,
+                4.0,
+                90.0
+              ],
+              [
+                41.855,
+                243.9,
+                0.0,
+                4.0,
+                90.0
+              ],
+              [
+                41.855,
+                245.9,
+                0.0,
+                4.0,
+                90.0
+              ],
+              [
+                41.855,
+                247.9,
+                0.0,
+                4.0,
+                90.0
+              ]
+            ]
+          ]
+        },
+        "left": {
+          "lanes": [
+            "131:1"
+          ],
+          "paths": [
+            [
+              [
+                41.939,
+                229.296,
+                0.0,
+                4.0,
+                83.51
+              ],
+              [
+                42.408,
+                231.596,
+                0.0,
+                4.0,
+                73.47
+              ],
+              [
+                43.27,
+                233.779,
+                0.0,
+                4.0,
+                63.43
+              ],
+              [
+                44.5,
+                235.779,
+                0.0,
+                4.0,
+                53.39
+              ],
+              [
+                46.069,
+                237.54,
+                0.0,
+                4.0,
+                43.01
+              ],
+              [
+                47.957,
+                238.99,
+                0.0,
+                4.0,
+                32.01
+              ],
+              [
+                50.088,
+                240.052,
+                0.0,
+                4.0,
+                21.0
+              ],
+              [
+                52.382,
+                240.688,
+                0.0,
+                4.0,
+                10.0
+              ],
+              [
+                54.718,
+                240.877,
+                0.0,
+                4.0,
+                0.03
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.5500000715255737,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 41,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 56.2599983215332,
+        "y": 234.1999969482422,
+        "z": 0.2199999988079071,
+        "yaw": -89.99993896484375,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        40,
+        41,
+        42
+      ],
+      "group_id": 40,
+      "opendrive_id": "460",
+      "heads": [
+        {
+          "x": 56.52058029174805,
+          "y": 234.40570068359375,
+          "z": 2.724909543991089,
+          "yaw": -89.99993896484375
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "left": {
+          "lanes": [
+            "99:-1"
+          ],
+          "paths": [
+            [
+              [
+                54.721,
+                236.877,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                52.721,
+                236.876,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                50.721,
+                236.874,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                48.212,
+                237.194,
+                0.0,
+                4.0,
+                -195.37
+              ],
+              [
+                45.86,
+                238.223,
+                0.0,
+                4.0,
+                -211.89
+              ],
+              [
+                43.886,
+                239.896,
+                0.0,
+                4.0,
+                -228.98
+              ],
+              [
+                42.499,
+                242.126,
+                0.0,
+                4.0,
+                -247.25
+              ],
+              [
+                41.88,
+                244.678,
+                0.0,
+                4.0,
+                -265.51
+              ],
+              [
+                41.855,
+                246.835,
+                0.0,
+                4.0,
+                -270.0
+              ]
+            ]
+          ]
+        },
+        "right": {
+          "lanes": [
+            "118:-1"
+          ],
+          "paths": [
+            [
+              [
+                54.721,
+                236.877,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                52.721,
+                236.876,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                50.721,
+                236.874,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                49.183,
+                236.771,
+                0.0,
+                4.0,
+                -166.96
+              ],
+              [
+                47.957,
+                236.261,
+                0.0,
+                4.0,
+                -147.89
+              ],
+              [
+                46.953,
+                235.367,
+                0.0,
+                4.0,
+                -129.26
+              ],
+              [
+                46.227,
+                234.155,
+                0.0,
+                4.0,
+                -112.58
+              ],
+              [
+                45.88,
+                232.785,
+                0.0,
+                4.0,
+                -95.91
+              ],
+              [
+                45.854,
+                230.992,
+                0.0,
+                4.0,
+                -450.0
+              ],
+              [
+                45.853,
+                228.992,
+                0.0,
+                4.0,
+                -450.0
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 40,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 48.529998779296875,
+        "y": 251.75999450683594,
+        "z": 0.2199999988079071,
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        40,
+        41,
+        42
+      ],
+      "group_id": 40,
+      "opendrive_id": "459",
+      "heads": [
+        {
+          "x": 48.32429885864258,
+          "y": 252.02056884765625,
+          "z": 2.724909543991089,
+          "yaw": 0.0
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "straight": {
+          "lanes": [
+            "93:-1"
+          ],
+          "paths": [
+            [
+              [
+                45.855,
+                247.9,
+                0.0,
+                4.0,
+                -90.0
+              ],
+              [
+                45.855,
+                245.9,
+                0.0,
+                4.0,
+                -90.0
+              ],
+              [
+                45.855,
+                243.9,
+                0.0,
+                4.0,
+                -90.0
+              ],
+              [
+                45.855,
+                241.9,
+                0.0,
+                4.0,
+                -90.0
+              ],
+              [
+                45.854,
+                239.9,
+                0.0,
+                4.0,
+                -90.0
+              ],
+              [
+                45.854,
+                237.9,
+                0.0,
+                4.0,
+                -90.0
+              ],
+              [
+                45.854,
+                235.9,
+                0.0,
+                4.0,
+                -90.0
+              ],
+              [
+                45.854,
+                233.9,
+                0.0,
+                4.0,
+                -90.0
+              ],
+              [
+                45.854,
+                231.9,
+                0.0,
+                4.0,
+                -90.0
+              ],
+              [
+                45.854,
+                229.9,
+                0.0,
+                4.0,
+                -90.0
+              ],
+              [
+                45.853,
+                227.9,
+                0.0,
+                4.0,
+                -90.0
+              ]
+            ]
+          ]
+        },
+        "right": {
+          "lanes": [
+            "107:-1"
+          ],
+          "paths": [
+            [
+              [
+                45.855,
+                247.9,
+                0.0,
+                4.0,
+                -90.0
+              ],
+              [
+                45.855,
+                245.9,
+                0.0,
+                4.0,
+                -90.0
+              ],
+              [
+                46.026,
+                244.436,
+                0.0,
+                4.0,
+                284.92
+              ],
+              [
+                46.586,
+                243.119,
+                0.0,
+                4.0,
+                301.09
+              ],
+              [
+                47.479,
+                242.022,
+                0.0,
+                4.0,
+                -42.29
+              ],
+              [
+                48.624,
+                241.268,
+                0.0,
+                4.0,
+                -24.41
+              ],
+              [
+                49.945,
+                240.903,
+                0.0,
+                4.0,
+                -6.53
+              ],
+              [
+                51.715,
+                240.875,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                53.715,
+                240.876,
+                0.0,
+                4.0,
+                -359.97
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 39,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": -10.079999923706055,
+        "y": 177.88999938964844,
+        "z": 0.2199999988079071,
+        "yaw": 179.99989318847656,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        38,
+        39,
+        46
+      ],
+      "group_id": 38,
+      "opendrive_id": "478",
+      "heads": [
+        {
+          "x": -9.874300956726074,
+          "y": 177.62940979003906,
+          "z": 2.724909543991089,
+          "yaw": 179.99989318847656
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "straight": {
+          "lanes": [
+            "411:1"
+          ],
+          "paths": [
+            [
+              [
+                -7.455,
+                183.24,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                -7.455,
+                185.24,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                -7.454,
+                187.24,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                -7.454,
+                189.24,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                -7.453,
+                191.24,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                -7.453,
+                193.24,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                -7.453,
+                195.24,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                -7.452,
+                197.24,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                -7.452,
+                199.24,
+                0.0,
+                4.0,
+                89.99
+              ]
+            ]
+          ]
+        },
+        "left": {
+          "lanes": [
+            "437:1"
+          ],
+          "paths": [
+            [
+              [
+                -7.455,
+                182.022,
+                0.0,
+                4.0,
+                -270.01
+              ],
+              [
+                -7.455,
+                184.022,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                -7.08,
+                186.662,
+                0.0,
+                4.0,
+                70.43
+              ],
+              [
+                -5.548,
+                189.084,
+                0.0,
+                4.0,
+                44.96
+              ],
+              [
+                -3.35,
+                190.584,
+                0.0,
+                4.0,
+                25.66
+              ],
+              [
+                -0.973,
+                191.372,
+                0.0,
+                4.0,
+                11.02
+              ],
+              [
+                1.399,
+                191.553,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                3.399,
+                191.554,
+                0.0,
+                4.0,
+                0.03
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 38,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 6.909999847412109,
+        "y": 184.95999145507812,
+        "z": 0.2199999988079071,
+        "yaw": -89.99993896484375,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        38,
+        39,
+        46
+      ],
+      "group_id": 38,
+      "opendrive_id": "477",
+      "heads": [
+        {
+          "x": 7.17057991027832,
+          "y": 185.1656951904297,
+          "z": 2.724909543991089,
+          "yaw": -89.99993896484375
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "left": {
+          "lanes": [
+            "433:1"
+          ],
+          "paths": [
+            [
+              [
+                2.037,
+                187.553,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                -0.438,
+                187.828,
+                0.0,
+                4.0,
+                165.79
+              ],
+              [
+                -2.808,
+                188.806,
+                0.0,
+                4.0,
+                149.37
+              ],
+              [
+                -4.806,
+                190.414,
+                0.0,
+                4.0,
+                132.96
+              ],
+              [
+                -6.264,
+                192.447,
+                0.0,
+                4.0,
+                118.38
+              ],
+              [
+                -7.165,
+                194.78,
+                0.0,
+                4.0,
+                103.85
+              ],
+              [
+                -7.452,
+                197.24,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                -7.452,
+                199.24,
+                0.0,
+                4.0,
+                89.99
+              ]
+            ]
+          ]
+        },
+        "right": {
+          "lanes": [
+            "447:1"
+          ],
+          "paths": [
+            [
+              [
+                2.779,
+                187.554,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                0.795,
+                187.552,
+                0.0,
+                4.0,
+                -179.52
+              ],
+              [
+                -0.601,
+                187.336,
+                0.0,
+                4.0,
+                -162.82
+              ],
+              [
+                -1.875,
+                186.727,
+                0.0,
+                4.0,
+                -146.12
+              ],
+              [
+                -2.823,
+                185.843,
+                0.0,
+                4.0,
+                -126.16
+              ],
+              [
+                -3.351,
+                184.727,
+                0.0,
+                4.0,
+                -104.46
+              ],
+              [
+                -3.455,
+                183.24,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                -3.456,
+                181.24,
+                0.0,
+                4.0,
+                -90.01
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 1.7999993562698364,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 37,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 196.21002197265625,
+        "y": 250.81002807617188,
+        "z": 0.2199999988079071,
+        "yaw": -0.0003659999929368496,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        35,
+        36,
+        37
+      ],
+      "group_id": 35,
+      "opendrive_id": "456",
+      "heads": [
+        {
+          "x": 196.0043182373047,
+          "y": 251.07061767578125,
+          "z": 2.724909543991089,
+          "yaw": -0.0003659999929368496
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "straight": {
+          "lanes": [
+            "32:-1"
+          ],
+          "paths": [
+            [
+              [
+                193.699,
+                248.35,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                193.699,
+                246.35,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                193.699,
+                244.35,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                193.698,
+                242.35,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                193.698,
+                240.35,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                193.697,
+                238.35,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                193.697,
+                236.35,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                193.696,
+                234.35,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                193.696,
+                232.35,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                193.695,
+                230.35,
+                0.0,
+                4.0,
+                -90.01
+              ]
+            ]
+          ]
+        },
+        "left": {
+          "lanes": [
+            "47:-1"
+          ],
+          "paths": [
+            [
+              [
+                193.699,
+                248.35,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                193.699,
+                246.35,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                193.424,
+                243.891,
+                0.0,
+                4.0,
+                -103.79
+              ],
+              [
+                192.503,
+                241.541,
+                0.0,
+                4.0,
+                -119.0
+              ],
+              [
+                190.99,
+                239.508,
+                0.0,
+                4.0,
+                -134.53
+              ],
+              [
+                188.905,
+                237.953,
+                0.0,
+                4.0,
+                -152.04
+              ],
+              [
+                186.449,
+                237.097,
+                0.0,
+                4.0,
+                -169.55
+              ],
+              [
+                184.094,
+                236.955,
+                0.0,
+                4.0,
+                -179.97
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.9500001668930054,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 36,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 179.2200164794922,
+        "y": 243.7399139404297,
+        "z": 0.2199999988079071,
+        "yaw": 90.0000991821289,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        35,
+        36,
+        37
+      ],
+      "group_id": 35,
+      "opendrive_id": "457",
+      "heads": [
+        {
+          "x": 178.95944213867188,
+          "y": 243.53421020507812,
+          "z": 2.724909543991089,
+          "yaw": 90.0000991821289
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "right": {
+          "lanes": [
+            "55:1"
+          ],
+          "paths": [
+            [
+              [
+                183.865,
+                240.955,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                185.422,
+                241.081,
+                0.0,
+                4.0,
+                12.49
+              ],
+              [
+                186.778,
+                241.584,
+                0.0,
+                4.0,
+                28.21
+              ],
+              [
+                187.947,
+                242.435,
+                0.0,
+                4.0,
+                43.94
+              ],
+              [
+                188.866,
+                243.59,
+                0.0,
+                4.0,
+                58.84
+              ],
+              [
+                189.464,
+                244.945,
+                0.0,
+                4.0,
+                73.58
+              ],
+              [
+                189.697,
+                246.408,
+                0.0,
+                4.0,
+                88.33
+              ],
+              [
+                189.699,
+                248.35,
+                0.0,
+                4.0,
+                89.99
+              ]
+            ]
+          ]
+        },
+        "left": {
+          "lanes": [
+            "62:1"
+          ],
+          "paths": [
+            [
+              [
+                183.48,
+                240.955,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                185.642,
+                240.926,
+                0.0,
+                4.0,
+                -4.63
+              ],
+              [
+                188.135,
+                240.364,
+                0.0,
+                4.0,
+                -20.79
+              ],
+              [
+                190.373,
+                239.13,
+                0.0,
+                4.0,
+                -36.95
+              ],
+              [
+                192.199,
+                237.276,
+                0.0,
+                4.0,
+                -54.49
+              ],
+              [
+                193.362,
+                234.896,
+                0.0,
+                4.0,
+                -73.44
+              ],
+              [
+                193.696,
+                232.35,
+                0.0,
+                4.0,
+                -90.01
+              ],
+              [
+                193.695,
+                230.35,
+                0.0,
+                4.0,
+                -90.01
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 35,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 186.95005798339844,
+        "y": 226.1799774169922,
+        "z": 0.2199999988079071,
+        "yaw": -179.99937438964844,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        35,
+        36,
+        37
+      ],
+      "group_id": 35,
+      "opendrive_id": "458",
+      "heads": [
+        {
+          "x": 187.15576171875,
+          "y": 225.91940307617188,
+          "z": 2.724909543991089,
+          "yaw": -179.99937438964844
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "straight": {
+          "lanes": [
+            "31:1"
+          ],
+          "paths": [
+            [
+              [
+                189.695,
+                230.35,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                189.696,
+                232.35,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                189.696,
+                234.35,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                189.697,
+                236.35,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                189.697,
+                238.35,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                189.698,
+                240.35,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                189.698,
+                242.35,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                189.699,
+                244.35,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                189.699,
+                246.35,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                189.699,
+                248.35,
+                0.0,
+                4.0,
+                89.99
+              ]
+            ]
+          ]
+        },
+        "right": {
+          "lanes": [
+            "68:1"
+          ],
+          "paths": [
+            [
+              [
+                189.696,
+                231.295,
+                0.0,
+                4.0,
+                -270.01
+              ],
+              [
+                189.669,
+                233.062,
+                0.0,
+                4.0,
+                96.64
+              ],
+              [
+                189.299,
+                234.341,
+                0.0,
+                4.0,
+                115.63
+              ],
+              [
+                188.533,
+                235.43,
+                0.0,
+                4.0,
+                134.61
+              ],
+              [
+                187.392,
+                236.282,
+                0.0,
+                4.0,
+                -209.02
+              ],
+              [
+                186.039,
+                236.809,
+                0.0,
+                4.0,
+                -193.46
+              ],
+              [
+                184.521,
+                236.956,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                182.521,
+                236.954,
+                0.0,
+                4.0,
+                -179.97
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 34,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 196.21002197265625,
+        "y": 201.40003967285156,
+        "z": 0.2199999988079071,
+        "yaw": -0.0003659999929368496,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        32,
+        33,
+        34
+      ],
+      "group_id": 32,
+      "opendrive_id": "468",
+      "heads": [
+        {
+          "x": 196.0043182373047,
+          "y": 201.66061401367188,
+          "z": 2.724909543991089,
+          "yaw": -0.0003659999929368496
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "straight": {
+          "lanes": [
+            "276:-1"
+          ],
+          "paths": [
+            [
+              [
+                193.688,
+                199.09,
+                0.0,
+                4.0,
+                -450.01
+              ],
+              [
+                193.688,
+                197.09,
+                0.0,
+                4.0,
+                -450.01
+              ],
+              [
+                193.687,
+                195.09,
+                0.0,
+                4.0,
+                -450.01
+              ],
+              [
+                193.687,
+                193.09,
+                0.0,
+                4.0,
+                -450.01
+              ],
+              [
+                193.687,
+                191.09,
+                0.0,
+                4.0,
+                -450.01
+              ],
+              [
+                193.686,
+                189.09,
+                0.0,
+                4.0,
+                -450.01
+              ],
+              [
+                193.686,
+                187.09,
+                0.0,
+                4.0,
+                -450.01
+              ],
+              [
+                193.685,
+                185.09,
+                0.0,
+                4.0,
+                -450.01
+              ],
+              [
+                193.685,
+                183.09,
+                0.0,
+                4.0,
+                -450.01
+              ],
+              [
+                193.684,
+                181.09,
+                0.0,
+                4.0,
+                -450.01
+              ]
+            ]
+          ]
+        },
+        "left": {
+          "lanes": [
+            "290:-1"
+          ],
+          "paths": [
+            [
+              [
+                193.688,
+                199.09,
+                0.0,
+                4.0,
+                -450.01
+              ],
+              [
+                193.688,
+                197.09,
+                0.0,
+                4.0,
+                -450.01
+              ],
+              [
+                193.391,
+                194.604,
+                0.0,
+                4.0,
+                -104.65
+              ],
+              [
+                192.406,
+                192.249,
+                0.0,
+                4.0,
+                -120.74
+              ],
+              [
+                190.845,
+                190.287,
+                0.0,
+                4.0,
+                -135.47
+              ],
+              [
+                188.802,
+                188.769,
+                0.0,
+                4.0,
+                -151.32
+              ],
+              [
+                186.422,
+                187.867,
+                0.0,
+                4.0,
+                -167.17
+              ],
+              [
+                183.992,
+                187.637,
+                0.0,
+                4.0,
+                -539.97
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 1.3499997854232788,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 33,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 179.2200164794922,
+        "y": 194.3299102783203,
+        "z": 0.2199999988079071,
+        "yaw": 90.0000991821289,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        32,
+        33,
+        34
+      ],
+      "group_id": 32,
+      "opendrive_id": "469",
+      "heads": [
+        {
+          "x": 178.95944213867188,
+          "y": 194.1242218017578,
+          "z": 2.724909543991089,
+          "yaw": 90.0000991821289
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "left": {
+          "lanes": [
+            "252:-1"
+          ],
+          "paths": [
+            [
+              [
+                182.539,
+                191.636,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                184.539,
+                191.637,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                186.777,
+                191.563,
+                0.0,
+                4.0,
+                -366.89
+              ],
+              [
+                189.18,
+                190.974,
+                0.0,
+                4.0,
+                -380.64
+              ],
+              [
+                191.491,
+                189.715,
+                0.0,
+                4.0,
+                -39.02
+              ],
+              [
+                193.262,
+                187.31,
+                0.0,
+                4.0,
+                -68.22
+              ],
+              [
+                193.685,
+                184.603,
+                0.0,
+                4.0,
+                -450.01
+              ],
+              [
+                193.685,
+                182.603,
+                0.0,
+                4.0,
+                -450.01
+              ]
+            ]
+          ]
+        },
+        "right": {
+          "lanes": [
+            "283:-1"
+          ],
+          "paths": [
+            [
+              [
+                182.539,
+                191.636,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                184.483,
+                191.639,
+                0.0,
+                4.0,
+                1.62
+              ],
+              [
+                185.944,
+                191.871,
+                0.0,
+                4.0,
+                16.44
+              ],
+              [
+                187.296,
+                192.469,
+                0.0,
+                4.0,
+                31.25
+              ],
+              [
+                188.432,
+                193.377,
+                0.0,
+                4.0,
+                46.77
+              ],
+              [
+                189.221,
+                194.523,
+                0.0,
+                4.0,
+                64.06
+              ],
+              [
+                189.635,
+                195.851,
+                0.0,
+                4.0,
+                81.35
+              ],
+              [
+                189.688,
+                197.547,
+                0.0,
+                4.0,
+                -270.01
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 32,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 186.95005798339844,
+        "y": 176.7699737548828,
+        "z": 0.2199999988079071,
+        "yaw": -179.99937438964844,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        32,
+        33,
+        34
+      ],
+      "group_id": 32,
+      "opendrive_id": "470",
+      "heads": [
+        {
+          "x": 187.15576171875,
+          "y": 176.5093994140625,
+          "z": 2.724909543991089,
+          "yaw": -179.99937438964844
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "right": {
+          "lanes": [
+            "245:1"
+          ],
+          "paths": [
+            [
+              [
+                189.685,
+                182.474,
+                0.0,
+                4.0,
+                -270.01
+              ],
+              [
+                189.685,
+                184.474,
+                0.0,
+                4.0,
+                89.99
+              ],
+              [
+                189.461,
+                185.627,
+                0.0,
+                4.0,
+                113.36
+              ],
+              [
+                188.795,
+                186.561,
+                0.0,
+                4.0,
+                137.56
+              ],
+              [
+                187.669,
+                187.277,
+                0.0,
+                4.0,
+                -203.52
+              ],
+              [
+                186.35,
+                187.618,
+                0.0,
+                4.0,
+                -185.44
+              ],
+              [
+                184.541,
+                187.637,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                182.541,
+                187.636,
+                0.0,
+                4.0,
+                -179.97
+              ]
+            ]
+          ]
+        },
+        "straight": {
+          "lanes": [
+            "277:1"
+          ],
+          "paths": [
+            [
+              [
+                189.684,
+                181.09,
+                0.0,
+                4.0,
+                -270.01
+              ],
+              [
+                189.685,
+                183.09,
+                0.0,
+                4.0,
+                -270.01
+              ],
+              [
+                189.685,
+                185.09,
+                0.0,
+                4.0,
+                -270.01
+              ],
+              [
+                189.686,
+                187.09,
+                0.0,
+                4.0,
+                -270.01
+              ],
+              [
+                189.686,
+                189.09,
+                0.0,
+                4.0,
+                -270.01
+              ],
+              [
+                189.687,
+                191.09,
+                0.0,
+                4.0,
+                -270.01
+              ],
+              [
+                189.687,
+                193.09,
+                0.0,
+                4.0,
+                -270.01
+              ],
+              [
+                189.687,
+                195.09,
+                0.0,
+                4.0,
+                -270.01
+              ],
+              [
+                189.688,
+                197.09,
+                0.0,
+                4.0,
+                -270.01
+              ],
+              [
+                189.688,
+                199.09,
+                0.0,
+                4.0,
+                -270.01
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 31,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 58.05000686645508,
+        "y": 185.0299835205078,
+        "z": 0.2199999988079071,
+        "yaw": -90.00042724609375,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        29,
+        30,
+        31
+      ],
+      "group_id": 29,
+      "opendrive_id": "467",
+      "heads": [
+        {
+          "x": 58.31058883666992,
+          "y": 185.2356719970703,
+          "z": 2.724909543991089,
+          "yaw": -90.00042724609375
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "straight": {
+          "lanes": [
+            "200:1"
+          ],
+          "paths": [
+            [
+              [
+                50.701,
+                187.575,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                48.701,
+                187.575,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                46.701,
+                187.574,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                44.701,
+                187.573,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                42.701,
+                187.572,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                40.701,
+                187.571,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                38.701,
+                187.57,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                36.701,
+                187.569,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                34.701,
+                187.568,
+                0.0,
+                4.0,
+                -179.97
+              ]
+            ]
+          ]
+        },
+        "left": {
+          "lanes": [
+            "224:1"
+          ],
+          "paths": [
+            [
+              [
+                51.292,
+                187.576,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                48.894,
+                187.744,
+                0.0,
+                4.0,
+                168.28
+              ],
+              [
+                46.428,
+                188.696,
+                0.0,
+                4.0,
+                149.52
+              ],
+              [
+                44.399,
+                190.389,
+                0.0,
+                4.0,
+                130.77
+              ],
+              [
+                43.032,
+                192.458,
+                0.0,
+                4.0,
+                116.87
+              ],
+              [
+                42.178,
+                194.746,
+                0.0,
+                4.0,
+                104.05
+              ],
+              [
+                41.853,
+                197.167,
+                0.0,
+                4.0,
+                91.23
+              ],
+              [
+                41.851,
+                199.21,
+                0.0,
+                4.0,
+                -270.0
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 1.7499994039535522,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 30,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 48.51997756958008,
+        "y": 203.2799530029297,
+        "z": 0.2199999988079071,
+        "yaw": 0.0003969999961555004,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        29,
+        30,
+        31
+      ],
+      "group_id": 29,
+      "opendrive_id": "466",
+      "heads": [
+        {
+          "x": 48.31427764892578,
+          "y": 203.54054260253906,
+          "z": 2.724909543991089,
+          "yaw": 0.0003969999961555004
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "right": {
+          "lanes": [
+            "216:-1"
+          ],
+          "paths": [
+            [
+              [
+                45.851,
+                199.21,
+                0.0,
+                4.0,
+                -450.0
+              ],
+              [
+                45.851,
+                197.21,
+                0.0,
+                4.0,
+                -450.0
+              ],
+              [
+                45.995,
+                195.648,
+                0.0,
+                4.0,
+                -77.75
+              ],
+              [
+                46.492,
+                194.216,
+                0.0,
+                4.0,
+                -63.98
+              ],
+              [
+                47.302,
+                192.961,
+                0.0,
+                4.0,
+                -49.59
+              ],
+              [
+                48.314,
+                192.113,
+                0.0,
+                4.0,
+                -30.29
+              ],
+              [
+                49.55,
+                191.648,
+                0.0,
+                4.0,
+                -11.0
+              ],
+              [
+                51.16,
+                191.576,
+                0.0,
+                4.0,
+                -359.97
+              ]
+            ]
+          ]
+        },
+        "left": {
+          "lanes": [
+            "236:-1"
+          ],
+          "paths": [
+            [
+              [
+                45.851,
+                199.21,
+                0.0,
+                4.0,
+                -450.0
+              ],
+              [
+                45.826,
+                197.077,
+                0.0,
+                4.0,
+                -93.82
+              ],
+              [
+                45.397,
+                194.678,
+                0.0,
+                4.0,
+                -106.48
+              ],
+              [
+                44.452,
+                192.432,
+                0.0,
+                4.0,
+                -119.13
+              ],
+              [
+                43.018,
+                190.429,
+                0.0,
+                4.0,
+                -132.58
+              ],
+              [
+                41.018,
+                188.806,
+                0.0,
+                4.0,
+                -149.33
+              ],
+              [
+                38.635,
+                187.829,
+                0.0,
+                4.0,
+                -166.07
+              ],
+              [
+                36.171,
+                187.569,
+                0.0,
+                4.0,
+                -179.97
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 29,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 30.959989547729492,
+        "y": 194.2899627685547,
+        "z": 0.2199999988079071,
+        "yaw": 90.00007629394531,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        29,
+        30,
+        31
+      ],
+      "group_id": 29,
+      "opendrive_id": "465",
+      "heads": [
+        {
+          "x": 30.69940948486328,
+          "y": 194.08425903320312,
+          "z": 2.724909543991089,
+          "yaw": 90.00007629394531
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "straight": {
+          "lanes": [
+            "199:-1"
+          ],
+          "paths": [
+            [
+              [
+                34.699,
+                191.568,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                36.699,
+                191.569,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                38.699,
+                191.57,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                40.699,
+                191.571,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                42.699,
+                191.572,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                44.699,
+                191.573,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                46.699,
+                191.574,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                48.699,
+                191.575,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                50.699,
+                191.575,
+                0.0,
+                4.0,
+                -359.97
+              ]
+            ]
+          ]
+        },
+        "right": {
+          "lanes": [
+            "232:-1"
+          ],
+          "paths": [
+            [
+              [
+                34.699,
+                191.568,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                36.699,
+                191.569,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                38.121,
+                191.757,
+                0.0,
+                4.0,
+                16.09
+              ],
+              [
+                39.4,
+                192.34,
+                0.0,
+                4.0,
+                32.96
+              ],
+              [
+                40.461,
+                193.277,
+                0.0,
+                4.0,
+                49.57
+              ],
+              [
+                41.272,
+                194.52,
+                0.0,
+                4.0,
+                64.23
+              ],
+              [
+                41.741,
+                195.928,
+                0.0,
+                4.0,
+                78.88
+              ],
+              [
+                41.851,
+                197.533,
+                0.0,
+                4.0,
+                90.0
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 28,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 146.0,
+        "y": 184.82997131347656,
+        "z": 0.2199999988079071,
+        "yaw": -90.00042724609375,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        26,
+        27,
+        28
+      ],
+      "group_id": 26,
+      "opendrive_id": "473",
+      "heads": [
+        {
+          "x": 146.26058959960938,
+          "y": 185.03567504882812,
+          "z": 2.724909543991089,
+          "yaw": -90.00042724609375
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "left": {
+          "lanes": [
+            "317:1"
+          ],
+          "paths": [
+            [
+              [
+                143.499,
+                187.618,
+                0.0,
+                4.0,
+                180.03
+              ],
+              [
+                141.499,
+                187.617,
+                0.0,
+                4.0,
+                180.03
+              ],
+              [
+                139.162,
+                187.733,
+                0.0,
+                4.0,
+                170.16
+              ],
+              [
+                136.649,
+                188.626,
+                0.0,
+                4.0,
+                150.69
+              ],
+              [
+                134.578,
+                190.306,
+                0.0,
+                4.0,
+                131.23
+              ],
+              [
+                133.189,
+                192.402,
+                0.0,
+                4.0,
+                116.29
+              ],
+              [
+                132.371,
+                194.756,
+                0.0,
+                4.0,
+                102.0
+              ],
+              [
+                132.152,
+                197.158,
+                0.0,
+                4.0,
+                90.06
+              ],
+              [
+                132.15,
+                199.158,
+                0.0,
+                4.0,
+                90.06
+              ]
+            ]
+          ]
+        },
+        "straight": {
+          "lanes": [
+            "341:1"
+          ],
+          "paths": [
+            [
+              [
+                143.181,
+                187.618,
+                0.0,
+                4.0,
+                180.03
+              ],
+              [
+                141.181,
+                187.617,
+                0.0,
+                4.0,
+                180.03
+              ],
+              [
+                139.181,
+                187.616,
+                0.0,
+                4.0,
+                180.03
+              ],
+              [
+                137.181,
+                187.615,
+                0.0,
+                4.0,
+                180.03
+              ],
+              [
+                135.181,
+                187.614,
+                0.0,
+                4.0,
+                180.03
+              ],
+              [
+                133.181,
+                187.613,
+                0.0,
+                4.0,
+                180.03
+              ],
+              [
+                131.181,
+                187.612,
+                0.0,
+                4.0,
+                180.03
+              ],
+              [
+                129.181,
+                187.611,
+                0.0,
+                4.0,
+                180.03
+              ],
+              [
+                127.181,
+                187.611,
+                0.0,
+                4.0,
+                180.03
+              ],
+              [
+                125.181,
+                187.61,
+                0.0,
+                4.0,
+                180.03
+              ],
+              [
+                123.181,
+                187.609,
+                0.0,
+                4.0,
+                180.03
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 2.1499991416931152,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 27,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 138.9299774169922,
+        "y": 201.81996154785156,
+        "z": 0.2199999988079071,
+        "yaw": 0.0003969999961555004,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        26,
+        27,
+        28
+      ],
+      "group_id": 26,
+      "opendrive_id": "471",
+      "heads": [
+        {
+          "x": 138.72427368164062,
+          "y": 202.08053588867188,
+          "z": 2.724909543991089,
+          "yaw": 0.0003969999961555004
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "left": {
+          "lanes": [
+            "308:-1"
+          ],
+          "paths": [
+            [
+              [
+                136.15,
+                199.162,
+                0.0,
+                4.0,
+                -89.94
+              ],
+              [
+                136.152,
+                197.162,
+                0.0,
+                4.0,
+                -89.94
+              ],
+              [
+                135.923,
+                194.751,
+                0.0,
+                4.0,
+                -102.19
+              ],
+              [
+                135.108,
+                192.407,
+                0.0,
+                4.0,
+                -116.15
+              ],
+              [
+                133.731,
+                190.309,
+                0.0,
+                4.0,
+                -130.95
+              ],
+              [
+                131.66,
+                188.618,
+                0.0,
+                4.0,
+                -150.61
+              ],
+              [
+                129.141,
+                187.723,
+                0.0,
+                4.0,
+                -170.27
+              ],
+              [
+                126.808,
+                187.61,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                124.808,
+                187.609,
+                0.0,
+                4.0,
+                -179.97
+              ]
+            ]
+          ]
+        },
+        "right": {
+          "lanes": [
+            "322:-1"
+          ],
+          "paths": [
+            [
+              [
+                136.15,
+                199.162,
+                0.0,
+                4.0,
+                -89.94
+              ],
+              [
+                136.152,
+                197.162,
+                0.0,
+                4.0,
+                -89.94
+              ],
+              [
+                136.321,
+                195.653,
+                0.0,
+                4.0,
+                -76.27
+              ],
+              [
+                136.854,
+                194.262,
+                0.0,
+                4.0,
+                -61.75
+              ],
+              [
+                137.753,
+                193.009,
+                0.0,
+                4.0,
+                -48.74
+              ],
+              [
+                138.778,
+                192.127,
+                0.0,
+                4.0,
+                -30.39
+              ],
+              [
+                139.991,
+                191.677,
+                0.0,
+                4.0,
+                -10.34
+              ],
+              [
+                141.625,
+                191.617,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                143.625,
+                191.618,
+                0.0,
+                4.0,
+                0.03
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 26,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 121.36998748779297,
+        "y": 194.08995056152344,
+        "z": 0.2199999988079071,
+        "yaw": 90.00007629394531,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        26,
+        27,
+        28
+      ],
+      "group_id": 26,
+      "opendrive_id": "472",
+      "heads": [
+        {
+          "x": 121.10940551757812,
+          "y": 193.88426208496094,
+          "z": 2.724909543991089,
+          "yaw": 90.00007629394531
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "right": {
+          "lanes": [
+            "301:-1"
+          ],
+          "paths": [
+            [
+              [
+                123.179,
+                191.609,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                125.179,
+                191.61,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                127.179,
+                191.611,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                128.7,
+                191.717,
+                0.0,
+                4.0,
+                -346.49
+              ],
+              [
+                129.9,
+                192.234,
+                0.0,
+                4.0,
+                -326.81
+              ],
+              [
+                130.859,
+                193.131,
+                0.0,
+                4.0,
+                -307.32
+              ],
+              [
+                131.626,
+                194.438,
+                0.0,
+                4.0,
+                -293.55
+              ],
+              [
+                132.061,
+                195.89,
+                0.0,
+                4.0,
+                -279.77
+              ],
+              [
+                132.152,
+                197.542,
+                0.0,
+                4.0,
+                -269.94
+              ]
+            ]
+          ]
+        },
+        "straight": {
+          "lanes": [
+            "342:-1"
+          ],
+          "paths": [
+            [
+              [
+                123.179,
+                191.609,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                125.179,
+                191.61,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                127.179,
+                191.611,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                129.179,
+                191.611,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                131.179,
+                191.612,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                133.179,
+                191.613,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                135.179,
+                191.614,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                137.179,
+                191.615,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                139.179,
+                191.616,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                141.179,
+                191.617,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                143.179,
+                191.618,
+                0.0,
+                4.0,
+                0.03
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 25,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 122.4800033569336,
+        "y": 243.81698608398438,
+        "z": 0.2199999988079071,
+        "yaw": 89.9994888305664,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        23,
+        24,
+        25
+      ],
+      "group_id": 23,
+      "opendrive_id": "462",
+      "heads": [
+        {
+          "x": 122.21942138671875,
+          "y": 243.6112823486328,
+          "z": 2.724909543991089,
+          "yaw": 89.9994888305664
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "left": {
+          "lanes": [
+            "134:1"
+          ],
+          "paths": [
+            [
+              [
+                126.033,
+                240.92,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                128.241,
+                240.871,
+                0.0,
+                4.0,
+                -5.97
+              ],
+              [
+                130.712,
+                240.26,
+                0.0,
+                4.0,
+                -21.82
+              ],
+              [
+                132.922,
+                238.997,
+                0.0,
+                4.0,
+                -37.66
+              ],
+              [
+                134.726,
+                237.093,
+                0.0,
+                4.0,
+                -55.85
+              ],
+              [
+                135.832,
+                234.687,
+                0.0,
+                4.0,
+                -74.75
+              ],
+              [
+                136.117,
+                232.182,
+                0.0,
+                4.0,
+                -89.94
+              ],
+              [
+                136.119,
+                230.182,
+                0.0,
+                4.0,
+                -89.94
+              ]
+            ]
+          ]
+        },
+        "straight": {
+          "lanes": [
+            "178:1"
+          ],
+          "paths": [
+            [
+              [
+                124.979,
+                240.919,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                126.979,
+                240.921,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                128.979,
+                240.922,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                130.979,
+                240.923,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                132.979,
+                240.924,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                134.979,
+                240.926,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                136.979,
+                240.927,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                138.979,
+                240.928,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                140.979,
+                240.929,
+                0.0,
+                4.0,
+                -359.97
+              ],
+              [
+                142.979,
+                240.93,
+                0.0,
+                4.0,
+                -359.97
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 2.5499987602233887,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 24,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 129.5500030517578,
+        "y": 226.55999755859375,
+        "z": 0.2199999988079071,
+        "yaw": -179.9996337890625,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        23,
+        24,
+        25
+      ],
+      "group_id": 23,
+      "opendrive_id": "463",
+      "heads": [
+        {
+          "x": 129.7556915283203,
+          "y": 226.29942321777344,
+          "z": 2.724909543991089,
+          "yaw": -179.9996337890625
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "right": {
+          "lanes": [
+            "142:1"
+          ],
+          "paths": [
+            [
+              [
+                132.118,
+                231.27,
+                0.0,
+                4.0,
+                -269.94
+              ],
+              [
+                132.082,
+                233.019,
+                0.0,
+                4.0,
+                97.21
+              ],
+              [
+                131.701,
+                234.335,
+                0.0,
+                4.0,
+                115.09
+              ],
+              [
+                130.934,
+                235.471,
+                0.0,
+                4.0,
+                132.98
+              ],
+              [
+                129.847,
+                236.327,
+                0.0,
+                4.0,
+                -209.52
+              ],
+              [
+                128.551,
+                236.82,
+                0.0,
+                4.0,
+                -192.09
+              ],
+              [
+                126.981,
+                236.921,
+                0.0,
+                4.0,
+                -179.97
+              ],
+              [
+                124.981,
+                236.919,
+                0.0,
+                4.0,
+                -179.97
+              ]
+            ]
+          ]
+        },
+        "left": {
+          "lanes": [
+            "148:1"
+          ],
+          "paths": [
+            [
+              [
+                132.118,
+                231.199,
+                0.0,
+                4.0,
+                -269.94
+              ],
+              [
+                132.13,
+                233.317,
+                0.0,
+                4.0,
+                86.65
+              ],
+              [
+                132.708,
+                235.891,
+                0.0,
+                4.0,
+                68.05
+              ],
+              [
+                134.076,
+                238.146,
+                0.0,
+                4.0,
+                49.44
+              ],
+              [
+                136.116,
+                239.85,
+                0.0,
+                4.0,
+                30.24
+              ],
+              [
+                138.609,
+                240.786,
+                0.0,
+                4.0,
+                10.89
+              ],
+              [
+                140.979,
+                240.929,
+                0.0,
+                4.0,
+                0.03
+              ],
+              [
+                142.979,
+                240.93,
+                0.0,
+                4.0,
+                -359.97
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    },
+    {
+      "id": 23,
+      "type": "traffic.traffic_light",
+      "pose": {
+        "x": 147.11001586914062,
+        "y": 234.22210693359375,
+        "z": 0.2199999988079071,
+        "yaw": -89.999755859375,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "dormant": false,
+      "head_source": "CARLA semantic boxes (unclassified)",
+      "group_ids": [
+        23,
+        24,
+        25
+      ],
+      "group_id": 23,
+      "opendrive_id": "464",
+      "heads": [
+        {
+          "x": 147.37059020996094,
+          "y": 234.4278106689453,
+          "z": 2.724909543991089,
+          "yaw": -89.999755859375
+        }
+      ],
+      "movement_word": 0,
+      "movements": null,
+      "movement_lanes": {
+        "right": {
+          "lanes": [
+            "157:-1"
+          ],
+          "paths": [
+            [
+              [
+                142.981,
+                236.93,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                140.981,
+                236.929,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                139.521,
+                236.769,
+                0.0,
+                4.0,
+                -164.89
+              ],
+              [
+                138.248,
+                236.209,
+                0.0,
+                4.0,
+                -147.6
+              ],
+              [
+                137.2,
+                235.296,
+                0.0,
+                4.0,
+                -130.27
+              ],
+              [
+                136.475,
+                234.115,
+                0.0,
+                4.0,
+                -112.83
+              ],
+              [
+                136.137,
+                232.771,
+                0.0,
+                4.0,
+                -95.4
+              ],
+              [
+                136.118,
+                230.962,
+                0.0,
+                4.0,
+                -449.94
+              ]
+            ]
+          ]
+        },
+        "straight": {
+          "lanes": [
+            "177:-1"
+          ],
+          "paths": [
+            [
+              [
+                142.981,
+                236.93,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                140.981,
+                236.929,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                138.981,
+                236.928,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                136.981,
+                236.927,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                134.981,
+                236.926,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                132.981,
+                236.924,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                130.981,
+                236.923,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                128.981,
+                236.922,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                126.981,
+                236.921,
+                0.0,
+                4.0,
+                -539.97
+              ],
+              [
+                124.981,
+                236.919,
+                0.0,
+                4.0,
+                -539.97
+              ]
+            ]
+          ]
+        }
+      },
+      "state": "Green",
+      "elapsed": 0.0,
+      "green_time": 10.0,
+      "yellow_time": 3.0,
+      "red_time": 2.0,
+      "frozen": true
+    }
+  ],
+  "actors": [
+    {
+      "id": 47,
+      "model": "vehicle.ue4.ford.mustang",
+      "role": "background",
+      "saved_offroad_pose": true,
+      "planner": "parked",
+      "parked": true,
+      "parking_space": null,
+      "scene_source": "SM_Mustang_prop_2",
+      "model_substituted": false,
+      "spawn": {
+        "x": 214.89999389648438,
+        "y": 120.79999542236328,
+        "z": 0.32999998331069946,
+        "yaw": 30.00006103515625,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "destination": null,
+      "arrival_tolerance": 0.75,
+      "sensors": []
+    },
+    {
+      "id": 48,
+      "model": "vehicle.lincoln.mkz",
+      "role": "background",
+      "saved_offroad_pose": true,
+      "planner": "parked",
+      "parked": true,
+      "parking_space": null,
+      "scene_source": "Vh_Car_BmwGranTourer_High_v001_11",
+      "model_substituted": true,
+      "spawn": {
+        "x": 157.739990234375,
+        "y": 225.72840881347656,
+        "z": 0.312879353761673,
+        "yaw": -90.0001220703125,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "destination": null,
+      "arrival_tolerance": 0.75,
+      "sensors": []
+    },
+    {
+      "id": 49,
+      "model": "vehicle.lincoln.mkz",
+      "role": "background",
+      "saved_offroad_pose": true,
+      "planner": "parked",
+      "parked": true,
+      "parking_space": null,
+      "scene_source": "Vh_Car_BmwGranTourer_High_v2",
+      "model_substituted": true,
+      "spawn": {
+        "x": 151.86436462402344,
+        "y": 287.24871826171875,
+        "z": 0.312879353761673,
+        "yaw": 99.9998779296875,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "destination": null,
+      "arrival_tolerance": 0.75,
+      "sensors": []
+    },
+    {
+      "id": 50,
+      "model": "vehicle.lincoln.mkz",
+      "role": "background",
+      "saved_offroad_pose": true,
+      "planner": "parked",
+      "parked": true,
+      "parking_space": null,
+      "scene_source": "Vh_Car_BmwIsetta2016_2",
+      "model_substituted": true,
+      "spawn": {
+        "x": 159.8699951171875,
+        "y": 225.11846923828125,
+        "z": 0.35325077176094055,
+        "yaw": -90.0001220703125,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "destination": null,
+      "arrival_tolerance": 0.75,
+      "sensors": []
+    },
+    {
+      "id": 51,
+      "model": "vehicle.lincoln.mkz",
+      "role": "background",
+      "saved_offroad_pose": true,
+      "planner": "parked",
+      "parked": true,
+      "parking_space": null,
+      "scene_source": "Vh_Car_ChevroletImpala_High_V002_52",
+      "model_substituted": true,
+      "spawn": {
+        "x": 171.82723999023438,
+        "y": 226.50372314453125,
+        "z": 0.3125472366809845,
+        "yaw": -90.0001220703125,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "destination": null,
+      "arrival_tolerance": 0.75,
+      "sensors": []
+    },
+    {
+      "id": 52,
+      "model": "vehicle.nissan.patrol",
+      "role": "background",
+      "saved_offroad_pose": true,
+      "planner": "parked",
+      "parked": true,
+      "parking_space": null,
+      "scene_source": "Vh_Car_NissanMicra_High_v005_5",
+      "model_substituted": false,
+      "spawn": {
+        "x": 175.7875213623047,
+        "y": 226.5912628173828,
+        "z": 0.31101569533348083,
+        "yaw": -90.00015258789062,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "destination": null,
+      "arrival_tolerance": 0.75,
+      "sensors": []
+    },
+    {
+      "id": 53,
+      "model": "vehicle.nissan.patrol",
+      "role": "background",
+      "saved_offroad_pose": true,
+      "planner": "parked",
+      "parked": true,
+      "parking_space": null,
+      "scene_source": "Vh_Car_NissanMicra_High_v6_5",
+      "model_substituted": false,
+      "spawn": {
+        "x": 167.14794921875,
+        "y": 226.96102905273438,
+        "z": 0.3517696261405945,
+        "yaw": -90.0001220703125,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "destination": null,
+      "arrival_tolerance": 0.75,
+      "sensors": []
+    },
+    {
+      "id": 54,
+      "model": "vehicle.nissan.patrol",
+      "role": "background",
+      "saved_offroad_pose": true,
+      "planner": "parked",
+      "parked": true,
+      "parking_space": null,
+      "scene_source": "Vh_Car_NissanMicra_High_v8",
+      "model_substituted": false,
+      "spawn": {
+        "x": 146.36338806152344,
+        "y": 287.0310974121094,
+        "z": 0.3517696261405945,
+        "yaw": 99.99990844726562,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "destination": null,
+      "arrival_tolerance": 0.75,
+      "sensors": []
+    },
+    {
+      "id": 55,
+      "model": "vehicle.nissan.patrol",
+      "role": "background",
+      "saved_offroad_pose": true,
+      "planner": "parked",
+      "parked": true,
+      "parking_space": null,
+      "scene_source": "Vh_Car_NissanMicra_High_v9",
+      "model_substituted": false,
+      "spawn": {
+        "x": 184.73104858398438,
+        "y": 85.53202819824219,
+        "z": 0.3517696261405945,
+        "yaw": -179.9998016357422,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "destination": null,
+      "arrival_tolerance": 0.75,
+      "sensors": []
+    },
+    {
+      "id": 56,
+      "model": "vehicle.lincoln.mkz",
+      "role": "background",
+      "saved_offroad_pose": true,
+      "planner": "parked",
+      "parked": true,
+      "parking_space": null,
+      "scene_source": "Vh_Car_SeatLeon2",
+      "model_substituted": true,
+      "spawn": {
+        "x": 154.8154754638672,
+        "y": 287.1051025390625,
+        "z": 0.34153181314468384,
+        "yaw": 99.9998779296875,
+        "pitch": 0.0,
+        "roll": -0.0
+      },
+      "destination": null,
+      "arrival_tolerance": 0.75,
+      "sensors": []
+    },
+    {
+      "id": 57,
+      "model": "vehicle.lincoln.mkz",
+      "role": "background",
+      "saved_offroad_pose": true,
+      "planner": "parked",
+      "parked": true,
+      "parking_space": null,
+      "scene_source": "Vh_Car_SeatLeon_5",
+      "model_substituted": true,
+      "spawn": {
+        "x": 154.5684356689453,
+        "y": 226.46392822265625,
+        "z": 0.34153181314468384,
+        "yaw": -90.0001220703125,
+        "pitch": 0.0,
+        "roll": 0.0
+      },
+      "destination": null,
+      "arrival_tolerance": 0.75,
+      "sensors": []
+    },
+    {
+      "id": 58,
+      "model": "vehicle.lincoln.mkz_refined",
+      "role": "ego",
+      "saved_offroad_pose": false,
+      "planner": "tm",
+      "parked": false,
+      "parking_space": null,
+      "scene_source": null,
+      "model_substituted": false,
+      "spawn": {
+        "x": 24.68220329284668,
+        "y": 109.4065170288086,
+        "z": 0.22574591636657715,
+        "yaw": 0.6943310499191284,
+        "pitch": 0.3657090961933136,
+        "roll": 0.0040524741634726524
+      },
+      "destination": {
+        "x": 103.08209991455078,
+        "y": 109.42670440673828,
+        "z": 0.0
+      },
+      "arrival_tolerance": 0.75,
+      "sensors": [
+        {
+          "name": "roof_lidar",
+          "type": "sensor.lidar.ray_cast",
+          "mount": {
+            "z": 2.5
+          },
+          "attributes": {
+            "channels": "32",
+            "range": "80",
+            "points_per_second": "200000",
+            "rotation_frequency": "20",
+            "material_model": "true",
+            "physical_model": "true",
+            "physical_profile": "generic",
+            "output_format": "extended",
+            "sensor_tick": "0.0"
+          }
+        },
+        {
+          "name": "front_rgb",
+          "type": "sensor.camera.rgb",
+          "mount": {
+            "x": 1.5,
+            "z": 2.2
+          },
+          "attributes": {
+            "image_size_x": "640",
+            "image_size_y": "360",
+            "fov": "90",
+            "sensor_tick": "0.0",
+            "use_ray_tracing": "true"
+          }
+        },
+        {
+          "name": "cabin_overview",
+          "type": "sensor.camera.rgb",
+          "mount": {
+            "x": 0.55,
+            "y": 0.0,
+            "z": 1.2,
+            "yaw": 180.0,
+            "pitch": -8.0,
+            "roll": 0.0
+          },
+          "attributes": {
+            "image_size_x": "960",
+            "image_size_y": "600",
+            "fov": "120",
+            "post_process_profile": "CabinObservation",
+            "lens_k": "0",
+            "use_ray_tracing": "true",
+            "sensor_tick": "0.0"
+          }
+        },
+        {
+          "name": "front_radar",
+          "type": "sensor.other.radar",
+          "mount": {
+            "x": 2.0,
+            "z": 1.0
+          },
+          "attributes": {
+            "range": "80",
+            "points_per_second": "10000",
+            "sensor_tick": "0.0"
+          }
+        },
+        {
+          "name": "imu",
+          "type": "sensor.other.imu",
+          "mount": {},
+          "attributes": {
+            "sensor_tick": "0.0"
+          }
+        },
+        {
+          "name": "gnss",
+          "type": "sensor.other.gnss",
+          "mount": {},
+          "attributes": {
+            "sensor_tick": "0.0"
+          }
+        }
+      ]
+    }
+  ],
+  "fixed_delta_seconds": 0.05,
+  "tm_seed": 42,
+  "pedestrian_seed": 42,
+  "server_version": "0.10.0"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "20260912-004951-20fe7e",
+  "checked_at": 1789188620.598927,
+  "status": "verified",
+  "frames": 102,
+  "sensor_samples": 204,
+  "rosbag_topic_counts": {
+    "/clock": 102,
+    "/carla/ego_79/odometry": 102,
+    "/carla/ego_79/front_rgb/image": 102,
+    "/carla/ego_79/front_rgb/metadata": 102,
+    "/carla/ego_79/front_rgb/camera_info": 102,
+    "/carla/ego_79/roof_lidar/points": 102,
+    "/carla/ego_79/roof_lidar/metadata": 102,
+    "/tf": 102,
+    "/carla/traffic_signals": 102
+  },
+  "files_checked": 214,
+  "errors": [],
+  "warnings": [],
+  "scope": "Stored bytes, frame index, sensor coverage and simulation timestamps; not proof of identical re-simulation"
+}

@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "ros_distro": "humble",
+  "received_counts": {
+    "/clock": 1203,
+    "/camera/front/camera_info": 1203,
+    "/tf": 1203,
+    "/camera/front/image_raw": 1203,
+    "/lidar/roof/points": 1203
+  },
+  "tf_lookups_passed": 1203,
+  "clock_monotonic": true,
+  "header_frames_verified": true,
+  "tf_children": [
+    "base_link",
+    "front_camera",
+    "front_camera_mount",
+    "top_lidar"
+  ],
+  "player_exit_code": 0
+}

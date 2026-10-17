@@ -1,0 +1,568 @@
+[
+  {
+    "id": "stationary_00s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [
+      {
+        "actor_id": 27,
+        "bbox_xyxy": [
+          351,
+          185,
+          390,
+          216
+        ],
+        "review_note": "Clearly visible parked car ahead-right."
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 34,
+        "reason": "occluded",
+        "bbox_xyxy": [
+          128,
+          180,
+          165,
+          203
+        ],
+        "review_note": "Car is mostly obscured by a foreground palm/tree and roadside structure."
+      }
+    ],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_00s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [
+      {
+        "actor_id": 27,
+        "bbox_xyxy": [
+          351,
+          185,
+          390,
+          216
+        ],
+        "review_note": "Clearly visible parked car ahead-right."
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 34,
+        "reason": "occluded",
+        "bbox_xyxy": [
+          128,
+          180,
+          165,
+          203
+        ],
+        "review_note": "Car is mostly obscured by a foreground palm/tree and roadside structure."
+      }
+    ],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_02s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [
+      {
+        "actor_id": 27,
+        "bbox_xyxy": [
+          363,
+          191,
+          434,
+          243
+        ],
+        "review_note": "Clearly visible parked car ahead-right at closer range."
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 34,
+        "reason": "occluded",
+        "bbox_xyxy": [
+          72,
+          179,
+          118,
+          208
+        ],
+        "review_note": "Foreground display and vegetation obscure the car."
+      },
+      {
+        "actor_id": 45,
+        "reason": "too_small",
+        "bbox_xyxy": [
+          193,
+          177,
+          218,
+          192
+        ],
+        "review_note": "Small distant car, partly obscured by a pole; exclude conservatively."
+      }
+    ],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_04s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [
+      {
+        "actor_id": 45,
+        "bbox_xyxy": [
+          132,
+          181,
+          164,
+          201
+        ],
+        "review_note": "Front of parked car visible left of road; pole obscures part of its right side."
+      }
+    ],
+    "manual_ignored": [],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_06s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [],
+    "manual_ignored": [
+      {
+        "actor_id": 45,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          0,
+          194,
+          29,
+          222
+        ],
+        "review_note": "Vehicle is cut off by the left edge and foreground display."
+      }
+    ],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_08s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [],
+    "manual_ignored": [],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_10s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [],
+    "manual_ignored": [],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_12s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [],
+    "manual_ignored": [],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_16s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [
+      {
+        "actor_id": 32,
+        "bbox_xyxy": [
+          53,
+          176,
+          99,
+          194
+        ],
+        "review_note": "Clear vehicle body; minor thin-pole occlusion, if present, does not prevent identification."
+      },
+      {
+        "actor_id": 28,
+        "bbox_xyxy": [
+          488,
+          178,
+          534,
+          196
+        ],
+        "review_note": "Clear vehicle body; minor thin-pole occlusion, if present, does not prevent identification."
+      },
+      {
+        "actor_id": 33,
+        "bbox_xyxy": [
+          551,
+          177,
+          599,
+          194
+        ],
+        "review_note": "Clear vehicle body; minor thin-pole occlusion, if present, does not prevent identification."
+      }
+    ],
+    "manual_ignored": [],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_20s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [
+      {
+        "actor_id": 28,
+        "bbox_xyxy": [
+          536,
+          181,
+          598,
+          202
+        ],
+        "review_note": "Clear vehicle body; minor thin-pole occlusion, if present, does not prevent identification."
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 32,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          0,
+          180,
+          34,
+          204
+        ],
+        "review_note": "Vehicle is cut off by the left image boundary."
+      },
+      {
+        "actor_id": 33,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          617,
+          181,
+          639,
+          203
+        ],
+        "review_note": "Vehicle is cut off by the right image boundary."
+      }
+    ],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_24s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [
+      {
+        "actor_id": 28,
+        "bbox_xyxy": [
+          536,
+          181,
+          598,
+          202
+        ],
+        "review_note": "Clear vehicle body; minor thin-pole occlusion, if present, does not prevent identification."
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 32,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          0,
+          180,
+          34,
+          204
+        ],
+        "review_note": "Vehicle is cut off by the left image boundary."
+      },
+      {
+        "actor_id": 33,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          617,
+          181,
+          639,
+          203
+        ],
+        "review_note": "Vehicle is cut off by the right image boundary."
+      }
+    ],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_32s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [
+      {
+        "actor_id": 28,
+        "bbox_xyxy": [
+          536,
+          181,
+          598,
+          202
+        ],
+        "review_note": "Clear vehicle body; minor thin-pole occlusion, if present, does not prevent identification."
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 32,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          0,
+          180,
+          34,
+          204
+        ],
+        "review_note": "Vehicle is cut off by the left image boundary."
+      },
+      {
+        "actor_id": 33,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          617,
+          181,
+          639,
+          203
+        ],
+        "review_note": "Vehicle is cut off by the right image boundary."
+      }
+    ],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_40s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [
+      {
+        "actor_id": 28,
+        "bbox_xyxy": [
+          536,
+          181,
+          598,
+          202
+        ],
+        "review_note": "Clear vehicle body; minor thin-pole occlusion, if present, does not prevent identification."
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 32,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          0,
+          180,
+          34,
+          204
+        ],
+        "review_note": "Vehicle is cut off by the left image boundary."
+      },
+      {
+        "actor_id": 33,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          617,
+          181,
+          639,
+          203
+        ],
+        "review_note": "Vehicle is cut off by the right image boundary."
+      }
+    ],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_48s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [
+      {
+        "actor_id": 28,
+        "bbox_xyxy": [
+          536,
+          181,
+          598,
+          202
+        ],
+        "review_note": "Clear vehicle body; minor thin-pole occlusion, if present, does not prevent identification."
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 32,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          0,
+          180,
+          34,
+          204
+        ],
+        "review_note": "Vehicle is cut off by the left image boundary."
+      },
+      {
+        "actor_id": 33,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          617,
+          181,
+          639,
+          203
+        ],
+        "review_note": "Vehicle is cut off by the right image boundary."
+      }
+    ],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_50s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [
+      {
+        "actor_id": 28,
+        "bbox_xyxy": [
+          540,
+          182,
+          605,
+          205
+        ],
+        "review_note": "Clear vehicle body; minor thin-pole occlusion, if present, does not prevent identification."
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 32,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          0,
+          180,
+          34,
+          204
+        ],
+        "review_note": "Vehicle is cut off by the left image boundary."
+      },
+      {
+        "actor_id": 33,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          617,
+          181,
+          639,
+          203
+        ],
+        "review_note": "Vehicle is cut off by the right image boundary."
+      }
+    ],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_52s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [],
+    "manual_ignored": [
+      {
+        "actor_id": 28,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          627,
+          182,
+          639,
+          217
+        ],
+        "review_note": "Only a small portion is visible at the right image edge."
+      }
+    ],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_54s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [
+      {
+        "actor_id": 50,
+        "bbox_xyxy": [
+          140,
+          182,
+          170,
+          205
+        ],
+        "review_note": "Clear vehicle body; minor thin-pole occlusion, if present, does not prevent identification."
+      },
+      {
+        "actor_id": 32,
+        "bbox_xyxy": [
+          181,
+          181,
+          229,
+          212
+        ],
+        "review_note": "Clear vehicle body; minor thin-pole occlusion, if present, does not prevent identification."
+      }
+    ],
+    "manual_ignored": [],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_56s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [
+      {
+        "actor_id": 50,
+        "bbox_xyxy": [
+          380,
+          187,
+          423,
+          213
+        ],
+        "review_note": "Clear vehicle body; minor thin-pole occlusion, if present, does not prevent identification."
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 32,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          468,
+          190,
+          639,
+          280
+        ],
+        "review_note": "Close vehicle extends beyond the right image boundary."
+      }
+    ],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_58s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [],
+    "manual_ignored": [
+      {
+        "actor_id": 50,
+        "reason": "image_edge",
+        "bbox_xyxy": [
+          536,
+          218,
+          639,
+          290
+        ],
+        "review_note": "Close vehicle is substantially cut off by the right image boundary."
+      }
+    ],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  },
+  {
+    "id": "driving_60s",
+    "reviewer": "Codex visual inspection; instructor may revise",
+    "review_status": "visually_reviewed",
+    "eligible": [],
+    "manual_ignored": [],
+    "frame_note": "Camera image visually inspected at original size and enlarged where needed. Eligibility is limited to visibly identifiable recorded cars within 60 m, with uncut image bounds and LiDAR support. No interpolation to unreviewed frames."
+  }
+]

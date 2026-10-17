@@ -1,0 +1,23 @@
+{
+  "counts": {
+    "/clock": 1203,
+    "/camera/front/image_raw": 1203,
+    "/camera/front/camera_info": 1203,
+    "/lidar/roof/points": 1203,
+    "/tf": 1203
+  },
+  "synchronized_pairs": 1203,
+  "duration_seconds": 60.100000896,
+  "rate_hz": 19.999999600000006,
+  "max_camera_lidar_skew_ns": 0,
+  "points_per_scan_min": 13759,
+  "points_per_scan_max": 42131,
+  "frames": {
+    "ego_79": "base_link",
+    "ego_79/front_rgb": "front_camera_mount",
+    "ego_79/front_rgb_optical": "front_camera",
+    "ego_79/roof_lidar": "top_lidar"
+  },
+  "source_bag": "/tmp/carla-raster-driving/rosbag2",
+  "ego_actor": 79
+}

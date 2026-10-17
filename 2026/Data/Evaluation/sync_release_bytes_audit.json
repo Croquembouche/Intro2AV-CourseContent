@@ -1,0 +1,11 @@
+{
+  "stationary": {
+    "student_zip_db_matches_audited_db": true,
+    "sha256": "16c4f586c789367d0fc364a8df204c630141b82bf7107d06a29a62185a88c2e3"
+  },
+  "driving": {
+    "student_zip_db_matches_audited_db": true,
+    "sha256": "6abc85263494b23120fb14cc926f937287d18a6e9eb0a4225e3d8081f4783d92"
+  },
+  "evaluation_zip_matches_source": true
+}

@@ -1,0 +1,39 @@
+{
+  "id": "20260914-145210-8a816e",
+  "checked_at": 1789413574.0666645,
+  "status": "verified",
+  "frames": 1201,
+  "sensor_samples": 8407,
+  "rosbag_topic_counts": {
+    "/clock": 1201,
+    "/carla/ego_61/odometry": 1201,
+    "/carla/ego_61/front_rgb/image": 1201,
+    "/carla/ego_61/front_rgb/metadata": 1201,
+    "/carla/ego_61/front_rgb/camera_info": 1201,
+    "/carla/ego_61/front_left_rgb/image": 1201,
+    "/carla/ego_61/front_left_rgb/metadata": 1201,
+    "/carla/ego_61/front_left_rgb/camera_info": 1201,
+    "/carla/ego_61/rear_left_rgb/image": 1201,
+    "/carla/ego_61/rear_left_rgb/metadata": 1201,
+    "/carla/ego_61/rear_left_rgb/camera_info": 1201,
+    "/carla/ego_61/rear_rgb/image": 1201,
+    "/carla/ego_61/rear_rgb/metadata": 1201,
+    "/carla/ego_61/rear_rgb/camera_info": 1201,
+    "/carla/ego_61/rear_right_rgb/image": 1201,
+    "/carla/ego_61/rear_right_rgb/metadata": 1201,
+    "/carla/ego_61/rear_right_rgb/camera_info": 1201,
+    "/carla/ego_61/front_right_rgb/image": 1201,
+    "/carla/ego_61/front_right_rgb/metadata": 1201,
+    "/carla/ego_61/front_right_rgb/camera_info": 1201,
+    "/carla/ego_61/roof_lidar/points": 1201,
+    "/carla/ego_61/roof_lidar/metadata": 1201,
+    "/tf": 1201,
+    "/carla/traffic_signals": 1201
+  },
+  "files_checked": 8417,
+  "errors": [],
+  "warnings": [
+    "Recorded signal-rule violations; inspect frame audit"
+  ],
+  "scope": "Stored bytes, frame index, sensor coverage and simulation timestamps; not proof of identical re-simulation"
+}

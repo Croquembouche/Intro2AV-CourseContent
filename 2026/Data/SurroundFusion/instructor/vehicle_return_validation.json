@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "stamp_ns": 26762790798,
+  "actors": {
+    "28": {
+      "class": "car",
+      "range_m": 13.0509938844772,
+      "points_in_bbox_with_10cm_tolerance": 351
+    },
+    "33": {
+      "class": "car",
+      "range_m": 15.875645249809502,
+      "points_in_bbox_with_10cm_tolerance": 264
+    }
+  },
+  "scope": "Two nearby recorded cars only; this is not an exhaustive visibility benchmark."
+}

@@ -1,0 +1,17 @@
+{"action": "record-start", "payload": {"rosbag": true}, "frame": 7954, "time": 404.70548339700326}
+{"action": "destination", "payload": {"id": 58, "point": {"x": 189.684, "y": 181.09, "z": 0.0}}, "frame": 7955, "time": 404.7554833977483}
+{"action": "destination", "payload": {"id": 58, "point": {"x": 145.101, "y": 187.619, "z": 0.0}}, "frame": 8439, "time": 428.9554837583564}
+{"action": "destination", "payload": {"id": 58, "point": {"x": 52.701, "y": 187.576, "z": 0.0}}, "frame": 8669, "time": 440.4554839297198}
+{"action": "destination", "payload": {"id": 58, "point": {"x": 3.401, "y": 187.554, "z": 0.0}}, "frame": 8994, "time": 456.70548417186365}
+{"action": "destination", "payload": {"id": 58, "point": {"x": -7.37, "y": 294.703, "z": 0.0}}, "frame": 9210, "time": 467.5054843327962}
+{"action": "destination", "payload": {"id": 58, "point": {"x": 4.621, "y": 306.56, "z": 0.0}}, "frame": 9585, "time": 486.25548461219296}
+{"action": "destination", "payload": {"id": 58, "point": {"x": 34.621, "y": 306.54, "z": 0.0}}, "frame": 9720, "time": 493.0054847127758}
+{"action": "destination", "payload": {"id": 58, "point": {"x": 180.663, "y": 306.5, "z": 0.0}}, "frame": 9885, "time": 501.2554848357104}
+{"action": "destination", "payload": {"id": 58, "point": {"x": 193.67, "y": 294.581, "z": 0.0}}, "frame": 10200, "time": 517.0054850704037}
+{"action": "destination", "payload": {"id": 58, "point": {"x": 193.7, "y": 248.58, "z": 0.0}}, "frame": 10269, "time": 520.4554851218127}
+{"action": "destination", "payload": {"id": 58, "point": {"x": 144.521, "y": 236.931, "z": 0.0}}, "frame": 10449, "time": 529.4554852559231}
+{"action": "destination", "payload": {"id": 58, "point": {"x": 54.981, "y": 236.877, "z": 0.0}}, "frame": 10688, "time": 541.405485433992}
+{"action": "destination", "payload": {"id": 58, "point": {"x": 41.859, "y": 295.96, "z": 0.0}}, "frame": 11001, "time": 557.0554856671952}
+{"action": "destination", "payload": {"id": 58, "point": {"x": 4.619, "y": 302.56, "z": 0.0}}, "frame": 11271, "time": 570.5554858683608}
+{"action": "destination", "payload": {"id": 58, "point": {"x": -3.451, "y": 200.7, "z": 0.0}}, "frame": 11481, "time": 581.055486024823}
+{"action": "destination", "payload": {"id": 58, "point": {"x": -3.364, "y": 119.245, "z": 0.0}}, "frame": 11837, "time": 598.8554862900637}

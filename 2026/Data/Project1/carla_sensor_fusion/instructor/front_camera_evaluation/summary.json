@@ -1,0 +1,34 @@
+{
+  "status": "ready_for_instructor_use",
+  "reviewed_frames": 29,
+  "positive_frames": 15,
+  "eligible_instances": 22,
+  "unique_eligible_actor_ids": [
+    55,
+    56,
+    60,
+    61,
+    62,
+    66,
+    68,
+    70,
+    73,
+    78,
+    84,
+    86
+  ],
+  "classes": {
+    "car": 19,
+    "person": 3
+  },
+  "camera_visible_instances": 38,
+  "minimum_observed_support_points": 5,
+  "maximum_observed_support_points": 255,
+  "ignored_by_reason": {
+    "outside_60m_range": 591,
+    "class_not_evaluated": 145,
+    "insufficient_lidar_body_support": 16,
+    "center_outside_front_image": 92,
+    "occluded": 4
+  }
+}

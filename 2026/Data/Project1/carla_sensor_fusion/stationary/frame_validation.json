@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "changed_messages": 408,
+  "payloads_verified_unchanged": 204,
+  "counts": {
+    "/clock": 102,
+    "/camera/front/image_raw": 102,
+    "/camera/front/camera_info": 102,
+    "/lidar/roof/points": 102,
+    "/tf": 102
+  },
+  "tf_edges": [
+    [
+      "base_link",
+      "front_camera_mount"
+    ],
+    [
+      "base_link",
+      "top_lidar"
+    ],
+    [
+      "front_camera_mount",
+      "front_camera"
+    ],
+    [
+      "map",
+      "base_link"
+    ]
+  ],
+  "first_stamps_ns": {
+    "/clock": 12475120533,
+    "base_link": 12475120533,
+    "front_camera_mount": 12475120533,
+    "front_camera": 12475120533,
+    "top_lidar": 12475120533
+  },
+  "last_stamps_ns": {
+    "/clock": 17525120608,
+    "base_link": 17525120608,
+    "front_camera_mount": 17525120608,
+    "front_camera": 17525120608,
+    "top_lidar": 17525120608
+  },
+  "within_pass_tf_clock_monotonic": true,
+  "backup_created": true
+}

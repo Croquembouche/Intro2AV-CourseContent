@@ -1,0 +1,13 @@
+{
+  "profiles": [
+    {
+      "name": "generic",
+      "model": "generic-pulsed-tof",
+      "calibration_status": "uncalibrated",
+      "beam_samples": 7,
+      "wavelength_nm": 905,
+      "max_returns": 2,
+      "sha256": "15dbd8f2431b96bb2a190608d44dc213e4f6920d96493c63fcf44aa06db40097"
+    }
+  ]
+}

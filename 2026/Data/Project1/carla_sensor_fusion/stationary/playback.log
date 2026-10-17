@@ -1,0 +1,4 @@
+stdin is not a terminal device. Keyboard handling disabled.[INFO] [1789219304.864417239] [rosbag2_storage]: Opened database '2026/Data/Project1/carla_sensor_fusion/stationary/bag/bag_0.db3' for READ_ONLY.
+[INFO] [1789219304.864473886] [rosbag2_player]: Set rate to 1
+[INFO] [1789219304.867293544] [rosbag2_player]: Sleep 3000000000 ns
+[INFO] [1789219307.941888160] [rosbag2_storage]: Opened database '2026/Data/Project1/carla_sensor_fusion/stationary/bag/bag_0.db3' for READ_ONLY.

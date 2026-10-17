@@ -1,0 +1,19 @@
+Downloading events.jsonl 2320 bytes
+Downloading map.xodr 915949 bytes
+Downloading frames.idx 31696 bytes
+Downloading configuration.json 114759 bytes
+Existing file will be hash checked: map.json
+Downloading states.jsonl 434672040 bytes
+Downloading provenance.json 2957 bytes
+Downloading rosbag2/metadata.yaml 3983 bytes
+Downloading rosbag2/rosbag2_0.db3 16109662208 bytes
+Verified events.jsonl
+Verified map.xodr
+Verified frames.idx
+Verified configuration.json
+Verified map.json
+Verified states.jsonl
+Verified provenance.json
+Verified rosbag2/metadata.yaml
+Verified rosbag2/rosbag2_0.db3
+All downloaded files match the server SHA-256 seal

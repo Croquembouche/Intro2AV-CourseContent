@@ -1,0 +1,696 @@
+[
+  {
+    "id": "stationary_00s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Parked car and pedestrian on right sidewalk; distant left car obscured by a palm.",
+    "eligible": [
+      {
+        "actor_id": 55,
+        "bbox_xyxy": [
+          351,
+          188,
+          389,
+          215
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 84,
+        "bbox_xyxy": [
+          433,
+          179,
+          445,
+          205
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 62,
+        "reason": "occluded",
+        "review_note": "Most of the car is hidden by the palm trunk and roadside objects."
+      }
+    ]
+  },
+  {
+    "id": "driving_00s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Same clear starting lane; roadside car and pedestrian are visible, with the left car obscured.",
+    "eligible": [
+      {
+        "actor_id": 55,
+        "bbox_xyxy": [
+          351,
+          188,
+          389,
+          215
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 84,
+        "bbox_xyxy": [
+          413,
+          179,
+          424,
+          204
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 62,
+        "reason": "occluded",
+        "review_note": "Most of the car is hidden by the palm trunk and roadside objects."
+      }
+    ]
+  },
+  {
+    "id": "driving_02s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Near right car, sidewalk pedestrian and partially occluded left car; distant left car reviewed in enlarged RGB.",
+    "eligible": [
+      {
+        "actor_id": 55,
+        "bbox_xyxy": [
+          364,
+          200,
+          430,
+          243
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 84,
+        "bbox_xyxy": [
+          425,
+          179,
+          436,
+          207
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 62,
+        "bbox_xyxy": [
+          60,
+          187,
+          128,
+          208
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 73,
+        "bbox_xyxy": [
+          199,
+          181,
+          220,
+          196
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_03s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Substantial side and rear of the near car remain visible despite clipping; pedestrian on right sidewalk.",
+    "eligible": [
+      {
+        "actor_id": 55,
+        "bbox_xyxy": [
+          412,
+          216,
+          640,
+          360
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 84,
+        "bbox_xyxy": [
+          458,
+          177,
+          472,
+          212
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 73,
+        "bbox_xyxy": [
+          170,
+          181,
+          201,
+          197
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_03.5s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Left parked car visible. Lamp post obscures the pedestrian. Only a small fragment of the passed right car remains at the image edge.",
+    "eligible": [
+      {
+        "actor_id": 73,
+        "bbox_xyxy": [
+          153,
+          180,
+          188,
+          199
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 84,
+        "reason": "occluded",
+        "review_note": "Lamp post obscures most of the pedestrian torso and legs; not a fair target."
+      }
+    ]
+  },
+  {
+    "id": "driving_04s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Pedestrian clearly visible beside the mailbox; parked car visible across the road.",
+    "eligible": [
+      {
+        "actor_id": 84,
+        "bbox_xyxy": [
+          529,
+          179,
+          548,
+          227
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 73,
+        "bbox_xyxy": [
+          132,
+          183,
+          175,
+          203
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_04.5s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Close pedestrian visible beside the mailbox, with some lower-body occlusion; distant pedestrian and left parked car also inspected.",
+    "eligible": [
+      {
+        "actor_id": 84,
+        "bbox_xyxy": [
+          602,
+          181,
+          627,
+          242
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 86,
+        "bbox_xyxy": [
+          372,
+          177,
+          379,
+          195
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 73,
+        "bbox_xyxy": [
+          106,
+          181,
+          155,
+          204
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_05s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Clear left parked car and distant sidewalk pedestrian.",
+    "eligible": [
+      {
+        "actor_id": 86,
+        "bbox_xyxy": [
+          375,
+          177,
+          383,
+          197
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 73,
+        "bbox_xyxy": [
+          68,
+          183,
+          133,
+          209
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_06s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Advertising panel obscures the left car; distant right-side pedestrian remains visible.",
+    "eligible": [
+      {
+        "actor_id": 86,
+        "bbox_xyxy": [
+          381,
+          175,
+          391,
+          197
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": [
+      {
+        "actor_id": 73,
+        "reason": "occluded",
+        "review_note": "Opaque advertising panel hides most of the nearby car."
+      }
+    ]
+  },
+  {
+    "id": "driving_08s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Distant pedestrian on the right sidewalk, inspected in enlarged RGB.",
+    "eligible": [
+      {
+        "actor_id": 86,
+        "bbox_xyxy": [
+          493,
+          175,
+          505,
+          204
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_10s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Pedestrian visible across the intersection on the right sidewalk.",
+    "eligible": [
+      {
+        "actor_id": 86,
+        "bbox_xyxy": [
+          493,
+          176,
+          507,
+          208
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_12s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Full pedestrian body visible on the right sidewalk.",
+    "eligible": [
+      {
+        "actor_id": 86,
+        "bbox_xyxy": [
+          534,
+          179,
+          551,
+          221
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_12.5s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Pedestrian is closer and fully visible near the right image edge.",
+    "eligible": [
+      {
+        "actor_id": 86,
+        "bbox_xyxy": [
+          589,
+          183,
+          607,
+          232
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_13s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "No in-scope car or person with a center in the front image. Other classes, distant actors and passed image-edge fragments are excluded.",
+    "eligible": [],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_13.5s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "No in-scope car or person with a center in the front image. Other classes, distant actors and passed image-edge fragments are excluded.",
+    "eligible": [],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_14s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "No in-scope car or person with a center in the front image. Other classes, distant actors and passed image-edge fragments are excluded.",
+    "eligible": [],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_16s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Three parked cars across the intersection; identity and visibility checked in enlarged crops.",
+    "eligible": [
+      {
+        "actor_id": 56,
+        "bbox_xyxy": [
+          484,
+          182,
+          530,
+          199
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 60,
+        "bbox_xyxy": [
+          55,
+          182,
+          102,
+          197
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 61,
+        "bbox_xyxy": [
+          546,
+          182,
+          595,
+          198
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_18s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Clear side/front of the parked black car across the intersection.",
+    "eligible": [
+      {
+        "actor_id": 56,
+        "bbox_xyxy": [
+          543,
+          181,
+          610,
+          203
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_20s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "No in-scope car or person with a center in the front image. Other classes, distant actors and passed image-edge fragments are excluded.",
+    "eligible": [],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_24s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Two right-side parked cars; close red car is clipped but a substantial body region is visible. Small distant pedestrian on left sidewalk.",
+    "eligible": [
+      {
+        "actor_id": 88,
+        "bbox_xyxy": [
+          183,
+          183,
+          192,
+          202
+        ],
+        "review_note": "Visible pedestrian body and legs; RGB inspected at enlarged scale.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 60,
+        "bbox_xyxy": [
+          520,
+          200,
+          640,
+          294
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 78,
+        "bbox_xyxy": [
+          393,
+          188,
+          445,
+          217
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_28s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "No in-scope car or person with a center in the front image. Other classes, distant actors and passed image-edge fragments are excluded.",
+    "eligible": [],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_32s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "No in-scope car or person with a center in the front image. Other classes, distant actors and passed image-edge fragments are excluded.",
+    "eligible": [],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_36s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "No in-scope car or person with a center in the front image. Other classes, distant actors and passed image-edge fragments are excluded.",
+    "eligible": [],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_40s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Parked car ahead on left, checked in enlarged RGB.",
+    "eligible": [
+      {
+        "actor_id": 68,
+        "bbox_xyxy": [
+          221,
+          181,
+          248,
+          198
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_44s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Close left car is clipped but clearly visible; distant right car is partly overlapped by a motorcycle, a non-evaluated class.",
+    "eligible": [
+      {
+        "actor_id": 71,
+        "bbox_xyxy": [
+          364,
+          181,
+          389,
+          200
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 68,
+        "bbox_xyxy": [
+          0,
+          188,
+          96,
+          249
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_48s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "No in-scope car or person with a center in the front image. Other classes, distant actors and passed image-edge fragments are excluded.",
+    "eligible": [],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_52s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "No in-scope car or person with a center in the front image. Other classes, distant actors and passed image-edge fragments are excluded.",
+    "eligible": [],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_56s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Two parked cars ahead, both identifiable in enlarged RGB.",
+    "eligible": [
+      {
+        "actor_id": 70,
+        "bbox_xyxy": [
+          146,
+          182,
+          188,
+          200
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 66,
+        "bbox_xyxy": [
+          96,
+          180,
+          140,
+          198
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  },
+  {
+    "id": "driving_60s",
+    "review_status": "visually_reviewed",
+    "reviewer": "Codex visual inspection",
+    "frame_note": "Two clear right-side parked cars; nearest car has partial right-edge clipping.",
+    "eligible": [
+      {
+        "actor_id": 70,
+        "bbox_xyxy": [
+          467,
+          207,
+          640,
+          294
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      },
+      {
+        "actor_id": 66,
+        "bbox_xyxy": [
+          347,
+          182,
+          433,
+          229
+        ],
+        "review_note": "Visible car body; RGB shape and CARLA identity checked.",
+        "support_reviewed": true
+      }
+    ],
+    "manual_ignored": []
+  }
+]

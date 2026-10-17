@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "actors_checked": 30,
+  "maximum_vertex_disagreement_m": 1.3516800180115167e-05,
+  "method": "Compare all eight exported box vertices against CARLA BoundingBox.get_world_vertices and Transform.get_inverse_matrix. No simulator clock is involved."
+}

@@ -1,0 +1,42 @@
+{
+  "intent": "Make the simulation the primary teaching surface; separate experiment selection, execution, settings and interpretation.",
+  "desktop": {
+    "columns": [
+      "212px grouped experiment navigation",
+      "flexible simulation and reading area",
+      "292px settings within the reading area"
+    ],
+    "playback": "Toolbar above the simulation",
+    "results": "Responsive definition-list strip below simulation",
+    "settings": "Grouped primary controls, robot/scene parameters and secondary tuning",
+    "reading": "Observation and discussion below the workspace; assumptions/sources collapsed"
+  },
+  "tablet": "Compact experiment selector; simulation and settings remain side by side when space allows.",
+  "mobile": "Experiment selector, heading, simulation and playback, results, settings, then reading. No long controls panel before the simulation.",
+  "visual_language": {
+    "brand": "Existing Intro2AV navy, blue and cyan",
+    "background": "Soft gray",
+    "surfaces": "White, light borders and restrained corners",
+    "type": "Arial, concise headings, tabular figures"
+  },
+  "preserve": [
+    "Nine URL hashes",
+    "All algorithm behaviors and input IDs",
+    "Offline use",
+    "Lecture download package"
+  ],
+  "checks": [
+    "320, 390, 768, 1024, 1440px widths",
+    "Keyboard navigation and visible active experiment",
+    "All algorithms and map editing",
+    "No horizontal overflow",
+    "Canvas aspect ratio and click coordinate mapping"
+  ],
+  "implementation_refinements": {
+    "navigation_breakpoint": 1250,
+    "settings_stack_breakpoint": 900,
+    "phone_breakpoint": 540,
+    "focus_view": "Expands canvas and hides navigation/settings; automatically exits at phone/tablet widths.",
+    "labels": "Keep canvas annotations legible as the canvas narrows; maintain its aspect ratio and click coordinate mapping."
+  }
+}

@@ -1,0 +1,872 @@
+[
+  {
+    "title": "Computer vision",
+    "media": [
+      "car-logo.png"
+    ],
+    "body": [],
+    "take": "How useful representations became easier to learn",
+    "notes": "Introduce the lecture as a design story. We will learn useful visual patterns, ask why the network design changed, then extend the same reasoning to context and attention. Examples are digits and objects in driving scenes. No in-class coding or software exercise. The sequence is pedagogical, not a claim that inventions followed one linear path.",
+    "layout": "cover",
+    "weight": 1,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": null,
+    "slide": 1,
+    "minutes": 1.0,
+    "start": 0,
+    "end": 1.0
+  },
+  {
+    "title": "Recognition must survive changes in appearance",
+    "media": [
+      "car_day.png",
+      "car_night.png"
+    ],
+    "body": [
+      "The pixels change with lighting.",
+      "The object category can stay the same."
+    ],
+    "take": "The goal is to learn what remains useful across examples.",
+    "notes": "Ask students what they rely on to identify the car at night. Shape, parts and their arrangement can remain helpful when color and brightness change. Generated teaching scenes, not model predictions. This establishes the purpose before nodes or kernels.",
+    "layout": "pair",
+    "weight": 2,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "The recognition problem",
+    "table": null,
+    "labels": [
+      "Daylight",
+      "Night"
+    ],
+    "caption": null,
+    "slide": 2,
+    "minutes": 2.25,
+    "start": 1.0,
+    "end": 3.25
+  },
+  {
+    "title": "A prediction has to match the task",
+    "media": [
+      "writing.png",
+      "detection.png"
+    ],
+    "body": [
+      "Classification assigns an image a category.",
+      "Detection also estimates where each object is."
+    ],
+    "take": "The output and training labels must match the question.",
+    "notes": "Connect digit recognition to object recognition. The five-output example later restricts digits to 0–4 for readability. A five-class object recognizer could use five different category labels. Multiple objects in one scene need an appropriate output, such as boxes and classes; five class scores alone do not locate them. The detection image is a published YOLO still, not a transformer result.",
+    "layout": "pair",
+    "weight": 2,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html",
+      "https://pjreddie.com/darknet/yolo/"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": [
+      "Which digit?",
+      "Which objects, and where?"
+    ],
+    "caption": null,
+    "slide": 3,
+    "minutes": 2.0,
+    "start": 3.25,
+    "end": 5.25
+  },
+  {
+    "title": "A fully connected network learns combinations",
+    "media": [
+      "dense.png"
+    ],
+    "body": [
+      "Each hidden node combines pixel values using learned weights.",
+      "The output nodes turn those responses into class scores."
+    ],
+    "take": "N controls capacity. More nodes also mean more work.",
+    "notes": "Explain one connection as an adjustable influence. Pixel values supply the inputs; hidden responses depend on weighted combinations and activations. The shown four hidden circles stand for a chosen N, and the input column uses an ellipsis. This is the baseline neural network before convolution. Ask for a trade-off in choosing N, but do not spend a slide on architecture tuning.",
+    "layout": "split",
+    "weight": 2.5,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": null,
+    "slide": 4,
+    "minutes": 2.75,
+    "start": 5.25,
+    "end": 8.0
+  },
+  {
+    "title": "Training adjusts the whole network",
+    "media": [
+      "training.gif"
+    ],
+    "body": [
+      "A wrong prediction creates an error signal.",
+      "Repeated small updates change how the network combines its inputs."
+    ],
+    "take": "Learning is guided by the task, not by hand-labeling every feature.",
+    "notes": "Follow the same digit 3 through a schematic training update. The first prediction gives class 1 a larger score. An error packet returns, the weight dials turn, and another forward pass produces different scores. The dials stand for learned weights throughout the network, not a two-weight model. Scores and dial movements are illustrative, not measured results. Loss measures error; backpropagation computes how the loss depends on weights; an optimizer makes small updates. A particular update need not improve every example. At inference, the learned weights normally stay fixed.",
+    "layout": "figure",
+    "weight": 3,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "Prediction error changes weights, which changes the next prediction",
+    "slide": 5,
+    "minutes": 3.25,
+    "start": 8.0,
+    "end": 11.25
+  },
+  {
+    "title": "Images make full connectivity expensive",
+    "media": [
+      "dense_growth.gif"
+    ],
+    "body": [
+      "A bigger image creates more input values.",
+      "Each extra input adds connections to the hidden layer."
+    ],
+    "take": "Could a useful visual feature depend on only a small neighborhood?",
+    "notes": "Watch four pixels become eight: first the image grows, then four input nodes appear, then their connections appear. The same three hidden nodes remain. Four inputs need twelve first-layer weights; eight inputs need twenty-four. This count excludes biases. The animation changes the network design, not its weights during training. It motivates asking whether every distant pixel is needed to detect a small local pattern.",
+    "layout": "figure",
+    "weight": 2,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "New pixels create inputs, and each input needs connections",
+    "slide": 6,
+    "minutes": 2.0,
+    "start": 11.25,
+    "end": 13.25
+  },
+  {
+    "title": "Local connections match local visual structure",
+    "media": [
+      "local_response.gif"
+    ],
+    "body": [
+      "A small neighborhood can contain an edge, a corner or a texture.",
+      "A learned filter converts that neighborhood into a response."
+    ],
+    "take": "A feature response describes evidence, not a new object label.",
+    "notes": "The animation exposes one local filter application. Pixel rows are 0,0,0; 1,1,1; 1,1,1. Filter rows are -1,-1,-1; 0,0,0; 1,1,1. Multiplying corresponding values produces rows 0,0,0; 0,0,0; 1,1,1, whose sum is 3. The displayed weights are a deliberately simple illustrative filter; a trained network learns filter weights from examples. Students need only see nearby pixel values become one response, not calculate every cell. The input image still retains all its pixels. A response is evidence for a pattern, not an object category. Local receptive fields helped inspire early neural vision models, including Neocognitron in 1980.",
+    "layout": "figure",
+    "weight": 2.5,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "Each pixel is weighted, then the nine contributions are added",
+    "slide": 7,
+    "minutes": 2.75,
+    "start": 13.25,
+    "end": 16.0
+  },
+  {
+    "title": "Useful patterns can appear in many positions",
+    "media": [
+      "digit_left.png",
+      "digit_right.png"
+    ],
+    "body": [
+      "The same strokes occur in both image positions."
+    ],
+    "take": "A detector learned on the left should also be useful on the right.",
+    "notes": "Pause for students to propose sharing a detector. The static pair shows the same digit at two positions in equal-sized image frames. There is no measured model prediction. Convolution shifts responses with the input; it does not by itself guarantee an unchanged final classification. This motivates reusing weights across positions.",
+    "layout": "pair",
+    "weight": 2,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": [
+      "Near the left side",
+      "Near the right side"
+    ],
+    "caption": null,
+    "slide": 8,
+    "minutes": 2.0,
+    "start": 16.0,
+    "end": 18.0,
+    "imageFrames": true
+  },
+  {
+    "title": "Convolution applies one filter at many locations",
+    "media": [
+      "05_convolution.gif"
+    ],
+    "body": [
+      "Move the same learned weights across the image.",
+      "Collect the responses into a feature map."
+    ],
+    "take": "Many filter applications can share one set of weights.",
+    "notes": "Trace the animation. Sliding applies the weights; training changes them. The feature map preserves where a pattern responds. The animation is a schematic operation, not output measured on the running digit. Do not multiply every cell. If asked about padding, explain that values around the border allow edge positions to be processed.",
+    "layout": "split",
+    "weight": 2.5,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": null,
+    "slide": 9,
+    "minutes": 2.75,
+    "start": 18.0,
+    "end": 20.75
+  },
+  {
+    "title": "Several filters describe different aspects of an image",
+    "media": [
+      "filter_bank.gif"
+    ],
+    "body": [
+      "Different filters can respond to different useful patterns.",
+      "Several response maps give the next layer more evidence."
+    ],
+    "take": "More filters add capacity, computation and memory.",
+    "notes": "Two simple 2-by-2 filters expose what changes when the weights differ. The same 4-by-4 input stays fixed while each output map fills. Filter A uses rows 1,0 and 1,0; filter B uses rows 1,1 and 0,0. These small illustrative filters are used for readability. A final map is rows 0,2,0; 1,2,1; 1,1,1. B is rows 1,1,0; 1,1,0; 2,2,1. Selected stages omit intervening window positions. Moving one filter reuses its weights; using a second filter adds another set of weights. Actual learned channels need not correspond to a named human feature. Filters can be computed in parallel.",
+    "layout": "figure",
+    "weight": 2,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "Two filters build different response maps from the same image",
+    "slide": 10,
+    "minutes": 2.0,
+    "start": 20.75,
+    "end": 22.75
+  },
+  {
+    "title": "Pooling summarizes nearby responses",
+    "media": [
+      "pooling_motion.gif"
+    ],
+    "body": [],
+    "take": "Fewer responses reduce later work, while some detail disappears.",
+    "notes": "Follow the highlighted group as the animation fills one output cell at a time in the fixed 4-by-4 example. In each nonoverlapping 2-by-2 block, max pooling retains 4,5,3,7. It loses other values and exact within-group location. Pooling reduces spatial resolution, not feature-channel count here. It is a design option; strided operations also reduce resolution. Pause briefly to ask what an average would retain differently.",
+    "layout": "figure",
+    "weight": 2.5,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/pooling.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "2 × 2 max pooling: keep the largest response in each group",
+    "slide": 11,
+    "minutes": 2.75,
+    "start": 22.75,
+    "end": 25.5
+  },
+  {
+    "title": "Detail matters when the object is small",
+    "media": [
+      "road.png",
+      "pedestrian_detail.png"
+    ],
+    "body": [
+      "A nearby car covers many pixels.",
+      "A distant pedestrian may occupy only a small region."
+    ],
+    "take": "Reducing resolution can remove evidence the task needs.",
+    "notes": "Trace the pedestrian crop to the full scene. It is the same generated image region, not a detection or measured downsampling experiment. Ask why a digit classifier may tolerate some spatial reduction while a road detector must preserve small-object evidence. This consequence of pooling will later motivate multiscale features.",
+    "layout": "pair",
+    "weight": 2,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": [
+      "The full scene",
+      "A small region can matter"
+    ],
+    "caption": null,
+    "slide": 12,
+    "minutes": 2.0,
+    "start": 25.5,
+    "end": 27.5
+  },
+  {
+    "title": "Later layers combine simple evidence into richer patterns",
+    "media": [
+      "hierarchy_motion.gif"
+    ],
+    "body": [
+      "Edges and curves can combine into parts and their arrangement."
+    ],
+    "take": "A useful representation makes the final category easier to distinguish.",
+    "notes": "Use the illustration as intuition, not an assertion that real channels literally store labeled wheels or doors. Repeated layers mix earlier responses and gather evidence over larger regions. A wheel alone is ambiguous; its arrangement with windows and body structure is more informative. Return briefly to how strokes combine into a digit.",
+    "layout": "figure",
+    "weight": 2.5,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "Illustration of a feature hierarchy",
+    "slide": 13,
+    "minutes": 2.75,
+    "start": 27.5,
+    "end": 30.25
+  },
+  {
+    "title": "The CNN learns a representation for its prediction",
+    "media": [
+      "cnn_flow.gif"
+    ],
+    "body": [
+      "Local filters find evidence. Later layers combine it.",
+      "A task-specific output uses the learned representation."
+    ],
+    "take": "Locality, shared weights and composition form the core idea.",
+    "notes": "Trace the actual state changes in a schematic forward pass. Filter response maps fill with values, spatial pooling produces smaller maps, subsequent processing combines features, and the prediction head produces class scores. Digit 3 has the largest final score in this illustrative example. The diagrams do not encode a measured model or a literal cell-by-cell calculation. Weights remain fixed during this forward pass. Activations are omitted for visual simplicity and introduced next. LeNet demonstrates handwriting recognition; AlexNet later scaled learned representations to natural images with data, GPUs and training improvements.",
+    "layout": "figure",
+    "weight": 2,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html",
+      "https://bottou.org/papers/lecun-98h",
+      "https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "Responses accumulate, pooling reduces them, and the head produces scores",
+    "slide": 14,
+    "minutes": 2.0,
+    "start": 30.25,
+    "end": 32.25
+  },
+  {
+    "title": "ReLU acts on the filter responses",
+    "media": [
+      "relu_responses.gif"
+    ],
+    "body": [],
+    "take": "Positive values stay. Negative values become zero.",
+    "notes": "Watch individual filter responses pass through the activation and populate an output grid. Input rows are 2,-1,3 and -2,1,-3. Positive values pass through unchanged; negative values become zero. The completed output is 2,0,3 and 0,1,0. The input responses stay visible as a reference. This is an elementwise transformation, not permanent deletion of weights or connections. The sequence is slowed for teaching; all elements can be processed in parallel. ReLU adds a nonlinear response rule. Backpropagation and an optimizer perform the weight updates.",
+    "layout": "figure",
+    "weight": 2,
+    "refs": [
+      "https://d2l.ai/chapter_multilayer-perceptrons/mlp.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "Values pass through ReLU and fill the output map",
+    "slide": 15,
+    "minutes": 2.0,
+    "start": 32.25,
+    "end": 34.25
+  },
+  {
+    "title": "Leaky ReLU keeps negative inputs responsive",
+    "media": [
+      "leaky_sensitivity.gif"
+    ],
+    "body": [],
+    "take": "A small negative slope keeps this learning path responsive.",
+    "notes": "The marker moves through negative, zero and positive input values. Read the two current outputs together. ReLU remains zero for negative inputs. Leaky ReLU uses an illustrative fixed slope of 0.1 there: -3 gives -0.3, -2 gives -0.2, and -1 gives -0.1. Both return the input when it is positive. These changing outputs show sensitivity, not a training simulation. If a unit stays negative across relevant examples, a flat ReLU can block the local learning signal through that activation. One negative response does not mean a dead unit. Leaky ReLU preserves a nonzero negative-side derivative; it does not guarantee better learning. PReLU learns its slope instead.",
+    "layout": "figure",
+    "weight": 2.5,
+    "refs": [
+      "https://arxiv.org/abs/1502.01852",
+      "https://ai.stanford.edu/~amaas/papers/relu_hybrid_icml2013_final.pdf"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "The input changes while both activation outputs update",
+    "slide": 16,
+    "minutes": 2.75,
+    "start": 34.25,
+    "end": 37.0
+  },
+  {
+    "title": "The training examples shape what the model learns",
+    "media": [
+      "car_day.png",
+      "car_night.png",
+      "car_rain.png",
+      "car_occluded.png"
+    ],
+    "body": [],
+    "take": "A model needs useful evidence across the conditions where it will operate.",
+    "notes": "Show the same car under lighting, weather and occlusion changes. Invite students to identify what remains and what disappears. These are generated scenarios with no model scores. An architecture cannot reliably learn every relevant variation from examples that never show it. Representative data and task-appropriate augmentation address a different problem from connectivity.",
+    "layout": "four",
+    "weight": 2.5,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": [
+      "Daylight",
+      "Night",
+      "Rain",
+      "Occlusion"
+    ],
+    "caption": null,
+    "slide": 17,
+    "minutes": 2.75,
+    "start": 37.0,
+    "end": 39.75
+  },
+  {
+    "title": "Good performance on familiar images is not enough",
+    "media": [
+      "car_day.png",
+      "car_occluded.png"
+    ],
+    "body": [
+      "Training examples change the weights.",
+      "Unseen examples test whether the learned patterns carry over."
+    ],
+    "take": "Evaluate the conditions that matter, not only an average score.",
+    "notes": "Explain train versus evaluation data in words. Separate held-out validation used for design decisions from a final test set used for evaluation. Different writing styles, small objects and night scenes can fail differently. Data augmentation must preserve the label. Dropout can discourage dependence on a few activations during training, but is not permanent pruning. Keep that as optional context rather than another operator lesson.",
+    "layout": "pair",
+    "weight": 2,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": [
+      "Learn from examples",
+      "Check on new examples"
+    ],
+    "caption": null,
+    "slide": 18,
+    "minutes": 2.0,
+    "start": 39.75,
+    "end": 41.75
+  },
+  {
+    "title": "Deeper networks need a reliable path for learning",
+    "media": [
+      "residual_motion.gif"
+    ],
+    "body": [
+      "More layers can build richer features but be harder to optimize.",
+      "A shortcut preserves the input while a block learns a correction."
+    ],
+    "take": "ResNet made very deep networks easier to train.",
+    "notes": "Follow concrete feature values through the two paths. Input [2,1] stays unchanged on the shortcut. The other branch computes an illustrative correction [0,1]. The addition produces [2,2]. These are successive stages of one forward pass, not training iterations. A real block learns the correction from training; this example only shows what the shortcut preserves and how addition combines the two paths. Deeper plain networks can be harder to optimize even with more capacity. ResNet helps very deep networks learn; it is not solely a remedy for overfitting or vanishing gradients. Historical anchor: 2015 preprint, CVPR 2016.",
+    "layout": "figure",
+    "weight": 2.5,
+    "refs": [
+      "https://arxiv.org/abs/1512.03385"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "The input travels along a shortcut and adds to a learned correction",
+    "slide": 19,
+    "minutes": 2.75,
+    "start": 41.75,
+    "end": 44.5
+  },
+  {
+    "title": "Different object sizes need evidence at different scales",
+    "media": [
+      "pyramid_flow.gif"
+    ],
+    "body": [
+      "Fine maps preserve more spatial detail.",
+      "Coarser maps contain features built over broader regions."
+    ],
+    "take": "Feature pyramids connect these levels so both can help detection.",
+    "notes": "The coarse 2-by-2 map contains one active cell. Nearest-neighbor upsampling copies it into four cells of a 4-by-4 grid. The finer map contains two localized responses. Copies of the two maps reach the addition, producing a combined map with broad context, stronger overlapping evidence, and the separate fine response. This illustrates the top-down upsampling and lateral addition in a feature pyramid; channel projections and later smoothing operations are omitted. Repeat the mechanism across levels to connect the hierarchy. FPN addresses scale, distinct from the optimization problem of ResNet. Combining features cannot restore evidence that the sensor never captured.",
+    "layout": "figure",
+    "weight": 2,
+    "refs": [
+      "https://arxiv.org/abs/1612.03144"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "Coarse context expands to the finer grid, then combines with local detail",
+    "slide": 20,
+    "minutes": 2.0,
+    "start": 44.5,
+    "end": 46.5
+  },
+  {
+    "title": "Recognition also has a computation budget",
+    "media": [
+      "road.png"
+    ],
+    "body": [
+      "More layers, filters and pixels can increase the work per image.",
+      "A vehicle needs useful predictions within its time and energy budget."
+    ],
+    "take": "The best design depends on the errors and delays the task can tolerate.",
+    "notes": "Discuss a small improvement in average recognition that costs too much latency. MobileNet2017 is a brief example: it separates spatial filtering from channel mixing to reduce work. Do not show another full architecture or operation count. Runtime depends on the hardware and implementation, so fewer mathematical operations do not always mean proportionally less latency.",
+    "layout": "split",
+    "weight": 2,
+    "refs": [
+      "https://arxiv.org/abs/1704.04861"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": null,
+    "slide": 21,
+    "minutes": 2.0,
+    "start": 46.5,
+    "end": 48.5
+  },
+  {
+    "title": "CNN evolution addressed different bottlenecks",
+    "media": [],
+    "body": [],
+    "take": "These are complementary ideas, not a mandatory replacement sequence.",
+    "notes": "Read by problem rather than memorizing architecture names. LeNet represents local sharing for handwriting. AlexNet combined scale, data, GPUs, ReLU and regularization. ResNet addressed deep optimization; FPN addressed scale. This is selected history, not the full chronology. Earlier pooling and activation ideas predate many named architectures.",
+    "layout": "table",
+    "weight": 2,
+    "refs": [
+      "https://bottou.org/papers/lecun-98h",
+      "https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html",
+      "https://arxiv.org/abs/1512.03385",
+      "https://arxiv.org/abs/1612.03144"
+    ],
+    "tag": "",
+    "table": [
+      [
+        "Bottleneck",
+        "Design response",
+        "Example"
+      ],
+      [
+        "Repeated local patterns",
+        "Local connections and shared weights",
+        "LeNet, 1998"
+      ],
+      [
+        "Large-scale recognition",
+        "More data and practical deep training",
+        "AlexNet, 2012"
+      ],
+      [
+        "Difficult deep optimization",
+        "Preserve information through shortcuts",
+        "ResNet, 2016"
+      ],
+      [
+        "Objects at different sizes",
+        "Combine features across resolutions",
+        "FPN, 2017"
+      ]
+    ],
+    "labels": null,
+    "caption": null,
+    "slide": 22,
+    "minutes": 2.0,
+    "start": 48.5,
+    "end": 50.5
+  },
+  {
+    "title": "Recognizing objects does not explain their relationships",
+    "media": [
+      "scene.png"
+    ],
+    "body": [
+      "The same categories appear in both scenes.",
+      "The pedestrian’s position relative to the road changes."
+    ],
+    "take": "What information should the pedestrian region use from elsewhere?",
+    "notes": "Pause for answers. Crosswalk and vehicle position can help interpret local evidence. The scene is generated and a still image does not establish future motion or intent. This motivates representations that integrate context; it does not assert that object recognition alone solves driving.",
+    "layout": "wide",
+    "weight": 2.5,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": null,
+    "slide": 23,
+    "minutes": 2.75,
+    "start": 50.5,
+    "end": 53.25
+  },
+  {
+    "title": "Convolution gathers context using shared filter weights",
+    "media": [
+      "dilation_motion.gif"
+    ],
+    "body": [
+      "Depth, larger kernels and dilation broaden the area that can contribute.",
+      "Standard convolution reuses learned mixing weights at inference."
+    ],
+    "take": "Attention lets the contributions depend on the current image.",
+    "notes": "Be accurate: CNNs can capture long-range dependencies. The animation shows a dilated filter sampling spaced input locations; blue is input and cyan is output. The contrast is standard convolution versus input-dependent attention, not local versus intelligent. Large kernels do not inherently erase details; spatial reduction can. There are dynamic convolution variants, outside this introduction. Attention offers a different way to combine distant evidence.",
+    "layout": "split",
+    "weight": 2,
+    "refs": [
+      "https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html",
+      "https://arxiv.org/abs/1706.03762"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": null,
+    "slide": 24,
+    "minutes": 2.0,
+    "start": 53.25,
+    "end": 55.25
+  },
+  {
+    "title": "Language offers a useful analogy",
+    "media": [],
+    "body": [],
+    "take": "A useful relationship can connect distant positions.",
+    "notes": "Read the sentence and ask what it refers to. Animal helps interpret it in this sentence. Attention predates the 2017 Transformer; the Transformer made it central to sequence processing. The point is context-dependent information sharing, not a language-model history or measured attention result.",
+    "layout": "language",
+    "weight": 2,
+    "refs": [
+      "https://arxiv.org/abs/1706.03762"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": null,
+    "slide": 25,
+    "minutes": 2.0,
+    "start": 55.25,
+    "end": 57.25
+  },
+  {
+    "title": "A vision transformer begins with patch features",
+    "media": [
+      "patches_motion.gif"
+    ],
+    "body": [
+      "Represent each patch with a learned vector of feature values.",
+      "Add position information so the model can use the image layout."
+    ],
+    "take": "A patch is an image region, not necessarily an entire object.",
+    "notes": "Watch one digit image split into four spatial patches. The separated patches pass through a learned embedding and become feature vectors; position information is added. The colors and vector entries are illustrative, not outputs of a trained ViT. Each patch is an image region, not an independent digit or necessarily a complete object. Four patches keep the demonstration readable. Original ViT embeds nonoverlapping patches and adds learned position embeddings. The implementation can embed all patches in parallel; the sequence separates their movement for teaching.",
+    "layout": "figure",
+    "weight": 2.5,
+    "refs": [
+      "https://arxiv.org/abs/2010.11929"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "Image patches become feature vectors with position information",
+    "slide": 26,
+    "minutes": 2.75,
+    "start": 57.25,
+    "end": 60.0
+  },
+  {
+    "title": "Attention updates a patch using context",
+    "media": [
+      "attention_motion.gif"
+    ],
+    "body": [],
+    "take": "Compare patch features, weight their contributions, then combine them.",
+    "notes": "The animation begins after the query has compared with the available patch features and produced attention weights. For one component of the value vectors, patches A, B and C supply 4, 2 and 0. Illustrative weights 0.6, 0.3 and 0.1 sum to one. Multiplication gives contributions 2.4, 0.6 and 0. These move to the addition and produce 3.0. The full attention output repeats this weighted combination across feature components. The values are not class probabilities, object labels or measured attention. Learned query/key projections produce input-dependent weights; learned value projections provide the features to combine. A token can also contribute to its own update.",
+    "layout": "figure",
+    "weight": 3,
+    "refs": [
+      "https://arxiv.org/abs/1706.03762",
+      "https://arxiv.org/abs/2010.11929"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "An illustrative attention update for one feature of one query patch",
+    "slide": 27,
+    "minutes": 3.25,
+    "start": 60.0,
+    "end": 63.25
+  },
+  {
+    "title": "Training determines which context becomes useful",
+    "media": [
+      "attention.png"
+    ],
+    "body": [
+      "The model learns how to compare and combine patch features.",
+      "The task loss rewards useful final predictions."
+    ],
+    "take": "Attention can also learn misleading associations from the data.",
+    "notes": "Connect this directly to training in the earlier CNN. We usually do not hand-label desired attention links. Learned projections produce current-image weights. Attention is a mechanism, not guaranteed understanding or a causal explanation. Ask students how an always-present background could become a shortcut. Q/K/V names and matrix formulas remain outside the main lecture.",
+    "layout": "portrait",
+    "weight": 2,
+    "refs": [
+      "https://arxiv.org/abs/1706.03762",
+      "https://arxiv.org/abs/2010.11929"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "Illustrative connections, not measured attention",
+    "slide": 28,
+    "minutes": 2.0,
+    "start": 63.25,
+    "end": 65.25
+  },
+  {
+    "title": "Repeated blocks refine the representation",
+    "media": [
+      "transformer.png"
+    ],
+    "body": [
+      "Attention shares information between patches.",
+      "Small neural networks transform the resulting features."
+    ],
+    "take": "The representation develops over several rounds of processing.",
+    "notes": "Trace the simplified transformer overview. Real blocks also use residual paths and normalization to support training; mention their purpose without a new derivation. Multiple attention heads can learn different mixing patterns, but each need not represent a named relationship. Original ViT used large-scale training and a classification head. Features can also feed other task outputs.",
+    "layout": "wide",
+    "weight": 2.5,
+    "refs": [
+      "https://arxiv.org/abs/2010.11929"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": null,
+    "slide": 29,
+    "minutes": 2.75,
+    "start": 65.25,
+    "end": 68.0
+  },
+  {
+    "title": "The prediction head still has a job to do",
+    "media": [
+      "writing.png",
+      "detection.png"
+    ],
+    "body": [
+      "Image classification produces category scores.",
+      "Object detection produces classes and locations."
+    ],
+    "take": "CNN and transformer features can both support these tasks.",
+    "notes": "Revisit the task distinction now that students know the feature builders. A ViT classifier by itself does not output bounding boxes. DETR is an optional named example of combining CNN features and a transformer for set prediction; do not teach query matching here. The published YOLO still is evidence of the output format, not a DETR result.",
+    "layout": "pair",
+    "weight": 1.5,
+    "refs": [
+      "https://arxiv.org/abs/2010.11929",
+      "https://arxiv.org/abs/2005.12872",
+      "https://pjreddie.com/darknet/yolo/"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": [
+      "One image-level answer",
+      "Several localized answers"
+    ],
+    "caption": null,
+    "slide": 30,
+    "minutes": 1.5,
+    "start": 68.0,
+    "end": 69.5
+  },
+  {
+    "title": "Global attention has a cost",
+    "media": [
+      "patches.png"
+    ],
+    "body": [
+      "Finer patches create more tokens.",
+      "Every token comparing with every other token creates many pairs."
+    ],
+    "take": "More detailed input can make attention much more expensive.",
+    "notes": "At fixed image resolution, smaller patches increase token count. Doubling token count quadruples the number of score pairs in global attention, though full runtime includes other operations. Keep the idea qualitative on the slide. Ask students to suggest fewer comparisons without discarding all context.",
+    "layout": "split",
+    "weight": 2,
+    "refs": [
+      "https://arxiv.org/abs/2010.11929"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": null,
+    "slide": 31,
+    "minutes": 2.0,
+    "start": 69.5,
+    "end": 71.5
+  },
+  {
+    "title": "Windowed attention brings locality back",
+    "media": [
+      "windows_motion.gif"
+    ],
+    "body": [
+      "Compare within local windows to reduce the work.",
+      "Shift the windows so information crosses earlier boundaries."
+    ],
+    "take": "Swin combines local attention with a hierarchy of image features.",
+    "notes": "A and B remain at fixed image positions while their window grouping changes. They begin in separate 2-by-2 windows. After the shift they share the central window, and feature packets can pass between them. Their displayed vectors change from [1,0] and [0,1] to illustrative mixtures [0.7,0.3] and [0.3,0.7]. These values illustrate information mixing, not a measured Swin block; other tokens and full block operations are omitted. The window grouping shifts between successive layers, not continuously during one attention calculation. Edge masking is omitted. Cross-window communication develops across layers; patch merging builds coarser levels.",
+    "layout": "figure",
+    "weight": 2,
+    "refs": [
+      "https://arxiv.org/abs/2103.14030"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": null,
+    "caption": "Shifted windows let information cross an earlier boundary",
+    "slide": 32,
+    "minutes": 2.0,
+    "start": 71.5,
+    "end": 73.5
+  },
+  {
+    "title": "A new architecture does not remove the data problem",
+    "media": [
+      "car_rain.png",
+      "car_occluded.png"
+    ],
+    "body": [
+      "Missing or ambiguous evidence can still cause mistakes.",
+      "Context can help, and it can also mislead."
+    ],
+    "take": "Representative evaluation remains necessary for either architecture.",
+    "notes": "Use two difficult scenarios and ask whether attention guarantees success. No. Occlusion removes evidence; unfamiliar weather changes appearance; background shortcuts can mislead both model families. More data, better sensor evidence and evaluation may be more valuable than changing the architecture.",
+    "layout": "pair",
+    "weight": 1.5,
+    "refs": [
+      "https://arxiv.org/abs/2010.11929"
+    ],
+    "tag": "",
+    "table": null,
+    "labels": [
+      "Changed appearance",
+      "Missing evidence"
+    ],
+    "caption": null,
+    "slide": 33,
+    "minutes": 1.5,
+    "start": 73.5,
+    "end": 75.0
+  }
+]

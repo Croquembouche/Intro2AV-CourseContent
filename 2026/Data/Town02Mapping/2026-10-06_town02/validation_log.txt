@@ -1,0 +1,16 @@
+Validating rosbag2_0.db3
+{
+  "status": "passed",
+  "errors": [],
+  "frames": 3962,
+  "distance_m": 1176.6737853094587,
+  "duration_seconds": 198.050002951,
+  "required_sensor_stamps_identical": true,
+  "lidar_points_min": 10313,
+  "lidar_points_max": 13251,
+  "lidar_nonfinite_values": 0,
+  "traffic_signal_frames": 3962,
+  "all_green_signal_frames": 3962,
+  "sensor_extrinsics_constant": true,
+  "road_coverage_complete": false
+}

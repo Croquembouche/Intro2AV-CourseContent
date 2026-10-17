@@ -1,0 +1,32 @@
+{
+  "captured_at": 1791313492.5612292,
+  "sources": {
+    "/mnt/simulations/control-center/controller.py": "d3e2ca7db385ce5f6f86ddd76102178a6cb602a42e03d187cf8ae6c6ef0d9944",
+    "/mnt/simulations/control-center/movement_signals.py": "0c95b8777154bbbfe08e9263a16f790d9c209d3871a0383a910444e1c48a2ed3",
+    "/mnt/simulations/control-center/recording.py": "3fcf6373b23e90065e812fe6d350bb89a43ea0b6336ccd62128d81f1e0ccaa9d",
+    "/mnt/simulations/control-center/physical_lidar.py": "31f5e38e093c8d5a32a3306d225f70f39241a144b6d43d2b0938fe4bd45f3a68",
+    "/mnt/simulations/control-center/bag_writer.py": "e5473dd9395550d44aca561ae4231212e246a396da5510cfc641cf8a9f132d9d",
+    "/mnt/simulations/control-center/native/bag_native.cpp": "b8836bf9973817044dc0dabf2fda4620e9bf8c2bf19c85fade118ce5adba6273",
+    "/mnt/simulations/control-center/rosio.py": "26a216282cb37746a9778015ff6409c2fedbdda4884e931b8a67debbda8470b0",
+    "/mnt/simulations/control-center/gpu_resources.py": "d8dd1612a039e10d8506891809dd7b497b6cb3cabc01a5986c88f4e597a79fbe",
+    "/mnt/simulations/control-center/verification.py": "96e504a124fc735320a4108fba5ff350f58a50facf03847445a7fd76cd340d9d",
+    "/mnt/simulations/carla/Unreal/CarlaUnreal/Plugins/Carla/Shaders/Private/CarlaSensorTrace.usf": "427abae0b657f6b1ef973685375c41588056e1f43b084794943e881779d253fc",
+    "/mnt/simulations/carla/LibCarla/source/carla/nav/Navigation.cpp": "496ffff2ac8ef6fde5befb95b1bedec8dfcafde7cc85b432b482f67faa1569ca",
+    "/mnt/simulations/carla/LibCarla/source/carla/nav/WalkerManager.cpp": "17f741b3fa5af9624f142b113610a269848c36367db0920d35024fbb03794594",
+    "/mnt/simulations/carla/LibCarla/source/carla/nav/WalkerEvent.cpp": "02e72ca1aadd249650276a3f3407b0c4595800e4a1e7fe1e97b26847f2630bab",
+    "/mnt/simulations/carla/LibCarla/source/carla/trafficmanager/TrafficLightStage.cpp": "873374e296fb7fadd94ac801c1828ef95d5ddfffe862683f228a10f38bb0dce3",
+    "/mnt/simulations/carla/Unreal/CarlaUnreal/Plugins/Carla/Source/Carla/Recorder/CarlaReplayer.cpp": "e2a3648a30b4dd3daaf1095948a2452cb8458b1eeab850e9fa6545169ea590bc"
+  },
+  "map_sha256": "953c05f17def231239ffcadba3307628a82d0d335b67b4e29c3098f7aed1dd7d",
+  "configuration_sha256": "ae6eea4c4225a255cc579d0d98056411b445b1887a1e4ea03fed02c523b63293",
+  "carla_version": "0.10.0",
+  "fixed_delta_seconds": 0.05,
+  "tm_seed": 42,
+  "pedestrian_seed": 42,
+  "binaries": {
+    "/mnt/simulations/control-center/_bag_native.cpython-310-x86_64-linux-gnu.so": "db770e07cc2100f4163b738f9d80fc59ecbb54d678c2de839cfc3d111ca161f0",
+    "/mnt/simulations/venvs/carla/lib/python3.10/site-packages/carla.cpython-310-x86_64-linux-gnu.so": "18620b3f0cfb864e7d3f21ee8c4641cdb58dc833766e8c6eb613106a28f2d46c",
+    "/mnt/simulations/carla/Unreal/CarlaUnreal/Plugins/Carla/Binaries/Linux/libUnrealEditor-Carla.so": "ce5b4b81db4629c4155af3017a3988ae396f65f87f7d2451e06a25fa09574c81"
+  },
+  "note": "Custom source, native plugin and installed native client fingerprints"
+}

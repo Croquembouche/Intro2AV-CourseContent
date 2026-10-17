@@ -1,0 +1,27 @@
+{
+  "captured_at": 1789411930.9309611,
+  "sources": {
+    "/mnt/simulations/control-center/controller.py": "3ffbc13e868acbc67f22b6156913cb8f2d0fff79c74663449bdb8a5dc11c8bd2",
+    "/mnt/simulations/control-center/movement_signals.py": "eff185707bdabb51f281eb067830ccc8e8eb5c09b7828d35edfa91b7403d4a8c",
+    "/mnt/simulations/control-center/recording.py": "cfbbd044bc6c657bb87fd21645db1f3f6a7ea9bf4c671b4b1ff9f8e992e994dc",
+    "/mnt/simulations/control-center/gpu_resources.py": "8e02d3c9856199a10fdab34d2a26deb2ae1641af843bef0ebad6449714c5d03b",
+    "/mnt/simulations/control-center/verification.py": "96e504a124fc735320a4108fba5ff350f58a50facf03847445a7fd76cd340d9d",
+    "/mnt/simulations/carla/Unreal/CarlaUnreal/Plugins/Carla/Shaders/Private/CarlaSensorTrace.usf": "427abae0b657f6b1ef973685375c41588056e1f43b084794943e881779d253fc",
+    "/mnt/simulations/carla/LibCarla/source/carla/nav/Navigation.cpp": "496ffff2ac8ef6fde5befb95b1bedec8dfcafde7cc85b432b482f67faa1569ca",
+    "/mnt/simulations/carla/LibCarla/source/carla/nav/WalkerManager.cpp": "17f741b3fa5af9624f142b113610a269848c36367db0920d35024fbb03794594",
+    "/mnt/simulations/carla/LibCarla/source/carla/nav/WalkerEvent.cpp": "02e72ca1aadd249650276a3f3407b0c4595800e4a1e7fe1e97b26847f2630bab",
+    "/mnt/simulations/carla/LibCarla/source/carla/trafficmanager/TrafficLightStage.cpp": "873374e296fb7fadd94ac801c1828ef95d5ddfffe862683f228a10f38bb0dce3",
+    "/mnt/simulations/carla/Unreal/CarlaUnreal/Plugins/Carla/Source/Carla/Recorder/CarlaReplayer.cpp": "e2a3648a30b4dd3daaf1095948a2452cb8458b1eeab850e9fa6545169ea590bc"
+  },
+  "map_sha256": "5d883b799f634030af92be1e9d79d107845540ba04338e8c60e095be1aef7be7",
+  "configuration_sha256": "74e637664ef0cc5b54dd547f6b818366259bae866812599e848bd479b098ef89",
+  "carla_version": "0.10.0",
+  "fixed_delta_seconds": 0.05,
+  "tm_seed": 42,
+  "pedestrian_seed": 42,
+  "binaries": {
+    "/mnt/simulations/venvs/carla/lib/python3.10/site-packages/carla.cpython-310-x86_64-linux-gnu.so": "8d0597bf53460aace3544b035e8320c321430e63d63880d42b7b0c94f2b2245d",
+    "/mnt/simulations/carla/Unreal/CarlaUnreal/Plugins/Carla/Binaries/Linux/libUnrealEditor-Carla.so": "579b04a2e9dfdfbfe9b7271b3643917210d806accfed871f65c687fa98a94dc6"
+  },
+  "note": "Custom source, native plugin and installed native client fingerprints"
+}

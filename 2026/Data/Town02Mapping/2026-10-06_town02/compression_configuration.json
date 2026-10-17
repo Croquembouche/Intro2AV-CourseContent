@@ -1,0 +1,10 @@
+{
+  "format": "zstd",
+  "mode": "message",
+  "level": 10,
+  "workers": 4,
+  "bounded_batch_messages": 128,
+  "messages": 71316,
+  "method": "Copied SQLite schema/topic metadata and compressed each original CDR blob; retained row IDs and timestamps.",
+  "zstandard_version": "0.23.0"
+}

@@ -1,0 +1,35 @@
+
+def run(dataset_id):
+    parser = argparse.ArgumentParser(description='Evaluate ' + dataset_id + ' predictions against the bundled public reference subset.')
+    parser.add_argument('predictions', type=Path, help='Output ROS 2 bag directory or JSON/JSONL file')
+    parser.add_argument('--output', type=Path, default=Path('score.json'))
+    parser.add_argument('--topic', default='/project1/detected_objects')
+    args = parser.parse_args()
+    try:
+        evaluation = json.loads(Path(__file__).with_name('evaluation_set.json').read_text())
+        if evaluation['dataset_id'] != dataset_id:
+            raise ValueError('Wrong reference file for this evaluator; extract the complete matching ZIP')
+        predictions = load_predictions(args.predictions, args.topic)
+        report = score(evaluation, predictions)
+        valid = set(evaluation['valid_output_stamps_ns'])
+        invalid = sorted(set(predictions) - valid)
+        report.update(dataset_id=dataset_id, reference_name=evaluation['name'],
+                      reference_coverage_note=evaluation['review_coverage'],
+                      timing={'input_rows': len(predictions), 'valid_reference_stamps': len(valid),
+                              'rows_at_valid_reference_times': len(set(predictions) & valid),
+                              'rows_off_reference_clock': len(invalid),
+                              'first_off_reference_stamps_ns': invalid[:10],
+                              'all_scan_output_coverage': len(set(predictions) & valid) / len(valid),
+                              'matching_policy': 'Exact acquisition header timestamps. No rounding, interpolation, or timestamp snapping in the evaluator.'})
+        report['warnings'] = []
+        if invalid:
+            report['warnings'].append('Some outputs do not match any original LiDAR timestamp. Use the input header stamp, not wall time, camera time, or bag arrival time. Missing reviewed stamps count as empty predictions.')
+        if not report['reviewed_frames_with_output']:
+            report['warnings'].append('No output matched a reviewed timestamp. Check dataset selection, units, and timestamp preservation.')
+        report['evaluation_scope'] = 'Public self-check subset. Does not directly verify that both sensor modalities or temporal compensation were used. Not a hidden test or a full-sequence accuracy measurement.'
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(json.dumps(report, indent=2, allow_nan=False) + '\n')
+        print(json.dumps({k: v for k, v in report.items() if k != 'frames'}, indent=2))
+        print(f'Report saved to {args.output.resolve()}')
+    except (ValueError, KeyError, TypeError, OSError) as exc:
+        parser.exit(2, f'Evaluation error: {exc}\n')

@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "session_id": "20261006-150452-85236e",
+  "files": {
+    "events.jsonl": {
+      "sha256": "2afa36e508c0e7e36d5d10de9b69c90da1f0e41930f2e5508e076f70240de5f7",
+      "bytes": 2320
+    },
+    "map.xodr": {
+      "sha256": "953c05f17def231239ffcadba3307628a82d0d335b67b4e29c3098f7aed1dd7d",
+      "bytes": 915949
+    },
+    "frames.idx": {
+      "sha256": "4bfe58d6afe3c6c41a1be3e4c196b013817d5cd415a8e05aa1d9ecb690bd748a",
+      "bytes": 31696
+    },
+    "configuration.json": {
+      "sha256": "4655cc935f8f3408e5abaa802e625b09bba8a4a755cf42966f97a6fc3029432a",
+      "bytes": 114759
+    },
+    "map.json": {
+      "sha256": "aea5552b28045a955dd0cd0dec5591649d066ea0a25316ff1a0ee24379cfde0f",
+      "bytes": 536958
+    },
+    "states.jsonl": {
+      "sha256": "a26bfd6b341b632241d61c90c18900ca588db733720baae844e9238a7b52ae72",
+      "bytes": 434672040
+    },
+    "provenance.json": {
+      "sha256": "eb215fe1a670084398c962587505b98ba06a51eda7c0b0dfaf957ab816ac30fe",
+      "bytes": 2957
+    },
+    "rosbag2/metadata.yaml": {
+      "sha256": "4dfc693826e1d2b6a7e7de75f291cfaaf9b580c5f5d7f3cbdd577ce8bd39d483",
+      "bytes": 3983
+    },
+    "rosbag2/rosbag2_0.db3": {
+      "sha256": "436a4c1f13e40bf87702a45ca8c6a1186a9ea56cf2a12bceb3ee2da8ce37f8cb",
+      "bytes": 16109662208
+    }
+  }
+}

@@ -1,0 +1,732 @@
+[
+  {
+    "slide": 1,
+    "title": "Control for autonomous driving",
+    "body": [
+      "Lecture 8",
+      "How a vehicle follows a plan and corrects mistakes",
+      "CISC 667 · Introduction to Autonomous Driving"
+    ],
+    "notes": "Teach this as a concept-led lecture with instructor demonstrations. Allow approximately 65–80 minutes depending on discussion. Students do not need to calculate commands, derive formulas, complete worksheets, or export results. Use the visual behavior to explain what each controller responds to and where its assumptions matter.",
+    "layout": "cover",
+    "media": [],
+    "refs": []
+  },
+  {
+    "slide": 2,
+    "title": "What students should understand",
+    "body": [
+      "How feedback helps a vehicle recover from a mistake.",
+      "How different controllers decide to accelerate or steer.",
+      "Why delay, physical limits, and a poor model can spoil a good plan."
+    ],
+    "notes": "The goal is an explanation in ordinary language. Students should distinguish a target-point tracker from error feedback and predictive planning. Use questions about what they see. Avoid turning this into a gain-calculation or optimization-derivation lesson.",
+    "layout": "body",
+    "media": [],
+    "refs": []
+  },
+  {
+    "slide": 3,
+    "title": "Planning chooses; control follows",
+    "body": [
+      "Planning chooses a path and a desired speed.",
+      "Control keeps adjusting the vehicle toward that plan.",
+      "The road, the vehicle, and imperfect information affect the result."
+    ],
+    "notes": "Connect to Lecture 7. A route or trajectory is an intention; steering and propulsion must carry it out. A plan can be reasonable while tracking is poor because the actuator is slow. A controller also cannot rescue every impossible plan. The speed and steering demonstrations isolate the two tasks.",
+    "layout": "body",
+    "media": [],
+    "refs": []
+  },
+  {
+    "slide": 4,
+    "title": "Feedback: look, act, look again",
+    "body": [
+      "Observe the vehicle|Where are we now?",
+      "Compare with the plan|What needs correcting?",
+      "Adjust the controls|Accelerate, brake, or steer",
+      "Observe again|Did the correction help?"
+    ],
+    "notes": "Follow the loop aloud, then repeat it. Each command changes the situation, so the controller must keep observing. A disturbance such as a hill enters between decisions. The demo uses exact simulated position and speed; real vehicles depend on estimates that can be delayed or noisy.",
+    "layout": "flow",
+    "media": [],
+    "refs": [],
+    "caption": "A correction changes the situation. The next measurement closes the loop."
+  },
+  {
+    "slide": 5,
+    "title": "Reacting and anticipating work together",
+    "body": [
+      [
+        "Approach",
+        "Driving intuition",
+        "Limitation"
+      ],
+      [
+        "Fixed command",
+        "Keep the same pedal position",
+        "A hill changes the speed"
+      ],
+      [
+        "Feedback",
+        "Notice the slowdown and correct it",
+        "The error has already appeared"
+      ],
+      [
+        "Feedforward",
+        "Anticipate a known demand",
+        "The model can be wrong"
+      ]
+    ],
+    "notes": "Use cruise control on a hill. Feedback reacts to what happened. Feedforward anticipates a known load or bend using a model. They can be combined. The speed demo optionally compensates nominal drag; it does not sense upcoming hills. Keep that distinction clear.",
+    "layout": "table",
+    "media": [],
+    "refs": []
+  },
+  {
+    "slide": 6,
+    "title": "A model is a useful simplification",
+    "body": [
+      "Steering and speed|Possible control actions",
+      "Vehicle model|Predict the next movement",
+      "Predicted motion|Useful, but imperfect"
+    ],
+    "notes": "The teaching vehicle captures basic turning and actuator response. It omits tire slip, road friction changes and many real dynamics. Models make prediction possible, but accuracy is conditional. LQR and MPC use a local approximation, while the simulated vehicle follows the nonlinear turning model.",
+    "layout": "flow",
+    "media": [],
+    "refs": [],
+    "caption": "A prediction helps choose an action; new measurements reveal what really happened."
+  },
+  {
+    "slide": 7,
+    "title": "What does good control look like?",
+    "body": [
+      [
+        "Look at",
+        "Ask",
+        "Do not overlook"
+      ],
+      [
+        "Following the plan",
+        "Does it stay close?",
+        "A brief large miss"
+      ],
+      [
+        "Recovery",
+        "Does the error fade away?",
+        "Repeated side-to-side motion"
+      ],
+      [
+        "Control action",
+        "Is steering reasonably gentle?",
+        "Large or rapidly changing requests"
+      ],
+      [
+        "Physical response",
+        "Can the actuator keep up?",
+        "Delay and limited steering"
+      ]
+    ],
+    "notes": "Read the traces qualitatively first. A path that looks close can still involve aggressive steering. Gentle commands can leave tracking error. The numerical details are available in the demo but are not a class calculation task. These observations do not establish real-vehicle safety.",
+    "layout": "table",
+    "media": [],
+    "refs": []
+  },
+  {
+    "slide": 8,
+    "title": "How we will watch the demonstrations",
+    "body": [
+      "Choose a named case and press Play.",
+      "Watch one feature: speed, target point, steering, or prediction.",
+      "Switch to a contrasting case and explain what changed."
+    ],
+    "notes": "The instructor can operate every demonstration. Play shows time unfolding; Run 20 s jumps to the completed response; Step freezes attention on the next decision. No student calculations or submitted results are required. The lab saves a previous run for visual comparison. It works offline after extracting the package.",
+    "layout": "body",
+    "media": [],
+    "refs": [],
+    "demo": "pid"
+  },
+  {
+    "slide": 9,
+    "title": "PID: three ways to correct speed",
+    "body": [
+      "P reacts to how far speed is from the target.",
+      "I builds a correction for a persistent shortfall.",
+      "D damps rapid changes in measured speed."
+    ],
+    "notes": "Explain the letters as present error, accumulated error, and change. The bars show which contribution is helping at the current moment; students do not add the bars by hand. Derivative action can amplify measurement noise, so the implementation filters it. This display is a sample from the hill scenario.",
+    "layout": "visual",
+    "media": [
+      "pid-terms.png"
+    ],
+    "refs": [
+      "https://www.mathworks.com/help/simulink/slref/anti-windup-control-using-a-pid-controller.html"
+    ],
+    "demo": "pid"
+  },
+  {
+    "slide": 10,
+    "title": "Watch: holding speed on a hill",
+    "body": [
+      "With P alone, speed settles below the target.",
+      "Adding I builds the extra push that is missing.",
+      "Watch the gap close after the hill begins."
+    ],
+    "notes": "Load P on a hill, press Play, and point out the persistent gap. Then load PI on a hill. The dashed saved speed trace allows a direct comparison. Both presets disable D so the contrast isolates the added integral term. Ask why correcting a persistent shortfall is useful; do not calculate the final speed.",
+    "layout": "visual",
+    "media": [
+      "hill-comparison.png"
+    ],
+    "refs": [
+      "https://www.mathworks.com/help/simulink/slref/anti-windup-control-using-a-pid-controller.html"
+    ],
+    "demo": "pid"
+  },
+  {
+    "slide": 11,
+    "title": "When correction keeps building up",
+    "body": [
+      "The actuator is already doing all it can.",
+      "The controller keeps remembering the shortfall.",
+      "That stored correction can delay recovery."
+    ],
+    "notes": "Introduce integral windup as a mismatch between what is requested and what is possible. This braking case starts with acceleration toward a target and later lowers that target. The shown overshoot and recovery are computed by the demo with anti-windup off. Explain the memory effect without integral notation.",
+    "layout": "visual",
+    "media": [
+      "pid-windup.png"
+    ],
+    "refs": [
+      "https://www.mathworks.com/help/simulink/slref/anti-windup-control-using-a-pid-controller.html"
+    ]
+  },
+  {
+    "slide": 12,
+    "title": "Anti-windup respects the actuator",
+    "body": [
+      "Pause the buildup when it makes saturation worse.",
+      "Keep useful correction without storing as much excess.",
+      "Braking still takes time."
+    ],
+    "notes": "Show the same braking case with anti-windup enabled. Compare the shape and recovery with the preceding slide. Anti-windup does not create stronger brakes or instant response. The implementation conditionally pauses accumulation; there are other engineering implementations.",
+    "layout": "visual",
+    "media": [
+      "pid-antiwindup.png"
+    ],
+    "refs": [
+      "https://www.mathworks.com/help/simulink/slref/anti-windup-control-using-a-pid-controller.html"
+    ],
+    "demo": "pid"
+  },
+  {
+    "slide": 13,
+    "title": "Four ideas for following a path",
+    "body": [
+      [
+        "Controller",
+        "Main idea",
+        "What to watch"
+      ],
+      [
+        "Pure Pursuit",
+        "Aim at a point ahead",
+        "Where the target is"
+      ],
+      [
+        "Stanley",
+        "Align and move toward the path",
+        "Heading and sideways error"
+      ],
+      [
+        "LQR",
+        "Choose model-based feedback",
+        "Tracking versus steering effort"
+      ],
+      [
+        "MPC",
+        "Plan ahead, then replan",
+        "Prediction and physical limits"
+      ]
+    ],
+    "notes": "Use this as a map of the remaining lecture. All four repeatedly respond to the vehicle state. PID is shown separately for speed. The categories are useful teaching distinctions; production systems may combine them and include additional compensation.",
+    "layout": "table",
+    "media": [],
+    "refs": [
+      "https://www.ri.cmu.edu/pub_files/pub3/coulter_r_craig_1992_1/coulter_r_craig_1992_1.pdf",
+      "https://robots.stanford.edu/papers/thrun.stanley05.pdf",
+      "https://underactuated.mit.edu/lqr.html",
+      "https://www.do-mpc.com/en/latest/theory_mpc.html"
+    ]
+  },
+  {
+    "slide": 14,
+    "title": "Pure Pursuit: follow a point ahead",
+    "body": [
+      "Pick a target farther along the path.",
+      "Turn toward that target.",
+      "Move forward and pick the next target."
+    ],
+    "notes": "The orange point is the target and the orange dashed line connects it to the rear axle. The close-up uses equal horizontal and vertical scales so the geometry is meaningful. The target moves as the car progresses. Keep attention on the point and turning response rather than a curvature formula.",
+    "layout": "visual",
+    "media": [
+      "pure.png"
+    ],
+    "refs": [
+      "https://www.ri.cmu.edu/pub_files/pub3/coulter_r_craig_1992_1/coulter_r_craig_1992_1.pdf"
+    ],
+    "demo": "pure"
+  },
+  {
+    "slide": 15,
+    "title": "Watch: near target or far target?",
+    "body": [
+      [
+        "Target choice",
+        "Typical behavior",
+        "Possible drawback"
+      ],
+      [
+        "Nearby",
+        "Corrects more sharply",
+        "Busy or sensitive steering"
+      ],
+      [
+        "Farther ahead",
+        "Turns more gently",
+        "May cut corners or recover slowly"
+      ],
+      [
+        "Higher speed",
+        "Less time to correct",
+        "The same choice may work worse"
+      ]
+    ],
+    "notes": "In Pure Pursuit switch between Short lookahead and Long lookahead. Show the target in close-up, then play the motion. Use the saved trace to compare. These are tendencies, not a promise that increasing lookahead always helps. No angle calculation is needed.",
+    "layout": "table",
+    "media": [],
+    "refs": [
+      "https://www.ri.cmu.edu/pub_files/pub3/coulter_r_craig_1992_1/coulter_r_craig_1992_1.pdf"
+    ],
+    "demo": "pure"
+  },
+  {
+    "slide": 16,
+    "title": "Stanley: align and move toward the path",
+    "body": [
+      "Is the vehicle pointing along the path?",
+      "Is the front axle to one side of it?",
+      "Combine those two corrections."
+    ],
+    "notes": "Point to the front axle and the magenta sideways-error segment. A car can be close to the path but pointed away, or aligned but displaced. Stanley responds to both. The classroom implementation uses the core geometric law and a shared simulated actuator; it does not reproduce the full original racing vehicle.",
+    "layout": "visual",
+    "media": [
+      "stanley.png"
+    ],
+    "refs": [
+      "https://robots.stanford.edu/papers/thrun.stanley05.pdf"
+    ],
+    "demo": "stanley"
+  },
+  {
+    "slide": 17,
+    "title": "Watch: a strong correction can arrive late",
+    "body": [
+      "A stronger response tries to remove the error quickly.",
+      "Delay means the vehicle has moved before it acts.",
+      "Repeated late corrections can create oscillation."
+    ],
+    "notes": "Use Stanley: Gentle gain, Strong gain, then Strong gain plus delay. Keep the path and speed fixed. The plotted comparison contrasts strong gain with and without delay. Ask students to point out repeated crossings or persistent swings. Do not imply that every delayed configuration oscillates.",
+    "layout": "visual",
+    "media": [
+      "stanley-delay.png"
+    ],
+    "refs": [
+      "https://robots.stanford.edu/papers/thrun.stanley05.pdf"
+    ],
+    "demo": "stanley"
+  },
+  {
+    "slide": 18,
+    "title": "Using a model to choose a response",
+    "body": [
+      "Current situation|Position and heading",
+      "A model of response|What a correction will do",
+      "A preferred tradeoff|Close tracking or gentler steering"
+    ],
+    "notes": "Introduce model-based feedback through the tradeoff students have already seen. A model relates steering to future error. The designer chooses how much to prioritize tracking and input effort. LQR turns that choice into a reusable feedback rule for the modeled operating conditions.",
+    "layout": "flow",
+    "media": [],
+    "refs": [
+      "https://underactuated.mit.edu/lqr.html"
+    ],
+    "caption": "The model helps turn a design preference into a control rule."
+  },
+  {
+    "slide": 19,
+    "title": "LQR: balance tracking and steering effort",
+    "body": [
+      "Use a model to choose the feedback response.",
+      "Decide how strongly to value accurate tracking.",
+      "Balance that against large steering corrections."
+    ],
+    "notes": "Expand LQR once as Linear Quadratic Regulator. Explain that it chooses a feedback rule under a local linear model and a cost that penalizes error and input. The words are sufficient; no matrices, gain-vector example, or cost calculation are needed. The demo also anticipates path curvature with feedforward.",
+    "layout": "visual",
+    "media": [
+      "lqr.png"
+    ],
+    "refs": [
+      "https://underactuated.mit.edu/lqr.html"
+    ],
+    "demo": "lqr"
+  },
+  {
+    "slide": 20,
+    "title": "Watch: change the priority",
+    "body": [
+      "Tracking priority tolerates stronger corrections.",
+      "Steering penalty discourages large corrections.",
+      "A steering limit can prevent the designed response."
+    ],
+    "notes": "Load Balanced weights, Tracking priority, and Steering penalty. Watch both the error and input traces. Then load Limited actuator. Larger input penalties discourage command magnitude; they do not directly guarantee comfort or smooth steering. LQR here is designed without the actuator limits and lag, so clipping changes its behavior.",
+    "layout": "visual",
+    "media": [
+      "lqr-priorities.png"
+    ],
+    "refs": [
+      "https://underactuated.mit.edu/lqr.html"
+    ],
+    "demo": "lqr"
+  },
+  {
+    "slide": 21,
+    "title": "Why look farther ahead?",
+    "body": [
+      "A bend is coming while steering is still changing.",
+      "Waiting until the error appears can be too late.",
+      "Prediction lets the controller consider future choices now."
+    ],
+    "notes": "Introduce MPC with a lane change and limited steering response. This motivates planning a sequence rather than reacting only to the present. Preview alone is not exclusive to MPC: Pure Pursuit also looks ahead. MPC specifically optimizes a sequence using a predictive model and stated limits.",
+    "layout": "body",
+    "media": [],
+    "refs": [
+      "https://www.do-mpc.com/en/latest/theory_mpc.html"
+    ]
+  },
+  {
+    "slide": 22,
+    "title": "MPC: plan, act once, update",
+    "body": [
+      "Predict ahead|Use the current state",
+      "Choose a sequence|Consider preferences and limits",
+      "Apply the first action|Start carrying out the plan",
+      "Measure and replan|Use the latest situation"
+    ],
+    "notes": "Walk around the loop verbally. Future actions are provisional. After the first action, a new measurement can reveal a disturbance or prediction error. The controller then optimizes again. No horizon arithmetic or optimization derivation is required.",
+    "layout": "flow",
+    "media": [],
+    "refs": [
+      "https://www.do-mpc.com/en/latest/theory_mpc.html"
+    ],
+    "caption": "Future actions are a plan. The next measurement can change that plan."
+  },
+  {
+    "slide": 23,
+    "title": "The green path is a prediction",
+    "body": [
+      "It shows where the current plan expects to go.",
+      "Longer preview considers more of the upcoming path.",
+      "It changes when the vehicle state changes."
+    ],
+    "notes": "Open MPC and use Step, then Play. Point out the green prediction ahead of the car. It is recomputed from the current state, not recorded future ground truth. The displayed vehicle shows applied steering while the prediction is based on the planned sequence. Different colors and a dashed reference separate those roles.",
+    "layout": "visual",
+    "media": [
+      "mpc-prediction.png"
+    ],
+    "refs": [
+      "https://www.do-mpc.com/en/latest/theory_mpc.html"
+    ],
+    "demo": "mpc"
+  },
+  {
+    "slide": 24,
+    "title": "Only the first planned action is used",
+    "body": [
+      "The orange point marks the next steering request.",
+      "Later points are provisional choices.",
+      "Measure again before trusting the rest."
+    ],
+    "notes": "This steering-sequence plot visualizes the same current plan as the green path. The point of the plot is the first-action/replanning mechanism, not numerical reading or calculation. Ask why an unexpected disturbance should change the remaining plan.",
+    "layout": "visual",
+    "media": [
+      "mpc-sequence.png"
+    ],
+    "refs": [
+      "https://www.do-mpc.com/en/latest/theory_mpc.html"
+    ],
+    "demo": "mpc"
+  },
+  {
+    "slide": 25,
+    "title": "A preference is different from a limit",
+    "body": [
+      [
+        "Design choice",
+        "Meaning",
+        "Example"
+      ],
+      [
+        "Tracking preference",
+        "Try harder to follow the path",
+        "Accept stronger corrections"
+      ],
+      [
+        "Steering preference",
+        "Discourage large commands",
+        "Accept some tracking error"
+      ],
+      [
+        "Physical limit",
+        "Stay within allowed inputs",
+        "Limited angle or turning rate"
+      ],
+      [
+        "Preview length",
+        "Consider more of what is ahead",
+        "See farther into a lane change"
+      ]
+    ],
+    "notes": "Contrast soft preferences with hard input bounds. LQR in this demo has preferences but its design omits hard actuator limits. MPC includes steering angle and rate bounds in the plan. Neither controller can make an unattainable path feasible just by increasing a priority.",
+    "layout": "table",
+    "media": [],
+    "refs": [
+      "https://underactuated.mit.edu/lqr.html",
+      "https://www.do-mpc.com/en/latest/theory_mpc.html"
+    ]
+  },
+  {
+    "slide": 26,
+    "title": "Watch: short and long preview",
+    "body": [
+      "Compare how far the green prediction reaches.",
+      "Watch when steering begins and how the path is followed.",
+      "Tighten the limits and see what changes."
+    ],
+    "notes": "The figure compares short and long predictions starting from exactly the same vehicle state; it is not a pair of completed trajectories. Use MPC Short horizon and Long horizon on the same lane change. Then show the corresponding tight-limit cases. Use After 2 s if inspecting the numerical details to separate startup recovery from the lane change. Keep the lesson observational; no result table or export is required. A longer horizon need not win every measure.",
+    "layout": "visual",
+    "media": [
+      "mpc-preview-comparison.png"
+    ],
+    "refs": [
+      "https://www.do-mpc.com/en/latest/theory_mpc.html"
+    ],
+    "demo": "mpc"
+  },
+  {
+    "slide": 27,
+    "title": "Prediction and execution can disagree",
+    "body": [
+      "The controller requests a steering action.",
+      "The actuator needs time to carry it out.",
+      "Delay or a biased response changes the actual motion."
+    ],
+    "notes": "The plotted Long horizon plus delay case separates requested, limited and applied steering over the complete run. The model used for this MPC omits actuator lag, command delay and bias. Even a well-solved plan can be inaccurate when those effects matter. Use the Added delay preset if there is time; do not focus on solver residuals.",
+    "layout": "visual",
+    "media": [
+      "mpc-input.png"
+    ],
+    "refs": [
+      "https://www.do-mpc.com/en/latest/theory_mpc.html"
+    ],
+    "demo": "mpc"
+  },
+  {
+    "slide": 28,
+    "title": "Why a predictive controller can struggle",
+    "body": [
+      [
+        "Problem",
+        "What can happen",
+        "Possible response"
+      ],
+      [
+        "Poor prediction",
+        "Actual motion misses the plan",
+        "Improve the model or estimate"
+      ],
+      [
+        "Impossible request",
+        "Tracking remains poor",
+        "Slow down or replan"
+      ],
+      [
+        "Slow computation",
+        "A new command arrives late",
+        "Bound the work and use a fallback"
+      ],
+      [
+        "Missing constraints",
+        "The plan ignores a real limit",
+        "Represent and test that limit"
+      ]
+    ],
+    "notes": "Discuss real engineering failure mechanisms. This demo has input limits but no obstacles or road boundaries, so a successful trace is not collision avoidance. It uses a fixed-budget approximate solver. The lesson is to inspect assumptions and the complete control loop rather than treat MPC as automatically superior.",
+    "layout": "table",
+    "media": [],
+    "refs": [
+      "https://www.do-mpc.com/en/latest/theory_mpc.html"
+    ]
+  },
+  {
+    "slide": 29,
+    "title": "Compare under the same conditions",
+    "body": [
+      "Each colored vehicle follows the same path.",
+      "All receive the same speed and actuator conditions.",
+      "Change one condition and watch the comparison change."
+    ],
+    "notes": "Use Compare: Baseline, then Added delay. These are independent vehicles, not multiple commands on one car. The default tuning is illustrative, so this is not a universal ranking. Students can explain a visible response without calculating a score.",
+    "layout": "visual",
+    "media": [
+      "compare.png"
+    ],
+    "refs": [],
+    "demo": "compare"
+  },
+  {
+    "slide": 30,
+    "title": "Read the shape of the response",
+    "body": [
+      "A brief startup correction can settle down.",
+      "Repeated swings suggest continuing trouble.",
+      "A small typical error can still hide a large miss."
+    ],
+    "notes": "Use the error history as a visual explanation. The horizontal zero line represents being on the path. Large oscillations or isolated peaks mean different things. Numerical details remain optional; no root-mean-square calculation is needed. The metrics use the rear axle consistently across lateral controllers.",
+    "layout": "visual",
+    "media": [
+      "compare-error.png"
+    ],
+    "refs": [],
+    "demo": "compare"
+  },
+  {
+    "slide": 31,
+    "title": "Choose for the situation",
+    "body": [
+      [
+        "Need",
+        "Useful starting point",
+        "What still matters"
+      ],
+      [
+        "Hold a speed",
+        "PI/PID with anti-windup",
+        "Limits and disturbance response"
+      ],
+      [
+        "Follow a simple path",
+        "Pure Pursuit or Stanley",
+        "Speed, geometry, and delay"
+      ],
+      [
+        "Use a reliable local model",
+        "LQR",
+        "Tracking/steering tradeoff"
+      ],
+      [
+        "Plan under input limits",
+        "MPC",
+        "Prediction quality and compute"
+      ]
+    ],
+    "notes": "This table gives conceptual starting points, not deployment recommendations. A real vehicle may combine several methods. Choose based on the operating conditions, the available model and the physical actuator. Retuning, slowing down, or changing the plan can matter more than changing the algorithm name.",
+    "layout": "table",
+    "media": [],
+    "refs": [
+      "https://www.mathworks.com/help/simulink/slref/anti-windup-control-using-a-pid-controller.html",
+      "https://www.ri.cmu.edu/pub_files/pub3/coulter_r_craig_1992_1/coulter_r_craig_1992_1.pdf",
+      "https://robots.stanford.edu/papers/thrun.stanley05.pdf",
+      "https://underactuated.mit.edu/lqr.html",
+      "https://www.do-mpc.com/en/latest/theory_mpc.html"
+    ]
+  },
+  {
+    "slide": 32,
+    "title": "Other ways to improve control",
+    "body": [
+      [
+        "Approach",
+        "Core idea",
+        "Question to ask"
+      ],
+      [
+        "Gain scheduling",
+        "Change response with conditions",
+        "Does it transition smoothly?"
+      ],
+      [
+        "Adaptive control",
+        "Adjust as the vehicle changes",
+        "Can it learn the right change?"
+      ],
+      [
+        "Robust control",
+        "Allow for modeled uncertainty",
+        "What uncertainty is covered?"
+      ],
+      [
+        "Learning-based control",
+        "Learn a policy or a model",
+        "What happens in new situations?"
+      ]
+    ],
+    "notes": "Keep this a brief overview. These approaches are not implemented in the demo. Connect each to a problem already seen: speed changes, uncertain dynamics or unfamiliar scenarios. Their design and validation requirements deserve a separate lecture rather than additional equations here.",
+    "layout": "table",
+    "media": [],
+    "refs": []
+  },
+  {
+    "slide": 33,
+    "title": "Control depends on the whole vehicle stack",
+    "body": [
+      "A fresh, trustworthy state estimate.",
+      "A feasible path and speed request.",
+      "An actuator that responds as expected."
+    ],
+    "notes": "Connect perception, localization, planning and control. The controller is only one part of the loop. Delayed estimates or miscalibrated actuation can spoil the response. The offline demo does not communicate with ROS or physical hardware; use it to illustrate these dependencies.",
+    "layout": "body",
+    "media": [],
+    "refs": []
+  },
+  {
+    "slide": 34,
+    "title": "Explain the idea in your own words",
+    "body": [
+      "Why can remembering a speed shortfall help—and sometimes hurt?",
+      "How does aiming farther ahead change steering behavior?",
+      "Why does MPC keep changing a plan it just made?"
+    ],
+    "notes": "Use these as optional verbal discussion prompts. There is no written exercise or numeric answer. Listen for persistent-error correction and windup, the target-distance tradeoff, and the need to incorporate fresh measurements. Students should refer to a behavior they saw in a demonstration.",
+    "layout": "body",
+    "media": [],
+    "refs": []
+  },
+  {
+    "slide": 35,
+    "title": "Explore again after class",
+    "body": [
+      "Extract Lecture8_Control.zip and open START_HERE.html.",
+      "Replay the named cases and compare what you see.",
+      "Use the concept guide or open optional details when curious."
+    ],
+    "notes": "The package includes slides, a static PDF, six interactive views and a concept guide. It requires no installation or network for the demos. References and technical model details are in the README and speaker notes. Optional exports and fine tuning remain available, but no calculations or submitted lab report are required.",
+    "layout": "resources",
+    "media": [],
+    "refs": [
+      "https://www.mathworks.com/help/simulink/slref/anti-windup-control-using-a-pid-controller.html",
+      "https://www.ri.cmu.edu/pub_files/pub3/coulter_r_craig_1992_1/coulter_r_craig_1992_1.pdf",
+      "https://robots.stanford.edu/papers/thrun.stanley05.pdf",
+      "https://underactuated.mit.edu/lqr.html",
+      "https://www.do-mpc.com/en/latest/theory_mpc.html"
+    ],
+    "demo": "compare"
+  }
+]

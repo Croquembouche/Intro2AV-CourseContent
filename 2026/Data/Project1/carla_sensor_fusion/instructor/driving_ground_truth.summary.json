@@ -1,0 +1,17 @@
+{
+  "frames": 1203,
+  "first_stamp_ns": 20025120645,
+  "last_stamp_ns": 80125121541,
+  "duration_seconds": 60.100000896,
+  "ego_distance_m": 449.72585246839986,
+  "ego_max_speed_mps": 8.300653533871145,
+  "ego_moving_frames_over_0_2_mps": 1198,
+  "scene_actor_counts_by_class": {
+    "person": 4,
+    "car": 21,
+    "truck": 4,
+    "motorcycle": 1
+  },
+  "scope": "All recorded vehicle and pedestrian actors; not visibility-filtered. Static environment objects are not labeled.",
+  "position_reference": "CARLA bounding-box center using captured actor-local geometry"
+}

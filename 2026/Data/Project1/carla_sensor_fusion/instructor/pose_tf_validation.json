@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "scope": "Every exported ego rotation compared against the actual map-to-base_link quaternion in the delivered bag.",
+  "sequences": {
+    "stationary": {
+      "frames_checked": 102,
+      "maximum_rotation_matrix_element_error": 1.9929169275349073e-08
+    },
+    "driving": {
+      "frames_checked": 1203,
+      "maximum_rotation_matrix_element_error": 1.4349731429017631e-07
+    }
+  }
+}

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#073866"><title>Lecture 7 · Path Planning</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<a class="skip-link" href="#workspace">Skip to simulation</a>
+<header class="site-header"><a class="brand" href="#search"><strong>Intro2AV</strong><span class="brand-divider">/</span><span>Path planning lab</span></a><div class="header-meta"><span>Lecture 07 · Fall 2026</span><a href="../Portal/index.html" id="all-demos">Course demos</a></div></header>
+<div class="app-shell">
+  <nav class="experiment-nav" aria-label="Experiments">
+    <div class="nav-heading"><span class="eyebrow">Experiments</span><span class="nav-count">09</span></div>
+    <section class="nav-group" aria-label="Search and replanning"><h2>Search &amp; replanning</h2>
+      <button data-mode="search"><span class="nav-number">01</span><span>A* &amp; graph search</span></button>
+      <button data-mode="replan"><span class="nav-number">02</span><span>D* Lite</span></button>
+      <button data-mode="anyangle"><span class="nav-number">03</span><span>Theta* / any-angle</span></button>
+    </section>
+    <section class="nav-group" aria-label="Sampling"><h2>Sampling</h2>
+      <button data-mode="roadmap"><span class="nav-number">04</span><span>PRM roadmaps</span></button>
+      <button data-mode="sampling"><span class="nav-number">05</span><span>RRT / RRT* / Informed</span></button>
+    </section>
+    <section class="nav-group" aria-label="Robot motion"><h2>Robot motion</h2>
+      <button data-mode="clearance"><span class="nav-number">06</span><span>Obstacle clearance</span></button>
+      <button data-mode="field"><span class="nav-number">07</span><span>Potential fields</span></button>
+      <button data-mode="local"><span class="nav-number">08</span><span>Global &amp; local / MPPI</span></button>
+      <button data-mode="imagination"><span class="nav-number">09</span><span>Pose imagination</span></button>
+    </section>
+    <div class="nav-note">Explore a method.<br>Change one assumption.<br>Explain what happens.</div>
+  </nav>
+  <main>
+    <label class="mobile-experiments" for="experiment-select">Experiment<select id="experiment-select">
+      <optgroup label="Search &amp; replanning"><option value="search">01 · A* and graph search</option><option value="replan">02 · D* Lite</option><option value="anyangle">03 · Theta* and any-angle</option></optgroup>
+      <optgroup label="Sampling"><option value="roadmap">04 · PRM roadmaps</option><option value="sampling">05 · RRT / RRT* / Informed RRT*</option></optgroup>
+      <optgroup label="Robot motion"><option value="clearance">06 · Obstacle clearance</option><option value="field">07 · Potential fields</option><option value="local">08 · Global and local / MPPI</option><option value="imagination">09 · Pose imagination</option></optgroup>
+    </select></label>
+    <div class="experiment-heading"><div><p class="eyebrow" id="experiment-family">Search &amp; replanning / 01</p><h1 id="title">Path planning</h1><p id="explain"></p></div><button id="focus-view" class="quiet-button" aria-pressed="false">Focus view</button></div>
+    <section class="workspace" id="workspace" tabindex="-1" aria-label="Planning experiment">
+      <section class="stage" aria-label="Simulation and results">
+        <div class="scene">
+          <div class="simulation-toolbar"><span class="toolbar-label">Simulation</span><div class="actions"><button id="step">Step</button><button id="play">Play</button><button id="finish">Run to result</button><button id="reset">Reset</button></div></div>
+          <div class="canvas-wrap"><canvas id="view" width="1008" height="616" aria-label="Planning simulation. Use the experiment controls to inspect algorithm behavior." role="img"></canvas></div>
+          <div class="simulation-status"><span class="status-dot" aria-hidden="true"></span><p id="status" role="status" aria-live="polite">Ready</p></div>
+          <div id="legend" aria-label="Simulation legend"></div>
+          <p id="instruction" class="canvas-instruction"></p>
+          <canvas id="convergence" width="1008" height="140" aria-label="Best sampled route length over accepted tree vertices" role="img" hidden></canvas>
+        </div>
+        <div class="results-panel"><h2 class="eyebrow">Live results</h2><dl id="metrics"></dl></div>
+      </section>
+      <aside class="settings-panel" aria-label="Experiment settings"><div class="settings-heading"><p class="eyebrow">Experiment settings</p><h2 id="settings-title">Scene &amp; planner</h2></div><div id="controls"></div></aside>
+    </section>
+    <section class="context" aria-label="Interpret the experiment"><div class="reading-grid"><div><h2 class="eyebrow" id="why-title">What to look for</h2><p id="why"></p></div><div class="discussion"><h2 class="eyebrow">Discuss</h2><p id="question"></p></div></div>
+    <details><summary>Model assumptions and sources</summary><p>These experiments run actual small algorithms on synthetic scenes. They illustrate behavior rather than benchmark a robot. Grid search uses four neighbors. D* Lite retains its g/rhs values between edits. The clearance map conservatively marks entire grid cells that intersect expanded obstacles. The any-angle and sampling experiments use uniform Euclidean distance cost. Theta* uses cell centers and a 0.2-cell circular footprint. PRM uses a finite, fixed-k roadmap. RRT* retains the tree, rewires neighbors and propagates descendant costs; Informed RRT* directly samples the improvement ellipse after a solution exists. Their finite budgets do not certify optimality. Local control compares constant-velocity sampling with a simplified MPPI-style sequence optimizer, using a unicycle model and ideal prediction of the moving obstacle. It omits acceleration limits and uses sampled collision checks. Pose imagination tests geometric candidate motions and does not implement Chirikjian’s affordance learning, PRIMP, or RAIL.</p><p><a href="https://lavalle.pl/planning/">LaValle, Planning Algorithms</a> · <a href="https://idm-lab.org/bib/abstracts/papers/aaai02b.pdf">Koenig and Likhachev, D* Lite</a> · <a href="https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/">Nav2 planners and controllers</a> · <a href="https://arxiv.org/abs/1401.3843">Theta*</a> · <a href="https://arxiv.org/abs/1105.1186">RRT*</a> · <a href="https://robotic-esp.com/papers/gammell_iros14">Informed RRT*</a> · <a href="https://arxiv.org/abs/1509.01149">MPPI</a> · <a href="https://arxiv.org/abs/2305.15761">PRIMP</a> · <a href="https://arxiv.org/abs/2403.19369">RAIL</a></p></details>
+    </section>
+    <footer>University of Delaware · Works offline with the Lecture 7 package</footer>
+  </main>
+</div>
+<script src="engine.js"></script><script src="advanced.js"></script><script src="app.js"></script>
+</body></html>

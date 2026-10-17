@@ -1,0 +1,16 @@
+{
+  "student": {
+    "file": "/media/william/blueicedrive/Github/Intro2AV-CourseContent/2026/Data/project1_carla_student.zip",
+    "bytes": 1062300763,
+    "sha256": "b5f73af767e874876f29a9b98fbab2b388da6aab40835a9c79719712654e0c65",
+    "files": 26,
+    "zip_crc_test": "passed"
+  },
+  "instructor": {
+    "file": "/media/william/blueicedrive/Github/Intro2AV-CourseContent/2026/Data/project1_carla_instructor.zip",
+    "bytes": 95633539,
+    "sha256": "3cc5a51f425323087c1bc6bcc144220b9dbac48cd577d02cb05900edbf8ea5db",
+    "files": 314,
+    "zip_crc_test": "passed"
+  }
+}

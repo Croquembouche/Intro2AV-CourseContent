@@ -16,6 +16,12 @@ node_modules/
 # Large course releases are published through Google Drive. Their stable links
 # are recorded in the README files beside these directories.
 /2026/Data/*.zip
+!/2026/Data/Lecture7_PathPlanning.zip
+!/2026/Data/Lecture8_Control.zip
+# Raw capture releases exceed GitHub's regular-file limit.
+/2026/Data/Town02Mapping/Town02Mapping_2026-10-06_lossless.zip
+/2026/Data/Town02Mapping/2026-10-06_town02/states.jsonl
+/2026/Data/SurroundFusion/instructor/source_capture/states.jsonl
 /2026/Labs/ClassicalCV/student/animations/*.gif
 **/*.db3
 **/*.mcap
@@ -26,8 +32,11 @@ node_modules/
 # Lecture 8 is a small reference deck rather than a generated release.
 /2026/Presentations/*.pptx
 !/2026/Presentations/Lecture 8.pptx
+!/2026/Presentations/Lecture 7 Path Planning for Autonomous Driving.pptx
+!/2026/Presentations/Lecture 8 Control for Autonomous Driving.pptx
 
 # Local editor and operating-system files
 .DS_Store
 Thumbs.db
 *~
+/tmp/

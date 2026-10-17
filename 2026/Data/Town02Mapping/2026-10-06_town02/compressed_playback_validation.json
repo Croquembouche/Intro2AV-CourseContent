@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "received_messages": {
+    "/clock": 23,
+    "/carla/ego_58/front_rgb/image": 21,
+    "/carla/ego_58/front_rgb/camera_info": 22,
+    "/carla/ego_58/roof_lidar/points": 20,
+    "/carla/ego_58/imu/data": 22,
+    "/carla/ego_58/gnss/data": 22
+  },
+  "sensor_transform_lookups_passed": true,
+  "scope": "ROS 2 Humble DDS playback of a short recorded prefix in an isolated localhost domain; full storage/timestamps checked separately."
+}

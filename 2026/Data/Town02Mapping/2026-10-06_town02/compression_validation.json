@@ -1,0 +1,269 @@
+{
+  "status": "passed",
+  "errors": [],
+  "method": "Per-topic SHA-256 over every original timestamp, CDR byte length, and CDR payload; compressed data decoded by native ROS 2 Humble reader.",
+  "compression_format": "zstd",
+  "compression_mode": "message",
+  "lossless": true,
+  "original_database_bytes": 16109662208,
+  "compressed_database_bytes": 7710547968,
+  "size_reduction_percent": 52.13712200513447,
+  "original": {
+    "/clock": {
+      "count": 3962,
+      "cdr_bytes": 47544,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "62b285d35fb07cba78a53a7672ab5b7253a463ea662bcad483433c97fe5ac853"
+    },
+    "/carla/ego_58/odometry": {
+      "count": 3962,
+      "cdr_bytes": 2836792,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "c56bbd8cc3c559372a8a707fc9be7631ae3badb4ec1659ced20fd9fc0b182297"
+    },
+    "/carla/ego_58/roof_lidar/points": {
+      "count": 3962,
+      "cdr_bytes": 2965468162,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "ec85cae4bad7ec766e9e0fac178a1c10be74dc7155807ad2b8060f64f1da1823"
+    },
+    "/carla/ego_58/roof_lidar/metadata": {
+      "count": 3962,
+      "cdr_bytes": 8409284,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "05f48af74da6e532729cbe83ed1f1d07993fa62a7bd07075fe4e0ba1ea591dd4"
+    },
+    "/carla/ego_58/front_rgb/image": {
+      "count": 3962,
+      "cdr_bytes": 3651664464,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "b20fad5ec821c3c498e62aee21c254e19d85b1272d8c7af6e84705d18f095f72"
+    },
+    "/carla/ego_58/front_rgb/metadata": {
+      "count": 3962,
+      "cdr_bytes": 1955609,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "e614d8f093e431040c1094b322735ebda3881edd62f41f7d93444bccd2654e1a"
+    },
+    "/carla/ego_58/front_rgb/camera_info": {
+      "count": 3962,
+      "cdr_bytes": 1509522,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "324b82e0366e22a4217f5c7c801810580552e1d883abb462de02a6617134066f"
+    },
+    "/carla/ego_58/cabin_overview/image": {
+      "count": 3962,
+      "cdr_bytes": 9128749112,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "ac0fdd4ccbf8bcc1d63af95b7ac132a50f72e072d50381d2038d0b7c7ee371c9"
+    },
+    "/carla/ego_58/cabin_overview/metadata": {
+      "count": 3962,
+      "cdr_bytes": 2425502,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "3caaee7971649b1329271bd812959550bc2cd125ff22817b1ef900e21bf77682"
+    },
+    "/carla/ego_58/cabin_overview/camera_info": {
+      "count": 3962,
+      "cdr_bytes": 1509522,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "dafb83d641f2d11a2aab0cac13179a27ebe65318f92f177df1e63421e0016b03"
+    },
+    "/carla/ego_58/front_radar/points": {
+      "count": 3962,
+      "cdr_bytes": 157302166,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "48b85b9941fdd024a2dfdd9b387942ab65379c87584bbbd1f9dff078f3048c83"
+    },
+    "/carla/ego_58/front_radar/metadata": {
+      "count": 3962,
+      "cdr_bytes": 1639498,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "5b2d9e3efa13e9c51189945d23319faddaf87bc97e5189f56d7090bd0cac26c2"
+    },
+    "/carla/ego_58/imu/data": {
+      "count": 3962,
+      "cdr_bytes": 1283688,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "9d4cd5a183de976554abd0102bc91134da1cd262ad4a0dea1447a1c2e62c4759"
+    },
+    "/carla/ego_58/imu/metadata": {
+      "count": 3962,
+      "cdr_bytes": 1474759,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "c8697561194c654ee34ff6eb1ad1f3c94c5b1af0604dd00b9ca0feebee3cc7e7"
+    },
+    "/carla/ego_58/gnss/data": {
+      "count": 3962,
+      "cdr_bytes": 526946,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "943137d0a45db32b109f7f2379b798c6f435ddb84c8eb8ce357cdfa37cee5f33"
+    },
+    "/carla/ego_58/gnss/metadata": {
+      "count": 3962,
+      "cdr_bytes": 1361613,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "b1e9fa385875e772f3b3d8d27e3e55dd0673b2337a37bda6dc528eb37e736dd8"
+    },
+    "/tf": {
+      "count": 3962,
+      "cdr_bytes": 3755976,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "7a762c5a3af6cc2fd2017caf5266995debea8535d090483ddcf75879b803fed8"
+    },
+    "/carla/traffic_signals": {
+      "count": 3962,
+      "cdr_bytes": 147868279,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "b610bf6a55baab90f20f493a67c94d9e01522381f70cf70ef4231ee14adccc29"
+    }
+  },
+  "decompressed": {
+    "/clock": {
+      "count": 3962,
+      "cdr_bytes": 47544,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "62b285d35fb07cba78a53a7672ab5b7253a463ea662bcad483433c97fe5ac853"
+    },
+    "/carla/ego_58/odometry": {
+      "count": 3962,
+      "cdr_bytes": 2836792,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "c56bbd8cc3c559372a8a707fc9be7631ae3badb4ec1659ced20fd9fc0b182297"
+    },
+    "/carla/ego_58/roof_lidar/points": {
+      "count": 3962,
+      "cdr_bytes": 2965468162,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "ec85cae4bad7ec766e9e0fac178a1c10be74dc7155807ad2b8060f64f1da1823"
+    },
+    "/carla/ego_58/roof_lidar/metadata": {
+      "count": 3962,
+      "cdr_bytes": 8409284,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "05f48af74da6e532729cbe83ed1f1d07993fa62a7bd07075fe4e0ba1ea591dd4"
+    },
+    "/carla/ego_58/front_rgb/image": {
+      "count": 3962,
+      "cdr_bytes": 3651664464,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "b20fad5ec821c3c498e62aee21c254e19d85b1272d8c7af6e84705d18f095f72"
+    },
+    "/carla/ego_58/front_rgb/metadata": {
+      "count": 3962,
+      "cdr_bytes": 1955609,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "e614d8f093e431040c1094b322735ebda3881edd62f41f7d93444bccd2654e1a"
+    },
+    "/carla/ego_58/front_rgb/camera_info": {
+      "count": 3962,
+      "cdr_bytes": 1509522,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "324b82e0366e22a4217f5c7c801810580552e1d883abb462de02a6617134066f"
+    },
+    "/carla/ego_58/cabin_overview/image": {
+      "count": 3962,
+      "cdr_bytes": 9128749112,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "ac0fdd4ccbf8bcc1d63af95b7ac132a50f72e072d50381d2038d0b7c7ee371c9"
+    },
+    "/carla/ego_58/cabin_overview/metadata": {
+      "count": 3962,
+      "cdr_bytes": 2425502,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "3caaee7971649b1329271bd812959550bc2cd125ff22817b1ef900e21bf77682"
+    },
+    "/carla/ego_58/cabin_overview/camera_info": {
+      "count": 3962,
+      "cdr_bytes": 1509522,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "dafb83d641f2d11a2aab0cac13179a27ebe65318f92f177df1e63421e0016b03"
+    },
+    "/carla/ego_58/front_radar/points": {
+      "count": 3962,
+      "cdr_bytes": 157302166,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "48b85b9941fdd024a2dfdd9b387942ab65379c87584bbbd1f9dff078f3048c83"
+    },
+    "/carla/ego_58/front_radar/metadata": {
+      "count": 3962,
+      "cdr_bytes": 1639498,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "5b2d9e3efa13e9c51189945d23319faddaf87bc97e5189f56d7090bd0cac26c2"
+    },
+    "/carla/ego_58/imu/data": {
+      "count": 3962,
+      "cdr_bytes": 1283688,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "9d4cd5a183de976554abd0102bc91134da1cd262ad4a0dea1447a1c2e62c4759"
+    },
+    "/carla/ego_58/imu/metadata": {
+      "count": 3962,
+      "cdr_bytes": 1474759,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "c8697561194c654ee34ff6eb1ad1f3c94c5b1af0604dd00b9ca0feebee3cc7e7"
+    },
+    "/carla/ego_58/gnss/data": {
+      "count": 3962,
+      "cdr_bytes": 526946,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "943137d0a45db32b109f7f2379b798c6f435ddb84c8eb8ce357cdfa37cee5f33"
+    },
+    "/carla/ego_58/gnss/metadata": {
+      "count": 3962,
+      "cdr_bytes": 1361613,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "b1e9fa385875e772f3b3d8d27e3e55dd0673b2337a37bda6dc528eb37e736dd8"
+    },
+    "/tf": {
+      "count": 3962,
+      "cdr_bytes": 3755976,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "7a762c5a3af6cc2fd2017caf5266995debea8535d090483ddcf75879b803fed8"
+    },
+    "/carla/traffic_signals": {
+      "count": 3962,
+      "cdr_bytes": 147868279,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "timestamp_and_cdr_sha256": "b610bf6a55baab90f20f493a67c94d9e01522381f70cf70ef4231ee14adccc29"
+    }
+  },
+  "message_count": 71316,
+  "topics": 18
+}

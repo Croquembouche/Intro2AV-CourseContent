@@ -1,0 +1,20 @@
+{
+  "reviewed_frames": 20,
+  "positive_frames": 0,
+  "frames_without_eligible_targets": 20,
+  "eligible_instances": 0,
+  "unique_eligible_actor_ids": [],
+  "classes": {},
+  "camera_visible_instances": 16,
+  "minimum_observed_support_points": 0,
+  "maximum_observed_support_points": 0,
+  "ignored_by_reason": {
+    "class_not_evaluated": 120,
+    "outside_60m_range": 337,
+    "outside_front_horizontal_fov": 47,
+    "occluded": 3,
+    "insufficient_lidar_body_support": 16,
+    "too_small": 1,
+    "image_edge": 16
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "status": "passed",
+  "errors": [],
+  "frames": 3962,
+  "distance_m": 1176.6737853094587,
+  "duration_seconds": 198.050002951,
+  "topics": {
+    "/clock": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/odometry": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/roof_lidar/points": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/roof_lidar/metadata": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/front_rgb/image": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/front_rgb/metadata": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/front_rgb/camera_info": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/cabin_overview/image": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/cabin_overview/metadata": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/cabin_overview/camera_info": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/front_radar/points": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/front_radar/metadata": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/imu/data": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/imu/metadata": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/gnss/data": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/ego_58/gnss/metadata": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/tf": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    },
+    "/carla/traffic_signals": {
+      "count": 3962,
+      "first_ns": 404755483398,
+      "last_ns": 602805486349,
+      "nonmonotonic": 0,
+      "header_mismatches": 0,
+      "max_gap_ns": 50000001
+    }
+  },
+  "required_sensor_stamps_identical": true,
+  "lidar_points_min": 10313,
+  "lidar_points_max": 13251,
+  "lidar_nonfinite_values": 0,
+  "traffic_signal_frames": 3962,
+  "all_green_signal_frames": 3962,
+  "sensor_extrinsics_constant": true,
+  "road_coverage_complete": false
+}

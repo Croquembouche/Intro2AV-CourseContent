@@ -1,0 +1,68 @@
+Verified 24 traffic lights frozen green
+Recording 20261006-150452-85236e
+Target 15:0:1 route points 120
+0.1 sim s; 0/40 lanes; frame 7954; target 15:0:1
+4.5 sim s; 0/40 lanes; frame 8041; target 15:0:1
+8.6 sim s; 0/40 lanes; frame 8124; target 15:0:1
+12.5 sim s; 0/40 lanes; frame 8202; target 15:0:1
+16.9 sim s; 1/40 lanes; frame 8289; target 15:0:1
+21.9 sim s; 1/40 lanes; frame 8389; target 15:0:1
+Target 6:0:1 route points 29
+27.0 sim s; 2/40 lanes; frame 8491; target 6:0:1
+32.6 sim s; 2/40 lanes; frame 8604; target 6:0:1
+Target 5:0:1 route points 49
+38.0 sim s; 3/40 lanes; frame 8711; target 5:0:1
+42.9 sim s; 3/40 lanes; frame 8809; target 5:0:1
+47.4 sim s; 3/40 lanes; frame 8900; target 5:0:1
+Target 4:0:1 route points 27
+52.7 sim s; 4/40 lanes; frame 9005; target 4:0:1
+57.5 sim s; 4/40 lanes; frame 9101; target 4:0:1
+61.4 sim s; 4/40 lanes; frame 9180; target 4:0:1
+Target 0:0:1 route points 58
+65.6 sim s; 5/40 lanes; frame 9264; target 0:0:1
+69.9 sim s; 5/40 lanes; frame 9350; target 0:0:1
+74.0 sim s; 5/40 lanes; frame 9431; target 0:0:1
+78.6 sim s; 5/40 lanes; frame 9523; target 0:0:1
+Target 2:0:1 route points 11
+82.7 sim s; 6/40 lanes; frame 9606; target 2:0:1
+Target 18:0:-1 route points 17
+88.4 sim s; 7/40 lanes; frame 9719; target 18:0:-1
+95.9 sim s; 7/40 lanes; frame 9869; target 18:0:-1
+Target 19:0:-1 route points 76
+102.7 sim s; 8/40 lanes; frame 10005; target 19:0:-1
+109.4 sim s; 8/40 lanes; frame 10139; target 19:0:-1
+Target 17:0:1 route points 13
+115.6 sim s; 9/40 lanes; frame 10263; target 17:0:1
+Target 13:0:-1 route points 26
+121.0 sim s; 10/40 lanes; frame 10372; target 13:0:-1
+Target 10:0:-1 route points 30
+125.7 sim s; 11/40 lanes; frame 10465; target 10:0:-1
+130.2 sim s; 11/40 lanes; frame 10556; target 10:0:-1
+136.1 sim s; 11/40 lanes; frame 10673; target 10:0:-1
+Target 11:0:-1 route points 47
+141.6 sim s; 12/40 lanes; frame 10784; target 11:0:-1
+146.7 sim s; 12/40 lanes; frame 10886; target 11:0:-1
+152.3 sim s; 12/40 lanes; frame 10997; target 11:0:-1
+Target 7:0:1 route points 36
+157.4 sim s; 13/40 lanes; frame 11099; target 7:0:1
+161.4 sim s; 13/40 lanes; frame 11180; target 7:0:1
+165.7 sim s; 13/40 lanes; frame 11265; target 7:0:1
+Target 18:0:1 route points 26
+169.7 sim s; 14/40 lanes; frame 11345; target 18:0:1
+175.5 sim s; 14/40 lanes; frame 11462; target 18:0:1
+Target 0:0:-1 route points 58
+180.5 sim s; 16/40 lanes; frame 11562; target 0:0:-1
+184.4 sim s; 16/40 lanes; frame 11639; target 0:0:-1
+189.0 sim s; 16/40 lanes; frame 11731; target 0:0:-1
+194.0 sim s; 16/40 lanes; frame 11831; target 0:0:-1
+Target 1:0:-1 route points 42
+198.2 sim s; 17/40 lanes; frame 11916; target 1:0:-1
+198.2 sim s; 17/40 lanes; frame 11916; target 1:0:-1
+198.2 sim s; 17/40 lanes; frame 11916; target 1:0:-1
+198.2 sim s; 17/40 lanes; frame 11916; target 1:0:-1
+198.2 sim s; 17/40 lanes; frame 11916; target 1:0:-1
+198.2 sim s; 17/40 lanes; frame 11916; target 1:0:-1
+198.2 sim s; 17/40 lanes; frame 11916; target 1:0:-1
+198.2 sim s; 17/40 lanes; frame 11916; target 1:0:-1
+198.2 sim s; 17/40 lanes; frame 11916; target 1:0:-1
+198.2 sim s; 17/40 lanes; frame 11916; target 1:0:-1

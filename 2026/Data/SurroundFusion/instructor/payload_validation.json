@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "images_and_clouds_compared": 3084,
+  "all_exported_sensor_timestamps_found_in_source": true,
+  "all_exported_sensor_payloads_and_formats_equal_source": true,
+  "sqlite_integrity": "ok"
+}

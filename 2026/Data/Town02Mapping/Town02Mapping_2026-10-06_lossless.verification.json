@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "archive_path": "/media/william/blueicedrive/Github/Intro2AV-CourseContent/2026/Data/Town02Mapping/Town02Mapping_2026-10-06_lossless.zip",
+  "bytes": 7801267701,
+  "sha256": "96d5ad4aa1e64e1cc9ff8df798dada9d0fbd65aa49d2c4d4c4a7364832f3f36b",
+  "files": 50,
+  "crc_passed": true,
+  "all_archive_file_hashes_passed": true,
+  "compressed_database_bytes": 7710547968,
+  "original_database_bytes": 16109662208
+}

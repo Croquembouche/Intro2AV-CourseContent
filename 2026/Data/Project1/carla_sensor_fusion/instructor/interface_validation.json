@@ -1,0 +1,9 @@
+{
+  "build": "passed",
+  "ros_distro": "humble",
+  "cdr_roundtrip": "passed",
+  "example_class": "car",
+  "example_x": 12.0,
+  "example_y": -3.0,
+  "ground_truth_rotation_checks": "Matched CARLA local Transform.get_matrix for four orientations; ROS left/right sign check passed."
+}

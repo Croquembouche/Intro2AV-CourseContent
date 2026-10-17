@@ -1,0 +1,132 @@
+[
+  {
+    "frame": 307,
+    "stamp_ns": 11377274892,
+    "actor_id": 84,
+    "type": "vehicle.dodge.charger",
+    "actor_origin_base": [
+      5.6948844986600085,
+      -3.087682287163374,
+      0.11886898632443493
+    ],
+    "near_planar_points": 2226,
+    "body_height_candidate_points": 1023
+  },
+  {
+    "frame": 308,
+    "stamp_ns": 11427274892,
+    "actor_id": 84,
+    "type": "vehicle.dodge.charger",
+    "actor_origin_base": [
+      5.693627067348154,
+      -3.088561922387424,
+      0.06555992215697123
+    ],
+    "near_planar_points": 2915,
+    "body_height_candidate_points": 1338
+  },
+  {
+    "frame": 309,
+    "stamp_ns": 11477274893,
+    "actor_id": 84,
+    "type": "vehicle.dodge.charger",
+    "actor_origin_base": [
+      5.6898922598691986,
+      -3.0891914156503155,
+      0.020008498555633338
+    ],
+    "near_planar_points": 2153,
+    "body_height_candidate_points": 1011
+  },
+  {
+    "frame": 310,
+    "stamp_ns": 11527274894,
+    "actor_id": 84,
+    "type": "vehicle.dodge.charger",
+    "actor_origin_base": [
+      5.682659324407675,
+      -3.0898073230503003,
+      -0.008641322322304669
+    ],
+    "near_planar_points": 2139,
+    "body_height_candidate_points": 1031
+  },
+  {
+    "frame": 311,
+    "stamp_ns": 11577274895,
+    "actor_id": 84,
+    "type": "vehicle.dodge.charger",
+    "actor_origin_base": [
+      5.671773634213147,
+      -3.0905593592990863,
+      -0.02142315714850306
+    ],
+    "near_planar_points": 1192,
+    "body_height_candidate_points": 545
+  },
+  {
+    "frame": 312,
+    "stamp_ns": 11627274895,
+    "actor_id": 84,
+    "type": "vehicle.dodge.charger",
+    "actor_origin_base": [
+      5.657153989206515,
+      -3.091577205312918,
+      -0.022448475505712894
+    ],
+    "near_planar_points": 1334,
+    "body_height_candidate_points": 672
+  },
+  {
+    "frame": 313,
+    "stamp_ns": 11677274896,
+    "actor_id": 84,
+    "type": "vehicle.dodge.charger",
+    "actor_origin_base": [
+      5.638731328660239,
+      -3.0929146825774145,
+      -0.01666654492190604
+    ],
+    "near_planar_points": 1472,
+    "body_height_candidate_points": 711
+  },
+  {
+    "frame": 314,
+    "stamp_ns": 11727274897,
+    "actor_id": 84,
+    "type": "vehicle.dodge.charger",
+    "actor_origin_base": [
+      5.616522925490075,
+      -3.094634874511229,
+      -0.008423604437955312
+    ],
+    "near_planar_points": 2843,
+    "body_height_candidate_points": 1395
+  },
+  {
+    "frame": 315,
+    "stamp_ns": 11777274898,
+    "actor_id": 84,
+    "type": "vehicle.dodge.charger",
+    "actor_origin_base": [
+      5.59051309730199,
+      -3.0967848213819282,
+      -0.0007791299637384466
+    ],
+    "near_planar_points": 1465,
+    "body_height_candidate_points": 700
+  },
+  {
+    "frame": 316,
+    "stamp_ns": 11827274898,
+    "actor_id": 84,
+    "type": "vehicle.dodge.charger",
+    "actor_origin_base": [
+      5.560697223804427,
+      -3.0994433475767718,
+      0.004608737312965724
+    ],
+    "near_planar_points": 1436,
+    "body_height_candidate_points": 718
+  }
+]

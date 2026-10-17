@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "ros_distro": "humble",
+  "received_counts": {
+    "/clock": 1201,
+    "/tf": 1201,
+    "/ego/odometry": 1201,
+    "/camera/front/camera_info": 398,
+    "/lidar/roof/points": 601,
+    "/camera/front/image_raw": 398,
+    "/camera/front_left/camera_info": 493,
+    "/camera/front_left/image_raw": 493,
+    "/camera/rear_left/camera_info": 369,
+    "/camera/rear_left/image_raw": 369,
+    "/camera/rear/camera_info": 422,
+    "/camera/rear/image_raw": 422,
+    "/camera/rear_right/camera_info": 455,
+    "/camera/rear_right/image_raw": 455,
+    "/camera/front_right/camera_info": 346,
+    "/camera/front_right/image_raw": 346
+  },
+  "all_messages_received": true,
+  "monotonic_clock": true,
+  "header_frames_verified": true,
+  "cross_time_tf_lookups": 87,
+  "camera_lidar_exact_timestamp_matches": 0,
+  "player_exit_code": 0,
+  "playback_rate": 0.5
+}

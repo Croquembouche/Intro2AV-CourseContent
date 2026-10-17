@@ -1,0 +1,9 @@
+stdin is not a terminal device. Keyboard handling disabled.[INFO] [1791315811.283891181] [rosbag2_storage]: Opened database '/media/william/blueicedrive/Github/Intro2AV-CourseContent/2026/Data/Town02Mapping/2026-10-06_town02/rosbag2_zstd/rosbag2_zstd_0.db3' for READ_ONLY.
+[INFO] [1791315811.283988316] [rosbag2_player]: Set rate to 1
+[INFO] [1791315811.288605791] [rosbag2_player]: Adding keyboard callbacks.
+[INFO] [1791315811.288685479] [rosbag2_player]: Press SPACE for Pause/Resume
+[INFO] [1791315811.288706729] [rosbag2_player]: Press CURSOR_RIGHT for Play Next Message
+[INFO] [1791315811.288727014] [rosbag2_player]: Press CURSOR_UP for Increase Rate 10%
+[INFO] [1791315811.288770879] [rosbag2_player]: Press CURSOR_DOWN for Decrease Rate 10%
+[INFO] [1791315811.289754269] [rosbag2_storage]: Opened database '/media/william/blueicedrive/Github/Intro2AV-CourseContent/2026/Data/Town02Mapping/2026-10-06_town02/rosbag2_zstd/rosbag2_zstd_0.db3' for READ_ONLY.
+[INFO] [1791315812.391598726] [rclcpp]: signal_handler(SIGINT/SIGTERM)
