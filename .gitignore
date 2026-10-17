@@ -28,12 +28,8 @@ node_modules/
 **/*.bag
 **/*.bag.active
 
-# Current decks are generated deliverables and are published through Drive.
-# Lecture 8 is a small reference deck rather than a generated release.
-/2026/Presentations/*.pptx
-!/2026/Presentations/Lecture 8.pptx
-!/2026/Presentations/Lecture 7 Path Planning for Autonomous Driving.pptx
-!/2026/Presentations/Lecture 8 Control for Autonomous Driving.pptx
+# Course presentation deliverables are versioned. Inspection sidecars and
+# intermediate renders remain excluded by the rules above.
 
 # Local editor and operating-system files
 .DS_Store
