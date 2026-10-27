@@ -522,13 +522,13 @@
   },
   {
     "slide": 27,
-    "title": "Prediction and execution can disagree",
+    "title": "The wheels cannot respond instantly",
     "body": [
       "The controller requests a steering action.",
       "The actuator needs time to carry it out.",
-      "Delay or a biased response changes the actual motion."
+      "MPC can anticipate a known response delay."
     ],
-    "notes": "The plotted Long horizon plus delay case separates requested, limited and applied steering over the complete run. The model used for this MPC omits actuator lag, command delay and bias. Even a well-solved plan can be inaccurate when those effects matter. Use the Added delay preset if there is time; do not focus on solver residuals.",
+    "notes": "The plotted Long horizon plus delay case separates requested, limited and applied steering over the complete run. The corrected MPC predictor includes the configured actuator lag and command delay, so it can anticipate their effect. The request and applied steering still differ in time. Steering bias and nonlinear effects remain unmodeled; even a converged plan is an approximation. Use the Added delay preset if there is time; do not focus on solver residuals.",
     "layout": "visual",
     "media": [
       "mpc-input.png"
@@ -568,7 +568,7 @@
         "Represent and test that limit"
       ]
     ],
-    "notes": "Discuss real engineering failure mechanisms. This demo has input limits but no obstacles or road boundaries, so a successful trace is not collision avoidance. It uses a fixed-budget approximate solver. The lesson is to inspect assumptions and the complete control loop rather than treat MPC as automatically superior.",
+    "notes": "Discuss real engineering failure mechanisms. This demo has input limits but no obstacles or road boundaries, so a successful trace is not collision avoidance. Its active-set solver reports convergence, with an iteration cap and an explicit warning if it does not converge. The lesson is to inspect assumptions and the complete control loop rather than treat MPC as automatically superior.",
     "layout": "table",
     "media": [],
     "refs": [

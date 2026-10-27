@@ -62,7 +62,7 @@ function error(canvas,states,saved=[],from=0){const all=[...states,...saved],pea
 function actuation(canvas,states,saved=[]){const pid=states[0].algorithm==='pid',scale=pid?1:deg,all=[...states,...saved].flatMap(x=>x.history),limit=pid?2.5:states[0].c.limit,low=pid?-4:-limit;
  const max=Math.max(limit*1.2,...all.map(r=>Math.abs(r.raw*scale))),min=pid?Math.min(low*1.2,...all.map(r=>r.raw*scale)):-max,f=frame(canvas,0,20,min,max,'Time (s)',pid?'Acceleration command (m/s²)':'Steering command (degrees)');
  line(f,[[0,limit],[20,limit]],'#c15b45',1,[5,4]);line(f,[[0,low],[20,low]],'#c15b45',1,[5,4]);
- if(states.length===1){line(f,states[0].history.map(r=>[r.t,r.raw*scale]),'#b07837',2,[5,4]);line(f,states[0].history.map(r=>[r.t,r.command*scale]),'#007aac',2);line(f,states[0].history.map(r=>[r.t,r.actuator*scale]),'#17324d',3);legend(f,[['Requested','#b07837',true],['Limited command','#007aac'],['Applied','#17324d']]);}
+ if(states.length===1){line(f,states[0].history.map(r=>[r.t,r.raw*scale]),'#b07837',2,[5,4]);line(f,states[0].history.map(r=>[r.t,r.command*scale]),'#007aac',2);line(f,states[0].history.map(r=>[r.t,r.actuator*scale]),'#17324d',3);legend(f,[['Requested','#b07837',true],['Angle-bounded request','#007aac'],['Applied','#17324d']]);}
  else{states.forEach(s=>line(f,s.history.map(r=>[r.t,r.actuator*scale]),colors[s.algorithm],2));legend(f,states.map(s=>[names[s.algorithm],colors[s.algorithm]]));}return f;
 }
 function decisionPlot(canvas,s,d){
@@ -73,7 +73,7 @@ function decisionPlot(canvas,s,d){
  if(s.algorithm==='mpc'){
   const horizon=s.c.horizon*E.dt,f=frame(canvas,0,horizon,-s.c.limit*1.2,s.c.limit*1.2,'Future time after current state (s)','Planned steering (degrees)');
   line(f,[[0,s.c.limit],[horizon,s.c.limit]],'#c15b45',1,[5,4]);line(f,[[0,-s.c.limit],[horizon,-s.c.limit]],'#c15b45',1,[5,4]);
-  const pts=d.sequence.map((u,i)=>[i*E.dt,u*deg]);line(f,pts,'#10a77f',3);pts.forEach((p,i)=>dot(f,...p,i===0?'#d96c1f':'#10a77f',i===0?7:3));if(pts.length)label(f,pts[0][0],pts[0][1],'Apply this input only','#a54e12',12,-14);legend(f,[['Current optimized sequence','#087b61']]);return f;
+  const pts=d.sequence.map((u,i)=>[i*E.dt,u*deg]);line(f,pts,'#10a77f',3);pts.forEach((p,i)=>dot(f,...p,i===0?'#d96c1f':'#10a77f',i===0?7:3));if(pts.length)label(f,pts[0][0],pts[0][1],'Send this command now','#a54e12',12,-14);legend(f,[['Planned commands','#087b61']]);return f;
  }
  return null;
 }

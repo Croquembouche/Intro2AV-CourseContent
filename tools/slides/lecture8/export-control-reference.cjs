@@ -1,0 +1,4 @@
+const E=require(process.cwd()+'/2026/Labs/Control/engine.js'),L=require(process.cwd()+'/2026/Labs/Control/lessons.js'),fs=require('fs');fs.mkdirSync('.build/control-audit',{recursive:true});let records=[];
+const configs=[...L.mpc.presets.map(p=>p[2]),...L.compare.presets.map(p=>p[2]),{q:12,r:1,limit:5,rate:10,offset:4},{speed:20,q:12,r:1,horizon:40,offset:4},{speed:3,q:.2,r:50,horizon:8,delay:.5,lag:.5}];
+for(const cfg of configs){let s=E.create('mpc',cfg);for(let step=0;step<100;step++){if([0,1,5,20,60,99].includes(step)){let d=E.decision(s);records.push({cfg:s.c,state:{x:s.x,y:s.y,yaw:s.yaw,delta:s.delta,queue:s.queue.slice()},decision:d});}E.step(s)}}fs.writeFileSync('.build/control-audit/fixed.json',JSON.stringify(records));
+let gains=[];for(let speed of [3,8,12,20])for(let q of [.2,1,12])for(let r of [1,15,50])gains.push({speed,q,r,K:E.lqr(speed,q,r)});fs.writeFileSync('.build/control-audit/lqr.json',JSON.stringify(gains));

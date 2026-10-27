@@ -48,7 +48,7 @@ Pure Pursuit selects a forward reference point at least the chosen lookahead dis
 
 LQR uses `A = [[1,v*dt],[0,1]]`, `B = [0,v*dt/L]^T`, `Q = diag(q,2)`, and `R = r`. A discrete Riccati iteration computes the gain when settings change. Curvature feedforward `atan(L*kappa)` accompanies feedback. The design omits actuator dynamics and input constraints. Clipping can invalidate the nominal linear behavior.
 
-MPC optimizes N absolute steering inputs. Its linear error predictor includes the upcoming path curvature. The cost sums lateral error, heading error, and steering effort; the Tracking priority and Avoid large steering commands sliders adjust those preferences. There is no terminal penalty/set. Input angle and consecutive-input rate constraints include the currently applied steering. A 90-iteration ADMM solve approximates the convex QP, with shifted previous inputs as initialization and a final feasible angle/rate projection. An advanced disclosure shows the raw primal constraint residual before that projection. It is **not** an optimality certificate. The predictor omits lag, delay, bias and nonlinear tire behavior. This formulation does not impose road-edge or obstacle constraints and does not establish closed-loop stability.
+MPC optimizes N absolute steering inputs. Its linear error predictor includes the upcoming path curvature. The cost sums lateral error, heading error, and steering effort; the Tracking priority and Avoid large steering commands sliders adjust those preferences. There is no terminal penalty/set. The predictor includes configured first-order steering lag and the queued command delay. Angle bounds apply to requested commands; rate bounds apply to predicted applied steering, starting from the current steering state. A feasible active-set solver checks stationarity and multiplier signs as well as constraint feasibility, with a 400-iteration cap. Unconverged results are identified in the interface. The displayed first action is the command sent now, not a promise that the wheels immediately reach that angle. The predictor still omits steering bias and nonlinear tire behavior. This formulation does not impose road-edge or obstacle constraints and does not establish closed-loop stability.
 
 The speed plant uses `dv/dt = actual_acceleration - 0.08*v - grade`. Acceleration limits are −4 to 2.5 m/s². The hill begins at 6 s. The braking reference changes to 4 m/s at 9 s. Derivative acts on speed and uses a 0.15 s low-pass filter. Anti-windup conditionally freezes the integral when saturation and error point in the same direction. Optional feedforward compensates nominal drag only.
 
@@ -66,4 +66,20 @@ This is a deterministic teaching comparison with illustrative tuning, not a prod
 - [do-mpc, Basics of Model Predictive Control](https://www.do-mpc.com/en/latest/theory_mpc.html)
 - [MathWorks, Anti-Windup Control Using PID Controller Block](https://www.mathworks.com/help/simulink/slref/anti-windup-control-using-a-pid-controller.html)
 
-Authoring and verification: `tools/slides/lecture8/`. This release is local; no Pages or Drive publication is implied.
+Authoring and verification: `tools/slides/lecture8/`. The demo and offline package are versioned in GitHub; Pages publication uses the course workflow.
+
+## Algorithm audit regression
+
+Run `node tools/slides/lecture8/review-check.cjs` for numerical, plotting, and component checks. Run `python tools/slides/lecture8/check-control-reference.py` in an environment with NumPy and SciPy for independent constrained-MPC rollout/SLSQP comparisons and discrete-LQR Riccati checks. These are not live-browser tests.
+
+The October 2026 correction replaced a fixed-iteration ADMM result followed by clipping, and included actuator lag/delay in MPC prediction. The earlier tight-limit and delay examples mixed optimizer error with actuator-model mismatch. They should not be used to teach that MPC inherently performs worse than the other methods. Aggressive Pure Pursuit, Stanley, and LQR settings can still lose tracking; the interface identifies large-error cases.
+
+Reproduced 20-second MPC examples (rear-axle RMS error; illustrative simulation, not a benchmark):
+
+| Case | Before correction | After correction |
+| --- | ---: | ---: |
+| Long horizon + tight limits | 9.54 m | 0.33 m |
+| Long horizon + known delay | 23.05 m | 0.34 m |
+| Comparison: faster vehicle | 7.38 m | 0.25 m |
+
+Independent verification covered 72 constrained MPC states and 36 LQR configurations. The largest MPC objective difference from SciPy SLSQP was below 2e-8 in those cases. All nine published MPC teaching/comparison runs remained below 0.6 m RMS over 20 seconds. This finite regression coverage does not establish correctness for every arbitrary custom setting.

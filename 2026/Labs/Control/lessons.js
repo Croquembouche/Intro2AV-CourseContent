@@ -176,13 +176,13 @@ const lessons={
     "title": "Model Predictive Control",
     "description": "Watch a controller plan ahead, use one action, and update the plan.",
     "question": "Why should the controller measure again before following the rest of its plan?",
-    "explanation": "The green path is a prediction. The steering sequence is a provisional plan. Only the orange first point is used next; new measurements can change the rest. Physical limits restrict the choices the controller can plan.",
+    "explanation": "The green path is a prediction. The steering sequence is a provisional plan. Only the orange first command is sent next; new measurements can change the rest. Physical limits restrict the choices the controller can plan.",
     "steps": [
       "Compare Short horizon and Long horizon. Watch the length of the green preview.",
       "Play the two tight-limit cases. Notice how limited steering changes the response.",
       "Try the delayed case and compare the prediction with what the vehicle actually does."
     ],
-    "checkpoint": "More preview can reveal an upcoming bend earlier, but it does not guarantee a better result. Predictions can be wrong: this predictor omits the actuator’s lag, extra delay, and bias. Replanning uses fresh measurements to adjust the next action.",
+    "checkpoint": "More preview can reveal an upcoming bend earlier, but it does not guarantee a better result. Predictions can be wrong: this predictor includes configured lag and delay but omits steering bias and nonlinear turning effects. Replanning uses fresh measurements to adjust the next action.",
     "presets": [
       [
         "short",
@@ -226,7 +226,7 @@ const lessons={
       ],
       [
         "delay",
-        "Long horizon + delay",
+        "Long horizon + known delay",
         {
           "road": "lane",
           "speed": 12,
