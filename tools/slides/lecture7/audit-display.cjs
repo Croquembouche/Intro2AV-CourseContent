@@ -1,0 +1,22 @@
+const assert=require('node:assert/strict'),fs=require('node:fs');
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'/home/william/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+(async()=>{
+ fs.mkdirSync('.build/planning-audit',{recursive:true});const browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']}),page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const base=process.env.URL||'file://'+process.cwd()+'/2026/Labs/PathPlanning/index.html';
+ const mode=async m=>{await page.goto(base+'#'+m);await page.waitForFunction(m=>Lab.mode===m,m);await page.locator('#controls').evaluate(el=>{for(let p=el.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;});};
+ await mode('anyangle');assert.equal(await page.evaluate(()=>[...document.querySelectorAll('#metrics dt')].find(e=>e.textContent.includes('checks so far')).nextElementSibling.textContent),'0');await page.click('#step');assert(await page.evaluate(()=>Lab.result.checksByExpansion[Lab.reveal-1]>0));await page.evaluate(()=>Lab.map.cells[0]=1);await page.selectOption('#angle-algorithm','astar8');assert.equal(await page.evaluate(()=>Lab.map.cells[0]),1);assert.equal(await page.evaluate(()=>Lab.reveal),0);
+ await mode('sampling');await page.click('#step');assert(await page.evaluate(()=>Array.isArray(Lab.rrt.lastSample)));assert(await page.evaluate(()=>{const c=document.querySelector('#view'),g=c.getContext('2d'),p=Lab.rrt.lastSample,px=g.getImageData(Math.floor(p[0]*28),Math.floor(p[1]*28),1,1).data;return px[0]===221&&px[1]===132&&px[2]===12;}));
+ await page.selectOption('#sampling-algorithm','rrtstar');await page.evaluate(()=>{document.querySelector('#budget').value=100;for(let i=0;i<105;i++)step(false);draw();});assert.equal(await page.evaluate(()=>Lab.rrt.attempts),100);await page.click('#step');assert.equal(await page.evaluate(()=>Lab.rrt.attempts),100);
+ for(const algorithm of ['rollout','mppi']){
+  await mode('local');await page.selectOption('#local-algorithm',algorithm);
+  const state=await page.evaluate(()=>{const before=Lab.p.slice(),originalLine=line,originalDisk=disk,calls=[],circles=[];line=(p,c,w)=>{calls.push({p:p.map(q=>q.slice()),c});originalLine(p,c,w);};disk=(p,r,c,s)=>{circles.push({p:p.slice(),c});originalDisk(p,r,c,s);};step();line=originalLine;disk=originalDisk;return {before,after:Lab.p,origin:Lab.localResult.origin,planTime:Lab.localResult.time,tick:Lab.tick,calls,circles};});
+  assert.deepEqual(state.origin,state.before);assert.equal(state.planTime,0);assert.equal(state.tick,1);assert.notDeepEqual(state.after,state.before);
+  const candidates=state.calls.filter(x=>['#5eabc94a','#e46d584a','#dd840c'].includes(x.c));assert(candidates.length);for(const c of candidates)assert.deepEqual(c.p[0],state.before);
+  const solid=state.circles.find(x=>x.c==='#c95045');assert(Math.abs(solid.p[1]-(11+3*Math.sin(.1*.5)))<1e-10);
+  await page.locator('#view').screenshot({path:'.build/planning-audit/'+algorithm+'-decision.png'});
+ }
+ await page.evaluate(()=>{Lab.p=[12,4,0];step();});assert.equal(await page.evaluate(()=>Lab.localResult.best),null);assert((await page.locator('#metrics').textContent()).includes('None'));assert(!(await page.locator('#metrics').textContent()).includes('Safe fallback'));
+ await mode('imagination');await page.click('#imagine');await page.click('#play');await page.locator('#angle').fill('90');await page.locator('#angle').dispatchEvent('input');assert.equal(await page.evaluate(()=>Lab.playing),false);assert.equal(await page.evaluate(()=>Lab.candidates.length),0);assert((await page.locator('#run-state').innerText()).includes('Orientation changed'));
+ await page.setViewportSize({width:390,height:844});for(const m of ['search','anyangle','replan','roadmap','sampling','clearance','field','local','imagination']){await mode(m);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));assert((await page.locator('#status').textContent()).length>30);}
+ assert.deepEqual(errors,[]);await browser.close();console.log('PASS display audit: progressive Theta* metrics, retained edited map, actual RRT sample pixels, enforced sampling budget, rollout origin and obstacle time for both local controllers, no misleading fallback, stopped angle changes, nine mobile views and no browser errors');
+})().catch(e=>{console.error(e);process.exit(1)});
