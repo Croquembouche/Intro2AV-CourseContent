@@ -23,7 +23,7 @@
     "slide": 2,
     "title": "Learning goals",
     "body": [
-      "Explain how A* and D* use a graph and its costs.",
+      "Explain A* search and distinguish D* from D* Lite replanning.",
       "Predict when an algorithm succeeds, slows down, or returns an unusable path.",
       "Connect obstacle clearance and vehicle motion to global and local planning."
     ],
@@ -150,7 +150,7 @@
       "Edges represent allowed transitions.",
       "Costs express distance, terrain, risk, or time."
     ],
-    "notes": "The four-neighbor grid uses unit moves and a terrain entry cost of 1 or 6. The state count and connectivity change the optimization problem. A continuous shortest path may cut between these cells, but that path is outside this graph. Start and goal markers refer to cell centers.",
+    "notes": "The four-neighbor grid uses unit moves and a terrain entry cost of 1 or 6. The state count and connectivity change the optimization problem. A continuous shortest path may cut between these cells, but that path is outside this graph. Start and goal markers refer to cell centers.\nVisualization key: Dark navy: obstacles · Green S: start · Purple G: goal",
     "refs": [
       "https://lavalle.pl/planning/ch2.pdf"
     ],
@@ -161,7 +161,8 @@
     "demo": "search",
     "equations": [],
     "table": null,
-    "labels": []
+    "labels": [],
+    "legend": "Dark navy: obstacles · Green S: start · Purple G: goal"
   },
   {
     "slide": 7,
@@ -173,7 +174,7 @@
     ],
     "layout": "table",
     "media": [],
-    "demo": null,
+    "demo": "dijkstra",
     "equations": [],
     "table": [
       [
@@ -197,7 +198,8 @@
         "Large graphs consume memory"
       ]
     ],
-    "labels": []
+    "labels": [],
+    "demo_label": "Compare BFS, Dijkstra and A*"
   },
   {
     "slide": 8,
@@ -206,7 +208,7 @@
       "BFS crosses rough ground to use fewer steps.",
       "A* takes a longer route with lower modeled cost."
     ],
-    "notes": "Both screenshots use the same start, goal and terrain. Yellow cells cost 6 on entry. The blue paths are computed results. Ask students to count steps separately from total cost. The objective function, rather than the algorithm name alone, defines what counts as a good route.",
+    "notes": "Both screenshots use the same start, goal and terrain. Yellow cells cost 6 on entry. The blue paths are computed results. Ask students to count steps separately from total cost. The objective function, rather than the algorithm name alone, defines what counts as a good route.\nVisualization key: Yellow: terrain cost 6 · Cyan overlay: expanded cells · Blue: route",
     "refs": [
       "https://lavalle.pl/planning/ch2.pdf"
     ],
@@ -215,13 +217,14 @@
       "bfs-terrain.png",
       "astar-terrain.png"
     ],
-    "demo": "search",
+    "demo": "terrain",
     "equations": [],
     "table": null,
     "labels": [
       "BFS: shortest in number of edges",
       "A*: lower total terrain cost"
-    ]
+    ],
+    "legend": "Yellow: terrain cost 6 · Cyan overlay: expanded cells · Blue: route"
   },
   {
     "slide": 9,
@@ -231,7 +234,7 @@
       "h estimates the remaining cost.",
       "A* expands the state with the lowest g + h."
     ],
-    "notes": "The animation shows actual expansion order on the two-wall map. The heuristic points toward the goal, while the accumulated cost prevents greedy commitment to an expensive route. A* still searches around walls because a straight-line estimate cannot predict the detour.",
+    "notes": "The animation shows actual expansion order on the two-wall map. The heuristic points toward the goal, while the accumulated cost prevents greedy commitment to an expensive route. A* still searches around walls because a straight-line estimate cannot predict the detour.\nVisualization key: Cyan: expanded cells · Blue: final route · Dark navy: obstacles",
     "refs": [
       "https://lavalle.pl/planning/ch2.pdf"
     ],
@@ -239,10 +242,11 @@
     "media": [
       "astar-search.gif"
     ],
-    "demo": "search",
+    "demo": "astar",
     "equations": [],
     "table": null,
-    "labels": []
+    "labels": [],
+    "legend": "Cyan: expanded cells · Blue: final route · Dark navy: obstacles"
   },
   {
     "slide": 10,
@@ -269,7 +273,7 @@
     "slide": 11,
     "title": "Heuristic assumptions",
     "body": [],
-    "notes": "Admissibility means h never exceeds the true remaining optimal cost. Consistency means h(u) is at most c(u,v)+h(v). For graph search without reopening, consistency provides the standard guarantee. With admissible but inconsistent heuristics, improved states must reopen. If the minimum move cost is lower than one, rescale Manhattan distance. Manhattan can overestimate when diagonal moves are allowed.",
+    "notes": "Admissibility means h never exceeds the true remaining optimal cost. Consistency means h(u) is at most c(u,v)+h(v). For graph search without reopening, consistency provides the standard guarantee. With admissible but inconsistent heuristics, improved states must reopen. If the minimum move cost is lower than one, rescale Manhattan distance. Manhattan can overestimate when diagonal moves are allowed. The any-angle demo on slide 43 uses Euclidean distance for its eight-neighbor A* reference, which is also admissible. Octile distance here is a valid tighter grid heuristic, not a claim about that implementation.",
     "refs": [
       "https://lavalle.pl/planning/ch2.pdf"
     ],
@@ -333,7 +337,7 @@
       "Dijkstra spreads according to cost from the start.",
       "A* also uses a lower bound on distance to the goal."
     ],
-    "notes": "The screenshots show actual expanded cells on the same two-wall map. Cyan indicates processed states. Both algorithms use the same costs and return the same minimum route cost. Expansion savings depend on the heuristic and scene. Compare work counts rather than assuming a fixed speedup.",
+    "notes": "The screenshots show actual expanded cells on the same two-wall map. Cyan indicates processed states. Both algorithms use the same costs and return the same minimum route cost. Expansion savings depend on the heuristic and scene. Compare work counts rather than assuming a fixed speedup.\nVisualization key: Cyan: expanded cells · Blue: minimum-cost route · Dark navy: obstacles",
     "refs": [
       "https://lavalle.pl/planning/ch2.pdf"
     ],
@@ -342,23 +346,24 @@
       "dijkstra.png",
       "astar.png"
     ],
-    "demo": "search",
+    "demo": "dijkstra",
     "equations": [],
     "table": null,
     "labels": [
       "Dijkstra: g priority",
       "A*: g + h priority"
-    ]
+    ],
+    "legend": "Cyan: expanded cells · Blue: minimum-cost route · Dark navy: obstacles"
   },
   {
     "slide": 14,
-    "title": "A* strengths and limits",
+    "title": "A* and Weighted A*",
     "body": [
-      "A* finds an optimal graph path under the appropriate search assumptions.",
-      "A coarse graph can omit a usable passage or a feasible steering motion.",
-      "A changed map requires a fresh search or an incremental method."
+      "A* minimizes graph cost with a valid heuristic and search policy.",
+      "Weighted A*: f = g + w h, with w > 1.",
+      "The stronger heuristic can reduce expansions but lose exact optimality."
     ],
-    "notes": "The finite demo graph has positive costs and a consistent heuristic. Its shortest path does not claim continuous shortest length, feasible vehicle dynamics, or safety against future obstacle motion. Weighted A* uses f=g+w h for w>1 and can expand fewer states at the expense of exact optimality. A* failure to find a path on a graph does not prove that no physical path exists.",
+    "notes": "The finite demo graph has positive costs and a consistent heuristic. Its shortest path does not claim continuous shortest length, feasible vehicle dynamics, or safety against future obstacle motion. Weighted A* uses f=g+w h for w>1 and can expand fewer states at the expense of exact optimality. A* failure to find a path on a graph does not prove that no physical path exists.\nVisualization key: Pictured: Weighted A*, w = 2 · Cyan: expanded cells · Blue: route",
     "refs": [
       "https://lavalle.pl/planning/ch2.pdf"
     ],
@@ -366,10 +371,11 @@
     "media": [
       "weighted.png"
     ],
-    "demo": "search",
+    "demo": "weighted",
     "equations": [],
     "table": null,
-    "labels": []
+    "labels": [],
+    "legend": "Pictured: Weighted A*, w = 2 · Cyan: expanded cells · Blue: route"
   },
   {
     "slide": 15,
@@ -379,7 +385,7 @@
       "Edge costs change when a cell becomes occupied or free.",
       "Incremental search reuses earlier work."
     ],
-    "notes": "D* originated with Stentz in 1994. Present the road-closure example: the destination remains the same while the robot advances and its knowledge changes. A robot must still detect the blockage and stop safely. Incremental graph search addresses recomputation after changes, not perception or collision prediction.",
+    "notes": "D* originated with Stentz in 1994. Present the road-closure example: the destination remains the same while the robot advances and its knowledge changes. A robot must still detect the blockage and stop safely. Incremental graph search addresses recomputation after changes, not perception or collision prediction.\nVisualization key: Cyan: initial D* Lite expansions · Blue: initial route",
     "refs": [
       "https://publications.ri.cmu.edu/the-d-algorithm-for-real-time-planning-of-optimal-traverses"
     ],
@@ -390,7 +396,8 @@
     "demo": "replan",
     "equations": [],
     "table": null,
-    "labels": []
+    "labels": [],
+    "legend": "Cyan: initial D* Lite expansions · Blue: initial route"
   },
   {
     "slide": 16,
@@ -445,7 +452,8 @@
     "media": [],
     "demo": null,
     "equations": [
-      "rhs(s) = min [ c(s, s′) + g(s′) ]",
+      "rhs(goal) = 0",
+      "rhs(s) = min [ c(s, s′) + g(s′) ]   for s ≠ goal",
       "g(s) = rhs(s)   means locally consistent"
     ],
     "table": null,
@@ -459,7 +467,7 @@
       "Cyan shows the states processed by this repair.",
       "The demo compares route cost and expansions with a fresh A* search."
     ],
-    "notes": "The after screenshot comes from a real click on the route, followed by D* Lite repair. Earlier g and rhs arrays remain in memory. Both final costs agree with the same graph optimum. Initial search and latest repair counts are distinct, and cumulative D* work remains visible. Some map changes can make repair more expensive than a new search.",
+    "notes": "The after screenshot comes from a real click on the route, followed by D* Lite repair. Earlier g and rhs arrays remain in memory. Both final costs agree with the same graph optimum. Initial search and latest repair counts are distinct, and cumulative D* work remains visible. Some map changes can make repair more expensive than a new search.\nVisualization key: Cyan: latest repair expansions · Blue: repaired route · Dark navy: blocked cells",
     "refs": [
       "https://idm-lab.org/bib/abstracts/papers/aaai02b.pdf"
     ],
@@ -470,7 +478,8 @@
     "demo": "replan",
     "equations": [],
     "table": null,
-    "labels": []
+    "labels": [],
+    "legend": "Cyan: latest repair expansions · Blue: repaired route · Dark navy: blocked cells"
   },
   {
     "slide": 19,
@@ -561,44 +570,73 @@
     "slide": 21,
     "title": "PRM and RRT",
     "body": [
-      "PRM builds a roadmap that can support many queries.",
-      "RRT grows a tree outward from a starting configuration.",
-      "Collision checks decide which connections survive."
+      "PRM connects free samples for repeated queries.",
+      "RRT extends a tree toward samples from one start."
     ],
-    "notes": "PRM samples free configurations and connects nearby samples to form a roadmap, often for repeated queries in a largely static environment. RRT incrementally extends toward random samples. The animation is the actual seeded RRT implementation in this demo. Narrow passages receive relatively few random samples.",
+    "notes": "PRM samples free configurations and connects nearby samples to form a roadmap, often for repeated queries in a largely static environment. RRT incrementally extends toward random samples. The animation is the actual seeded RRT implementation in this demo. Narrow passages receive relatively few random samples. The left image is the fixed-k PRM after 300 attempts; the right animation is seeded basic RRT. Pale cyan dots and edges are retained roadmap/tree connections. Orange is the attempted RRT sample; blue is the returned route. Neither method optimizes terrain cost.\nVisualization key: Pale cyan: connections · Blue: route · Orange: attempted RRT sample",
     "refs": [
       "https://lavalle.pl/planning/ch5.pdf"
     ],
-    "layout": "visual",
+    "layout": "pair",
     "media": [
+      "prm.png",
       "rrt-growth.gif"
     ],
     "demo": "sampling",
     "equations": [],
     "table": null,
-    "labels": []
+    "labels": [
+      "PRM: reusable roadmap",
+      "RRT: stop at the first route"
+    ],
+    "links": [
+      [
+        "Open PRM",
+        "roadmap"
+      ],
+      [
+        "Open RRT",
+        "sampling"
+      ]
+    ],
+    "legend": "Pale cyan: connections · Blue: route · Orange: attempted RRT sample"
   },
   {
     "slide": 22,
-    "title": "RRT and RRT* tradeoffs",
+    "title": "RRT* and Informed RRT*",
     "body": [
-      "RRT often finds a feasible path before refining its quality.",
-      "RRT* rewires nearby connections to improve path cost.",
-      "Finite compute time can still leave a poor path or miss a narrow passage."
+      "Both keep improving after a first route.",
+      "Informed RRT* then samples the green ellipse."
     ],
-    "notes": "Probabilistic completeness is an asymptotic property under assumptions, not a finite-time success guarantee. RRT* asymptotic optimality also requires its prescribed connection strategy and regularity assumptions. The demo implements basic RRT with fixed extension length and goal bias, without RRT* rewiring. It checks sampled segments with a small disk radius.",
+    "notes": "Probabilistic completeness is an asymptotic property under assumptions, not a finite-time success guarantee. RRT* asymptotic optimality also requires its prescribed connection strategy and regularity assumptions. The demo offers basic RRT, RRT* and Informed RRT*. Basic RRT stops at its first solution; the star variants choose lower-cost parents, rewire neighbors and propagate descendant costs. All use exact segment-to-rectangle clearance for a radius-0.2 disk. Informed RRT* samples the path-length improvement ellipse only after a solution exists. The displayed finite runs do not certify optimality.\nVisualization key: Cyan: tree · Magenta: latest rewires · Blue: best route; Dashed green: improvement ellipse · Orange: attempted sample",
     "refs": [
       "https://lavalle.pl/planning/ch5.pdf",
-      "https://arxiv.org/abs/1105.1186"
+      "https://arxiv.org/abs/1105.1186",
+      "https://arxiv.org/abs/1404.2334"
     ],
-    "layout": "visual",
+    "layout": "pair",
     "media": [
-      "rrt.png"
+      "rrtstar.png",
+      "informed.png"
     ],
-    "demo": "sampling",
+    "demo": "rrtstar",
     "equations": [],
     "table": null,
-    "labels": []
+    "labels": [
+      "RRT*: rewire to improve cost",
+      "Informed RRT*: focus new samples"
+    ],
+    "links": [
+      [
+        "Open RRT*",
+        "rrtstar"
+      ],
+      [
+        "Open Informed RRT*",
+        "informed"
+      ]
+    ],
+    "legend": "Cyan: tree · Magenta: latest rewires · Blue: best route\nDashed green: improvement ellipse · Orange: attempted sample"
   },
   {
     "slide": 23,
@@ -608,7 +646,7 @@
       "Configuration includes every variable needed to locate the body.",
       "A mobile rectangle needs position and orientation."
     ],
-    "notes": "For a planar rigid body, q=(x,y,theta). An arm needs joint angles. An obstacle can block different configurations at different orientations. Configuration-space planning accounts for the entire robot body, including attached tools and loads. The exact geometry changes when the robot rotates.",
+    "notes": "For a planar rigid body, q=(x,y,theta). An arm needs joint angles. An obstacle can block different configurations at different orientations. The pictured green rectangle is the last clear pose; the next translation is rejected, so the robot does not enter the wall. Configuration-space planning accounts for the entire robot body, including attached tools and loads. The exact geometry changes when the robot rotates.\nVisualization key: Green rectangle: last clear pose · Pale blue: center path · Dark navy: walls",
     "refs": [
       "https://lavalle.pl/planning/ch4.pdf"
     ],
@@ -616,10 +654,11 @@
     "media": [
       "imagination-collision.png"
     ],
-    "demo": "imagination",
+    "demo": "footprint",
     "equations": [],
     "table": null,
-    "labels": []
+    "labels": [],
+    "legend": "Green rectangle: last clear pose · Pale blue: center path · Dark navy: walls"
   },
   {
     "slide": 24,
@@ -650,7 +689,7 @@
       "A small footprint leaves a center route through the gap.",
       "A larger footprint and margin remove that route."
     ],
-    "notes": "Orange cells show conservative forbidden occupancy. The obstacle cells are unit squares, and any grid cell that intersects their Minkowski expansion is excluded. This whole-cell representation can reject a physically feasible route near a tight threshold. Reducing resolution or checking continuous geometry can distinguish a grid artifact from actual collision.",
+    "notes": "Orange cells show conservative forbidden occupancy. The obstacle cells are unit squares, and any grid cell that intersects their Minkowski expansion is excluded. This whole-cell representation can reject a physically feasible route near a tight threshold. Using finer grid cells or checking continuous geometry can distinguish a grid artifact from actual collision.\nVisualization key: Dark navy: obstacles · Orange: excluded cells · Blue: center route",
     "refs": [
       "https://lavalle.pl/planning/ch4.pdf"
     ],
@@ -665,7 +704,8 @@
     "labels": [
       "Small robot and margin",
       "Larger robot and margin"
-    ]
+    ],
+    "legend": "Dark navy: obstacles · Orange: excluded cells · Blue: center route"
   },
   {
     "slide": 26,
@@ -780,7 +820,7 @@
       "Nearby obstacles supply repulsive potentials.",
       "The robot follows the negative gradient of their sum."
     ],
-    "notes": "Show the open-scene screenshot. The short blue-gray strokes indicate net force direction, and the executed blue trace bends around the obstacle. The physical robot still needs a motion controller and collision checks. A potential gradient in x/y alone does not automatically satisfy car kinematics.",
+    "notes": "Show the open-scene screenshot. The short blue-gray strokes indicate net force direction, and the executed blue trace bends around the obstacle. The physical robot still needs a motion controller and collision checks. A potential gradient in x/y alone does not automatically satisfy car kinematics.\nVisualization key: Blue-gray strokes: net force · Blue: executed trace · Green: robot",
     "refs": [
       "https://lavalle.pl/planning/ch8.pdf"
     ],
@@ -791,7 +831,8 @@
     "demo": "field",
     "equations": [],
     "table": null,
-    "labels": []
+    "labels": [],
+    "legend": "Blue-gray strokes: net force · Blue: executed trace · Green: robot"
   },
   {
     "slide": 30,
@@ -823,7 +864,7 @@
       "Repulsion balances attraction inside the U.",
       "The robot stops with the goal still far away."
     ],
-    "notes": "The animation computes the robot’s motion and net force in the U-shaped scene. The symmetric start makes the competing forces particularly clear. Here force magnitude approaches zero while distance to the goal stays large. An asymmetric perturbation may change this particular outcome but does not give the general method a completeness guarantee.",
+    "notes": "The animation computes the robot’s motion and net force in the U-shaped scene. The symmetric start makes the competing forces particularly clear. Here force magnitude approaches zero while distance to the goal stays large. An asymmetric perturbation may change this particular outcome but does not give the general method a completeness guarantee.\nVisualization key: Blue-gray strokes: net force · Blue: executed trace · Purple: goal",
     "refs": [
       "https://lavalle.pl/planning/ch8.pdf"
     ],
@@ -831,10 +872,11 @@
     "media": [
       "field-trap.gif"
     ],
-    "demo": "field",
+    "demo": "trap",
     "equations": [],
     "table": null,
-    "labels": []
+    "labels": [],
+    "legend": "Blue-gray strokes: net force · Blue: executed trace · Purple: goal"
   },
   {
     "slide": 32,
@@ -881,10 +923,10 @@
     "title": "Local trajectory sampling",
     "body": [
       "Each candidate uses a different forward speed and turn rate.",
-      "Prediction rejects motions that intersect obstacles.",
+      "Sampled collision checks reject predicted overlaps.",
       "A score balances progress, path following, and motion."
     ],
-    "notes": "The screenshot shows actual unicycle rollouts from the current pose. Orange marks the chosen candidate. Cyan/red mark admissible/rejected predictions. The controller executes only the first 0.1 second, then samples again. It uses an ideal sinusoidal obstacle model. This is DWA-like sampling, without the acceleration-reachable dynamic window or full Nav2 implementation.",
+    "notes": "The screenshot shows unicycle rollouts from the previous decision pose, followed by 0.1 second of execution. The robot marker and solid red obstacle are at the current time; the thin red outline is the obstacle at planning time. Orange marks the chosen candidate. Cyan/pale red mark predictions that pass/fail the configured discrete checks. The controller executes only the first 0.1 second, then samples again. It uses an ideal sinusoidal obstacle model. This is DWA-like sampling, without the acceleration-reachable dynamic window or full Nav2 implementation.\nVisualization key: Blue: global route · Cyan / pale red: accepted / rejected predictions; Orange: chosen prediction · Green: executed motion · Solid red: obstacle now A thin red outline marks the obstacle at planning time. A cyan rollout passed the configured discrete checks; it is not a safety certificate.",
     "refs": [
       "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/",
       "https://docs.nav2.org/rolling/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/"
@@ -896,7 +938,8 @@
     "demo": "local",
     "equations": [],
     "table": null,
-    "labels": []
+    "labels": [],
+    "legend": "Blue: global route · Cyan / pale red: accepted / rejected predictions\nOrange: chosen prediction · Green: executed motion · Solid red: obstacle now"
   },
   {
     "slide": 35,
@@ -905,7 +948,7 @@
       "A moving obstacle clears and local execution progresses.",
       "A permanent blockage stalls the controller until the route changes."
     ],
-    "notes": "These two screenshots use the same initial route and 30 seconds of simulated control. The moving scene predicts the sinusoidal obstacle and progresses after it clears. The stationary scene stops before collision. Use Update global map and replan to run A* with the current obstacle occupancy. A route built from a snapshot of a moving object can become stale, so local prediction remains necessary.",
+    "notes": "These two screenshots use the same initial route and 30 seconds of simulated control. The moving scene predicts the sinusoidal obstacle and progresses after it clears. The stationary scene stops under the demo’s discrete collision model. This is not a continuous-time or vehicle-dynamics safety guarantee. Use Update global map and replan to run A* with the current obstacle occupancy. A route built from a snapshot of a moving object can become stale, so local prediction remains necessary.\nVisualization key: Blue: global route · Green: executed motion · Cyan / pale red: predictions; Solid red: obstacle now · Thin red outline: obstacle at planning time",
     "refs": [
       "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/",
       "https://docs.nav2.org/rolling/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/"
@@ -921,13 +964,14 @@
     "labels": [
       "Moving obstacle clears the route",
       "Stationary obstacle blocks the route"
-    ]
+    ],
+    "legend": "Blue: global route · Green: executed motion · Cyan / pale red: predictions\nSolid red: obstacle now · Thin red outline: obstacle at planning time"
   },
   {
     "slide": 36,
     "title": "Common local planning approaches",
     "body": [],
-    "notes": "DWA constrains sampled velocities by the robot’s dynamic reachability and braking feasibility. The demo uses only a simplified bounded sample set. MPC repeatedly solves a finite-horizon control problem. MPPI uses sampled control sequences with weighted updates to improve a sequence. A pure path follower needs its own collision handling when the scene changes.",
+    "notes": "DWA constrains sampled velocities by the robot’s dynamic reachability and braking feasibility. The demo uses only a simplified bounded sample set. MPC repeatedly solves a finite-horizon control problem. MPPI uses sampled control sequences with weighted updates to improve a sequence. A pure path follower needs its own collision handling when the scene changes. The working sequence optimizer is labeled MPPI-style; see slide 44 for its visualization and omitted importance-sampling terms. MPC, Hybrid A* and state lattices remain conceptual coverage, not implemented demos.",
     "refs": [
       "https://docs.nav2.org/jazzy/getting_started/navigation_concepts/navigation_servers/",
       "https://docs.nav2.org/rolling/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/",
@@ -935,7 +979,7 @@
     ],
     "layout": "table",
     "media": [],
-    "demo": null,
+    "demo": "mppi",
     "equations": [],
     "table": [
       [
@@ -964,7 +1008,8 @@
         "Avoidance depends on controller"
       ]
     ],
-    "labels": []
+    "labels": [],
+    "demo_label": "Compare the MPPI-style controller (slide 44)"
   },
   {
     "slide": 37,
@@ -1078,7 +1123,7 @@
       "Changing orientation changes the swept robot footprint.",
       "Candidate motions must pass collision checks before execution."
     ],
-    "notes": "The demo tests seven fixed orientations, each with sampled translation poses through the door. It illustrates evaluating candidate actions, but omits physical contact, object affordance inference, learned motion distributions and language models. A collision-free center line alone is insufficient. Ask why a rectangle with its short side across the doorway fits while the rotated version collides.",
+    "notes": "The demo tests seven fixed orientations, each with sampled translation poses through the door. It illustrates evaluating candidate actions, but omits physical contact, object affordance inference, learned motion distributions and language models. A collision-free center line alone is insufficient. Ask why a rectangle with its short side across the doorway fits while the rotated version collides.\nVisualization key: Green / red labels: candidate fits / collides · Green rectangle: clear pose",
     "refs": [
       "https://lavalle.pl/planning/ch4.pdf",
       "https://ame.nd.edu/events/from-state-estimation-to-affordance-learning-and-robot-imagination/",
@@ -1091,7 +1136,8 @@
     "demo": "imagination",
     "equations": [],
     "table": null,
-    "labels": []
+    "labels": [],
+    "legend": "Green / red labels: candidate fits / collides · Green rectangle: clear pose"
   },
   {
     "slide": 42,
@@ -1145,9 +1191,54 @@
   },
   {
     "slide": 43,
+    "title": "Theta* and the A* reference",
+    "body": [
+      "Eight-neighbor A* follows grid directions.",
+      "Theta* tests direct connections through a state’s parent.",
+      "A shorter geometric route may still violate vehicle steering limits."
+    ],
+    "notes": "Both routes use uniform Euclidean distance cost and a radius-0.2 circular footprint on the same cell-center map. The demo uses a Euclidean lower bound for both searches; octile distance on slide 11 is another valid grid heuristic. The thick dashed gray route is the eight-neighbor A* reference, visible beside the thinner blue Theta* route where they overlap. Cyan marks expanded states. Basic Theta* does not guarantee the globally shortest continuous route. The reference is computed before playback; the selected route appears when its search completes. Show dashed gray A* reference controls visibility.\nVisualization key: Dashed gray: eight-neighbor A* reference · Blue: Theta* route; Cyan: expanded cells · Dark navy: obstacles",
+    "refs": [
+      "https://arxiv.org/abs/1401.3843"
+    ],
+    "layout": "visual",
+    "media": [
+      "theta.png"
+    ],
+    "demo": "anyangle",
+    "equations": [],
+    "table": null,
+    "labels": [],
+    "legend": "Dashed gray: eight-neighbor A* reference · Blue: Theta* route\nCyan: expanded cells · Dark navy: obstacles"
+  },
+  {
+    "slide": 44,
+    "title": "MPPI-style local sequence optimization",
+    "body": [
+      "Perturb a sequence of speeds and turn rates.",
+      "Combine controls using exponential cost weights.",
+      "Recheck the proposal, execute 0.1 s, and repeat."
+    ],
+    "notes": "This teaching controller uses clipped, correlated Gaussian perturbations, exponential cost weights, a shifted warm start and discrete unicycle rollouts. A weighted proposal is checked again; if invalid, a valid sampled sequence or stop candidate is considered. If no candidate passes, the display reports no valid sequence. It omits formal importance-sampling corrections, acceleration limits and production Nav2 behavior. Candidate curves start at the last decision pose, while the green robot and solid red obstacle are at the current execution time. The red outline shows the obstacle at planning time. Cyan and pale red are predictions, not executed trajectories. Compare the same scene with constant-velocity sampling on slide 34.\nVisualization key: Cyan / pale red: accepted / rejected predictions · Orange: chosen prediction; Blue: global route · Green: executed motion · Solid red: obstacle now A thin red outline marks the obstacle at planning time. A cyan rollout passed the configured discrete checks; it is not a safety certificate.",
+    "refs": [
+      "https://arxiv.org/abs/1509.01149",
+      "https://docs.nav2.org/rolling/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/"
+    ],
+    "layout": "visual",
+    "media": [
+      "mppi.png"
+    ],
+    "demo": "mppi",
+    "equations": [],
+    "table": null,
+    "labels": [],
+    "legend": "Cyan / pale red: accepted / rejected predictions · Orange: chosen prediction\nBlue: global route · Green: executed motion · Solid red: obstacle now"
+  },
+  {
+    "slide": 45,
     "title": "Interactive experiments",
     "body": [
-      "Search: compare BFS and A* across terrain. Record path cost and expansions.",
+      "Search: compare BFS, Dijkstra and A* across terrain. Record path cost and expansions.",
       "Replanning: block and reopen a route cell. Compare D* Lite with fresh A*.",
       "Geometry: grow the footprint, then rotate a rectangle at the doorway.",
       "Local motion: change horizon and obstacle motion. Explain rejected candidates."
@@ -1167,7 +1258,7 @@
     "labels": []
   },
   {
-    "slide": 44,
+    "slide": 46,
     "title": "Discussion and exit questions",
     "body": [
       "Why can an optimal A* path still be unsafe for a vehicle?",
@@ -1190,7 +1281,7 @@
     "labels": []
   },
   {
-    "slide": 45,
+    "slide": 47,
     "title": "Reading and resources",
     "body": [
       "LaValle, Planning Algorithms: search, configuration space, sampling, feedback.",
