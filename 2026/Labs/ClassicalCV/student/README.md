@@ -1,5 +1,7 @@
 # Classical perception lab — student code
 
+For the lecture demonstration, start with the [guided animations](animations/README.md). The setup and coding instructions below are optional programming practice.
+
 There are no run or build helper scripts in this package. You will use the ROS 2
 command line directly. Work in `ws/src/cv_lab/cv_lab/`: complete the ROS 2
 publisher/subscriber TODOs and the perception operation named on the current
@@ -26,8 +28,8 @@ The `animations` folder contains the same animated previews embedded in the
 lecture slides. They show projection-histogram counting, common failure cases,
 morphological closing, a sliding 3 x 3 kernel, the Sobel/Canny/Hough digit
 pipeline, and the straight- and curved-lane pipelines. The GIFs are explanatory
-references; students still run the ROS 2 nodes, publish the input data, and
-inspect the topic reports and generated PNGs themselves.
+references for the concept-first lecture. Running ROS 2 nodes and inspecting
+topic reports and generated PNGs are separate optional programming activities.
 
 ## Install the declared dependencies
 

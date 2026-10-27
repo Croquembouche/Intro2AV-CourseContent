@@ -3,7 +3,7 @@ const E=Control,P=ControlPlots,L=ControlLessons,$=s=>document.querySelector(s),d
 const Lab=window.Lab={mode:'pid',sessions:{},playing:false,timer:null,runToken:0,from:0};
 let settingsTarget;
 function session(){return Lab.sessions[Lab.mode];}
-function createSession(mode){const cfg={...E.defaults};return {cfg,states:(mode==='compare'?['pure','stanley','lqr','mpc']:[mode]).map(a=>E.create(a,cfg)),saved:[],name:'Default',preset:'',view:mode==='compare'?'overview':'close'};}
+function createSession(mode){const first=L[mode].presets[0],cfg={...E.defaults,...first[2]};return {cfg,states:(mode==='compare'?['pure','stanley','lqr','mpc']:[mode]).map(a=>E.create(a,cfg)),saved:[],name:first[1],preset:first[0],view:mode==='compare'?'overview':'close'};}
 function stop(){Lab.playing=false;clearInterval(Lab.timer);$('#play').textContent='Play';}
 function archive(name){const q=session(),s=q.states[0];if(s.t<.049)return;
  const key=JSON.stringify([q.cfg,s.t]);if(q.saved.some(r=>r.key===key))return;
@@ -34,7 +34,7 @@ function settings(){const m=Lab.mode;$('#settings').innerHTML='';settingsTarget=
  }
 }
 function setup(){const m=Lab.mode,q=session(),lesson=L[m];Lab.cfg=q.cfg;Lab.states=q.states;
- $('#title').textContent=lesson.title;$('#description').textContent=lesson.description;$('#question').textContent=lesson.question;$('#idea').textContent=lesson.idea;$('#explanation').textContent=lesson.explanation;$('#exercise').replaceChildren(...lesson.steps.map(t=>{let li=document.createElement('li');li.textContent=t;return li;}));$('#checkpoint').textContent=lesson.checkpoint;
+ $('#title').textContent=lesson.title;$('#description').textContent=lesson.description;$('#question').textContent=lesson.question;$('#idea').textContent=lesson.idea;$('#first-idea').textContent=lesson.idea;$('#explanation').textContent=lesson.explanation;$('#exercise').replaceChildren(...lesson.steps.map(t=>{let li=document.createElement('li');li.textContent=t;return li;}));$('#checkpoint').textContent=lesson.checkpoint;
  $('#preset').innerHTML='<option value="">Choose a guided case…</option>'+lesson.presets.map(([key,name])=>`<option value="${key}">${name}</option>`).join('');$('#preset').value=q.preset;
  $('#view-select').value=q.view;$('#view-select').disabled=m==='pid';$('#window').value=String(Lab.from);
  document.querySelectorAll('[data-mode]').forEach(b=>{b.classList.toggle('active',b.dataset.mode===m);b.setAttribute('aria-pressed',String(b.dataset.mode===m));});

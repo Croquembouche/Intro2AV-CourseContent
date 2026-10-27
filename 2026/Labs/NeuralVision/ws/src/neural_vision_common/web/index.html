@@ -8,7 +8,7 @@
 </header>
 <div class="panelSwitch" role="group" aria-label="Visible controls"><button data-panel="drawing">Draw & predict</button><button data-panel="layers">Layers & inspect</button><button data-panel="none" aria-label="Hide controls">Hide</button></div>
 <aside id="drawingPanel" class="panel">
-  <h1>Draw a digit</h1><p class="intro">Write 0–9, or choose an example.</p>
+  <h1>Draw a digit</h1><p class="intro">Start with an example digit. Watch the large prediction below, then switch networks with the same input. The 3D view shows intermediate values; open Layers &amp; inspect after the prediction makes sense.</p>
   <canvas id="drawing" width="280" height="280" aria-label="Draw a digit from 0 to 9"></canvas>
   <div class="tools"><button id="pen" class="active" aria-label="Draw"><img src="pencil.svg" alt="">Draw</button><button id="eraser" aria-label="Erase"><img src="eraser.svg" alt="">Erase</button><button id="clear" aria-label="Clear drawing"><img src="x.svg" alt="">Clear</button></div>
   <div class="examples"><label for="example">Example</label><select id="example" aria-label="Example digit"><option value="">Choose</option></select><button id="another" title="Another example">Next</button></div>

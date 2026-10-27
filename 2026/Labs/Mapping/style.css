@@ -5,3 +5,5 @@
 .challenge-controls{background:#f0f6fb;border:1px solid #c5d8e8;border-radius:10px;padding:16px;margin:16px 0}.challenge-controls p{margin:0 0 12px}.challenge-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 20px}.challenge-grid label{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.challenge-grid input[type=range]{width:110px}.challenge-grid select{max-width:100%}#challenge-status{margin:14px 0 0;font-weight:600}nav{flex-wrap:wrap}[hidden]{display:none!important}@media(max-width:800px){.challenge-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.challenge-grid{grid-template-columns:1fr}}
 
 .dot[style]:before{background:var(--c)}
+
+.first-look{background:#e8f4fc;border-left:4px solid #0079b6;padding:16px 20px;font-size:17px;line-height:1.6;color:#17324d;margin:18px 0}summary{cursor:pointer}aside details{padding:12px 0}
