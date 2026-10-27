@@ -32,4 +32,4 @@
 const firstLookText={visual:"Start here: press Play. Watch matching image features on the left, then the growing map on the right. Matching observations across frames lets the system place landmarks.",lidar:"Start here: press Play. Watch the current scan on the left and the accumulated map on the right. Aligning overlapping surfaces lets each scan join the map.",challenge:"Start here: select Jump to lap end. Compare the estimated route with the reference, then switch GPS off and on. This separate simulated scene shows how additional position information can reduce drift."};
 function updateFirstLook(){const selected=document.querySelector('nav [aria-pressed="true"]');document.querySelector(".first-look").textContent=firstLookText[selected?.dataset.mode||"visual"];}
 document.querySelectorAll("nav [data-mode]").forEach(button=>button.addEventListener("click",updateFirstLook));window.addEventListener("hashchange",updateFirstLook);updateFirstLook();
-</script></body></html>
+</script><script defer src="teaching-guide.js"></script></body></html>
