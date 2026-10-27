@@ -51,11 +51,22 @@ for mode,question,key in [
  ('compare','Do different controllers behave the same on one road?','The traces belong to different controllers running the same selected scenario. Compare recovery and steering behavior, not only final position.')]:
  D['Control']['modes'][mode]=lesson(question,key,'Run this case for 20 seconds','#finish','Load the next guided case','#preset','Press Play for the newly selected case. The previous run is kept as a dashed trace when it contains motion. Compare equal run durations; the illustrative tuning is not a ranking of controller families.',other_value='__next__')
 D['PathPlanning']['labels']={
- 'search':'Search toward a goal · A*', 'replan':'Repair a route · D* Lite',
+ 'search':'BFS · Dijkstra · A*', 'replan':'Repair a route · D* Lite',
  'anyangle':'Cut grid corners · Theta*', 'roadmap':'Reuse connections · PRM',
  'sampling':'Explore by sampling · RRT', 'clearance':'Will the robot fit?',
  'field':'Follow forces · potential fields', 'local':'Route versus next motion · MPPI',
  'imagination':'Test a motion before moving'}
+# Direct entries follow the lecture's search sequence; the original hashes remain valid.
+D['PathPlanning']['modes'].update({
+ 'bfs':lesson('What does BFS minimize?','Slides 7–8: BFS chooses a path with the fewest edges. Cyan cells show search work; blue is the final route.','Run the selected algorithm','#finish','Compare all three searches','#compare-search','On equal-cost edges, fewest edges and lowest cost agree. Open the slide 8 terrain example to see why that changes when yellow cells cost more.'),
+ 'dijkstra':lesson('How does Dijkstra differ from A* on the same graph?','Slides 7 and 13: Dijkstra prioritizes cost already spent. A* adds an estimate of the remaining cost. Cyan shows processed states, not vehicle motion.','Run the selected algorithm','#finish','Show the same-map comparison','#compare-search','Compare final route cost and expanded states in the three panels. Dijkstra and A* should agree on minimum cost here; their search areas can differ.'),
+ 'astar':lesson('How does a heuristic focus A*?','Slides 9–13: A* uses g + h. The blue route appears after the search reaches the goal. Cyan is the area examined.','Run the selected algorithm','#finish','Compare with Dijkstra and BFS','#compare-search','Both Dijkstra and A* account for terrain cost. A* also uses a lower bound on the cost to the goal. This animation shows expansion order, not every OPEN-list calculation.'),
+ 'weighted':lesson('What is traded when the heuristic has more influence?','Slide 14: Weighted A* uses g + w × h. The original graph and terrain costs are unchanged.','Run the selected algorithm','#finish','Show the unweighted baselines','#compare-search','Compare the selected run’s cost and expanded states under Optional: numerical results with the baseline panels. A stronger heuristic can reduce work but need not preserve the minimum cost.'),
+ 'terrain':lesson('Is the fewest-step route also the cheapest route?','Slide 8: yellow cells cost 6 on entry; other free cells cost 1. All three algorithms share the same start, goal, and cost map.','Show all three terrain routes','#compare-search','Animate the selected route','#finish','Compare edges separately from route cost. BFS ignores terrain weights during search. Dijkstra and A* account for them and can choose a longer route with lower modeled cost.'),
+ 'rrtstar':D['PathPlanning']['modes']['sampling'],
+ 'informed':D['PathPlanning']['modes']['sampling'],
+ 'mppi':D['PathPlanning']['modes']['local'],
+})
 TEMPLATE=(Path(__file__).parent/'guide-runtime.js').read_text()
 for lab,config in D.items():
  folder=ROOT/'2026/Labs'/lab

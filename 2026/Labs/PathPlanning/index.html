@@ -7,11 +7,11 @@
 <div class="app-shell">
   <nav class="experiment-nav" aria-label="Experiments">
     <div class="nav-heading"><span class="eyebrow">Experiments</span><span class="nav-count">09</span></div>
-    <section class="nav-group" aria-label="Search and replanning"><h2>Search &amp; replanning</h2>
-      <button data-mode="search"><span class="nav-number">01</span><span>A* &amp; graph search</span></button>
-      <button data-mode="replan"><span class="nav-number">02</span><span>D* Lite</span></button>
-      <button data-mode="anyangle"><span class="nav-number">03</span><span>Theta* / any-angle</span></button>
+    <section class="nav-group lecture-search" aria-label="Lecture graph-search algorithms"><h2>Slides 7–14 · Graph search</h2>
+      <button data-mode="search"><span class="nav-number">01</span><span>BFS · Dijkstra · A*</span></button>
+      <a href="#bfs">BFS · fewest edges</a><a href="#dijkstra">Dijkstra · lowest cost</a><a href="#astar">A* · cost + heuristic</a><a href="#weighted">Weighted A* · search tradeoff</a>
     </section>
+    <section class="nav-group" aria-label="Replanning"><h2>Slides 15–19 · Replanning</h2><button data-mode="replan"><span class="nav-number">02</span><span>D* Lite</span></button></section>
     <section class="nav-group" aria-label="Sampling"><h2>Sampling</h2>
       <button data-mode="roadmap"><span class="nav-number">04</span><span>PRM roadmaps</span></button>
       <button data-mode="sampling"><span class="nav-number">05</span><span>RRT / RRT* / Informed</span></button>
@@ -22,6 +22,7 @@
       <button data-mode="local"><span class="nav-number">08</span><span>Global &amp; local / MPPI</span></button>
       <button data-mode="imagination"><span class="nav-number">09</span><span>Pose imagination</span></button>
     </section>
+    <section class="nav-group lecture-search" aria-label="Additional explorations"><h2>Additional explorations</h2><button data-mode="anyangle"><span class="nav-number">+</span><span>Theta* / any-angle</span></button><a href="#informed">Informed RRT*</a><a href="#mppi">MPPI-style controller</a></section>
     <div class="nav-note">Explore a method.<br>Change one assumption.<br>Explain what happens.</div>
   </nav>
   <main>
@@ -30,8 +31,13 @@
       <optgroup label="Sampling"><option value="roadmap">04 · PRM roadmaps</option><option value="sampling">05 · RRT / RRT* / Informed RRT*</option></optgroup>
       <optgroup label="Robot motion"><option value="clearance">06 · Obstacle clearance</option><option value="field">07 · Potential fields</option><option value="local">08 · Global and local / MPPI</option><option value="imagination">09 · Pose imagination</option></optgroup>
     </select></label>
+    <section class="lecture-route"><label for="lecture-example">Follow the slides</label><select id="lecture-example">
+<option value="bfs">7 · BFS and Dijkstra — BFS</option><option value="dijkstra">7, 13 · Dijkstra and A* on the same graph</option><option value="terrain">8 · Distance and terrain cost — BFS versus A*</option><option value="astar">9–12 · A* search and heuristic</option><option value="weighted">14 · A* strengths and limits — Weighted A*</option><option value="replan">15–19 · D* Lite repairs a route</option><option value="roadmap">21 · PRM — reusable roadmap</option><option value="sampling">21 · RRT — growing a tree</option><option value="rrtstar">22 · RRT* — improving route cost</option><option value="clearance">23–26 · Robot footprint and obstacle expansion</option><option value="field">29–32 · Attraction, repulsion, and the U-shaped trap</option><option value="local">33–37 · Global route and local motion</option><option value="imagination">39–41 · Imagination and doorway geometry</option>
+<optgroup label="Additional explorations beyond the slide examples"><option value="anyangle">Theta* / any-angle search</option><option value="informed">Informed RRT*</option><option value="mppi">MPPI-style local sequence optimization</option></optgroup></select>
+<details><summary>Which slide topics have a working demo?</summary><p>Use the menu above to open the corresponding experiment and initial settings. Graph-search comparisons use the same graph and costs as the selected scene.</p><p><strong>Conceptual coverage:</strong> slides 10–12 explain A* priorities and the search loop; the animation shows expansion order, not an OPEN-list debugger. Slides 16–17 discuss original D* and D* Lite; this demo implements D* Lite only. Slides 26–28 discuss soft clearance costs, vehicle constraints, Hybrid A*, and state lattices; those planners are not implemented here. Slide 36 compares DWA/DWB, MPC, and MPPI; the local demo implements simplified velocity sampling and MPPI-style optimization. The <a href="https://croquembouche.github.io/Intro2AV-CourseContent/control/" id="control-lecture-link">Lecture 8 online Control demo</a> covers MPC tracking. Slides 39–40 discuss Chirikjian’s research; the doorway example on slide 41 illustrates geometry and does not implement PRIMP or RAIL.</p></details></section>
     <div class="experiment-heading"><div><p class="eyebrow" id="experiment-family">Search &amp; replanning / 01</p><h1 id="title">Path planning</h1><p id="explain"></p></div><button id="focus-view" class="quiet-button" aria-pressed="false">Focus view</button></div>
-    <p class="first-look" id="first-look"></p><section class="workspace" id="workspace" tabindex="-1" aria-label="Planning experiment">
+    <p class="first-look" id="first-look"></p><section id="search-methods" aria-label="Graph-search algorithms"><div class="search-buttons"><button data-search="bfs">BFS</button><button data-search="dijkstra">Dijkstra</button><button data-search="astar">A*</button><button data-search="weighted">Weighted A*</button></div><p id="search-priority"></p><button id="compare-search">Compare BFS, Dijkstra, and A* on this map</button><div id="search-comparison" aria-live="polite"></div></section>
+    <section class="workspace" id="workspace" tabindex="-1" aria-label="Planning experiment">
       <section class="stage" aria-label="Simulation and results">
         <div class="scene">
           <div class="simulation-toolbar"><span class="toolbar-label">Simulation</span><div class="actions"><button id="step">Step</button><button id="play">Play</button><button id="finish">Run to result</button><button id="reset">Reset</button></div></div>
