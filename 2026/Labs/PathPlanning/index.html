@@ -42,11 +42,10 @@
         <div class="scene">
           <div class="simulation-toolbar"><span class="toolbar-label">Simulation</span><div class="actions"><button id="step">Step</button><button id="play">Play</button><button id="finish">Run to result</button><button id="reset">Reset</button></div></div>
           <div class="canvas-wrap"><canvas id="view" width="1008" height="616" aria-label="Planning simulation. Use the experiment controls to inspect algorithm behavior." role="img"></canvas></div>
-          <div class="simulation-status"><span class="status-dot" aria-hidden="true"></span><p id="status" role="status" aria-live="polite">Ready</p></div>
+          <div class="simulation-status"><span class="status-dot" aria-hidden="true"></span><div><p id="status">Ready</p><p id="run-state" role="status" aria-live="polite"></p></div></div>
           <div id="legend" aria-label="Simulation legend"></div>
           <p id="instruction" class="canvas-instruction"></p>
           <canvas id="convergence" width="1008" height="140" aria-label="Best sampled route length over accepted tree vertices" role="img" hidden></canvas>
-          <p class="demo-summary"><strong>What this demo does:</strong> <span id="demo-summary"></span></p>
         </div>
         <details class="results-panel"><summary>Optional: numerical results</summary><dl id="metrics"></dl></details>
       </section>
