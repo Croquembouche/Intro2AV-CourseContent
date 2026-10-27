@@ -49,7 +49,7 @@ for mode,question,key in [
  ('lqr','How can a controller balance correction against steering effort?','Compare the vehicle heading and distance from the route. The controller trades tracking errors against control effort.'),
  ('mpc','Why predict several movements before choosing one?','The predicted motion is a possible future. The controller executes only the first steering action, then predicts again.'),
  ('compare','Do different controllers behave the same on one road?','The traces belong to different controllers running the same selected scenario. Compare recovery and steering behavior, not only final position.')]:
- D['Control']['modes'][mode]=lesson(question,key,'Run this case for 20 seconds','#finish','Load the next guided case','#preset','Press Play for the newly selected case. The previous run is dashed when it contains motion and uses the same reference. Compare equal run durations; the illustrative tuning is not a ranking of controller families.',other_value='__next__')
+ D['Control']['modes'][mode]=lesson(question,key,'Play / pause this case','#play','Load the next guided case','#preset','Press Play for the newly selected case. The previous run is dashed when it contains motion and uses the same reference. Compare equal run durations; the illustrative tuning is not a ranking of controller families.',other_value='__next__')
 D['PathPlanning']['labels']={
  'search':'BFS · Dijkstra · A*', 'replan':'Repair a route · D* Lite',
  'anyangle':'Cut grid corners · Theta*', 'roadmap':'Reuse connections · PRM',

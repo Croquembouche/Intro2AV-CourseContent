@@ -13,3 +13,14 @@ const l=E.run('lqr',{},1),d=E.decision(l);near(-l.K[0]*d.path.e-l.K[1]*d.heading
 const f=P.main(createCanvas(1000,500),[s]);near(f.X(1)-f.X(0),f.Y(0)-f.Y(1));
 const current=E.run('pure',{},1),other=E.run('pure',{},1);other.history.forEach(r=>r.raw=1000);near(P.actuation(createCanvas(1000,500),[current]).ymax,P.actuation(createCanvas(1000,500),[current],[other]).ymax);
 console.log('PASS: pursuit arc endpoints/curvature; command timing; reference-compatible overlays; PID/MPC/LQR labels; LQR contribution sum; equal-axis geometry.');
+// Inspect actual wheel strokes: both front wheels must show the bias used by the plant.
+for(const bias of [-3,3]){
+ const s=E.create('pure',{road:'straight',bias});s.delta=.1;s.yaw=.2;
+ const c=createCanvas(1000,500),ctx=c.getContext('2d'),segments=[];let path=[];
+ for(const method of ['moveTo','lineTo']){const original=ctx[method].bind(ctx);ctx[method]=(x,y)=>{path.push([x,y]);original(x,y);};}
+ const begin=ctx.beginPath.bind(ctx);ctx.beginPath=()=>{path=[];begin();};
+ const stroke=ctx.stroke.bind(ctx);ctx.stroke=()=>{if(ctx.lineWidth===5&&path.length===2)segments.push(path.slice());stroke();};
+ P.main(c,[s]);assert.equal(segments.length,4);
+ segments.forEach((p,i)=>near(Math.atan2(-(p[1][1]-p[0][1]),p[1][0]-p[0][0]),s.yaw+(i>=2?s.delta+bias*Math.PI/180:0)));
+}
+console.log('PASS: rendered front-wheel angles include positive and negative steering bias.');

@@ -83,3 +83,9 @@ Reproduced 20-second MPC examples (rear-axle RMS error; illustrative simulation,
 | Comparison: faster vehicle | 7.38 m | 0.25 m |
 
 Independent verification covered 72 constrained MPC states and 36 LQR configurations. The largest MPC objective difference from SciPy SLSQP was below 2e-8 in those cases. All nine published MPC teaching/comparison runs remained below 0.6 m RMS over 20 seconds. This finite regression coverage does not establish correctness for every arbitrary custom setting.
+
+### Steering bias and teaching controls
+
+With optional steering bias, the drawn front wheels and applied-input curve show the effective physical steering used by the vehicle model, including that bias. The internal actuator state and MPC predicted response omit the unknown bias. CSV exports include both `actuator` and `effective_steering_rad` so the distinction is explicit. PID remains a speed/acceleration demonstration.
+
+The guided first action plays or pauses the motion so students can watch repeated decisions. `Run 20 s` remains available to inspect a completed run. Start with a named case, observe its response, and then change one condition. Damping, stronger gains, or longer preview do not guarantee better overall tracking under every tuning and physical constraint.

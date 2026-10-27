@@ -104,6 +104,7 @@ function decision(s,commit=false){
  const delaySteps=Math.round(c.delay/dt),delayed=delaySteps?(s.queue.length>=delaySteps?s.queue[0]:0):command,desiredChange=(delayed-s.delta)*dt/Math.max(dt,c.lag);
  return {reference:path.y,error:path.e,heading,path,front,frontPath,target,yTarget,distance,feedforward,feedback,raw,command,pred,sequence,applied,residual,cost,iterations,converged,limited:Math.abs(raw-command)>1e-6||Math.abs(desiredChange)>rate+1e-6?1:0};
 }
+function effectiveSteering(s){return clamp(s.delta+s.c.bias*Math.PI/180,-1.2,1.2);}
 function step(s){
  const c=s.c,d=decision(s,true);
  if(s.algorithm==='pid'){
@@ -115,10 +116,10 @@ function step(s){
   const desired=s.delta+(delayed-s.delta)*dt/Math.max(dt,c.lag);
   s.delta=clamp(s.delta+clamp(desired-s.delta,-rate,rate),-limit,limit);
   s.x+=c.speed*Math.cos(s.yaw)*dt;s.y+=c.speed*Math.sin(s.yaw)*dt;
-  s.yaw=wrap(s.yaw+c.speed/L*Math.tan(clamp(s.delta+c.bias*Math.PI/180,-1.2,1.2))*dt);s.v=c.speed;
+  s.yaw=wrap(s.yaw+c.speed/L*Math.tan(effectiveSteering(s))*dt);s.v=c.speed;
  }
  s.t+=dt;s.saturated+=d.limited;s.pred=d.pred||[];s.targetPoint=d.target;
- const row={commandTime:s.t-dt,t:s.t,x:s.x,y:s.y,yaw:s.yaw,v:s.v,error:s.algorithm==='pid'?d.reference-s.v:nearest(s.x,s.y,c.road).e,reference:d.reference,command:d.command,raw:d.raw,actuator:s.delta,residual:d.residual||0,integral:s.integral,P:d.P||0,I:d.I||0,D:d.D||0,FF:d.FF||0,limited:d.limited};
+ const row={commandTime:s.t-dt,t:s.t,x:s.x,y:s.y,yaw:s.yaw,v:s.v,error:s.algorithm==='pid'?d.reference-s.v:nearest(s.x,s.y,c.road).e,reference:d.reference,command:d.command,raw:d.raw,actuator:s.delta,effectiveSteering:s.algorithm==='pid'?0:effectiveSteering(s),residual:d.residual||0,integral:s.integral,P:d.P||0,I:d.I||0,D:d.D||0,FF:d.FF||0,limited:d.limited};
  s.history.push(row);return row;
 }
 function metrics(s,from=0){
@@ -127,5 +128,5 @@ function metrics(s,from=0){
  return {n,rms:Math.sqrt(h.reduce((sum,r)=>sum+r.error*r.error,0)/n),peak:Math.max(...h.map(r=>Math.abs(r.error))),effort:Math.sqrt(h.reduce((sum,r)=>sum+r.command*r.command,0)/n),saturation:100*h.reduce((sum,r)=>sum+r.limited,0)/n,final:h[n-1].error,duration:s.t};
 }
 function run(algorithm,c={},seconds=20){let s=create(algorithm,c);for(let i=0;i<Math.round(seconds/dt);i++)step(s);return s;}
-let api={dt,L,defaults,road,nearest,lqr,mpcModel,mpc,constrainedQP,create,decision,step,metrics,run,clamp,wrap};if(typeof module!=='undefined')module.exports=api;root.Control=api;
+let api={dt,L,defaults,road,nearest,lqr,mpcModel,mpc,constrainedQP,create,decision,effectiveSteering,step,metrics,run,clamp,wrap};if(typeof module!=='undefined')module.exports=api;root.Control=api;
 })(typeof window==='undefined'?globalThis:window);

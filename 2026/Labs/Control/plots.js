@@ -21,7 +21,7 @@ function vehicle(f,s,color){
  const world=(a,b)=>[s.x+a*Math.cos(s.yaw)-b*Math.sin(s.yaw),s.y+a*Math.sin(s.yaw)+b*Math.cos(s.yaw)];
  const corners=[world(-.7,-.85),world(3.4,-.85),world(3.4,.85),world(-.7,.85),world(-.7,-.85)];
  f.c.fillStyle=color+'20';f.c.beginPath();corners.forEach((p,i)=>i?f.c.lineTo(f.X(p[0]),f.Y(p[1])):f.c.moveTo(f.X(p[0]),f.Y(p[1])));f.c.fill();line(f,corners,color,2);
- for(let a of [0,E.L])for(let b of [-.95,.95]){let [x,y]=world(a,b),angle=s.yaw+(a?s.delta:0);line(f,[[x-.38*Math.cos(angle),y-.38*Math.sin(angle)],[x+.38*Math.cos(angle),y+.38*Math.sin(angle)]],color,5);}
+ for(let a of [0,E.L])for(let b of [-.95,.95]){let [x,y]=world(a,b),angle=s.yaw+(a?E.effectiveSteering(s):0);line(f,[[x-.38*Math.cos(angle),y-.38*Math.sin(angle)],[x+.38*Math.cos(angle),y+.38*Math.sin(angle)]],color,5);}
  const front=world(E.L,0),ahead=world(E.L+2,0);line(f,[[s.x,s.y],ahead],color,2);dot(f,s.x,s.y,color,5);dot(f,...front,color,4);return front;
 }
 // Only overlay histories with the same reference; parameter changes remain comparable.
@@ -69,10 +69,10 @@ function error(canvas,states,saved=[],from=0){saved=saved.filter(old=>sameRefere
  line(f,[[0,0],[20,0]],'#768c9e',1,[5,4]);for(let s of saved)line(f,s.history.map(r=>[r.t,r.error]),states.length===1?'#aa6292':colors[s.algorithm],2,[7,5]);for(let s of states)line(f,s.history.map(r=>[r.t,r.error]),colors[s.algorithm],3);
  legend(f,states.map(s=>[names[s.algorithm],colors[s.algorithm]]).concat(saved.length?[['Saved: dashed','#aa6292',true]]:[]));return f;}
 function actuation(canvas,states,saved=[]){const pid=states[0].algorithm==='pid',scale=pid?1:deg,all=states.flatMap(x=>x.history),limit=pid?2.5:states[0].c.limit,low=pid?-4:-limit;
- const max=Math.max(limit*1.2,...all.map(r=>Math.abs(r.raw*scale))),min=pid?Math.min(low*1.2,...all.map(r=>r.raw*scale)):-max,f=frame(canvas,0,20,min,max,'Time (s)',pid?'Acceleration command (m/s²)':'Steering command (degrees)');
+ const max=Math.max(limit*1.2,...all.map(r=>Math.max(Math.abs(r.raw*scale),Math.abs((pid?r.actuator:(r.effectiveSteering??r.actuator))*scale)))),min=pid?Math.min(low*1.2,...all.map(r=>r.raw*scale)):-max,f=frame(canvas,0,20,min,max,'Time (s)',pid?'Acceleration command (m/s²)':'Steering command (degrees)');
  line(f,[[0,limit],[20,limit]],'#c15b45',1,[5,4]);line(f,[[0,low],[20,low]],'#c15b45',1,[5,4]);
- if(states.length===1){line(f,heldSamples(states[0].history,'raw',scale),'#b07837',2,[5,4]);line(f,heldSamples(states[0].history,'command',scale),'#007aac',2);line(f,states[0].history.map(r=>[r.t,r.actuator*scale]),'#17324d',3);legend(f,[['Requested','#b07837',true],[pid?'Acceleration-bounded request':'Angle-bounded request','#007aac'],['Applied','#17324d']]);}
- else{states.forEach(s=>line(f,s.history.map(r=>[r.t,r.actuator*scale]),colors[s.algorithm],2));legend(f,states.map(s=>[names[s.algorithm],colors[s.algorithm]]));}return f;
+ if(states.length===1){line(f,heldSamples(states[0].history,'raw',scale),'#b07837',2,[5,4]);line(f,heldSamples(states[0].history,'command',scale),'#007aac',2);line(f,states[0].history.map(r=>[r.t,(pid?r.actuator:(r.effectiveSteering??r.actuator))*scale]),'#17324d',3);legend(f,[['Requested','#b07837',true],[pid?'Acceleration-bounded request':'Angle-bounded request','#007aac'],['Applied','#17324d']]);}
+ else{states.forEach(s=>line(f,s.history.map(r=>[r.t,(pid?r.actuator:(r.effectiveSteering??r.actuator))*scale]),colors[s.algorithm],2));legend(f,states.map(s=>[names[s.algorithm],colors[s.algorithm]]));}return f;
 }
 function decisionPlot(canvas,s,d){
  if(['pid','lqr'].includes(s.algorithm)){
