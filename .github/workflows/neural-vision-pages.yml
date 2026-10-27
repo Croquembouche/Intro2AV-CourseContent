@@ -3,17 +3,11 @@ on:
   push:
     branches: [main]
     paths:
-      - '2026/Labs/NeuralVision/**'
-      - '2026/Labs/SensorFusion/**'
-      - '2026/Labs/Localization/**'
-      - '2026/Labs/Mapping/**'
-      - '2026/Presentations/Lecture 6 Mapping for Autonomous Driving.pptx'
-      - '2026/Data/Lecture6_Mapping.zip'
-      - '2026/Presentations/Lecture 5 Localization for Autonomous Driving.pptx'
-      - '2026/Data/Lecture5_Localization.zip'
-      - '2026/Labs/Portal/**'
-      - '2026/Presentations/Lecture 4 Sensor Fusion for Autonomous Driving.pptx'
-      - '2026/Data/Lecture4_SensorFusion.zip'
+      - '2026/Labs/**'
+      - '2026/Presentations/**'
+      - '2026/Data/Lecture*.zip'
+      - '2026/Data/*Vision*.zip'
+      - '2026/Data/ClassicalCV*.zip'
       - '.github/workflows/neural-vision-pages.yml'
   workflow_dispatch:
 permissions:
@@ -41,25 +35,7 @@ jobs:
         run: python 2026/Labs/NeuralVision/tests/verify_browser.py
       - name: Build the public demo and student download
         run: python 2026/Labs/NeuralVision/tools/build_pages.py --output .build/pages
-      - name: Add Sensor Fusion demos and Lecture 4 downloads
-        run: |
-          mkdir -p .build/pages/sensor-fusion .build/pages/downloads
-          cp -R 2026/Labs/SensorFusion/. .build/pages/sensor-fusion/
-          cp "2026/Presentations/Lecture 4 Sensor Fusion for Autonomous Driving.pptx" .build/pages/downloads/
-          cp 2026/Data/Lecture4_SensorFusion.zip .build/pages/downloads/
-      - name: Add Localization demos and Lecture 5 downloads
-        run: |
-          mkdir -p .build/pages/localization .build/pages/downloads
-          cp -R 2026/Labs/Localization/. .build/pages/localization/
-          cp "2026/Presentations/Lecture 5 Localization for Autonomous Driving.pptx" .build/pages/downloads/
-          cp 2026/Data/Lecture5_Localization.zip .build/pages/downloads/
-      - name: Add Mapping demos and Lecture 6 downloads
-        run: |
-          mkdir -p .build/pages/mapping .build/pages/downloads
-          cp -R 2026/Labs/Mapping/. .build/pages/mapping/
-          cp "2026/Presentations/Lecture 6 Mapping for Autonomous Driving.pptx" .build/pages/downloads/
-          cp 2026/Data/Lecture6_Mapping.zip .build/pages/downloads/
-      - name: Build course demo entry page
+      - name: Add all course demos, slides, and downloads
         run: python 2026/Labs/Portal/build_portal.py --output .build/pages
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4

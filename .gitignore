@@ -16,13 +16,18 @@ node_modules/
 # Large course releases are published through Google Drive. Their stable links
 # are recorded in the README files beside these directories.
 /2026/Data/*.zip
+!/2026/Data/ClassicalCV_student.zip
+!/2026/Data/ClassicalCV_answers.zip
+!/2026/Data/NeuralVision_student.zip
+!/2026/Data/Lecture4_SensorFusion.zip
+!/2026/Data/Lecture5_Localization.zip
+!/2026/Data/Lecture6_Mapping.zip
 !/2026/Data/Lecture7_PathPlanning.zip
 !/2026/Data/Lecture8_Control.zip
 # Raw capture releases exceed GitHub's regular-file limit.
 /2026/Data/Town02Mapping/Town02Mapping_2026-10-06_lossless.zip
 /2026/Data/Town02Mapping/2026-10-06_town02/states.jsonl
 /2026/Data/SurroundFusion/instructor/source_capture/states.jsonl
-/2026/Labs/ClassicalCV/student/animations/*.gif
 **/*.db3
 **/*.mcap
 **/*.bag

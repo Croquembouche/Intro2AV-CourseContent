@@ -42,25 +42,26 @@ it is the standard ROS 2 workspace layout.
 
 ## 2026 quick links
 
-- [Presentations and Drive downloads](2026/Presentations/README.md)
+- [Presentation decks and download links](2026/Presentations/README.md)
 - [Classical computer vision lab](2026/Labs/ClassicalCV/)
-- [Interactive neural vision demos](https://croquembouche.github.io/Intro2AV-CourseContent/) · [ROS 2 source and setup](2026/Labs/NeuralVision/README.md)
+- [All interactive course demos](https://croquembouche.github.io/Intro2AV-CourseContent/) · [ROS 2 source and setup](2026/Labs/NeuralVision/README.md)
+- [Path planning demos](2026/Labs/PathPlanning/) · [Control demos](2026/Labs/Control/)
 - [Downloadable data and ZIPs](2026/Data/README.md)
 - [Course documents](2026/Documents/)
 - [Slide-building tools](tools/slides/)
 
 ## Large-file policy
 
-GitHub contains the material that should be reviewed, edited, and versioned:
-source code, slide builders, lab instructions, small input data, PDF references,
-and course documents. Generated PowerPoint files, downloadable lab ZIPs, and
-ROS bag payloads are intentionally ignored by Git and published through Google
-Drive instead. The repository keeps a link manifest in the corresponding
-`Presentations` or `Data` directory, so every download still has one obvious
-home without storing duplicate large binaries in Git history.
+GitHub versions the course slides, interactive demo source and runtime assets,
+slide builders, lab instructions, small input data, PDFs, and course documents.
+The Classical CV and Neural Vision packages and Lecture 4–8 offline packages are
+also versioned under `2026/Data/`. See the [presentation inventory](2026/Presentations/README.md)
+and [download inventory](2026/Data/README.md).
 
-The ignored files may remain in a local checkout. Rebuilding a deck or unpacking
-a dataset therefore does not make it appear as an untracked Git change.
+Large raw datasets and ROS bag payloads remain outside Git, with shared release
+links documented beside the data. Intermediate renders, inspection sidecars,
+Python caches, and ROS build/install/log directories are ignored. GitHub Pages
+hosting is configured separately from repository storage.
 
 The matching Google Drive course folder is
 [Introduction to Autonomous Driving](https://drive.google.com/drive/folders/1GyVhgbK6Rju7t-wnl7EFoXqS-NeiBuim).

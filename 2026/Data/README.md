@@ -1,19 +1,30 @@
 # 2026 data and lab downloads
 
-Large downloadable releases are hosted on Google Drive and intentionally
-ignored by Git. The unpacked classical-computer-vision lab source remains under
-[`2026/Labs/ClassicalCV`](../Labs/ClassicalCV/) so code changes can still be
-reviewed and versioned normally.
+Lecture and lab packages small enough for Git are versioned here:
 
-| Download | Google Drive | Local ignored path | Purpose |
-| --- | --- | --- | --- |
-| Classical CV student package | [Download ZIP](https://drive.google.com/file/d/15JSaotsxEXHAcFdtfUTNPBkq8JsG8RKH/view?usp=drivesdk) | `ClassicalCV_student.zip` | Starter ROS 2 workspace, input data, and visualization assets |
-| Classical CV instructor answers | [Download ZIP](https://drive.google.com/file/d/1T-T6MEuUFDQnOdIP00VjdTA2B1eGpe-B/view?usp=drivesdk) | `ClassicalCV_answers.zip` | Reference implementation and expected results |
-| Project 1 simulated ROS bag | [Download ZIP](https://drive.google.com/file/d/1zd5GGe6t-UIEEMK9XJ1UCwRFa9NWEHrm/view?usp=drivesdk) | `project1_simulated_data_short.zip` | Simulated Project 1 sensor data |
+| Package | Repository download |
+| --- | --- |
+| Classical CV student starter | [ClassicalCV_student.zip](ClassicalCV_student.zip) |
+| Classical CV instructor reference | [ClassicalCV_answers.zip](ClassicalCV_answers.zip) |
+| Neural Vision student demos | [NeuralVision_student.zip](NeuralVision_student.zip) |
+| Lecture 4: Sensor fusion | [Lecture4_SensorFusion.zip](Lecture4_SensorFusion.zip) |
+| Lecture 5: Localization | [Lecture5_Localization.zip](Lecture5_Localization.zip) |
+| Lecture 6: Mapping | [Lecture6_Mapping.zip](Lecture6_Mapping.zip) |
+| Lecture 7: Path planning | [Lecture7_PathPlanning.zip](Lecture7_PathPlanning.zip) |
+| Lecture 8: Control | [Lecture8_Control.zip](Lecture8_Control.zip) |
 
-After downloading a file, place it at the local path shown above if an
-instructor script or existing course instruction expects the repository
-layout. These files can remain there without appearing in `git status`.
+Editable demo sources and runtime assets are under [`2026/Labs`](../Labs/).
+Large dataset releases and ROS bag payloads remain outside Git. Existing Drive
+copies are preserved:
+
+| Download | Google Drive | Local path |
+| --- | --- | --- |
+| Classical CV student package | [Download ZIP](https://drive.google.com/file/d/15JSaotsxEXHAcFdtfUTNPBkq8JsG8RKH/view?usp=drivesdk) | `ClassicalCV_student.zip` |
+| Classical CV instructor answers | [Download ZIP](https://drive.google.com/file/d/1T-T6MEuUFDQnOdIP00VjdTA2B1eGpe-B/view?usp=drivesdk) | `ClassicalCV_answers.zip` |
+| Project 1 simulated ROS bag | [Download ZIP](https://drive.google.com/file/d/1zd5GGe6t-UIEEMK9XJ1UCwRFa9NWEHrm/view?usp=drivesdk) | `project1_simulated_data_short.zip` |
+
+A repository push does not replace a Drive file. The raw dataset ZIPs can remain
+local without appearing in Git status.
 
 ## Revised CARLA camera–LiDAR capture (September 12, 2026)
 
