@@ -6,7 +6,7 @@ Build from the repository root:
 
 1. `python tools/slides/lecture8/prepare_assets.py`, then `python tools/slides/lecture8/content.py`
 2. `node tools/slides/lecture8/review-check.cjs` validates every guided preset, controller behavior, read-only decision previews and UI event handlers with lightweight DOM doubles. It renders computed plots using the same pure rendering component as the lab. No browser access is used. The earlier `check.cjs` and `check-package.cjs` target the original release and are superseded for this revision.
-3. Run `node tools/slides/lecture8/check-control-regressions.cjs` and `python tools/slides/lecture8/check-control-reference.py` (NumPy/SciPy required) for geometry, lag/delay prediction, constrained optimizer, and independent LQR checks.
+3. Run `node tools/slides/lecture8/check-control-display.cjs`, `node tools/slides/lecture8/check-control-regressions.cjs` and `python tools/slides/lecture8/check-control-reference.py` (NumPy/SciPy required) for geometry, lag/delay prediction, constrained optimizer, and independent LQR checks.
 4. Run `build.mjs` with the bundled Codex Node runtime. It authors editable text/diagrams and eight native tables using artifact-tool, then runs the PPTX finalizer.
 5. Render the candidate with system LibreOffice, then Poppler into `.build/slides/lecture8/render/`. Inspect all slides before packaging.
 6. `python tools/slides/lecture8/package.py` packages the verified deck, PDF and offline lab.

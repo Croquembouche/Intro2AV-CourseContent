@@ -118,7 +118,7 @@ function step(s){
   s.yaw=wrap(s.yaw+c.speed/L*Math.tan(clamp(s.delta+c.bias*Math.PI/180,-1.2,1.2))*dt);s.v=c.speed;
  }
  s.t+=dt;s.saturated+=d.limited;s.pred=d.pred||[];s.targetPoint=d.target;
- const row={t:s.t,x:s.x,y:s.y,yaw:s.yaw,v:s.v,error:s.algorithm==='pid'?d.reference-s.v:nearest(s.x,s.y,c.road).e,reference:d.reference,command:d.command,raw:d.raw,actuator:s.delta,residual:d.residual||0,integral:s.integral,P:d.P||0,I:d.I||0,D:d.D||0,FF:d.FF||0,limited:d.limited};
+ const row={commandTime:s.t-dt,t:s.t,x:s.x,y:s.y,yaw:s.yaw,v:s.v,error:s.algorithm==='pid'?d.reference-s.v:nearest(s.x,s.y,c.road).e,reference:d.reference,command:d.command,raw:d.raw,actuator:s.delta,residual:d.residual||0,integral:s.integral,P:d.P||0,I:d.I||0,D:d.D||0,FF:d.FF||0,limited:d.limited};
  s.history.push(row);return row;
 }
 function metrics(s,from=0){

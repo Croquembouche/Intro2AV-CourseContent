@@ -54,7 +54,7 @@ const lessons={
     "title": "Pure Pursuit",
     "description": "Watch the vehicle turn toward a moving target ahead on the path.",
     "question": "Would a nearby target or a distant target usually lead to a sharper correction?",
-    "explanation": "The orange point is the target. A nearby target usually produces a sharper response; a farther target tends to make steering gentler. Too much lookahead can cut corners or slow recovery.",
+    "explanation": "The orange point is the target. The dashed orange arc is the ideal requested turn; the drawn wheels show the steering already applied. A nearby target usually produces a sharper response; a farther target tends to make steering gentler. Too much lookahead can cut corners or slow recovery.",
     "steps": [
       "Play Short lookahead and follow the orange point.",
       "Switch to Long lookahead and watch how the target and steering change.",
